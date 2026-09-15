@@ -1,0 +1,4249 @@
+{
+  "schema_version": 1,
+  "cases": [
+    {
+      "case_id": "beeline-business_option-9fa4f576637f",
+      "provider": "beeline",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://beeline-home.online/",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Everyday_test/blob/8e87c77a79430e1a54b110682cf9f7912a29cac5/config/providers/beeline.py#L4",
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/config/providers/beeline.py#L4",
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/beeline.txt#L53"
+      ]
+    },
+    {
+      "case_id": "beeline-business_option-a4837113000b",
+      "provider": "beeline",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://beeline-home.online/moskva",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/beeline.txt#L54"
+      ]
+    },
+    {
+      "case_id": "beeline-business_option-80bc5ecde0d8",
+      "provider": "beeline",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://beeline-internet.online/",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Everyday_test/blob/8e87c77a79430e1a54b110682cf9f7912a29cac5/config/providers/beeline.py#L4",
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/config/providers/beeline.py#L4",
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/beeline.txt#L44"
+      ]
+    },
+    {
+      "case_id": "beeline-business_page-1ac0aedc3125",
+      "provider": "beeline",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_page",
+      "source_page_url": "https://beeline-internet.online/business",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Everyday_test/blob/8e87c77a79430e1a54b110682cf9f7912a29cac5/config/providers/beeline.py#L4",
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/config/providers/beeline.py#L4",
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/beeline.txt#L47"
+      ]
+    },
+    {
+      "case_id": "beeline-business_option-42305fde436d",
+      "provider": "beeline",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://beeline-internet.online/krasnodar",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/beeline.txt#L46"
+      ]
+    },
+    {
+      "case_id": "beeline-business_option-03d17e1848aa",
+      "provider": "beeline",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://beeline-internet.online/moskva",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/beeline.txt#L45"
+      ]
+    },
+    {
+      "case_id": "beeline-business_option-afd9e17b2c35",
+      "provider": "beeline",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://beeline-ru.online/",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Everyday_test/blob/8e87c77a79430e1a54b110682cf9f7912a29cac5/config/providers/beeline.py#L4",
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/config/providers/beeline.py#L4",
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/beeline.txt#L2"
+      ]
+    },
+    {
+      "case_id": "beeline-business_option-c2660a08887d",
+      "provider": "beeline",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://beeline-ru.online/bonuses",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/beeline.txt#L13"
+      ]
+    },
+    {
+      "case_id": "beeline-business_option-4182f5c42f82",
+      "provider": "beeline",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://beeline-ru.online/bonuses/vygodnye-ceny-na-komplekt-bilajn-tv",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/beeline.txt#L14"
+      ]
+    },
+    {
+      "case_id": "beeline-business_page-f577b1dbf510",
+      "provider": "beeline",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_page",
+      "source_page_url": "https://beeline-ru.online/business",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Everyday_test/blob/8e87c77a79430e1a54b110682cf9f7912a29cac5/config/providers/beeline.py#L4",
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/config/providers/beeline.py#L4"
+      ]
+    },
+    {
+      "case_id": "beeline-business_page-8567e41b6a4f",
+      "provider": "beeline",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_page",
+      "source_page_url": "https://beeline-ru.online/business/bilajn-prodvizhenie",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/beeline.txt#L72"
+      ]
+    },
+    {
+      "case_id": "beeline-business_page-d8e15d6e05cd",
+      "provider": "beeline",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_page",
+      "source_page_url": "https://beeline-ru.online/business/zashchita-ot-ddos-atak",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/beeline.txt#L71"
+      ]
+    },
+    {
+      "case_id": "beeline-business_option-bdde03ba1d38",
+      "provider": "beeline",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://beeline-ru.online/connect",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/beeline.txt#L18"
+      ]
+    },
+    {
+      "case_id": "beeline-business_option-ce0781770cdd",
+      "provider": "beeline",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://beeline-ru.online/contacts",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/beeline.txt#L6"
+      ]
+    },
+    {
+      "case_id": "beeline-business_option-2e1d767d581d",
+      "provider": "beeline",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://beeline-ru.online/coverage-map",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/beeline.txt#L4"
+      ]
+    },
+    {
+      "case_id": "beeline-business_option-77a995ae56d9",
+      "provider": "beeline",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://beeline-ru.online/forma-obratnoj-svyazi",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/beeline.txt#L12"
+      ]
+    },
+    {
+      "case_id": "beeline-business_option-4f5a60169033",
+      "provider": "beeline",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://beeline-ru.online/goroda",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/beeline.txt#L61"
+      ]
+    },
+    {
+      "case_id": "beeline-business_option-032d9a05dfa8",
+      "provider": "beeline",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://beeline-ru.online/help",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/beeline.txt#L15"
+      ]
+    },
+    {
+      "case_id": "beeline-business_option-b9c96be3a3d7",
+      "provider": "beeline",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://beeline-ru.online/help/ustranenie-nepoladok-po-domashnemu-internetu-beeline",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/beeline.txt#L16"
+      ]
+    },
+    {
+      "case_id": "beeline-business_option-9e89ab5e3fef",
+      "provider": "beeline",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://beeline-ru.online/internet-gpon",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/beeline.txt#L58"
+      ]
+    },
+    {
+      "case_id": "beeline-business_option-ba2fee85a45a",
+      "provider": "beeline",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://beeline-ru.online/kak-stat-abonentom",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/beeline.txt#L11"
+      ]
+    },
+    {
+      "case_id": "beeline-business_option-934b3322d52f",
+      "provider": "beeline",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://beeline-ru.online/o-kompanii",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/beeline.txt#L9"
+      ]
+    },
+    {
+      "case_id": "beeline-business_option-dc9133abf583",
+      "provider": "beeline",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://beeline-ru.online/offices",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/beeline.txt#L8"
+      ]
+    },
+    {
+      "case_id": "beeline-business_option-463c4800120c",
+      "provider": "beeline",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://beeline-ru.online/perejti-so-svoim-nomerom",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/beeline.txt#L19"
+      ]
+    },
+    {
+      "case_id": "beeline-business_option-521baf8861db",
+      "provider": "beeline",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://beeline-ru.online/pokrytie-4-5g",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/beeline.txt#L62"
+      ]
+    },
+    {
+      "case_id": "beeline-business_option-df44b84359cf",
+      "provider": "beeline",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://beeline-ru.online/proverit-adress-podklyucheniya",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/beeline.txt#L17"
+      ]
+    },
+    {
+      "case_id": "beeline-business_option-eb4b2fcb1877",
+      "provider": "beeline",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://beeline-ru.online/sitemap",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/beeline.txt#L5"
+      ]
+    },
+    {
+      "case_id": "beeline-business_option-c86c038e3386",
+      "provider": "beeline",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://beeline-ru.online/support",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/beeline.txt#L7"
+      ]
+    },
+    {
+      "case_id": "beeline-business_option-8dd60d6cb762",
+      "provider": "beeline",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://beeline-ru.online/tariff-udobnyj-dlya-doma",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/beeline.txt#L59"
+      ]
+    },
+    {
+      "case_id": "beeline-business_option-f1cb7a2e35c1",
+      "provider": "beeline",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://beeline-ru.online/tarify-dlya-noutbuka",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/beeline.txt#L63"
+      ]
+    },
+    {
+      "case_id": "beeline-business_option-487d4c129a3f",
+      "provider": "beeline",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://beeline-ru.online/tarify-dlya-plansheta",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/beeline.txt#L64"
+      ]
+    },
+    {
+      "case_id": "beeline-business_option-3564d2ccad98",
+      "provider": "beeline",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://beeline-ru.online/vacancies",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/beeline.txt#L10"
+      ]
+    },
+    {
+      "case_id": "beeline-business_option-95ee5e0beb50",
+      "provider": "beeline",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://beeline-ru.online/wi-fi-internet",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/beeline.txt#L20"
+      ]
+    },
+    {
+      "case_id": "beeline-business_option-5be2bb52877c",
+      "provider": "beeline",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://beeline-ru.online/yuzhno-sahalinsk",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/beeline.txt#L3"
+      ]
+    },
+    {
+      "case_id": "beeline-business_option-574cdfb69fa5",
+      "provider": "beeline",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://beeline-ru.pro/",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Everyday_test/blob/8e87c77a79430e1a54b110682cf9f7912a29cac5/config/providers/beeline.py#L4",
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/config/providers/beeline.py#L4",
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/beeline.txt#L48"
+      ]
+    },
+    {
+      "case_id": "beeline-business_option-46ca73c6e721",
+      "provider": "beeline",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://beeline-ru.pro/barnaul",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/beeline.txt#L52"
+      ]
+    },
+    {
+      "case_id": "beeline-business_option-62d84d8f6739",
+      "provider": "beeline",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://beeline-ru.pro/moskovskaya_oblast",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/beeline.txt#L50"
+      ]
+    },
+    {
+      "case_id": "beeline-business_option-cecb83f95965",
+      "provider": "beeline",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://beeline-ru.pro/moskva",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/beeline.txt#L49"
+      ]
+    },
+    {
+      "case_id": "beeline-business_option-5f00669244f8",
+      "provider": "beeline",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://beeline-ru.pro/sankt-peterburg",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/beeline.txt#L51"
+      ]
+    },
+    {
+      "case_id": "beeline-business_option-746bf032b6b7",
+      "provider": "beeline",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://beelline-internet.ru/",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Everyday_test/blob/8e87c77a79430e1a54b110682cf9f7912a29cac5/config/providers/beeline.py#L4",
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/config/providers/beeline.py#L4",
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/beeline.txt#L55"
+      ]
+    },
+    {
+      "case_id": "beeline-business_option-f272b85e6802",
+      "provider": "beeline",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://beelline-internet.ru/moskva",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/beeline.txt#L56"
+      ]
+    },
+    {
+      "case_id": "beeline-business_option-66fa1f660b6a",
+      "provider": "beeline",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://beelline-internet.ru/sankt-peterburg",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/beeline.txt#L57"
+      ]
+    },
+    {
+      "case_id": "beeline-business_option-2d0d10353085",
+      "provider": "beeline",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://blog.beeline-ru.online/",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/beeline.txt#L30"
+      ]
+    },
+    {
+      "case_id": "beeline-business_option-4a5668ce6f05",
+      "provider": "beeline",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://blog.beeline-ru.online/kak-podklyuchit-internet-bilajn",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/beeline.txt#L31"
+      ]
+    },
+    {
+      "case_id": "beeline-business_option-b9adafdd1366",
+      "provider": "beeline",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://moskva.beeline-ru.online/",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/beeline.txt#L21"
+      ]
+    },
+    {
+      "case_id": "beeline-business_page-3b84e52cee9e",
+      "provider": "beeline",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_page",
+      "source_page_url": "https://moskva.beeline-ru.online/business",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/beeline.txt#L39"
+      ]
+    },
+    {
+      "case_id": "beeline-business_option-6c0da136b531",
+      "provider": "beeline",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://moskva.beeline-ru.online/connect",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/beeline.txt#L38"
+      ]
+    },
+    {
+      "case_id": "beeline-business_option-5908a0d71d3a",
+      "provider": "beeline",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://moskva.beeline-ru.online/contacts",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/beeline.txt#L34"
+      ]
+    },
+    {
+      "case_id": "beeline-business_option-7d58f963adfb",
+      "provider": "beeline",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://moskva.beeline-ru.online/coverage-map",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/beeline.txt#L32"
+      ]
+    },
+    {
+      "case_id": "beeline-business_option-da70076925dc",
+      "provider": "beeline",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://moskva.beeline-ru.online/domashnij-internet-tv",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/beeline.txt#L23"
+      ]
+    },
+    {
+      "case_id": "beeline-business_option-5ff23f9b944a",
+      "provider": "beeline",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://moskva.beeline-ru.online/internet-gpon",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/beeline.txt#L65"
+      ]
+    },
+    {
+      "case_id": "beeline-business_option-e435b741ba67",
+      "provider": "beeline",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://moskva.beeline-ru.online/internet-tv-mobile",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/beeline.txt#L24"
+      ]
+    },
+    {
+      "case_id": "beeline-business_option-c66d427b78a6",
+      "provider": "beeline",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://moskva.beeline-ru.online/offices",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/beeline.txt#L36"
+      ]
+    },
+    {
+      "case_id": "beeline-business_option-6dfa0fffd0d1",
+      "provider": "beeline",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://moskva.beeline-ru.online/pokrytie-4-5g",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/beeline.txt#L66"
+      ]
+    },
+    {
+      "case_id": "beeline-business_option-eb048d150f23",
+      "provider": "beeline",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://moskva.beeline-ru.online/proverit-adress-podklyucheniya",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/beeline.txt#L37"
+      ]
+    },
+    {
+      "case_id": "beeline-business_option-4ca298f90f2f",
+      "provider": "beeline",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://moskva.beeline-ru.online/sitemap",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/beeline.txt#L33"
+      ]
+    },
+    {
+      "case_id": "beeline-business_option-800f17d4b491",
+      "provider": "beeline",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://moskva.beeline-ru.online/support",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/beeline.txt#L35"
+      ]
+    },
+    {
+      "case_id": "beeline-business_option-2fe50761dba8",
+      "provider": "beeline",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://moskva.beeline-ru.online/tariff-udobnyj-dlya-doma",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/beeline.txt#L60"
+      ]
+    },
+    {
+      "case_id": "beeline-business_option-6f929c365276",
+      "provider": "beeline",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://moskva.beeline-ru.online/tariffs-up",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/beeline.txt#L25"
+      ]
+    },
+    {
+      "case_id": "beeline-business_option-5b1a5953fffe",
+      "provider": "beeline",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://moskva.beeline-ru.online/tariffs-up/tariff-up-bee",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/beeline.txt#L29"
+      ]
+    },
+    {
+      "case_id": "beeline-business_option-3192d7ba79dd",
+      "provider": "beeline",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://moskva.beeline-ru.online/tariffs-up/tariff-up-cat",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/beeline.txt#L27"
+      ]
+    },
+    {
+      "case_id": "beeline-business_option-760122ba867c",
+      "provider": "beeline",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://moskva.beeline-ru.online/tariffs-up/tariff-up-dragon",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/beeline.txt#L28"
+      ]
+    },
+    {
+      "case_id": "beeline-business_option-bcf7a5fbe1de",
+      "provider": "beeline",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://moskva.beeline-ru.online/tariffs-up/tariff-up-prodvinutyj",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/beeline.txt#L69"
+      ]
+    },
+    {
+      "case_id": "beeline-business_option-5bfe41a62390",
+      "provider": "beeline",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://moskva.beeline-ru.online/tariffs-up/tariff-up-semejnyj",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/beeline.txt#L70"
+      ]
+    },
+    {
+      "case_id": "beeline-business_option-158d97145aa7",
+      "provider": "beeline",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://moskva.beeline-ru.online/tarify-dlya-noutbuka",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/beeline.txt#L67"
+      ]
+    },
+    {
+      "case_id": "beeline-business_option-52f38d088bb2",
+      "provider": "beeline",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://moskva.beeline-ru.online/tarify-dlya-plansheta",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/beeline.txt#L68"
+      ]
+    },
+    {
+      "case_id": "beeline-business_option-558531399b5f",
+      "provider": "beeline",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://moskva.beeline-ru.online/wi-fi-internet",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/beeline.txt#L40"
+      ]
+    },
+    {
+      "case_id": "beeline-business_option-e4f061429eb2",
+      "provider": "beeline",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://online-beeline.ru/",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Everyday_test/blob/8e87c77a79430e1a54b110682cf9f7912a29cac5/config/providers/beeline.py#L4",
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/config/providers/beeline.py#L4",
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/beeline.txt#L41"
+      ]
+    },
+    {
+      "case_id": "beeline-business_page-46426053747e",
+      "provider": "beeline",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_page",
+      "source_page_url": "https://online-beeline.ru/business",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Everyday_test/blob/8e87c77a79430e1a54b110682cf9f7912a29cac5/config/providers/beeline.py#L4",
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/config/providers/beeline.py#L4",
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/beeline.txt#L43"
+      ]
+    },
+    {
+      "case_id": "beeline-business_option-0f619f7d8179",
+      "provider": "beeline",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://online-beeline.ru/moskva",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/beeline.txt#L42"
+      ]
+    },
+    {
+      "case_id": "beeline-business_option-34276e608d4e",
+      "provider": "beeline",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://sankt-peterburg.beeline-ru.online/all-tariffs",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/beeline.txt#L26"
+      ]
+    },
+    {
+      "case_id": "beeline-business_option-c5f6442e87fa",
+      "provider": "beeline",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://sankt-peterburg.beeline-ru.online/domashnij-internet",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/beeline.txt#L22"
+      ]
+    },
+    {
+      "case_id": "domru-business_option-f6c1a7c81127",
+      "provider": "domru",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://dom-provider.online/",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Everyday_test/blob/8e87c77a79430e1a54b110682cf9f7912a29cac5/config/providers/domru.py#L4",
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/config/providers/domru.py#L4",
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/domru.txt#L2"
+      ]
+    },
+    {
+      "case_id": "domru-business_option-17d383de1dfb",
+      "provider": "domru",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://dom-provider.online/moskva",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/domru.txt#L3"
+      ]
+    },
+    {
+      "case_id": "domru-business_option-70df60e38aae",
+      "provider": "domru",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://moskva.providerdom.ru",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/domru.txt#L5"
+      ]
+    },
+    {
+      "case_id": "domru-business_option-e03f07bbf7eb",
+      "provider": "domru",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://moskva.providerdom.ru/domashnij-internet/",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/domru.txt#L6"
+      ]
+    },
+    {
+      "case_id": "domru-business_option-ae2148fb0c50",
+      "provider": "domru",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://moskva.providerdom.ru/internet-i-televidenie/",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/domru.txt#L7"
+      ]
+    },
+    {
+      "case_id": "domru-business_option-c05026b10b4b",
+      "provider": "domru",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://providerdom.ru/",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Everyday_test/blob/8e87c77a79430e1a54b110682cf9f7912a29cac5/config/providers/domru.py#L4",
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/config/providers/domru.py#L4",
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/domru.txt#L4"
+      ]
+    },
+    {
+      "case_id": "megafon-business_option-984645aec26a",
+      "provider": "megafon",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://mega-home-internet.ru/",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Everyday_test/blob/8e87c77a79430e1a54b110682cf9f7912a29cac5/config/providers/megafon.py#L4",
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/config/providers/megafon.py#L4",
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/megafon.txt#L4"
+      ]
+    },
+    {
+      "case_id": "megafon-business_option-8f2951ce5344",
+      "provider": "megafon",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://mega-premium.ru/",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Everyday_test/blob/8e87c77a79430e1a54b110682cf9f7912a29cac5/config/providers/megafon.py#L4",
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/config/providers/megafon.py#L4",
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/megafon.txt#L2"
+      ]
+    },
+    {
+      "case_id": "megafon-business_option-2738d4004737",
+      "provider": "megafon",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://mega-premium.ru/moskva",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/megafon.txt#L3"
+      ]
+    },
+    {
+      "case_id": "megafon-business_option-cd7b258dbe89",
+      "provider": "megafon",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://moskva.mega-home-internet.ru/domashnij-internet/",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/megafon.txt#L5"
+      ]
+    },
+    {
+      "case_id": "megafon-business_option-f19f01dc4b6e",
+      "provider": "megafon",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://moskva.mega-home-internet.ru/internet-tv-mobile/",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/megafon.txt#L7"
+      ]
+    },
+    {
+      "case_id": "megafon-business_option-6ecf9f6bde5c",
+      "provider": "megafon",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://moskva.mega-home-internet.ru/internet-tv/",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/megafon.txt#L6"
+      ]
+    },
+    {
+      "case_id": "mts-business_option-e1c510756d23",
+      "provider": "mts",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://blog.mts-home.online/",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/mts.txt#L47"
+      ]
+    },
+    {
+      "case_id": "mts-business_option-3c1648b59c65",
+      "provider": "mts",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://blog.mts-home.online/experts",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/mts.txt#L49"
+      ]
+    },
+    {
+      "case_id": "mts-business_option-2691e3cfee8d",
+      "provider": "mts",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://blog.mts-home.online/perehod-na-mts-so-svoim-nomerom",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/mts.txt#L48"
+      ]
+    },
+    {
+      "case_id": "mts-business_option-2f61aba2ea3b",
+      "provider": "mts",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://internet-mts-home.online/",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Everyday_test/blob/8e87c77a79430e1a54b110682cf9f7912a29cac5/config/providers/mts.py#L4",
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/config/providers/mts.py#L4",
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/mts.txt#L63"
+      ]
+    },
+    {
+      "case_id": "mts-business_option-cbf0155cd748",
+      "provider": "mts",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://internet-mts-home.online/moskva",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/mts.txt#L64"
+      ]
+    },
+    {
+      "case_id": "mts-business_option-7d70c3319532",
+      "provider": "mts",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://magnitogorsk.mts-home.online/all-tariffs/tariff-6",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/mts.txt#L46"
+      ]
+    },
+    {
+      "case_id": "mts-business_option-901d9bcd816f",
+      "provider": "mts",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://moskva.mts-home.online/",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/mts.txt#L33"
+      ]
+    },
+    {
+      "case_id": "mts-business_option-da46e6961afd",
+      "provider": "mts",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://moskva.mts-home.online/address",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/mts.txt#L50"
+      ]
+    },
+    {
+      "case_id": "mts-business_option-25881d8b894a",
+      "provider": "mts",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://moskva.mts-home.online/all-tariffs",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/mts.txt#L41"
+      ]
+    },
+    {
+      "case_id": "mts-business_option-b2c75d90a3d7",
+      "provider": "mts",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://moskva.mts-home.online/all-tariffs/mts-24",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/mts.txt#L86"
+      ]
+    },
+    {
+      "case_id": "mts-business_option-52ce497f39a4",
+      "provider": "mts",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://moskva.mts-home.online/all-tariffs/mts-bolshe",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/mts.txt#L87"
+      ]
+    },
+    {
+      "case_id": "mts-business_option-9fef7dc86afb",
+      "provider": "mts",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://moskva.mts-home.online/all-tariffs/mts-doma-horosho",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/mts.txt#L91"
+      ]
+    },
+    {
+      "case_id": "mts-business_option-227113ec5ef4",
+      "provider": "mts",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://moskva.mts-home.online/all-tariffs/mts-doma-otlichno",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/mts.txt#L92"
+      ]
+    },
+    {
+      "case_id": "mts-business_option-c7dd3ca679c0",
+      "provider": "mts",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://moskva.mts-home.online/all-tariffs/mts-doma-super",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/mts.txt#L93"
+      ]
+    },
+    {
+      "case_id": "mts-business_option-6dd18c572aea",
+      "provider": "mts",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://moskva.mts-home.online/all-tariffs/mts-kak-hochesh",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/mts.txt#L88"
+      ]
+    },
+    {
+      "case_id": "mts-business_option-494595700a78",
+      "provider": "mts",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://moskva.mts-home.online/all-tariffs/mts-proshche",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/mts.txt#L89"
+      ]
+    },
+    {
+      "case_id": "mts-business_option-0675c3bee718",
+      "provider": "mts",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://moskva.mts-home.online/all-tariffs/mts-riil-plus",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/mts.txt#L94"
+      ]
+    },
+    {
+      "case_id": "mts-business_option-d1a1e4166e25",
+      "provider": "mts",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://moskva.mts-home.online/all-tariffs/mts-super",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/mts.txt#L90"
+      ]
+    },
+    {
+      "case_id": "mts-business_option-d01efd07003c",
+      "provider": "mts",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://moskva.mts-home.online/all-tariffs/tariff-1",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/mts.txt#L42"
+      ]
+    },
+    {
+      "case_id": "mts-business_option-ec7ab765b33a",
+      "provider": "mts",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://moskva.mts-home.online/all-tariffs/tariff-1-1000",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/mts.txt#L43"
+      ]
+    },
+    {
+      "case_id": "mts-business_option-9a91e1a11efa",
+      "provider": "mts",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://moskva.mts-home.online/all-tariffs/tariff-3",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/mts.txt#L45"
+      ]
+    },
+    {
+      "case_id": "mts-business_option-01c4a7943470",
+      "provider": "mts",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://moskva.mts-home.online/all-tariffs/tariff-7",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/mts.txt#L44"
+      ]
+    },
+    {
+      "case_id": "mts-business_option-95731dab3add",
+      "provider": "mts",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://moskva.mts-home.online/bezlimitnyj-internet",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/mts.txt#L85"
+      ]
+    },
+    {
+      "case_id": "mts-business_page-276f16e12960",
+      "provider": "mts",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_page",
+      "source_page_url": "https://moskva.mts-home.online/business",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/mts.txt#L55"
+      ]
+    },
+    {
+      "case_id": "mts-business_option-5b1f5b5dca6f",
+      "provider": "mts",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://moskva.mts-home.online/contacts",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/mts.txt#L53"
+      ]
+    },
+    {
+      "case_id": "mts-business_option-8bbad9fd3970",
+      "provider": "mts",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://moskva.mts-home.online/domashnij-internet",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/mts.txt#L36"
+      ]
+    },
+    {
+      "case_id": "mts-business_option-b75a72886b80",
+      "provider": "mts",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://moskva.mts-home.online/internet-i-televidenie",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/mts.txt#L37"
+      ]
+    },
+    {
+      "case_id": "mts-business_option-e1a53c406311",
+      "provider": "mts",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://moskva.mts-home.online/internet-tv-mobile",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/mts.txt#L38"
+      ]
+    },
+    {
+      "case_id": "mts-business_option-e71717f2a5b1",
+      "provider": "mts",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://moskva.mts-home.online/mts-internet-proverit-adress-podklyucheniya",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/mts.txt#L40"
+      ]
+    },
+    {
+      "case_id": "mts-business_option-32ca88884a7b",
+      "provider": "mts",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://moskva.mts-home.online/offices",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/mts.txt#L52"
+      ]
+    },
+    {
+      "case_id": "mts-business_option-7cdb38a2122a",
+      "provider": "mts",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://moskva.mts-home.online/pokrytie-4-5g",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/mts.txt#L56"
+      ]
+    },
+    {
+      "case_id": "mts-business_option-72a2dcbfa2dc",
+      "provider": "mts",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://moskva.mts-home.online/semejnye-tarify",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/mts.txt#L39"
+      ]
+    },
+    {
+      "case_id": "mts-business_option-af074024f923",
+      "provider": "mts",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://moskva.mts-home.online/sitemap",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/mts.txt#L51"
+      ]
+    },
+    {
+      "case_id": "mts-business_option-c9fdc2a962a0",
+      "provider": "mts",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://moskva.mts-home.online/support",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/mts.txt#L54"
+      ]
+    },
+    {
+      "case_id": "mts-business_option-5af525327229",
+      "provider": "mts",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://moskva.mts-home.online/wi-fi-internet",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/mts.txt#L84"
+      ]
+    },
+    {
+      "case_id": "mts-business_option-3c4ae286a0b2",
+      "provider": "mts",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://mts-home-gpon.ru/",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Everyday_test/blob/8e87c77a79430e1a54b110682cf9f7912a29cac5/config/providers/mts.py#L4",
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/config/providers/mts.py#L4",
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/mts.txt#L57"
+      ]
+    },
+    {
+      "case_id": "mts-business_page-9b059cc303f1",
+      "provider": "mts",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_page",
+      "source_page_url": "https://mts-home-gpon.ru/business",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/config/providers/mts.py#L4",
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/mts.txt#L59"
+      ]
+    },
+    {
+      "case_id": "mts-business_option-c9d9babdaa23",
+      "provider": "mts",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://mts-home-gpon.ru/moskva",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/mts.txt#L58"
+      ]
+    },
+    {
+      "case_id": "mts-business_option-d5a93099ffb1",
+      "provider": "mts",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://mts-home-online.ru/",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Everyday_test/blob/8e87c77a79430e1a54b110682cf9f7912a29cac5/config/providers/mts.py#L4",
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/config/providers/mts.py#L4",
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/mts.txt#L60"
+      ]
+    },
+    {
+      "case_id": "mts-business_page-c2d4cae355e7",
+      "provider": "mts",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_page",
+      "source_page_url": "https://mts-home-online.ru/business",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Everyday_test/blob/8e87c77a79430e1a54b110682cf9f7912a29cac5/config/providers/mts.py#L4",
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/config/providers/mts.py#L4",
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/mts.txt#L62"
+      ]
+    },
+    {
+      "case_id": "mts-business_option-e8d87de385b6",
+      "provider": "mts",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://mts-home-online.ru/moskva",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/mts.txt#L61"
+      ]
+    },
+    {
+      "case_id": "mts-business_option-f80fd0f7aa57",
+      "provider": "mts",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://mts-home-online.ru/moskva/mobilnaya-svyaz",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/mts.txt#L95"
+      ]
+    },
+    {
+      "case_id": "mts-business_option-e34df24cb0a9",
+      "provider": "mts",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://mts-home.online",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/mts.txt#L2"
+      ]
+    },
+    {
+      "case_id": "mts-business_option-5d75c21b6980",
+      "provider": "mts",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://mts-home.online/",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Everyday_test/blob/8e87c77a79430e1a54b110682cf9f7912a29cac5/config/providers/mts.py#L4",
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/config/providers/mts.py#L4"
+      ]
+    },
+    {
+      "case_id": "mts-business_option-a0fa9891c3c9",
+      "provider": "mts",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://mts-home.online/address",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/mts.txt#L10"
+      ]
+    },
+    {
+      "case_id": "mts-business_option-3ef6087af185",
+      "provider": "mts",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://mts-home.online/aznakaevo",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/mts.txt#L4"
+      ]
+    },
+    {
+      "case_id": "mts-business_option-1d70c575fe39",
+      "provider": "mts",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://mts-home.online/bezlimitnyj-internet",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/mts.txt#L28"
+      ]
+    },
+    {
+      "case_id": "mts-business_option-799e688a1d9f",
+      "provider": "mts",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://mts-home.online/bonusy",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/mts.txt#L22"
+      ]
+    },
+    {
+      "case_id": "mts-business_option-1c365b08e951",
+      "provider": "mts",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://mts-home.online/bonusy/vozvrashchaite-10-pri-popolnenii-scheta-mts",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/mts.txt#L23"
+      ]
+    },
+    {
+      "case_id": "mts-business_page-541e903a4e0a",
+      "provider": "mts",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_page",
+      "source_page_url": "https://mts-home.online/business",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Everyday_test/blob/8e87c77a79430e1a54b110682cf9f7912a29cac5/config/providers/mts.py#L4",
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/config/providers/mts.py#L4"
+      ]
+    },
+    {
+      "case_id": "mts-business_option-dc362c35d87b",
+      "provider": "mts",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://mts-home.online/connect",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/mts.txt#L17"
+      ]
+    },
+    {
+      "case_id": "mts-business_option-03b55164606e",
+      "provider": "mts",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://mts-home.online/domashnij-internet",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/mts.txt#L5"
+      ]
+    },
+    {
+      "case_id": "mts-business_option-28e029c67fa2",
+      "provider": "mts",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://mts-home.online/forma-obratnoj-svyazi",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/mts.txt#L16"
+      ]
+    },
+    {
+      "case_id": "mts-business_option-daa776db387b",
+      "provider": "mts",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://mts-home.online/goroda",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/mts.txt#L11"
+      ]
+    },
+    {
+      "case_id": "mts-business_option-5235d246e799",
+      "provider": "mts",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://mts-home.online/help",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/mts.txt#L20"
+      ]
+    },
+    {
+      "case_id": "mts-business_option-244f6e51f032",
+      "provider": "mts",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://mts-home.online/help/kak-pomenyat-tarif-na-mts",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/mts.txt#L21"
+      ]
+    },
+    {
+      "case_id": "mts-business_option-2e289292b008",
+      "provider": "mts",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://mts-home.online/internet-gpon",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/mts.txt#L26"
+      ]
+    },
+    {
+      "case_id": "mts-business_option-23d395945182",
+      "provider": "mts",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://mts-home.online/internet-i-mobilnaya-svyaz",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/mts.txt#L29"
+      ]
+    },
+    {
+      "case_id": "mts-business_option-2dbd779b1d6d",
+      "provider": "mts",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://mts-home.online/internet-i-televidenie",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/mts.txt#L6"
+      ]
+    },
+    {
+      "case_id": "mts-business_option-e24dbccef157",
+      "provider": "mts",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://mts-home.online/internet-tv-mobile",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/mts.txt#L7"
+      ]
+    },
+    {
+      "case_id": "mts-business_option-49322e4bfd0e",
+      "provider": "mts",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://mts-home.online/kak-stat-abonentom",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/mts.txt#L14"
+      ]
+    },
+    {
+      "case_id": "mts-business_option-b931cb971278",
+      "provider": "mts",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://mts-home.online/mobilnaya-svyaz/bolshe",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/mts.txt#L77"
+      ]
+    },
+    {
+      "case_id": "mts-business_option-65862d4c261d",
+      "provider": "mts",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://mts-home.online/mobilnaya-svyaz/junior",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/mts.txt#L83"
+      ]
+    },
+    {
+      "case_id": "mts-business_option-589dd03471c4",
+      "provider": "mts",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://mts-home.online/mobilnaya-svyaz/kak-hochesh",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/mts.txt#L78"
+      ]
+    },
+    {
+      "case_id": "mts-business_option-07130e624096",
+      "provider": "mts",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://mts-home.online/mobilnaya-svyaz/membrana",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/mts.txt#L82"
+      ]
+    },
+    {
+      "case_id": "mts-business_option-437d591b35de",
+      "provider": "mts",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://mts-home.online/mobilnaya-svyaz/proshe",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/mts.txt#L79"
+      ]
+    },
+    {
+      "case_id": "mts-business_option-4b49f9b11102",
+      "provider": "mts",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://mts-home.online/mobilnaya-svyaz/riil",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/mts.txt#L81"
+      ]
+    },
+    {
+      "case_id": "mts-business_option-c45b0fe39aa1",
+      "provider": "mts",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://mts-home.online/mobilnaya-svyaz/super",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/mts.txt#L80"
+      ]
+    },
+    {
+      "case_id": "mts-business_option-bb9cb6f6aa6d",
+      "provider": "mts",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://mts-home.online/moskva",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/mts.txt#L3"
+      ]
+    },
+    {
+      "case_id": "mts-business_option-0665fc25253d",
+      "provider": "mts",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://mts-home.online/mts-internet-proverit-adress-podklyucheniya",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/mts.txt#L9"
+      ]
+    },
+    {
+      "case_id": "mts-business_option-f2c6f7fb81a2",
+      "provider": "mts",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://mts-home.online/o-kompanii",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/mts.txt#L13"
+      ]
+    },
+    {
+      "case_id": "mts-business_option-c0ec56f285bc",
+      "provider": "mts",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://mts-home.online/oborudovanie",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/mts.txt#L19"
+      ]
+    },
+    {
+      "case_id": "mts-business_option-e389686c0906",
+      "provider": "mts",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://mts-home.online/perejti-so-svoim-nomerom",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/mts.txt#L30"
+      ]
+    },
+    {
+      "case_id": "mts-business_option-c3fc74661c6f",
+      "provider": "mts",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://mts-home.online/pokrytie-4-5g",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/mts.txt#L32"
+      ]
+    },
+    {
+      "case_id": "mts-business_option-13475ee2303c",
+      "provider": "mts",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://mts-home.online/reviews",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/mts.txt#L18"
+      ]
+    },
+    {
+      "case_id": "mts-business_option-8f971427c288",
+      "provider": "mts",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://mts-home.online/semejnye-tarify",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/mts.txt#L8"
+      ]
+    },
+    {
+      "case_id": "mts-business_option-575754964849",
+      "provider": "mts",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://mts-home.online/tv-kanaly",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/mts.txt#L31"
+      ]
+    },
+    {
+      "case_id": "mts-business_option-2b9c1e2fd697",
+      "provider": "mts",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://mts-home.online/usluga-pereezd",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/mts.txt#L15"
+      ]
+    },
+    {
+      "case_id": "mts-business_option-1c2d7b7fd3e5",
+      "provider": "mts",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://mts-home.online/uslugi",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/mts.txt#L24"
+      ]
+    },
+    {
+      "case_id": "mts-business_option-397064d4db63",
+      "provider": "mts",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://mts-home.online/uslugi/usluga-belyj-internet-mts",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/mts.txt#L25"
+      ]
+    },
+    {
+      "case_id": "mts-business_option-811231bf045d",
+      "provider": "mts",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://mts-home.online/vacancies",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/mts.txt#L12"
+      ]
+    },
+    {
+      "case_id": "mts-business_option-486794e85139",
+      "provider": "mts",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://mts-home.online/wi-fi-internet",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/mts.txt#L27"
+      ]
+    },
+    {
+      "case_id": "mts-business_option-e5d94a199746",
+      "provider": "mts",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://mts-internet.online",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/mts.txt#L65"
+      ]
+    },
+    {
+      "case_id": "mts-business_option-a11f6dd68bad",
+      "provider": "mts",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://mts-internet.online/",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Everyday_test/blob/8e87c77a79430e1a54b110682cf9f7912a29cac5/config/providers/mts.py#L4",
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/config/providers/mts.py#L4"
+      ]
+    },
+    {
+      "case_id": "mts-business_option-18d42468dd6d",
+      "provider": "mts",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://mts-internet.online/moskva",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/mts.txt#L66"
+      ]
+    },
+    {
+      "case_id": "mts-business_option-47dc7cbc4599",
+      "provider": "mts",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://mts-internet.online/moskva/jk-alia",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/mts.txt#L68"
+      ]
+    },
+    {
+      "case_id": "mts-business_option-633d0bbd185d",
+      "provider": "mts",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://mts-internet.online/moskva/jk-gorodskie-istorii",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/mts.txt#L70"
+      ]
+    },
+    {
+      "case_id": "mts-business_option-65d29d7c1d7f",
+      "provider": "mts",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://mts-internet.online/moskva/jk-serdce-stolicy",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/mts.txt#L72"
+      ]
+    },
+    {
+      "case_id": "mts-business_option-28369f0f208b",
+      "provider": "mts",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://mts-internet.online/moskva/jk-simvol",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/mts.txt#L73"
+      ]
+    },
+    {
+      "case_id": "mts-business_option-6feba0e35e96",
+      "provider": "mts",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://mts-internet.online/moskva/jk-very",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/mts.txt#L69"
+      ]
+    },
+    {
+      "case_id": "mts-business_option-845e78486a0a",
+      "provider": "mts",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://mts-internet.online/moskva/jk-zilart",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/mts.txt#L71"
+      ]
+    },
+    {
+      "case_id": "mts-business_option-ff67c126a447",
+      "provider": "mts",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://mts-internet.online/sankt-peterburg",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/mts.txt#L67"
+      ]
+    },
+    {
+      "case_id": "mts-business_option-5989237f7671",
+      "provider": "mts",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://mts-internet.online/sankt-peterburg/jk-cvetnoj-gorod",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/mts.txt#L76"
+      ]
+    },
+    {
+      "case_id": "mts-business_option-e01896455735",
+      "provider": "mts",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://mts-internet.online/sankt-peterburg/jk-ogni-zaliva",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/mts.txt#L74"
+      ]
+    },
+    {
+      "case_id": "mts-business_option-77e8e8e06563",
+      "provider": "mts",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://mts-internet.online/sankt-peterburg/jk-triumf-park",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/mts.txt#L75"
+      ]
+    },
+    {
+      "case_id": "mts-business_option-2aa70f857574",
+      "provider": "mts",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://shcherbinka.mts-home.online/address/ul-rabocaja-id10443",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/mts.txt#L34"
+      ]
+    },
+    {
+      "case_id": "mts-business_option-85ad021679f2",
+      "provider": "mts",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://shcherbinka.mts-home.online/address/ul-rabochaya-d-2-id203432",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/mts.txt#L35"
+      ]
+    },
+    {
+      "case_id": "rostelecom-business_option-fcc6b84b5360",
+      "provider": "rostelecom",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "http://rtk-home.ru",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/rostelecom.txt#L48"
+      ]
+    },
+    {
+      "case_id": "rostelecom-business_option-d7b5ae5df9d5",
+      "provider": "rostelecom",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "http://rtk-home.ru/",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Everyday_test/blob/8e87c77a79430e1a54b110682cf9f7912a29cac5/config/providers/rostelecom.py#L4",
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/config/providers/rostelecom.py#L4"
+      ]
+    },
+    {
+      "case_id": "rostelecom-business_page-6fb8d0f8ee0f",
+      "provider": "rostelecom",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_page",
+      "source_page_url": "http://rtk-home.ru/business",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Everyday_test/blob/8e87c77a79430e1a54b110682cf9f7912a29cac5/config/providers/rostelecom.py#L4",
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/config/providers/rostelecom.py#L4"
+      ]
+    },
+    {
+      "case_id": "rostelecom-business_option-6c404bbacac9",
+      "provider": "rostelecom",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "http://rtk-home.ru/moskva",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/rostelecom.txt#L49"
+      ]
+    },
+    {
+      "case_id": "rostelecom-business_option-ea64921672a9",
+      "provider": "rostelecom",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://blog.rtk-ru.online/",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/rostelecom.txt#L31"
+      ]
+    },
+    {
+      "case_id": "rostelecom-business_option-800c38764f90",
+      "provider": "rostelecom",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://blog.rtk-ru.online/tehnologiya-podklyucheniya-u-rostelekoma",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/rostelecom.txt#L32"
+      ]
+    },
+    {
+      "case_id": "rostelecom-business_option-4938d993a951",
+      "provider": "rostelecom",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://moskva.rtk-ru.online",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/rostelecom.txt#L18"
+      ]
+    },
+    {
+      "case_id": "rostelecom-business_option-8badc16f5613",
+      "provider": "rostelecom",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://moskva.rtk-ru.online/all-tariffs",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/rostelecom.txt#L23"
+      ]
+    },
+    {
+      "case_id": "rostelecom-business_option-a2f7f9bff417",
+      "provider": "rostelecom",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://moskva.rtk-ru.online/all-tariffs/igrovoy",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/rostelecom.txt#L26"
+      ]
+    },
+    {
+      "case_id": "rostelecom-business_option-22ee58db78b3",
+      "provider": "rostelecom",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://moskva.rtk-ru.online/all-tariffs/oblachniy",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/rostelecom.txt#L29"
+      ]
+    },
+    {
+      "case_id": "rostelecom-business_option-231524179e5d",
+      "provider": "rostelecom",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://moskva.rtk-ru.online/all-tariffs/technologii-dostupa",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/rostelecom.txt#L24"
+      ]
+    },
+    {
+      "case_id": "rostelecom-business_option-ce6336379f65",
+      "provider": "rostelecom",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://moskva.rtk-ru.online/all-tariffs/technologii-kontrolya",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/rostelecom.txt#L28"
+      ]
+    },
+    {
+      "case_id": "rostelecom-business_option-59e184569229",
+      "provider": "rostelecom",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://moskva.rtk-ru.online/all-tariffs/technologii-obshchehiya",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/rostelecom.txt#L30"
+      ]
+    },
+    {
+      "case_id": "rostelecom-business_option-beb1c07ad451",
+      "provider": "rostelecom",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://moskva.rtk-ru.online/all-tariffs/technologii-razvlecheniya",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/rostelecom.txt#L25"
+      ]
+    },
+    {
+      "case_id": "rostelecom-business_option-6033b686b251",
+      "provider": "rostelecom",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://moskva.rtk-ru.online/all-tariffs/technologii-vygody",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/rostelecom.txt#L27"
+      ]
+    },
+    {
+      "case_id": "rostelecom-business_option-1b1219a2b3b9",
+      "provider": "rostelecom",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://moskva.rtk-ru.online/connect",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/rostelecom.txt#L37"
+      ]
+    },
+    {
+      "case_id": "rostelecom-business_option-a2713a9c0e2b",
+      "provider": "rostelecom",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://moskva.rtk-ru.online/contacts",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/rostelecom.txt#L34"
+      ]
+    },
+    {
+      "case_id": "rostelecom-business_option-4112b1f5ee31",
+      "provider": "rostelecom",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://moskva.rtk-ru.online/coverage-map",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/rostelecom.txt#L35"
+      ]
+    },
+    {
+      "case_id": "rostelecom-business_option-234dc4d618b6",
+      "provider": "rostelecom",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://moskva.rtk-ru.online/internet-gpon",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/rostelecom.txt#L59"
+      ]
+    },
+    {
+      "case_id": "rostelecom-business_option-3df4c69f80ba",
+      "provider": "rostelecom",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://moskva.rtk-ru.online/internet-tv",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/rostelecom.txt#L21"
+      ]
+    },
+    {
+      "case_id": "rostelecom-business_option-d7be10277fd5",
+      "provider": "rostelecom",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://moskva.rtk-ru.online/internet-tv-mobile",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/rostelecom.txt#L22"
+      ]
+    },
+    {
+      "case_id": "rostelecom-business_option-656ad069f943",
+      "provider": "rostelecom",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://moskva.rtk-ru.online/rostelecom-domashnij-internet-proverit-adres",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/rostelecom.txt#L38"
+      ]
+    },
+    {
+      "case_id": "rostelecom-business_option-2255835dd91f",
+      "provider": "rostelecom",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://moskva.rtk-ru.online/sitemap",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/rostelecom.txt#L33"
+      ]
+    },
+    {
+      "case_id": "rostelecom-business_option-d056761ade1b",
+      "provider": "rostelecom",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://moskva.rtk-ru.online/support",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/rostelecom.txt#L36"
+      ]
+    },
+    {
+      "case_id": "rostelecom-business_option-3eb841503cab",
+      "provider": "rostelecom",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://moskva.rtk-ru.online/tarify-dlya-noutbuka",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/rostelecom.txt#L62"
+      ]
+    },
+    {
+      "case_id": "rostelecom-business_option-805b488e78ac",
+      "provider": "rostelecom",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://moskva.rtk-ru.online/tarify-dlya-noutbuka/",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/rostelecom.txt#L53"
+      ]
+    },
+    {
+      "case_id": "rostelecom-business_option-4e4ee5bb33ca",
+      "provider": "rostelecom",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://moskva.rtk-ru.online/tarify-dlya-plansheta",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/rostelecom.txt#L63"
+      ]
+    },
+    {
+      "case_id": "rostelecom-business_option-ff3348f3728f",
+      "provider": "rostelecom",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://moskva.rtk-ru.online/tarify-dlya-plansheta/",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/rostelecom.txt#L54"
+      ]
+    },
+    {
+      "case_id": "rostelecom-business_option-22c5d8b5875f",
+      "provider": "rostelecom",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://moskva.rtk-ru.online/wi-fi-internet",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/rostelecom.txt#L39"
+      ]
+    },
+    {
+      "case_id": "rostelecom-business_option-7eba6f5d3b62",
+      "provider": "rostelecom",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://perm.rtk-ru.online/solikamsk",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/rostelecom.txt#L19"
+      ]
+    },
+    {
+      "case_id": "rostelecom-business_option-5812a597982b",
+      "provider": "rostelecom",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://rt-internet.online/",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Everyday_test/blob/8e87c77a79430e1a54b110682cf9f7912a29cac5/config/providers/rostelecom.py#L4",
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/config/providers/rostelecom.py#L4",
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/rostelecom.txt#L40"
+      ]
+    },
+    {
+      "case_id": "rostelecom-business_option-e3dc6e16250a",
+      "provider": "rostelecom",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://rt-internet.online/moskva",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/rostelecom.txt#L41"
+      ]
+    },
+    {
+      "case_id": "rostelecom-business_option-78bd9a969c86",
+      "provider": "rostelecom",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://rt-internet.online/samara",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/rostelecom.txt#L42"
+      ]
+    },
+    {
+      "case_id": "rostelecom-business_option-424f4ca141bc",
+      "provider": "rostelecom",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://rtk-home-internet.ru",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/rostelecom.txt#L43"
+      ]
+    },
+    {
+      "case_id": "rostelecom-business_option-690fe4d183d1",
+      "provider": "rostelecom",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://rtk-home-internet.ru/",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Everyday_test/blob/8e87c77a79430e1a54b110682cf9f7912a29cac5/config/providers/rostelecom.py#L4",
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/config/providers/rostelecom.py#L4"
+      ]
+    },
+    {
+      "case_id": "rostelecom-business_option-39a63c20f86c",
+      "provider": "rostelecom",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://rtk-home-internet.ru/moskva",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/rostelecom.txt#L44"
+      ]
+    },
+    {
+      "case_id": "rostelecom-business_page-56b694534a4d",
+      "provider": "rostelecom",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_page",
+      "source_page_url": "https://rtk-home.ru/business",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/rostelecom.txt#L52"
+      ]
+    },
+    {
+      "case_id": "rostelecom-business_option-244944c59b1f",
+      "provider": "rostelecom",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://rtk-home.ru/moskva/podklyuchenie-interneta",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/rostelecom.txt#L51"
+      ]
+    },
+    {
+      "case_id": "rostelecom-business_option-f0f4b3a1c1dc",
+      "provider": "rostelecom",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://rtk-home.ru/podklyuchenie-interneta",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/rostelecom.txt#L50"
+      ]
+    },
+    {
+      "case_id": "rostelecom-business_option-40f057e59941",
+      "provider": "rostelecom",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://rtk-internet.online",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/rostelecom.txt#L45"
+      ]
+    },
+    {
+      "case_id": "rostelecom-business_option-787fd7ccbbf3",
+      "provider": "rostelecom",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://rtk-internet.online/",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Everyday_test/blob/8e87c77a79430e1a54b110682cf9f7912a29cac5/config/providers/rostelecom.py#L4",
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/config/providers/rostelecom.py#L4"
+      ]
+    },
+    {
+      "case_id": "rostelecom-business_page-1d75bfbed2d2",
+      "provider": "rostelecom",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_page",
+      "source_page_url": "https://rtk-internet.online/business",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Everyday_test/blob/8e87c77a79430e1a54b110682cf9f7912a29cac5/config/providers/rostelecom.py#L4",
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/config/providers/rostelecom.py#L4",
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/rostelecom.txt#L47"
+      ]
+    },
+    {
+      "case_id": "rostelecom-business_option-388cda0ec85c",
+      "provider": "rostelecom",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://rtk-internet.online/moskva",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/rostelecom.txt#L46"
+      ]
+    },
+    {
+      "case_id": "rostelecom-business_option-ad642450ab6e",
+      "provider": "rostelecom",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://rtk-ru.online/",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Everyday_test/blob/8e87c77a79430e1a54b110682cf9f7912a29cac5/config/providers/rostelecom.py#L4",
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/config/providers/rostelecom.py#L4"
+      ]
+    },
+    {
+      "case_id": "rostelecom-business_option-accc78abd7ca",
+      "provider": "rostelecom",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://rtk-ru.online/bonusy",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/rostelecom.txt#L9"
+      ]
+    },
+    {
+      "case_id": "rostelecom-business_option-b4dd612f091d",
+      "provider": "rostelecom",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://rtk-ru.online/bonusy/programma-bonus-ot-rt",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/rostelecom.txt#L10"
+      ]
+    },
+    {
+      "case_id": "rostelecom-business_page-959c80b0d2b9",
+      "provider": "rostelecom",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_page",
+      "source_page_url": "https://rtk-ru.online/business",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Everyday_test/blob/8e87c77a79430e1a54b110682cf9f7912a29cac5/config/providers/rostelecom.py#L4",
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/config/providers/rostelecom.py#L4"
+      ]
+    },
+    {
+      "case_id": "rostelecom-business_page-27e1a637f387",
+      "provider": "rostelecom",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_page",
+      "source_page_url": "https://rtk-ru.online/business/internet-dlya-biznesa",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/rostelecom.txt#L65"
+      ]
+    },
+    {
+      "case_id": "rostelecom-business_page-15cfc1c39d38",
+      "provider": "rostelecom",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_page",
+      "source_page_url": "https://rtk-ru.online/business/virtualnaya-ats",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/rostelecom.txt#L66"
+      ]
+    },
+    {
+      "case_id": "rostelecom-business_option-82d50544b83e",
+      "provider": "rostelecom",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://rtk-ru.online/connect",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/rostelecom.txt#L13"
+      ]
+    },
+    {
+      "case_id": "rostelecom-business_option-5ad6e5aa6655",
+      "provider": "rostelecom",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://rtk-ru.online/coverage-map",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/rostelecom.txt#L4"
+      ]
+    },
+    {
+      "case_id": "rostelecom-business_option-af755fc39c67",
+      "provider": "rostelecom",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://rtk-ru.online/forma-obratnoj-svyazi",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/rostelecom.txt#L8"
+      ]
+    },
+    {
+      "case_id": "rostelecom-business_option-26f901eb7ee9",
+      "provider": "rostelecom",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://rtk-ru.online/goroda",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/rostelecom.txt#L57"
+      ]
+    },
+    {
+      "case_id": "rostelecom-business_option-89c3e4301274",
+      "provider": "rostelecom",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://rtk-ru.online/help",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/rostelecom.txt#L11"
+      ]
+    },
+    {
+      "case_id": "rostelecom-business_option-56e83d7a09a4",
+      "provider": "rostelecom",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://rtk-ru.online/help/kak-zablokirovat-uslugu-na-vremya",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/rostelecom.txt#L12"
+      ]
+    },
+    {
+      "case_id": "rostelecom-business_option-24577d256b15",
+      "provider": "rostelecom",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://rtk-ru.online/internet-gpon",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/rostelecom.txt#L58"
+      ]
+    },
+    {
+      "case_id": "rostelecom-business_option-e24d41972487",
+      "provider": "rostelecom",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://rtk-ru.online/internet-gpon/",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/rostelecom.txt#L64"
+      ]
+    },
+    {
+      "case_id": "rostelecom-business_option-44a651ef7e63",
+      "provider": "rostelecom",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://rtk-ru.online/kak-stat-abonentom",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/rostelecom.txt#L7"
+      ]
+    },
+    {
+      "case_id": "rostelecom-business_option-d84e666b64c7",
+      "provider": "rostelecom",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://rtk-ru.online/o-kompanii",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/rostelecom.txt#L5"
+      ]
+    },
+    {
+      "case_id": "rostelecom-business_option-af07ce70a8b2",
+      "provider": "rostelecom",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://rtk-ru.online/oborudovanie",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/rostelecom.txt#L16"
+      ]
+    },
+    {
+      "case_id": "rostelecom-business_option-583a64646391",
+      "provider": "rostelecom",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://rtk-ru.online/perejti-so-svoim-nomerom",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/rostelecom.txt#L15"
+      ]
+    },
+    {
+      "case_id": "rostelecom-business_option-d92048e5e23c",
+      "provider": "rostelecom",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://rtk-ru.online/rostelecom-domashnij-internet-proverit-adres",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/rostelecom.txt#L14"
+      ]
+    },
+    {
+      "case_id": "rostelecom-business_option-664b8c474c86",
+      "provider": "rostelecom",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://rtk-ru.online/tarify-dlya-noutbuka",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/rostelecom.txt#L60"
+      ]
+    },
+    {
+      "case_id": "rostelecom-business_option-ce968984afcf",
+      "provider": "rostelecom",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://rtk-ru.online/tarify-dlya-noutbuka/",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/rostelecom.txt#L55"
+      ]
+    },
+    {
+      "case_id": "rostelecom-business_option-ae418a71a5c6",
+      "provider": "rostelecom",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://rtk-ru.online/tarify-dlya-plansheta",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/rostelecom.txt#L61"
+      ]
+    },
+    {
+      "case_id": "rostelecom-business_option-c2e882c5184f",
+      "provider": "rostelecom",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://rtk-ru.online/tarify-dlya-plansheta/",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/rostelecom.txt#L56"
+      ]
+    },
+    {
+      "case_id": "rostelecom-business_option-d7e4d8679ec3",
+      "provider": "rostelecom",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://rtk-ru.online/usluga-pereezd",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/rostelecom.txt#L6"
+      ]
+    },
+    {
+      "case_id": "rostelecom-business_option-1b834e8eb5b0",
+      "provider": "rostelecom",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://rtk-ru.online/wi-fi-internet",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/rostelecom.txt#L17"
+      ]
+    },
+    {
+      "case_id": "t2-business_option-3a6a2c0cf9f1",
+      "provider": "t2",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://t2-ru.online",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Everyday_test/blob/8e87c77a79430e1a54b110682cf9f7912a29cac5/config/providers/t2.py#L4",
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/config/providers/t2.py#L4",
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/t2.txt#L2"
+      ]
+    },
+    {
+      "case_id": "t2-business_option-dc3eb1055c64",
+      "provider": "t2",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://t2-ru.online/#sale",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/t2.txt#L7"
+      ]
+    },
+    {
+      "case_id": "t2-business_option-053d9a8529af",
+      "provider": "t2",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://t2-ru.online/besplatnyj-domashnij-internet-tele2",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/t2.txt#L4"
+      ]
+    },
+    {
+      "case_id": "t2-business_option-d09ec0e6780e",
+      "provider": "t2",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://t2-ru.online/help",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/t2.txt#L5"
+      ]
+    },
+    {
+      "case_id": "t2-business_option-f7847c219043",
+      "provider": "t2",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://t2-ru.online/help/kak-zaregistrirovatsya-v-lichnom-kabinete-t2",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/t2.txt#L6"
+      ]
+    },
+    {
+      "case_id": "t2-business_option-44eeea009ef5",
+      "provider": "t2",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://t2-ru.online/mobilnaya-svyaz",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/t2.txt#L8"
+      ]
+    },
+    {
+      "case_id": "t2-business_option-d1a9712a2044",
+      "provider": "t2",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://t2-ru.online/news-list",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/t2.txt#L3"
+      ]
+    },
+    {
+      "case_id": "t2-business_option-c64f285c2000",
+      "provider": "t2",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://t2-ru.online/sankt-peterburg",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/t2.txt#L9"
+      ]
+    },
+    {
+      "case_id": "t2-business_option-2396e40e6cab",
+      "provider": "t2",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://t2-ru.online/sankt-peterburg#sale",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/t2.txt#L10"
+      ]
+    },
+    {
+      "case_id": "t2-business_option-4f7b3589df86",
+      "provider": "t2",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://t2-ru.online/sankt-peterburg/mobilnaya-svyaz",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/t2.txt#L11"
+      ]
+    },
+    {
+      "case_id": "ttk-business_option-04f6fbb63c44",
+      "provider": "ttk",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://ttk-internet.ru",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/ttk.txt#L3"
+      ]
+    },
+    {
+      "case_id": "ttk-business_option-3bdacff30673",
+      "provider": "ttk",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://ttk-internet.ru/",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Everyday_test/blob/8e87c77a79430e1a54b110682cf9f7912a29cac5/config/providers/ttk.py#L4",
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/config/providers/ttk.py#L4"
+      ]
+    },
+    {
+      "case_id": "ttk-business_option-7d42a1c6004f",
+      "provider": "ttk",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://ttk-ru.online/",
+      "entry_url": null,
+      "status": "blocked",
+      "region": null,
+      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "source_refs": [
+        "https://github.com/deidolinde-maker/Everyday_test/blob/8e87c77a79430e1a54b110682cf9f7912a29cac5/config/providers/ttk.py#L4",
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/config/providers/ttk.py#L4",
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/ttk.txt#L2"
+      ]
+    }
+  ]
+}

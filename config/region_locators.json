@@ -1,0 +1,11 @@
+{
+  "source": "User-provided HTML; click target/popup container still require verification per landing",
+  "target_city": "Самара",
+  "target_city_ui_id": "36401",
+  "indicator": "span#autocomplete_city_name.autocomplete-city-name",
+  "search": "input#city-input.popup-select-city__input",
+  "choice": "a.region_item.region_link[id='36401']",
+  "provided_choice_url": "https://rtk-internet.online/samara",
+  "legacy_form_region_trigger_candidate": ".autocomplete-city-change.button-select-city",
+  "legacy_trigger_source": "QA knowledge base Everyday_test context; verify in business form before activating"
+}

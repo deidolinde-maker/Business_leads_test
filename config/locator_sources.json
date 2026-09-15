@@ -1,0 +1,156 @@
+{
+  "note": "Imported source candidates, not live-verified selectors.",
+  "sources": {
+    "Everyday_test": {
+      "sha": "8e87c77a79430e1a54b110682cf9f7912a29cac5",
+      "file": "test_universal2.py",
+      "FORM_CONFIGS": {
+        "value": {
+          "checkaddress": {
+            "street": ".checkaddress_address_street",
+            "house": ".checkaddress_address_house",
+            "phone": ".checkaddress_address_phone",
+            "submit": ".checkaddress_address_button_send",
+            "no_house": false,
+            "no_suggest": false
+          },
+          "connection": {
+            "street": ".connection_address_street",
+            "house": ".connection_address_house",
+            "phone": ".connection_address_phone",
+            "submit": ".connection_address_button_send",
+            "no_house": false,
+            "no_suggest": false
+          },
+          "profit": {
+            "street": ".profit_address_street",
+            "house": ".profit_address_house",
+            "phone": ".profit_address_phone",
+            "submit": ".profit_address_button_send",
+            "no_house": false,
+            "no_suggest": false
+          },
+          "express-connection": {
+            "street": ".express-connection_address_street",
+            "house": ".express-connection_address_house",
+            "phone": ".express-connection_address_phone",
+            "submit": ".express-connection_address_button_send",
+            "no_house": false,
+            "no_suggest": false
+          },
+          "business": {
+            "street": ".business_no_address_full_address",
+            "house": null,
+            "phone": ".business_no_address_phone",
+            "submit": ".business_no_address_button_send",
+            "no_house": true,
+            "no_suggest": true
+          }
+        },
+        "line": 667
+      },
+      "POPUP_BUTTON_CLASSES": {
+        "value": {
+          "profit": ".profit_address_button",
+          "express-connection": ".express-connection_address_button",
+          "business": ".business_no_address_button"
+        },
+        "line": 711
+      },
+      "SERVICE_PLACE_VALUES": {
+        "value": [
+          "В квартиру",
+          "В частный дом",
+          "Для бизнеса"
+        ],
+        "line": 787
+      }
+    },
+    "Big_landing_test": {
+      "sha": "04e7a4fa2554357666e2058432efab527f9c9186",
+      "file": "big_landing_code.py",
+      "FORM_CONFIGS": {
+        "value": {
+          "checkaddress": {
+            "street": ".checkaddress_address_street",
+            "house": ".checkaddress_address_house",
+            "phone": ".checkaddress_address_phone",
+            "submit": ".checkaddress_address_button_send",
+            "no_house": false,
+            "no_suggest": false
+          },
+          "connection": {
+            "street": ".connection_address_street, [name='AddresStreet'], #city[placeholder='Адрес'], #city",
+            "house": ".connection_address_house, [name='AddresHouse']",
+            "phone": ".connection_address_phone, [name='Phone']",
+            "submit": ".connection_address_button_send, #submit.connection_address_button_send, #submit",
+            "no_house": false,
+            "no_suggest": false
+          },
+          "profit": {
+            "street": ".profit_address_street",
+            "house": ".profit_address_house",
+            "phone": ".profit_address_phone",
+            "submit": ".profit_address_button_send",
+            "no_house": false,
+            "no_suggest": false
+          },
+          "express-connection": {
+            "street": ".express-connection_address_street",
+            "house": ".express-connection_address_house",
+            "phone": ".express-connection_address_phone",
+            "submit": ".express-connection_address_button_send",
+            "no_house": false,
+            "no_suggest": false
+          },
+          "business": {
+            "street": ".business_no_address_full_address, [name='City'], [name='city'], #city, [name='Address'], [name='address'], input[placeholder='Адрес']",
+            "house": null,
+            "phone": ".business_no_address_phone, [name='Phone']",
+            "submit": ".business_no_address_button_send",
+            "no_house": true,
+            "no_suggest": true
+          },
+          "undecided": {
+            "street": ".undecided_address_street, .checkaddress_address_street",
+            "house": ".undecided_address_house, .checkaddress_address_house",
+            "phone": ".undecided_address_phone, .checkaddress_address_phone",
+            "submit": ".undecided_address_button_send, .checkaddress_address_button_send",
+            "no_house": false,
+            "no_suggest": false
+          },
+          "moving": {
+            "street": ".moving_address_street",
+            "house": ".moving_address_house",
+            "phone": ".moving_address_phone",
+            "submit": ".moving_address_button_send",
+            "no_house": false,
+            "no_suggest": false
+          }
+        },
+        "line": 588
+      },
+      "POPUP_BUTTON_CLASSES": {
+        "value": {
+          "connection": "#btnup.connection_address_button, .connection_address_button, #btnup",
+          "connection_card": ".connection_address_card_button",
+          "checkaddress": ".checkaddress_address_button, button.checkaddress_address_button, a.checkaddress_address_button, .button-checkaddress, #btncheckaddress, #btncheckaddress.checkaddress_address_button",
+          "undecided": ".checkaddress-undecided",
+          "moving": ".moving_address_button",
+          "profit": ".button-lead-catcher.profit_address_button, button.profit_address_button, a.profit_address_button, .profit_address_button",
+          "express-connection": ".express-connection_address_button",
+          "business": ".business_no_address_button"
+        },
+        "line": 648
+      },
+      "SERVICE_PLACE_VALUES": {
+        "value": [
+          "В квартиру",
+          "В частный дом",
+          "Для бизнеса"
+        ],
+        "line": 722
+      }
+    }
+  }
+}

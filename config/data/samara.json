@@ -1,0 +1,9 @@
+{
+  "city": "Самара",
+  "street": "Ленинградская",
+  "house": "1",
+  "full_address": "Самара, Ленинградская, 1",
+  "phone": "999999999",
+  "environment": null,
+  "source": "User instruction in development task; phone preserved as supplied (9 digits). Environment not specified."
+}

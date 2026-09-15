@@ -1,0 +1,105 @@
+import json
+
+import pytest
+
+from business.cases import load_cases, load_data, select_cases, validate_case
+from business.errors import BusinessCheckError, ConfigurationError
+from business.submission import matches, parse_payload, validate_contract
+from tests.support import make_case
+
+
+def test_valid_synthetic_case():
+    validate_case(make_case())
+
+
+@pytest.mark.parametrize("field,value", [("target_city", "Москва"), ("target_city_ui_id", "77"),
+                                       ("environment", None), ("case_id", "../escape")])
+def test_reject_unsafe_case_config(field, value):
+    case = make_case()
+    case[field] = value
+    with pytest.raises(ConfigurationError):
+        validate_case(case)
+
+
+@pytest.mark.parametrize("field", ["region_match", "business_match", "identity_match", "evidence"])
+def test_no_unknown_contract_can_send(field):
+    contract = make_case()["submission"]
+    contract.pop(field)
+    with pytest.raises(ConfigurationError):
+        validate_contract(contract)
+
+
+def test_empty_selection_not_green():
+    with pytest.raises(ConfigurationError, match="empty"):
+        select_cases([make_case()], "prod")
+
+
+def test_environment_required():
+    with pytest.raises(ConfigurationError, match="required"):
+        select_cases([make_case()], None)
+
+
+def test_duplicate_cases(tmp_path):
+    path = tmp_path / "cases.json"
+    path.write_text(json.dumps({"cases": [make_case(), make_case()]}), encoding="utf-8")
+    with pytest.raises(ConfigurationError, match="duplicate"):
+        load_cases(path)
+
+
+def test_unconfirmed_environment_data_rejected(tmp_path):
+    path = tmp_path / "data.json"
+    path.write_text(json.dumps({"city": "Самара", "environment": None, "phone": "999999999", "street": "Ленинградская", "house": "1"}), encoding="utf-8")
+    with pytest.raises(ConfigurationError, match="environment"):
+        load_data(path, "prod")
+
+
+@pytest.mark.parametrize("media,body,expected", [
+    ("application/json", b'{"region":"samara-fixture","business":true}', {"region": "samara-fixture", "business": True}),
+    ("application/x-www-form-urlencoded", b"region=samara-fixture&business=1", {"region": "samara-fixture", "business": "1"}),
+    ("multipart/form-data; boundary=test", b'--test\r\nContent-Disposition: form-data; name="region"\r\n\r\nsamara-fixture\r\n--test--\r\n', {"region": "samara-fixture"}),
+])
+def test_supported_payload_encodings(media, body, expected):
+    assert parse_payload(media, body) == expected
+
+
+def test_duplicate_json_city_rejected():
+    with pytest.raises(BusinessCheckError, match="duplicate"):
+        parse_payload("application/json", b'{"city":"samara","city":"moscow"}')
+
+
+def test_hidden_duplicate_urlencoded_city_cannot_pass():
+    payload = parse_payload("application/x-www-form-urlencoded", b"city=samara&city=moscow")
+    with pytest.raises(BusinessCheckError, match="mismatch"):
+        matches(payload, {"city": "samara"}, "region")
+
+
+def test_exact_types_no_bool_city_alias():
+    with pytest.raises(BusinessCheckError, match="mismatch"):
+        matches({"city": True}, {"city": 1}, "region")
+
+
+def test_missing_nested_city_rejected():
+    with pytest.raises(BusinessCheckError, match="missing"):
+        matches({"address": {}}, {"address.city": "Samara"}, "region")
+
+
+def test_target_not_allowed_as_readonly():
+    contract = make_case()["submission"]
+    contract["read_only_requests"] = [{"url": contract["url"], "method": "POST", "evidence": "bad"}]
+    with pytest.raises(ConfigurationError):
+        validate_contract(contract)
+
+
+def test_no_redirecting_post_contract():
+    contract = make_case()["submission"]
+    contract["response"] = {"statuses": [307], "location": "/other"}
+    with pytest.raises(ConfigurationError):
+        validate_contract(contract)
+
+
+def test_imported_scope_has_samara_targets_and_provenance():
+    cases = load_cases()
+    assert cases
+    assert all(c["target_city"] == "Самара" and c["source_refs"] for c in cases)
+    assert any("/business" in c["source_page_url"] for c in cases)
+    assert any(c["flow_kind"] == "business_option" for c in cases)

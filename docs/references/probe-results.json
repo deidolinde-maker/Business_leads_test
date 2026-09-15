@@ -1,0 +1,74 @@
+{
+  "kind": "isolated synthetic control-flow probes, not live E2E",
+  "results": [
+    {
+      "repo": "Everyday_test",
+      "business_service_values_by_mode": {
+        "core": [],
+        "variants": [],
+        "all": []
+      },
+      "core": [
+        "В квартиру"
+      ],
+      "variants": [
+        "В квартиру",
+        "В частный дом",
+        "Для бизнеса"
+      ],
+      "synthetic_office_value_detected": [],
+      "all_after_business_option_removed": [
+        "В квартиру"
+      ],
+      "checkbox_states": {
+        "visible_optional_business": true,
+        "hidden_optional_business": false,
+        "broken_optional_business": false,
+        "hidden_optional_business_retry": true
+      },
+      "selection_returned_true_while_unchecked": true,
+      "one_success_plus_business_failure_returned_normally": true
+    },
+    {
+      "repo": "Big_landing_test",
+      "business_service_values_by_mode": {
+        "core": [
+          null
+        ],
+        "variants": [],
+        "all": [
+          null
+        ]
+      },
+      "core": [
+        "В квартиру"
+      ],
+      "variants": [
+        "В квартиру",
+        "В частный дом",
+        "Для бизнеса"
+      ],
+      "synthetic_office_value_detected": [],
+      "all_after_business_option_removed": [
+        "В квартиру"
+      ],
+      "checkbox_states": {
+        "visible_optional_business": true,
+        "hidden_optional_business": false,
+        "broken_optional_business": false,
+        "hidden_optional_business_retry": true
+      },
+      "selection_returned_true_while_unchecked": true,
+      "one_success_plus_business_failure_returned_normally": true,
+      "business_only_returned_normally_without_navigation": true,
+      "business_only_not_applicable_steps": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "4a",
+        "4b"
+      ]
+    }
+  ]
+}
