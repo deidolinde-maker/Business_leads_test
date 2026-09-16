@@ -2090,7 +2090,13 @@
         "kind": "url",
         "value": "https://mts-home-online.ru/tilda/form1/submitted"
       },
-      "verification": "docs/evidence/mts-business-scope-20260916.md; production DOM, blocked multipart request, deployed response handler and confirmation page",
+      "verification": "docs/evidence/mts-business-scope-20260916.md; production DOM, blocked multipart request, deployed response handler, confirmation page, successful single live run and user-confirmed correct CRM delivery",
+      "crm_verification": {
+        "status": "confirmed",
+        "source": "user",
+        "date": "2026-09-16",
+        "note": "User confirmed that the single MTS production pilot arrived correctly in CRM."
+      },
       "scope_source": {
         "kind": "user_requirement",
         "date": "2026-09-16"

@@ -156,5 +156,11 @@ def test_mts_business_page_scope_is_single_user_confirmed_landing():
         "kind": "url",
         "value": "https://mts-home-online.ru/tilda/form1/submitted",
     }
+    assert target["crm_verification"] == {
+        "status": "confirmed",
+        "source": "user",
+        "date": "2026-09-16",
+        "note": "User confirmed that the single MTS production pilot arrived correctly in CRM.",
+    }
     assert all(c["status"] == "excluded" for c in pages if c is not target)
     assert any(c["provider"] == "mts" and c["flow_kind"] == "business_option" for c in cases)

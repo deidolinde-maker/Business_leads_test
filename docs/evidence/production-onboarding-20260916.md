@@ -100,7 +100,7 @@ Endpoint: `https://samara.beeline-ru.online/wp-admin/admin-ajax.php?action=cf7_p
 - Исправлено декодирование UTF-8 multipart без charset: прежний email parser заменял кириллицу символами замены.
 - Добавлены проверки общего WordPress endpoint, фоновых запросов и диагностики.
 - **46 локальных unit/browser проверок прошли за 22.92 с**. Они не заменяют результаты production.
-- Текущий реестр: 3 active, 258 blocked, 5 excluded. Выполнены три production-прогона двух кейсов Билайна; последний подтвердил `mail_sent`, `/thanks` и доставку в CRM со слов пользователя. Один MTS production-пилот прошёл с HTTP 200, `mail_sent` и `/tilda/form1/submitted`; доставка MTS в CRM ожидает подтверждения.
+- Текущий реестр: 3 active, 258 blocked, 5 excluded. Выполнены три production-прогона двух кейсов Билайна; последний подтвердил `mail_sent`, `/thanks` и доставку в CRM со слов пользователя. Один MTS production-пилот прошёл с HTTP 200, `mail_sent` и `/tilda/form1/submitted`; пользователь подтвердил корректную доставку MTS в CRM.
 - Два исходных репозитория не менялись; миграция и замер полного live-набора остаются впереди.
 - В доступном наборе MCP найдены только `mcp__stage_qa_mcp__`; callable production-инструментов для этих лендингов нет. Stage не использован как доказательство production. Наблюдения выше получены непосредственно браузером на production, не MCP.
 

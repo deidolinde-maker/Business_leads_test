@@ -61,11 +61,12 @@ After explicit user approval, exactly one live run was executed with the confirm
 - three known analytics writes were blocked;
 - no guard errors and no automatic retry.
 
-The automated production result is PASS. Delivery of this MTS request to CRM remains unconfirmed until the user checks the CRM.
+The automated production result is PASS. The user then confirmed that this MTS request arrived correctly in CRM. This also resolves the pilot's operational concern about the stale descriptive `Info` text: the structured Samara fields produced the correct CRM result for the observed request.
 
 ## Sources and limits
 
 - Business rule: user message dated 16.09.2026.
+- CRM result: user confirmation dated 16.09.2026 after the single production pilot.
 - Browser artifacts are stored locally under ignored `artifacts/onboarding-20260916/`; no dynamic signatures or analytics identifiers are committed.
 - [QA workflow](../references/qa/analyze-task.md).
 - [Test-design techniques](../references/qa/techniques.md).
