@@ -8,9 +8,10 @@ def test_select_candidates_deduplicates_urls_and_keeps_source_case_ids():
         {"case_id": "three", "status": "active", "flow_kind": "business_option", "provider": "mts", "source_page_url": "https://active.test/"},
     ]
     assert clean_url("https://example.test/?region=1#form") == "https://example.test/"
-    assert select_candidates(cases, "mts", set(), 12) == [
+    assert select_candidates(cases, "mts", set(), 0, 12) == [
         {"url": "https://example.test/", "case_ids": ["one", "two"]}
     ]
+    assert select_candidates(cases, "mts", set(), 1, 12) == []
 
 
 def test_classify_requires_city_ui_and_business_control_for_candidate():

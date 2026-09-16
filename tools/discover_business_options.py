@@ -27,7 +27,7 @@ def clean_url(value: str) -> str:
     return urlunsplit((parsed.scheme, parsed.netloc, parsed.path or "/", "", ""))
 
 
-def select_candidates(cases: list[dict], provider: str | None, case_ids: set[str], limit: int) -> list[dict]:
+def select_candidates(cases: list[dict], provider: str | None, case_ids: set[str], offset: int, limit: int) -> list[dict]:
     """Return one entry per source URL, retaining every inventory case ID."""
     grouped = defaultdict(list)
     for case in cases:
@@ -44,6 +44,7 @@ def select_candidates(cases: list[dict], provider: str | None, case_ids: set[str
         {"url": url, "case_ids": sorted(case_ids_for_url)}
         for url, case_ids_for_url in sorted(grouped.items())
     ]
+    rows = rows[offset:]
     return rows[:limit] if limit else rows
 
 
@@ -149,21 +150,23 @@ def main() -> int:
     parser.add_argument("--case-file", type=Path, default=ROOT / "config/business_cases.json")
     parser.add_argument("--provider")
     parser.add_argument("--case-id", action="append", default=[])
+    parser.add_argument("--offset", type=int, default=0, help="skip this many matching unique URLs")
     parser.add_argument("--limit", type=int, default=12, help="0 inspects every matching unique URL")
     parser.add_argument("--concurrency", type=int, default=4)
     parser.add_argument("--timeout-ms", type=int, default=20_000)
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
-    if args.limit < 0 or args.concurrency < 1 or args.timeout_ms < 1:
-        parser.error("limit must be >= 0; concurrency and timeout-ms must be positive")
+    if args.offset < 0 or args.limit < 0 or args.concurrency < 1 or args.timeout_ms < 1:
+        parser.error("offset and limit must be >= 0; concurrency and timeout-ms must be positive")
 
     cases = json.loads(args.case_file.read_text(encoding="utf-8"))["cases"]
-    candidates = select_candidates(cases, args.provider, set(args.case_id), args.limit)
+    candidates = select_candidates(cases, args.provider, set(args.case_id), args.offset, args.limit)
     report = {
         "mode": "read_only_discovery",
         "safety": "All non-GET/HEAD/OPTIONS requests were aborted; no fields were filled and no submit was clicked.",
+        "offset": args.offset,
         "selected_unique_urls": len(candidates),
-        "results": asyncio.run(discover(candidates, args.concurrency, args.timeout_ms)),
+        "results": asyncio.run(discover(candidates, args.concurrency, args.timeout_ms)) if candidates else [],
     }
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
