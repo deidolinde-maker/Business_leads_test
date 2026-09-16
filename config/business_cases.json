@@ -2030,7 +2030,7 @@
           "alternative_value": "В квартиру"
         }
       },
-      "reason": "Production UI confirmed the MTS Place select and Samara indicator, but address preparation, submission city fields, exact multipart payload and positive response remain unverified; no business-option lead was sent.",
+      "reason": "Production UI confirmed the MTS Place select and Samara indicator. Per the user requirement, the unchanged base URL after popup selection is expected for this business-option flow; address preparation, submission city fields, exact multipart payload and positive response remain unverified; no business-option lead was sent.",
       "source_refs": [
         "https://github.com/deidolinde-maker/Everyday_test/blob/8e87c77a79430e1a54b110682cf9f7912a29cac5/config/providers/mts.py#L4",
         "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/config/providers/mts.py#L4",

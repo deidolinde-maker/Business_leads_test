@@ -1,4 +1,5 @@
 import json
+from urllib.parse import urlsplit
 
 import pytest
 
@@ -21,6 +22,17 @@ def test_samara_flow_sends_once(browser, local_site, tmp_path, mode):
     else:
         assert state["gets"][0] == "/direct/business"
         assert "/samara" not in state["gets"]
+
+
+def test_business_option_allows_samara_popup_without_url_change(browser, local_site, tmp_path):
+    base, state = local_site
+    case = make_case(base, mode="popup_selection", fault="in-place-city")
+    case["region"]["business_url"] = case["entry_url"]
+    case["region"]["after_choice_url"] = case["entry_url"]
+    result = run_case(browser, case, DATA, tmp_path, budget=5)
+    assert result["status"] == "passed"
+    assert state["received"] == [{"form": "lead-fixture", "business": True, "region": "samara-fixture"}]
+    assert not any(urlsplit(path).path.startswith("/samara") for path in state["gets"])
 
 
 @pytest.mark.parametrize("fault,reason", [("payload", "region_mismatch"), ("ordinary", "business_mismatch"),

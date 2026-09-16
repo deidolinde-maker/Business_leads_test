@@ -17,11 +17,13 @@ Chromium opened `https://mts-home-online.ru/` with HTTP 200 while every POST was
 
 The control is a `select`, not a checkbox or radio. Selecting `Для бизнеса` through the browser's native select interaction succeeded. The form's city popup then selected the exact Samara link `a.region_item.region_link[id='36401']`, whose href is `https://mts-home-online.ru/samara`. The page stayed at the root URL and the active form indicator became `Самара` with `data-item=36401`.
 
+The user confirmed that this in-place base-URL behavior is expected for `checkbox`/`select Place` flows when the popup city and address are Samara. It is therefore not a navigation failure. The submission payload still has to prove Samara before this case can become active.
+
 ## Blocking facts
 
 No address fields were filled and submit was not clicked. After the UI city selection, the inspected form still had empty hidden `CityName` and `City`; its descriptive `Info` field still said `Город: Москве`. These facts do not establish the region carried in a business-option submission.
 
-The candidate therefore remains `blocked` until a non-submitting address preparation proves the exact city fields, a blocked multipart capture proves the business/region payload, and the positive response contract is identified. No MTS business-option lead was sent.
+The candidate therefore remains `blocked` until a non-submitting address preparation proves the exact city fields, a blocked multipart capture proves the business/region payload, and the positive response contract is identified. The unchanged base URL is not a blocker. No MTS business-option lead was sent.
 
 ## Adapter change
 

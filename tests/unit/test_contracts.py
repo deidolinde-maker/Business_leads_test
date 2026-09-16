@@ -171,4 +171,6 @@ def test_mts_business_page_scope_is_single_user_confirmed_landing():
         "business_value": "Для бизнеса",
         "alternative_value": "В квартиру",
     }
+    assert option["region"]["after_choice_url"] == option["entry_url"] == option["region"]["business_url"]
+    assert "unchanged base URL after popup selection is expected" in option["reason"]
     assert option["verification"] == "docs/evidence/mts-business-option-select-20260916.md"

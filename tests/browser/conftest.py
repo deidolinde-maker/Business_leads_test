@@ -27,6 +27,14 @@ const form=document.querySelector('#lead');
 const indicator=form.querySelector('#autocomplete_city_name');
 const fault=new URLSearchParams(location.search).get('fault');
 document.querySelector('#choose-region').onclick=()=>document.querySelector('#region-dialog').hidden=false;
+document.querySelector('#region-dialog a[id="36401"]').onclick=event=>{
+  if(fault==='in-place-city') {
+    event.preventDefault();
+    indicator.dataset.item='36401';
+    indicator.textContent='Самара';
+    document.querySelector('#region-dialog').hidden=true;
+  }
+};
 document.querySelector('#office').onchange=()=>{
   if(fault==='city-reset') {indicator.dataset.item='77';indicator.textContent='Москва';}
 };
