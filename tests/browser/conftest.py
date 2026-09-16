@@ -75,7 +75,10 @@ def local_site():
         def do_POST(self):
             payload = self.rfile.read(int(self.headers.get("Content-Length", "0")))
             state["received"].append(json.loads(payload))
-            body = json.dumps({"status": "rejected" if state["reject"] else "accepted"}).encode()
+            reply = {"status": "rejected" if state["reject"] else "accepted"}
+            if state["reject"]:
+                reply["invalid_fields"] = [{"field": "Phone", "message": "sensitive test data must not be exported"}]
+            body = json.dumps(reply).encode()
             self.send_response(200)
             self.send_header("Content-Type", "application/json")
             self.send_header("Content-Length", str(len(body)))

@@ -1,5 +1,6 @@
 """Fail-closed, one-shot POST dispatch. Never rewrites a lead's city or payload."""
 import json
+import re
 from email import policy
 from email.parser import BytesParser
 from urllib.parse import parse_qs, urlsplit
@@ -177,8 +178,15 @@ class SubmissionGuard:
                     # Persist only the standard machine status, never a raw server body.
                     if isinstance(response_payload, dict):
                         status = response_payload.get("status")
-                        if status in {"mail_sent", "mail_failed", "spam", "validation_failed", "aborted", "acceptance_missing", "accepted", "rejected"}:
+                        if isinstance(status, str) and status in {"mail_sent", "mail_failed", "spam", "validation_failed", "aborted", "acceptance_missing", "accepted", "rejected"}:
                             self.evidence["response_status"] = status
+                        invalid = response_payload.get("invalid_fields")
+                        if isinstance(invalid, list):
+                            self.evidence["invalid_field_names"] = [
+                                item["field"] for item in invalid if isinstance(item, dict)
+                                and isinstance(item.get("field"), str)
+                                and re.fullmatch(r"[A-Za-z_][A-Za-z0-9_.\[\]-]{0,80}", item["field"])
+                            ]
                     matches(response_payload, reply["json_match"], "response")
                 if reply.get("location") and response.headers.get("location") != reply["location"]:
                     raise BusinessCheckError("response_location_mismatch")

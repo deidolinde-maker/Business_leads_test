@@ -47,6 +47,12 @@ def test_rejected_response_is_failure_without_retry(browser, local_site, tmp_pat
     with pytest.raises(BusinessCheckError, match="response_mismatch"):
         run_case(browser, make_case(base), DATA, tmp_path, budget=5)
     assert len(state["received"]) == 1
+    report_text = (tmp_path / "result.json").read_text(encoding="utf-8")
+    report = json.loads(report_text)
+    assert report["submission"]["response_status"] == "rejected"
+    assert report["submission"]["invalid_field_names"] == ["Phone"]
+    assert not report["submission"]["response_accepted"]
+    assert "sensitive test data" not in report_text
 
 
 def test_failed_case_cannot_be_covered_by_previous_success(browser, local_site, tmp_path):
