@@ -1,6 +1,6 @@
 # Самарские маршруты — уточнение 16.09.2026
 
-Продолжение: [проверка production](evidence/production-onboarding-20260916.md). Ниже сохранён исходный снимок уточнения; текущие статусы — 2 active Билайна и 264 blocked, а не 266 blocked.
+Продолжение: [проверка production](evidence/production-onboarding-20260916.md) и [актуальное правило MTS](evidence/mts-business-scope-20260916.md). Ниже сохранён исходный снимок уточнения. Две ранее указанные страницы `samara.mts-home.online` теперь excluded: пользователь уточнил, что отдельные бизнес-формы MTS работают только на `mts-home-online.ru`. Текущие статусы — 2 active / 259 blocked / 5 excluded.
 
 Источник: четыре URL и правило «По остальным обязательна Самара», предоставленные пользователем в задаче. Это подтверждение требуемых входных адресов, не результат проверки доступности сайтов или отправки заявок.
 
@@ -12,6 +12,8 @@
 | Билайн | https://samara.beeline-ru.online/business/mobilnaya-svyaz-dlya-biznesa |
 | МТС | https://samara.mts-home.online/business/korporativnie-tarify |
 | МТС | https://samara.mts-home.online/business/ip-telefoniya |
+
+Две строки MTS выше сохранены как история первоначального требования и больше не являются целевыми business-page маршрутами. Актуальная MTS business-page цель: `https://mts-home-online.ru/business`, R1 с выбором Самары через попап.
 
 Для этих четырёх записей `entry_url` и `region.business_url` заданы буквально, режим — `direct_city_subdomain`. После открытия формы проверяются Самара и UI ID `36401`; один лишь поддомен не подтверждает регион исходящего запроса. Формы, локаторы и контракт отправки ещё требуют проверки, поэтому статус остаётся `blocked`.
 

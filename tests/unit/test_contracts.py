@@ -128,3 +128,17 @@ def test_imported_scope_has_samara_targets_and_provenance():
     assert all(c["target_city"] == "Самара" and c["source_refs"] for c in cases)
     assert any("/business" in c["source_page_url"] for c in cases)
     assert any(c["flow_kind"] == "business_option" for c in cases)
+
+
+def test_mts_business_page_scope_is_single_user_confirmed_landing():
+    cases = load_cases()
+    pages = [c for c in cases if c["provider"] == "mts" and c["flow_kind"] == "business_page"]
+    included = [c for c in pages if c["status"] != "excluded"]
+    assert [c["source_page_url"] for c in included] == ["https://mts-home-online.ru/business"]
+    target = included[0]
+    assert target["entry_url"] == "https://mts-home-online.ru/business"
+    assert target["region"]["mode"] == "popup_selection"
+    assert target["region"]["choice_url"] == "https://mts-home-online.ru/samara"
+    assert target["status"] == "blocked" and "submission/response contract pending" in target["reason"]
+    assert all(c["status"] == "excluded" for c in pages if c is not target)
+    assert any(c["provider"] == "mts" and c["flow_kind"] == "business_option" for c in cases)
