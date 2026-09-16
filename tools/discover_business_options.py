@@ -50,11 +50,31 @@ def select_candidates(cases: list[dict], provider: str | None, case_ids: set[str
 
 def classify(snapshot: dict) -> str:
     """Classify a DOM snapshot without making a live-business conclusion."""
-    if snapshot.get("business_controls") and snapshot.get("city_ui"):
+    city_ui = snapshot.get("city_ui") or {}
+    has_city_ui = bool(city_ui.get("indicator")) and city_ui.get("search_present") and city_ui.get("samara_choice_present")
+    if snapshot.get("business_controls") and has_city_ui:
         return "candidate: business control and city UI observed"
     if snapshot.get("business_controls"):
         return "review: business control observed; city UI not observed"
     return "skip: no business control observed"
+
+
+def template_key(result: dict) -> str | None:
+    """Group only DOM lookalikes for onboarding prioritisation, never for activation."""
+    controls = result.get("business_controls") or []
+    if not controls:
+        return None
+    host = urlsplit(result.get("final_url") or result["url"]).hostname or "unknown"
+    shape = sorted([
+        {
+            "tag": control.get("tag"),
+            "name": control.get("name"),
+            "options": control.get("options", []),
+            "form_class": control.get("form_class"),
+        }
+        for control in controls
+    ], key=lambda value: json.dumps(value, ensure_ascii=False, sort_keys=True))
+    return host + ":" + json.dumps(shape, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
 
 
 async def inspect_one(browser, candidate: dict, timeout_ms: int) -> dict:
@@ -90,6 +110,10 @@ async def inspect_one(browser, candidate: dict, timeout_ms: int) -> dict:
                 .map(el => ({
                   tag: el.tagName.toLowerCase(), type: el.type || null, name: el.name || null,
                   id: el.id || null, value: el.value || null, label: label(el),
+                  form_action: el.form ? el.form.action.split('?')[0] : null,
+                  form_class: el.form ? [...el.form.classList]
+                    .filter(name => !['init', 'resetting', 'sent', 'invalid', 'failed', 'spam'].includes(name))
+                    .sort().join(' ') || null : null,
                   options: el.tagName === 'SELECT' ? [...el.options].map(option => option.value) : [],
                 }))
                 .filter(control => /для бизнеса|бизнес|офис/i.test([control.value, control.label, ...control.options].filter(Boolean).join(' ')));
@@ -100,7 +124,8 @@ async def inspect_one(browser, candidate: dict, timeout_ms: int) -> dict:
                 visible_forms: [...document.forms].filter(visible).length,
                 business_controls: controls,
                 city_ui: {
-                  indicator: cityIndicator ? {text: text(cityIndicator), ui_id: cityIndicator.dataset.item || null} : null,
+                indicator: cityIndicator && visible(cityIndicator)
+                  ? {text: text(cityIndicator), ui_id: cityIndicator.dataset.item || null} : null,
                   search_present: !!citySearch,
                   samara_choice_present: !!cityChoice,
                 },
@@ -115,6 +140,7 @@ async def inspect_one(browser, candidate: dict, timeout_ms: int) -> dict:
             "blocked_write_count": len(blocked_writes),
         }
         result["recommendation"] = classify(result)
+        result["template_key"] = template_key(result)
         return result
     except Exception as exc:  # Report a per-URL failure and continue batch discovery.
         return {
@@ -122,6 +148,7 @@ async def inspect_one(browser, candidate: dict, timeout_ms: int) -> dict:
             "error": f"{type(exc).__name__}: {str(exc).splitlines()[0]}",
             "blocked_write_count": len(blocked_writes),
             "recommendation": "retry: page inspection did not complete",
+            "template_key": None,
         }
     finally:
         await context.close()
@@ -168,6 +195,14 @@ def main() -> int:
         "selected_unique_urls": len(candidates),
         "results": asyncio.run(discover(candidates, args.concurrency, args.timeout_ms)) if candidates else [],
     }
+    templates = defaultdict(list)
+    for result in report["results"]:
+        if result.get("template_key"):
+            templates[result["template_key"]].append(result["url"])
+    report["template_groups"] = [
+        {"template_key": key, "url_count": len(urls), "representative_url": urls[0]}
+        for key, urls in sorted(templates.items())
+    ]
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     print(json.dumps({"selected_unique_urls": len(candidates), "output": str(args.output)}, ensure_ascii=False))

@@ -33,6 +33,8 @@ The shared adapter now supports a verified `business_control.kind="select"`. An 
 
 The new read-only discovery tool inspected the first 20 unique blocked MTS business-option source URLs in parallel batches. It found a visible `Place` select containing `Для бизнеса` on six URLs and no business control on 14. This narrows the next onboarding batch without changing any case status: city selection, address preparation and the request contract remain required before a candidate can become active. The run did not fill fields or click submit; every non-read-only request was aborted.
 
+The later batch of 16 MTS URLs found nine more controls, which collapsed into two DOM template groups. Template groups speed up prioritisation only: a representative still needs read-only Samara and payload onboarding, and no grouped URL is activated by similarity alone.
+
 ## Sources
 
 - User requirement separating MTS business pages from checkbox/business-option scope, 16.09.2026.

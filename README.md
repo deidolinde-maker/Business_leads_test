@@ -74,7 +74,7 @@ $env:BUSINESS_CHROMIUM_EXECUTABLE = 'C:\Program Files\Google\Chrome\Application\
 python tools/discover_business_options.py --provider mts --limit 12 --concurrency 4 --output artifacts/discovery/mts.json
 ```
 
-Для точечной проверки добавьте `--case-id <id>`; `--limit 0` выбирает все совпадающие уникальные URL. Для следующего батча используйте `--offset 12`.
+Для точечной проверки добавьте `--case-id <id>`; `--limit 0` выбирает все совпадающие уникальные URL. Для следующего батча используйте `--offset 12`. В `template_groups` отчёта одинаковые DOM-формы объединены только для приоритизации: каждый URL всё равно требует собственной проверки Самары и payload перед активацией.
 
 ## Отправка и ограничения v0.1
 
