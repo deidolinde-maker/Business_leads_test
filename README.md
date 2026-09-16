@@ -82,6 +82,8 @@ python tools/discover_business_options.py --provider mts --limit 12 --concurrenc
 python tools/inspect_business_option_state.py --url https://example.test/ --case-id provider-business_option-id --output artifacts/onboarding/state.json
 ```
 
+Jenkins запускает представителя бренда через `MODE=live`, `TARGET_ENV=prod` и точные `PROVIDER` либо `CASE_ID`. В live scope входят только `active` записи с подтверждённым CRM результатом.
+
 ## Отправка и ограничения v0.1
 
 - Перед нажатием submit проверяются Самара/36401 и бизнес-control. Перед передачей POST проверяются фактические регион, бизнес-признак и идентичность формы. Несовпадение отменяет запрос, не исправляет payload.

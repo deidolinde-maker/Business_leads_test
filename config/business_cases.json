@@ -111,15 +111,18 @@
       "target_city_ui_id": "36401",
       "flow_kind": "business_option",
       "source_page_url": "https://beeline-ru.online/",
-      "entry_url": null,
+      "entry_url": "https://beeline-ru.online/",
       "status": "blocked",
-      "region": null,
-      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "region": {"mode": "popup_selection", "business_url": "https://beeline-ru.online/", "indicator": "span#autocomplete_city_name.autocomplete-city-name", "trigger": ".autocomplete-city-change.button-select-city", "popup": "#popup-select-city", "search": "#popup-select-city #city-input", "choice": "#popup-select-city a.region_item.region_link[id='36401']", "choice_url": "https://samara.beeline-ru.online/", "after_choice_url": "https://beeline-ru.online/"},
+      "form": {"selector": "form.wpcf7-form:has(input[name='_wpcf7_unit_tag'][value='wpcf7-f430-o1'])", "submit": ".checkaddress_address_button_send", "fields": [{"selector": ".checkaddress_address_street", "data_key": "street"}, {"selector": ".checkaddress_address_house", "data_key": "house"}, {"selector": ".checkaddress_address_phone", "data_key": "phone"}], "business_control": {"kind": "select", "selector": "select[name='Place']", "business_value": "Для бизнеса", "alternative_value": "В квартиру"}},
+      "submission": {"url": "https://beeline-ru.online/wp-admin/admin-ajax.php", "method": "POST", "target_city": "Самара", "target_city_ui_id": "36401", "region_match": {"CityName": "Самара", "City": "36401"}, "business_match": {"Place": "Для бизнеса"}, "identity_match": {"FormName": "Проверьте подключение", "lead_form_type": "forma_proverit'_adress", "service_id": "2"}, "evidence": "Blocked production submit captured 2026-09-16; no request left the browser.", "response_pending": true},
+      "reason": "Read-only and blocked-submit onboarding confirmed the Beeline Samara Place contract. One explicitly approved pilot forwarded exactly one target POST; CRM delivery and a positive response contract remain pending, so no repeat lead is sent.",
       "source_refs": [
         "https://github.com/deidolinde-maker/Everyday_test/blob/8e87c77a79430e1a54b110682cf9f7912a29cac5/config/providers/beeline.py#L4",
         "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/config/providers/beeline.py#L4",
         "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/beeline.txt#L2"
-      ]
+      ],
+      "verification": "docs/evidence/beeline-ru-business-option-20260916.md"
     },
     {
       "case_id": "beeline-business_option-c2660a08887d",

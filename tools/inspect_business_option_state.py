@@ -53,6 +53,7 @@ def main() -> int:
     parser.add_argument("--phone")
     parser.add_argument("--capture-submit", action="store_true")
     parser.add_argument("--allow-submit", action="store_true")
+    parser.add_argument("--submission-url", default=SUBMISSION_URL)
     parser.add_argument("--timeout-ms", type=int, default=20_000)
     args = parser.parse_args()
     if args.house and not args.street:
@@ -74,6 +75,7 @@ def main() -> int:
     allow_submission = False
     forwarded_submissions = []
     responses = []
+    submission_url = clean_url(args.submission_url)
     executable = os.getenv("BUSINESS_CHROMIUM_EXECUTABLE")
     launch = {"executable_path": executable} if executable else {}
     with sync_playwright() as playwright:
@@ -84,7 +86,7 @@ def main() -> int:
             request = route.request
             if request.method in READ_ONLY_METHODS:
                 route.continue_()
-            elif args.allow_submit and allow_submission and request.method == "POST" and clean_url(request.url) == SUBMISSION_URL and not forwarded_submissions:
+            elif args.allow_submit and allow_submission and request.method == "POST" and clean_url(request.url) == submission_url and not forwarded_submissions:
                 forwarded_submissions.append({"method": request.method, "url": clean_url(request.url), "payload": payload_summary(request)})
                 route.continue_()
             else:
@@ -95,7 +97,7 @@ def main() -> int:
         page = context.new_page()
 
         def observe_response(response):
-            if clean_url(response.url) == SUBMISSION_URL and response.request.method == "POST":
+            if clean_url(response.url) == submission_url and response.request.method == "POST":
                 summary = {"status": response.status, "content_type": response.headers.get("content-type", "")}
                 try:
                     body = response.json()
@@ -103,7 +105,7 @@ def main() -> int:
                         summary["json"] = {
                             key: body[key] for key in ("status", "message", "into", "invalid_fields") if key in body
                         }
-                except Error:
+                except Exception:
                     pass
                 responses.append(summary)
 
