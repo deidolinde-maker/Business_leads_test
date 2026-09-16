@@ -36,7 +36,9 @@ No phone value or raw request body was saved. This proves the selected business 
 
 ## Production pilot
 
-One explicitly approved production submission was sent on 16.09.2026 using the selected Samara popup address and the provided test phone. The browser reached `https://mts-home.online/tilda/form1/submitted`; no repeat was sent. A stale locator after that navigation prevented saving the response body, so CRM delivery remains pending user confirmation.
+One explicitly approved production submission was sent on 16.09.2026 using the selected Samara popup address and the provided test phone. The browser reached `https://mts-home.online/tilda/form1/submitted`; no repeat was sent. A stale locator after that navigation prevented saving the response body. The user subsequently confirmed that this exact pilot arrived correctly in CRM.
+
+The legacy suites define `/tilda/form1/submitted` as the positive «Спасибо» page for this form family. Together with the observed HTTP 200, the exact Samara/business POST contract and user-confirmed CRM delivery, it is now an `active` representative for live automation.
 
 ## Sources
 

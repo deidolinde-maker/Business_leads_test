@@ -1,0 +1,10 @@
+{
+  "environment": "prod",
+  "purpose": "Non-submitting Jenkins collection for one reviewed representative of each provider and flow type. It is intentionally not a live sender.",
+  "case_ids": [
+    "beeline-business_page-samara-mobilnaya-svyaz-dlya-biznesa",
+    "mts-business_page-c2d4cae355e7",
+    "beeline-business_option-afd9e17b2c35",
+    "mts-business_option-5d75c21b6980"
+  ]
+}

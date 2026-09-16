@@ -7,7 +7,7 @@ mode = os.getenv("BIZ_MODE", "local")
 args = [sys.executable, "-m", "pytest"]
 if mode == "local":
     args += ["tests/unit", "tests/browser"]
-elif mode in {"collect", "live"}:
+elif mode in {"collect", "live", "representative"}:
     environment = os.getenv("BIZ_ENV")
     if environment not in {"stage", "prod"}:
         raise SystemExit("Set TARGET_ENV to stage/prod. City is fixed to Samara.")
@@ -16,9 +16,14 @@ elif mode in {"collect", "live"}:
         value = os.getenv(variable, "").strip()
         if value:
             args += [option + "=" + value]
-    if mode == "collect":
+    if mode == "representative":
+        if os.getenv("BIZ_PROVIDER", "").strip() or os.getenv("BIZ_CASE_ID", "").strip():
+            raise SystemExit("representative mode does not accept PROVIDER or CASE_ID filters")
+        args.append("--representatives")
+        args.append("--collect-only")
+    elif mode == "collect":
         args.append("--collect-only")
 else:
     raise SystemExit("Unknown mode")
-args += ["--junitxml=artifacts/results.xml", "--alluredir=allure-results"]
+args += ["--basetemp=artifacts/pytest-tmp", "--junitxml=artifacts/results.xml", "--alluredir=allure-results"]
 raise SystemExit(subprocess.call(args))

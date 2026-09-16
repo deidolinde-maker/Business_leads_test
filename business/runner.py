@@ -1,4 +1,5 @@
 import json
+import re
 from pathlib import Path
 
 from playwright.sync_api import expect
@@ -51,6 +52,10 @@ def run_case(browser, case: dict, data: dict, output: Path, budget: float = 75) 
             if confirmation["kind"] == "url":
                 expect(page).to_have_url(confirmation["value"], timeout=deadline.ms())
                 result["confirmation_observed"] = {"kind": "url", "value": page.url}
+            elif confirmation["kind"] == "url_contains":
+                expected_part = confirmation["value"]
+                expect(page).to_have_url(re.compile(re.escape(expected_part)), timeout=deadline.ms())
+                result["confirmation_observed"] = {"kind": "url_contains", "value": page.url}
             else:
                 expect(page.locator(confirmation["value"])).to_be_visible(timeout=deadline.ms())
                 result["confirmation_observed"] = {

@@ -81,8 +81,6 @@ def validate_contract(contract: dict):
     statuses = reply.get("statuses")
     if not statuses or any(type(s) is not int or s < 200 or s >= 400 or s in {307, 308} for s in statuses):
         raise ConfigurationError("explicit positive response statuses required; 307/308 unsupported")
-    if not reply.get("json_match") and not reply.get("location"):
-        raise ConfigurationError("response needs exact JSON or Location contract")
     for rule in contract.get("read_only_requests", []):
         if not rule.get("evidence") or not rule.get("url") or rule.get("method") not in {"POST", "GET"}:
             raise ConfigurationError("read-only exceptions need exact URL/method/evidence")

@@ -4,7 +4,7 @@ from pathlib import Path
 
 import pytest
 
-from business.cases import ROOT, load_cases, load_data, select_cases
+from business.cases import ROOT, load_cases, load_data, select_cases, select_representatives
 from business.errors import ConfigurationError
 
 
@@ -13,6 +13,8 @@ def pytest_addoption(parser):
     group.addoption("--env", choices=["stage", "prod"])
     group.addoption("--provider")
     group.addoption("--case-id")
+    group.addoption("--representatives", action="store_true",
+                    help="Use the reviewed non-submitting representative scope.")
     group.addoption("--case-file", default=str(ROOT / "config/business_cases.json"))
     group.addoption("--data-file", default=str(ROOT / "config/data/samara.json"))
     group.addoption("--artifact-dir", default=str(ROOT / "artifacts"))
@@ -23,9 +25,14 @@ def pytest_generate_tests(metafunc):
         return
     config = metafunc.config
     try:
-        cases = select_cases(load_cases(Path(config.getoption("--case-file"))),
-                             config.getoption("--env"), config.getoption("--provider"),
-                             config.getoption("--case-id"))
+        loaded_cases = load_cases(Path(config.getoption("--case-file")))
+        if config.getoption("--representatives"):
+            if config.getoption("--provider") or config.getoption("--case-id"):
+                raise ConfigurationError("representative scope cannot be combined with provider/case-id filters")
+            cases = select_representatives(loaded_cases, config.getoption("--env"))
+        else:
+            cases = select_cases(loaded_cases, config.getoption("--env"),
+                                 config.getoption("--provider"), config.getoption("--case-id"))
     except (ConfigurationError, OSError, ValueError) as exc:
         raise pytest.UsageError(str(exc)) from exc
     config._business_cases = cases

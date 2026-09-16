@@ -6,7 +6,7 @@ pipeline {
     timeout(time: 15, unit: 'MINUTES')
   }
   parameters {
-    choice(name: 'MODE', choices: ['local', 'collect', 'live'], description: 'local uses synthetic forms only; live needs verified active cases.')
+    choice(name: 'MODE', choices: ['local', 'representative', 'collect', 'live'], description: 'representative is a non-submitting collection of reviewed brand/type cases; live needs a verified active case.')
     choice(name: 'TARGET_ENV', choices: ['unset', 'stage', 'prod'], description: 'Required for collect/live. City is always Samara.')
     string(name: 'PROVIDER', defaultValue: '', description: 'Exact provider filter; empty selects the whole environment.')
     string(name: 'CASE_ID', defaultValue: '', description: 'Optional exact case ID.')

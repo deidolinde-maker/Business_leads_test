@@ -2,7 +2,7 @@ import json
 
 import pytest
 
-from business.cases import load_cases, load_data, select_cases, validate_case
+from business.cases import load_cases, load_data, select_cases, select_representatives, validate_case
 from business.errors import BusinessCheckError, ConfigurationError
 from business.submission import matches, parse_payload, validate_contract
 from tests.support import make_case
@@ -32,6 +32,17 @@ def test_no_unknown_contract_can_send(field):
 def test_empty_selection_not_green():
     with pytest.raises(ConfigurationError, match="empty"):
         select_cases([make_case()], "prod")
+
+
+def test_representative_scope_has_one_case_per_provider_and_flow_type():
+    selected = select_representatives(load_cases(), "prod")
+    assert [(case["provider"], case["flow_kind"]) for case in selected] == [
+        ("beeline", "business_page"),
+        ("mts", "business_page"),
+        ("beeline", "business_option"),
+        ("mts", "business_option"),
+    ]
+    assert {case["target_city"] for case in selected} == {"Самара"}
 
 
 def test_environment_required():
@@ -175,33 +186,34 @@ def test_mts_business_page_scope_is_single_user_confirmed_landing():
     assert "unchanged base URL after popup selection is expected" in option["reason"]
     assert option["verification"] == "docs/evidence/mts-business-option-select-20260916.md"
     mts_home = next(c for c in cases if c["case_id"] == "mts-business_option-5d75c21b6980")
-    assert mts_home["status"] == "blocked"
+    assert mts_home["status"] == "active"
     assert mts_home["entry_url"] == mts_home["region"]["business_url"] == mts_home["region"]["after_choice_url"]
     assert mts_home["region"]["choice_url"] == "https://samara.mts-home.online/"
     assert mts_home["form"]["business_control"]["business_value"] == "Для бизнеса"
-    assert "CityName=Самара and City=36401" in mts_home["reason"]
-    assert "stale Info is not a failure" in mts_home["reason"]
-    assert mts_home["submission"] == {
-        "url": "https://mts-home.online/wp-admin/admin-ajax.php",
-        "method": "POST",
-        "target_city": "Самара",
-        "target_city_ui_id": "36401",
-        "region_match": {"CityName": "Самара", "City": "36401"},
-        "business_match": {"Place": "Для бизнеса"},
-        "identity_match": {
-            "FormName": "Проверьте подключение",
-            "lead_form_type": "forma_proverit'_adress",
-            "service_id": "2",
-        },
-        "evidence": "Blocked production submit captured 2026-09-16; only the selected Samara/business field values and field names were retained; no request left the browser.",
-        "response_pending": True,
-    }
-    assert mts_home["confirmation_candidate"] == {
+    assert mts_home["submission"]["region_match"] == {"CityName": "Самара", "City": "36401"}
+    assert mts_home["submission"]["business_match"] == {"Place": "Для бизнеса"}
+    assert mts_home["submission"]["response"] == {"statuses": [200]}
+    assert mts_home["confirmation"] == {
         "kind": "url",
         "value": "https://mts-home.online/tilda/form1/submitted",
-        "source": "one explicitly approved production pilot, 2026-09-16",
+    }
+    assert mts_home["crm_verification"] == {
+        "status": "confirmed",
+        "source": "user",
+        "date": "2026-09-16",
+        "note": "User confirmed that the single MTS Home Online business-option pilot arrived correctly in CRM.",
     }
     assert mts_home["verification"] == "docs/evidence/mts-home-online-business-option-20260916.md"
+    beeline_option = next(c for c in cases if c["case_id"] == "beeline-business_option-afd9e17b2c35")
+    assert beeline_option["status"] == "active"
+    assert beeline_option["confirmation"] == {"kind": "url_contains", "value": "/thanks"}
+    assert beeline_option["submission"]["response"] == {"statuses": [200]}
+    assert beeline_option["crm_verification"] == {
+        "status": "confirmed",
+        "source": "user",
+        "date": "2026-09-16",
+        "note": "User confirmed that the single Beeline business-option pilot arrived correctly in CRM.",
+    }
     duplicate = next(c for c in cases if c["case_id"] == "mts-business_option-e34df24cb0a9")
     assert duplicate["status"] == "excluded"
     assert "Exact normalized duplicate" in duplicate["reason"]

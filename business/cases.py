@@ -8,6 +8,7 @@ from business.errors import ConfigurationError
 CITY_NAME = "Самара"
 CITY_UI_ID = "36401"
 ROOT = Path(__file__).resolve().parent.parent
+REPRESENTATIVES = ROOT / "config" / "representatives.json"
 
 
 def valid_url(value: str) -> bool:
@@ -72,7 +73,7 @@ def validate_case(case: dict) -> None:
     from business.submission import validate_contract
     validate_contract(case["submission"])
     confirmation = case["confirmation"]
-    if confirmation.get("kind") not in {"locator", "url"} or not confirmation.get("value"):
+    if confirmation.get("kind") not in {"locator", "url", "url_contains"} or not confirmation.get("value"):
         raise ConfigurationError(f"{ident}: exact confirmation required")
 
 
@@ -99,6 +100,26 @@ def select_cases(cases: list[dict], environment: str, provider=None, case_id=Non
     if not selected:
         raise ConfigurationError("empty case selection; no verified coverage for these filters")
     return selected
+
+
+def select_representatives(cases: list[dict], environment: str,
+                           path: Path = REPRESENTATIVES) -> list[dict]:
+    """Return the explicitly reviewed, non-submitting CI representative scope."""
+    if environment not in {"stage", "prod"}:
+        raise ConfigurationError("--env=stage or --env=prod is required")
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    case_ids = payload.get("case_ids")
+    if payload.get("environment") != environment or not isinstance(case_ids, list) or not case_ids:
+        raise ConfigurationError("representative scope must name cases for the selected environment")
+    if any(not isinstance(case_id, str) or not case_id for case_id in case_ids):
+        raise ConfigurationError("representative scope has an invalid case ID")
+    if len(set(case_ids)) != len(case_ids):
+        raise ConfigurationError("representative scope has duplicate case IDs")
+    by_id = {case["case_id"]: case for case in cases}
+    missing = [case_id for case_id in case_ids if case_id not in by_id]
+    if missing:
+        raise ConfigurationError("representative scope references an unknown case")
+    return [by_id[case_id] for case_id in case_ids]
 
 
 def load_data(path: Path, environment: str) -> dict:

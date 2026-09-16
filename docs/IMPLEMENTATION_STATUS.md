@@ -1,6 +1,6 @@
 # Стартовая разработка — 15.09.2026
 
-Актуальное продолжение от 16.09.2026: [production-подключение](evidence/production-onboarding-20260916.md), [MTS business-page onboarding](evidence/mts-business-scope-20260916.md), [MTS business-option select](evidence/mts-business-option-select-20260916.md) и [MTS Home Online business-option](evidence/mts-home-online-business-option-20260916.md). Текущий реестр: 3 active / 257 blocked / 6 excluded. MTS production-пилот прошёл с одним запросом: получены HTTP 200, `mail_sent` и `/tilda/form1/submitted`; пользователь подтвердил корректную доставку MTS в CRM. В отдельных MTS business-option подтверждён `select` с `Для бизнеса`, но payload пока не исследован, поэтому записи blocked. Текущий телефон по указанию пользователя — 10 цифр. Последний прогон Билайна также подтвердил `mail_sent`, `/thanks` и доставку в CRM. Ниже сохранён исторический отчёт стартового этапа.
+Актуальное продолжение от 16.09.2026: [production-подключение](evidence/production-onboarding-20260916.md), [MTS business-page onboarding](evidence/mts-business-scope-20260916.md), [MTS business-option select](evidence/mts-business-option-select-20260916.md) и [MTS Home Online business-option](evidence/mts-home-online-business-option-20260916.md). Текущий реестр: 5 active / 255 blocked / 6 excluded. MTS production-пилот прошёл с одним запросом: получены HTTP 200, `mail_sent` и `/tilda/form1/submitted`; пользователь подтвердил корректную доставку MTS в CRM. Для MTS и Beeline business-option подтверждены `select` с `Для бизнеса`, Samara payload, HTTP 200, страница «Спасибо» и доставка пилотов в CRM. Текущий телефон по указанию пользователя — 10 цифр. Последний прогон Билайна также подтвердил `mail_sent`, `/thanks` и доставку в CRM. Ниже сохранён исторический отчёт стартового этапа.
 
 Обновление 16.09.2026: добавлены [четыре самарских поддоменных маршрута от пользователя](SAMARA_ROUTES.md). Текущий реестр содержит 266 blocked-записей; приведённые ниже 262 записи и результаты прогона относятся к первоначальному снимку 15.09.2026.
 
@@ -15,7 +15,7 @@
 - Одна отправка; JSON, form-urlencoded, текстовый multipart; связанный ответ и UI-подтверждение; отсутствие retry-submit.
 - Раздельные результаты, 75-секундный deadline и фазовые тайминги, скриншот ошибки с маскировкой полей.
 - collect-only и summary без ложного live-PASS; blocked-кейсы не запускают браузер.
-- GitHub Actions для local checks; отдельный Jenkinsfile local/collect/live. Jenkins job пока не создавался.
+- GitHub Actions для local checks; отдельный Jenkinsfile local/representative/collect/live. Jenkins job пока не создавался.
 
 ## Результаты проверки
 

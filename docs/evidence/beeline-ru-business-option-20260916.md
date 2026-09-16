@@ -6,6 +6,8 @@ Read-only inspection found form `wpcf7-f430-o1`, `select[name='Place']`, address
 
 A blocked-submit capture proved `POST https://beeline-ru.online/wp-admin/admin-ajax.php` with `Place=Для бизнеса`, the Samara fields and form identity `FormName=Проверьте подключение`, `lead_form_type=forma_proverit'_adress`, `service_id=2`.
 
-One explicitly approved production pilot forwarded exactly one target POST; all other writes were blocked. The response was non-JSON and the page stayed at the root URL, so CRM delivery remains pending user confirmation. No repeat was sent.
+One explicitly approved production pilot forwarded exactly one target POST; all other writes were blocked. The response was non-JSON and the page stayed at the root URL. The user subsequently confirmed that this exact pilot arrived correctly in CRM. No repeat was sent.
+
+The legacy suites define `/thanks` as the positive «Спасибо» page for this form family. The live contract requires this URL after the exact Samara/business POST and HTTP 200; together with the user-confirmed CRM delivery, the case is now an `active` representative for live automation.
 
 Sources: user requirements, 16.09.2026; ignored local onboarding artifacts; [QA workflow](../references/qa/analyze-task.md).
