@@ -15,6 +15,7 @@ except ModuleNotFoundError:  # Direct CLI execution: python tools/inspect_busine
     from discover_business_options import READ_ONLY_METHODS, clean_url
 
 SUMMARY_FIELDS = ("CityName", "City", "Place", "IStreet", "IHouse", "FormName", "lead_form_type", "service_id")
+SUBMISSION_URL = "https://mts-home.online/wp-admin/admin-ajax.php"
 
 def first_visible(scope, selectors: list[str]):
     for selector in selectors:
@@ -51,6 +52,7 @@ def main() -> int:
     parser.add_argument("--choose-house", action="store_true")
     parser.add_argument("--phone")
     parser.add_argument("--capture-submit", action="store_true")
+    parser.add_argument("--allow-submit", action="store_true")
     parser.add_argument("--timeout-ms", type=int, default=20_000)
     args = parser.parse_args()
     if args.house and not args.street:
@@ -61,12 +63,17 @@ def main() -> int:
         parser.error("--house requires --choose-street")
     if args.choose_house and not args.house:
         parser.error("--choose-house requires --house")
-    if args.capture_submit and not args.phone:
-        parser.error("--capture-submit requires --phone")
+    if args.capture_submit and args.allow_submit:
+        parser.error("--capture-submit and --allow-submit are mutually exclusive")
+    if (args.capture_submit or args.allow_submit) and not args.phone:
+        parser.error("submit mode requires --phone")
 
     writes = []
     address_probe = None
     phone_probe = None
+    allow_submission = False
+    forwarded_submissions = []
+    responses = []
     executable = os.getenv("BUSINESS_CHROMIUM_EXECUTABLE")
     launch = {"executable_path": executable} if executable else {}
     with sync_playwright() as playwright:
@@ -77,12 +84,30 @@ def main() -> int:
             request = route.request
             if request.method in READ_ONLY_METHODS:
                 route.continue_()
+            elif args.allow_submit and allow_submission and request.method == "POST" and clean_url(request.url) == SUBMISSION_URL and not forwarded_submissions:
+                forwarded_submissions.append({"method": request.method, "url": clean_url(request.url), "payload": payload_summary(request)})
+                route.continue_()
             else:
                 writes.append({"method": request.method, "url": clean_url(request.url), "payload": payload_summary(request)})
                 route.abort("blockedbyclient")
 
         context.route("**/*", guard)
         page = context.new_page()
+
+        def observe_response(response):
+            if clean_url(response.url) == SUBMISSION_URL and response.request.method == "POST":
+                summary = {"status": response.status, "content_type": response.headers.get("content-type", "")}
+                try:
+                    body = response.json()
+                    if isinstance(body, dict):
+                        summary["json"] = {
+                            key: body[key] for key in ("status", "message", "into", "invalid_fields") if key in body
+                        }
+                except Error:
+                    pass
+                responses.append(summary)
+
+        page.on("response", observe_response)
         try:
             response = page.goto(args.url, wait_until="domcontentloaded", timeout=args.timeout_ms)
             page.wait_for_timeout(750)
@@ -104,6 +129,7 @@ def main() -> int:
                 "a.region_item.region_link[id='36401']",
                 "a[id='36401']",
             ])
+            choice_href = choice.get_attribute("href")
             choice.click(timeout=args.timeout_ms)
             page.wait_for_timeout(750)
 
@@ -179,7 +205,7 @@ def main() -> int:
                 }
 
             submit_capture = None
-            if args.capture_submit:
+            if args.capture_submit or args.allow_submit:
                 phone = form.locator(".checkaddress_address_phone")
                 phone_probe = {
                     "count": phone.count(),
@@ -191,8 +217,9 @@ def main() -> int:
                 phone.click()
                 phone.press_sequentially(args.phone, delay=25)
                 page.wait_for_timeout(500)
+                allow_submission = args.allow_submit
                 form.locator(".checkaddress_address_button_send").click(timeout=args.timeout_ms)
-                page.wait_for_timeout(1_000)
+                page.wait_for_timeout(2_000)
                 submit_capture = [
                     write for write in writes
                     if {"CityName", "City", "Place"}.issubset(set(write["payload"]["field_names"]))
@@ -202,10 +229,13 @@ def main() -> int:
             result = {
                 "mode": "read_only_business_option_state",
                 "safety": (
-                    "The submit click was intercepted before any POST left the browser; only field names and selected Samara/business values were recorded."
-                    if args.capture_submit else (
+                    "One explicitly authorized submission was forwarded to the configured endpoint; all other non-read-only requests were aborted."
+                    if args.allow_submit else (
+                        "The submit click was intercepted before any POST left the browser; only field names and selected Samara/business values were recorded."
+                        if args.capture_submit else (
                         "Address fields were typed and only explicitly requested autocomplete choices were selected; submit was not clicked and all non-GET/HEAD/OPTIONS requests were aborted."
                         if args.street else "No address fields were filled and submit was not clicked; all non-GET/HEAD/OPTIONS requests were aborted."
+                        )
                     )
                 ),
                 "case_id": args.case_id,
@@ -228,7 +258,7 @@ def main() -> int:
                     "trigger": trigger_selector,
                     "search": search_selector,
                     "choice": choice_selector,
-                    "choice_href": choice.get_attribute("href"),
+                    "choice_href": choice_href,
                     "indicators": indicators.evaluate_all(
                         "els => els.map(el => ({text:(el.textContent || '').trim(), ui_id:el.dataset.item || null}))"
                     ),
@@ -238,8 +268,10 @@ def main() -> int:
                 },
                 "address": address,
                 "submit_capture": submit_capture,
+                "forwarded_submissions": forwarded_submissions,
+                "submission_responses": responses,
                 "blocked_write_count": len(writes),
-                "submit_clicked": bool(args.capture_submit),
+                "submit_clicked": bool(args.capture_submit or args.allow_submit),
             }
         except (Error, RuntimeError) as exc:
             result = {
@@ -249,9 +281,11 @@ def main() -> int:
                 "final_url": clean_url(page.url),
                 "address_probe": address_probe,
                 "phone_probe": phone_probe,
+                "forwarded_submissions": forwarded_submissions,
+                "submission_responses": responses,
                 "blocked_write_count": len(writes),
                 "blocked_writes": writes,
-                "submit_clicked": False,
+                "submit_clicked": bool(args.capture_submit or args.allow_submit),
             }
         finally:
             context.close()

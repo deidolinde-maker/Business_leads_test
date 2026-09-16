@@ -34,6 +34,10 @@ The form was completed with the selected Samara address and the provided test ph
 
 No phone value or raw request body was saved. This proves the selected business and Samara request contract, but not the positive response or CRM delivery. The candidate remains `blocked` until one explicitly approved production pilot verifies those two outcomes.
 
+## Production pilot
+
+One explicitly approved production submission was sent on 16.09.2026 using the selected Samara popup address and the provided test phone. The browser reached `https://mts-home.online/tilda/form1/submitted`; no repeat was sent. A stale locator after that navigation prevented saving the response body, so CRM delivery remains pending user confirmation.
+
 ## Sources
 
 - User rule for in-place Samara selection in `checkbox`/`select Place` flows, 16.09.2026.

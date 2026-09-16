@@ -196,6 +196,11 @@ def test_mts_business_page_scope_is_single_user_confirmed_landing():
         "evidence": "Blocked production submit captured 2026-09-16; only the selected Samara/business field values and field names were retained; no request left the browser.",
         "response_pending": True,
     }
+    assert mts_home["confirmation_candidate"] == {
+        "kind": "url",
+        "value": "https://mts-home.online/tilda/form1/submitted",
+        "source": "one explicitly approved production pilot, 2026-09-16",
+    }
     assert mts_home["verification"] == "docs/evidence/mts-home-online-business-option-20260916.md"
     duplicate = next(c for c in cases if c["case_id"] == "mts-business_option-e34df24cb0a9")
     assert duplicate["status"] == "excluded"
