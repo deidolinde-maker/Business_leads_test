@@ -174,3 +174,14 @@ def test_mts_business_page_scope_is_single_user_confirmed_landing():
     assert option["region"]["after_choice_url"] == option["entry_url"] == option["region"]["business_url"]
     assert "unchanged base URL after popup selection is expected" in option["reason"]
     assert option["verification"] == "docs/evidence/mts-business-option-select-20260916.md"
+    mts_home = next(c for c in cases if c["case_id"] == "mts-business_option-5d75c21b6980")
+    assert mts_home["status"] == "blocked"
+    assert mts_home["entry_url"] == mts_home["region"]["business_url"] == mts_home["region"]["after_choice_url"]
+    assert mts_home["region"]["choice_url"] == "https://samara.mts-home.online/"
+    assert mts_home["form"]["business_control"]["business_value"] == "Для бизнеса"
+    assert "CityName=Самара and City=36401" in mts_home["reason"]
+    assert "stale Info text is not a failure" in mts_home["reason"]
+    assert mts_home["verification"] == "docs/evidence/mts-home-online-business-option-20260916.md"
+    duplicate = next(c for c in cases if c["case_id"] == "mts-business_option-e34df24cb0a9")
+    assert duplicate["status"] == "excluded"
+    assert "Exact normalized duplicate" in duplicate["reason"]
