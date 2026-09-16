@@ -2012,7 +2012,7 @@
       "flow_kind": "business_page",
       "source_page_url": "https://mts-home-online.ru/business",
       "entry_url": "https://mts-home-online.ru/business",
-      "status": "blocked",
+      "status": "active",
       "region": {
         "mode": "popup_selection",
         "business_url": "https://mts-home-online.ru/business",
@@ -2024,7 +2024,6 @@
         "choice_url": "https://mts-home-online.ru/samara",
         "after_choice_url": "https://mts-home-online.ru/business"
       },
-      "reason": "User confirmed this is the only MTS landing with dedicated business-page forms. Production UI and in-place Samara selection verified 2026-09-16; submission/response contract pending.",
       "source_refs": [
         "https://github.com/deidolinde-maker/Everyday_test/blob/8e87c77a79430e1a54b110682cf9f7912a29cac5/config/providers/mts.py#L4",
         "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/config/providers/mts.py#L4",
@@ -2045,7 +2044,53 @@
           }
         ]
       },
-      "verification": "docs/evidence/mts-business-scope-20260916.md",
+      "submission": {
+        "url": "https://mts-home-online.ru/wp-json/contact-form-7/v1/contact-forms/837/feedback",
+        "method": "POST",
+        "target_city": "Самара",
+        "target_city_ui_id": "36401",
+        "region_match": {
+          "BusinessCityId": "36401",
+          "CityName": "Самара"
+        },
+        "business_match": {
+          "FormName": "Заявка Бизнес",
+          "lead_form_type": "forma_podklyucheniya_biznes",
+          "service_id": "2"
+        },
+        "identity_match": {
+          "_wpcf7": "837",
+          "_wpcf7_unit_tag": "wpcf7-f837-o3"
+        },
+        "evidence": "docs/evidence/mts-business-scope-20260916.md; production DOM plus locally blocked multipart captured 2026-09-16; positive response and redirect contract from deployed CF7 client and wpcf7submit handler",
+        "response": {
+          "statuses": [
+            200
+          ],
+          "json_match": {
+            "status": "mail_sent"
+          }
+        },
+        "blocked_background_requests": [
+          {
+            "url": "https://mc.yandex.ru/watch/55479901",
+            "evidence": "Observed analytics POSTs during blocked-submit MTS onboarding 2026-09-16; requests are aborted, never forwarded"
+          },
+          {
+            "url": "https://mc.yandex.ru/watch/55479901/1",
+            "evidence": "Observed analytics POSTs during blocked-submit MTS onboarding 2026-09-16; requests are aborted, never forwarded"
+          },
+          {
+            "url": "https://mc.yandex.ru/webvisor/55479901",
+            "evidence": "The deployed MTS page enables Yandex Webvisor for counter 55479901; analytics requests are aborted, never forwarded"
+          }
+        ]
+      },
+      "confirmation": {
+        "kind": "url",
+        "value": "https://mts-home-online.ru/tilda/form1/submitted"
+      },
+      "verification": "docs/evidence/mts-business-scope-20260916.md; production DOM, blocked multipart request, deployed response handler and confirmation page",
       "scope_source": {
         "kind": "user_requirement",
         "date": "2026-09-16"

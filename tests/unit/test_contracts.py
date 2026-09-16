@@ -139,6 +139,22 @@ def test_mts_business_page_scope_is_single_user_confirmed_landing():
     assert target["entry_url"] == "https://mts-home-online.ru/business"
     assert target["region"]["mode"] == "popup_selection"
     assert target["region"]["choice_url"] == "https://mts-home-online.ru/samara"
-    assert target["status"] == "blocked" and "submission/response contract pending" in target["reason"]
+    assert target["status"] == "active"
+    assert target["submission"]["url"] == (
+        "https://mts-home-online.ru/wp-json/contact-form-7/v1/contact-forms/837/feedback"
+    )
+    assert target["submission"]["region_match"] == {
+        "BusinessCityId": "36401",
+        "CityName": "Самара",
+    }
+    assert target["submission"]["business_match"] == {
+        "FormName": "Заявка Бизнес",
+        "lead_form_type": "forma_podklyucheniya_biznes",
+        "service_id": "2",
+    }
+    assert target["confirmation"] == {
+        "kind": "url",
+        "value": "https://mts-home-online.ru/tilda/form1/submitted",
+    }
     assert all(c["status"] == "excluded" for c in pages if c is not target)
     assert any(c["provider"] == "mts" and c["flow_kind"] == "business_option" for c in cases)

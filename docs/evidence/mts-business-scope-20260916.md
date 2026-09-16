@@ -34,7 +34,20 @@ Each card opens the same dedicated business form: CF7 ID `837`, unit tag `wpcf7-
 - Choice href: `https://mts-home-online.ru/samara`.
 - After the click the business form shows `Самара`, `data-item=36401`, `CityName=Самара`, and `BusinessCityId=36401`.
 
-The saved case configuration was exercised through the production runner's `FormAdapter.open_form` and `ensure_samara` functions: final URL remained `/business`, observed city was Самара / `36401`, and `submit_clicked=false`. The hidden `Info` field still contained the preselection wording `Город: Выбрать город`; its outgoing value must be checked during contract onboarding. The submit endpoint, exact business/region payload contract, positive response, and CRM delivery remain unverified, so the target case stays `blocked`.
+The saved case configuration was exercised through the production runner's `FormAdapter.open_form` and `ensure_samara` functions: final URL remained `/business`, observed city was Самара / `36401`, and `submit_clicked=false`.
+
+## Blocked-submit contract onboarding
+
+The confirmed production data profile was filled, the submit control was clicked, and every POST was intercepted and aborted before network dispatch. No MTS lead was created. The target multipart request was:
+
+- `POST https://mts-home-online.ru/wp-json/contact-form-7/v1/contact-forms/837/feedback`;
+- region: `CityName=Самара`, `BusinessCityId=36401`;
+- business identity: `FormName=Заявка Бизнес`, `lead_form_type=forma_podklyucheniya_biznes`, `service_id=2`;
+- form identity: `_wpcf7=837`, `_wpcf7_unit_tag=wpcf7-f837-o3`.
+
+The hidden descriptive `Info` field still contained `Город: Выбрать город`. The structured region fields are correct and are enforced before dispatch; the stale description remains a CRM-verification risk for the pilot.
+
+The deployed page listens for `wpcf7submit`, requires `event.detail.status === 'mail_sent'`, and then assigns `/tilda/form1/submitted`. That exact success page returned HTTP 200 without a redirect during a read-only GET. The case now has an executable fail-closed submission contract and is `active`; a live MTS submit and CRM delivery are still unverified.
 
 ## Sources and limits
 
