@@ -65,6 +65,17 @@ python -m pytest tests/test_business_submission.py --env=prod --case-id=<verifie
 
 Полный запуск с blocked-кейсами завершится ошибкой и покажет неполное покрытие. Фильтр позволяет проверить конкретный уже подтверждённый кейс; отчёт относится только к выбранному скоупу. Stage URL не генерируются из production, поэтому пока stage-фильтр даёт ошибку пустого набора.
 
+### Пакетная разведка blocked business-option
+
+Чтобы быстрее отбирать формы с `checkbox`/`radio`/`select Place`, запускайте read-only discovery: она открывает несколько уникальных URL параллельно, не заполняет формы и отменяет каждый запрос кроме `GET`/`HEAD`/`OPTIONS`. Отчёт является только списком кандидатов: Самару и контракт заявки всё равно подтверждают перед переводом кейса в `active`.
+
+```powershell
+$env:BUSINESS_CHROMIUM_EXECUTABLE = 'C:\Program Files\Google\Chrome\Application\chrome.exe'
+python tools/discover_business_options.py --provider mts --limit 12 --concurrency 4 --output artifacts/discovery/mts.json
+```
+
+Для точечной проверки добавьте `--case-id <id>`; `--limit 0` выбирает все совпадающие уникальные URL.
+
 ## Отправка и ограничения v0.1
 
 - Перед нажатием submit проверяются Самара/36401 и бизнес-control. Перед передачей POST проверяются фактические регион, бизнес-признак и идентичность формы. Несовпадение отменяет запрос, не исправляет payload.

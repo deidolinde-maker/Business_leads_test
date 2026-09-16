@@ -29,6 +29,10 @@ The candidate therefore remains `blocked` until a non-submitting address prepara
 
 The shared adapter now supports a verified `business_control.kind="select"`. An active select case must provide exact `business_value` and `alternative_value`; the runner switches alternative → business → alternative → business and checks Samara after every transition. A local browser fixture verifies that the final submitted payload is business after this sequence.
 
+## Batch discovery
+
+The new read-only discovery tool inspected the first eight unique blocked MTS business-option source URLs in parallel. It found a visible `Place` select containing `Для бизнеса` on five URLs and no business control on three. This narrows the next onboarding batch without changing any case status: city selection, address preparation and the request contract remain required before a candidate can become active. The run did not fill fields or click submit; every non-read-only request was aborted.
+
 ## Sources
 
 - User requirement separating MTS business pages from checkbox/business-option scope, 16.09.2026.
