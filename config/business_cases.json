@@ -4244,6 +4244,102 @@
         "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/config/providers/ttk.py#L4",
         "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/ttk.txt#L2"
       ]
+    },
+    {
+      "case_id": "beeline-business_page-samara-internet-dlya-biznesa",
+      "provider": "beeline",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_page",
+      "source_page_url": "https://samara.beeline-ru.online/business/internet-dlya-biznesa",
+      "entry_url": "https://samara.beeline-ru.online/business/internet-dlya-biznesa",
+      "status": "blocked",
+      "region": {
+        "mode": "direct_city_subdomain",
+        "business_url": "https://samara.beeline-ru.online/business/internet-dlya-biznesa",
+        "indicator": "span#autocomplete_city_name.autocomplete-city-name"
+      },
+      "reason": "Samara entry URL supplied by user; exact form, indicator presence, submission and response contracts still require verification",
+      "source_refs": [
+        "docs/SAMARA_ROUTES.md"
+      ],
+      "route_source": {
+        "kind": "user_requirement",
+        "date": "2026-09-16"
+      }
+    },
+    {
+      "case_id": "beeline-business_page-samara-mobilnaya-svyaz-dlya-biznesa",
+      "provider": "beeline",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_page",
+      "source_page_url": "https://samara.beeline-ru.online/business/mobilnaya-svyaz-dlya-biznesa",
+      "entry_url": "https://samara.beeline-ru.online/business/mobilnaya-svyaz-dlya-biznesa",
+      "status": "blocked",
+      "region": {
+        "mode": "direct_city_subdomain",
+        "business_url": "https://samara.beeline-ru.online/business/mobilnaya-svyaz-dlya-biznesa",
+        "indicator": "span#autocomplete_city_name.autocomplete-city-name"
+      },
+      "reason": "Samara entry URL supplied by user; exact form, indicator presence, submission and response contracts still require verification",
+      "source_refs": [
+        "docs/SAMARA_ROUTES.md"
+      ],
+      "route_source": {
+        "kind": "user_requirement",
+        "date": "2026-09-16"
+      }
+    },
+    {
+      "case_id": "mts-business_page-samara-korporativnie-tarify",
+      "provider": "mts",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_page",
+      "source_page_url": "https://samara.mts-home.online/business/korporativnie-tarify",
+      "entry_url": "https://samara.mts-home.online/business/korporativnie-tarify",
+      "status": "blocked",
+      "region": {
+        "mode": "direct_city_subdomain",
+        "business_url": "https://samara.mts-home.online/business/korporativnie-tarify",
+        "indicator": "span#autocomplete_city_name.autocomplete-city-name"
+      },
+      "reason": "Samara entry URL supplied by user; exact form, indicator presence, submission and response contracts still require verification",
+      "source_refs": [
+        "docs/SAMARA_ROUTES.md"
+      ],
+      "route_source": {
+        "kind": "user_requirement",
+        "date": "2026-09-16"
+      }
+    },
+    {
+      "case_id": "mts-business_page-samara-ip-telefoniya",
+      "provider": "mts",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_page",
+      "source_page_url": "https://samara.mts-home.online/business/ip-telefoniya",
+      "entry_url": "https://samara.mts-home.online/business/ip-telefoniya",
+      "status": "blocked",
+      "region": {
+        "mode": "direct_city_subdomain",
+        "business_url": "https://samara.mts-home.online/business/ip-telefoniya",
+        "indicator": "span#autocomplete_city_name.autocomplete-city-name"
+      },
+      "reason": "Samara entry URL supplied by user; exact form, indicator presence, submission and response contracts still require verification",
+      "source_refs": [
+        "docs/SAMARA_ROUTES.md"
+      ],
+      "route_source": {
+        "kind": "user_requirement",
+        "date": "2026-09-16"
+      }
     }
   ]
 }
