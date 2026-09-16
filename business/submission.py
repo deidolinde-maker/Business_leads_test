@@ -150,13 +150,14 @@ class SubmissionGuard:
         expected = urlsplit(target)
         same_endpoint = (current.scheme, current.netloc, current.path) == (expected.scheme, expected.netloc, expected.path)
         if same_endpoint:
+            if request.method != self.contract["method"] or request.url != target:
+                self.evidence.setdefault("endpoint_mismatches", []).append({"method": request.method, "path": current.path})
+                return self._abort(route, "submission_endpoint_changed")
             self.seen += 1
             if not self.armed:
                 return self._abort(route, "submission_before_explicit_click")
             if self.seen > 1:
                 return self._abort(route, "duplicate_submission")
-            if request.method != self.contract["method"] or request.url != target:
-                return self._abort(route, "submission_endpoint_changed")
             try:
                 payload = parse_payload(request.headers.get("content-type", ""), request.post_data_buffer or b"")
                 matches(payload, self.contract["region_match"], "region")

@@ -4356,6 +4356,11 @@
             "url": "https://samara.beeline-ru.online/wp-admin/admin-ajax.php?action=cf7_proxy_submit_transport&cf7_form_id=952&cf7_operation=schema",
             "method": "GET",
             "evidence": "Exact GET observed during page load 2026-09-16; deployed CF7 transport maps feedback/schema to schema"
+          },
+          {
+            "url": "https://samara.beeline-ru.online/wp-admin/admin-ajax.php?action=cf7_proxy_submit_transport&cf7_form_id=952&cf7_operation=refill",
+            "method": "GET",
+            "evidence": "Deployed CF7 includes/js/index.js calls GET contact-forms/952/refill on form reset after mail_sent; inline cf7ProxySubmitTransport maps to this exact URL. This is not a feedback POST."
           }
         ],
         "blocked_background_requests": [
@@ -4464,6 +4469,11 @@
             "url": "https://samara.beeline-ru.online/wp-admin/admin-ajax.php?action=cf7_proxy_submit_transport&cf7_form_id=952&cf7_operation=schema",
             "method": "GET",
             "evidence": "Exact GET observed during page load 2026-09-16; deployed CF7 transport maps feedback/schema to schema"
+          },
+          {
+            "url": "https://samara.beeline-ru.online/wp-admin/admin-ajax.php?action=cf7_proxy_submit_transport&cf7_form_id=952&cf7_operation=refill",
+            "method": "GET",
+            "evidence": "Deployed CF7 includes/js/index.js calls GET contact-forms/952/refill on form reset after mail_sent; inline cf7ProxySubmitTransport maps to this exact URL. This is not a feedback POST."
           }
         ],
         "blocked_background_requests": [
