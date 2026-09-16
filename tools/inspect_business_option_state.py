@@ -3,12 +3,18 @@
 import argparse
 import json
 import os
+import re
 from pathlib import Path
+from urllib.parse import parse_qs
 
 from playwright.sync_api import Error, sync_playwright
 
-from discover_business_options import READ_ONLY_METHODS, clean_url
+try:
+    from tools.discover_business_options import READ_ONLY_METHODS, clean_url
+except ModuleNotFoundError:  # Direct CLI execution: python tools/inspect_business_option_state.py
+    from discover_business_options import READ_ONLY_METHODS, clean_url
 
+SUMMARY_FIELDS = ("CityName", "City", "Place", "IStreet", "IHouse", "FormName", "lead_form_type", "service_id")
 
 def first_visible(scope, selectors: list[str]):
     for selector in selectors:
@@ -16,6 +22,22 @@ def first_visible(scope, selectors: list[str]):
         if candidate.count() and candidate.first.is_visible():
             return candidate.first, selector
     raise RuntimeError(f"No visible locator matched: {selectors}")
+
+
+def payload_summary(request):
+    """Keep only field names and Samara/business values from an aborted request."""
+    raw = request.post_data or ""
+    values = {key: value[-1] for key, value in parse_qs(raw).items()} if "multipart/form-data" not in raw and "\r\n" not in raw else {}
+    names = set(values)
+    for name in re.findall(r'name="([^"]+)"', raw):
+        names.add(name)
+        match = re.search(rf'name="{re.escape(name)}"\r?\n\r?\n([^\r\n]*)', raw)
+        if match:
+            values[name] = match.group(1)
+    return {
+        "field_names": sorted(names),
+        "selected_values": {key: values[key] for key in SUMMARY_FIELDS if key in values},
+    }
 
 
 def main() -> int:
@@ -27,6 +49,8 @@ def main() -> int:
     parser.add_argument("--house")
     parser.add_argument("--choose-street", action="store_true")
     parser.add_argument("--choose-house", action="store_true")
+    parser.add_argument("--phone")
+    parser.add_argument("--capture-submit", action="store_true")
     parser.add_argument("--timeout-ms", type=int, default=20_000)
     args = parser.parse_args()
     if args.house and not args.street:
@@ -37,9 +61,12 @@ def main() -> int:
         parser.error("--house requires --choose-street")
     if args.choose_house and not args.house:
         parser.error("--choose-house requires --house")
+    if args.capture_submit and not args.phone:
+        parser.error("--capture-submit requires --phone")
 
     writes = []
     address_probe = None
+    phone_probe = None
     executable = os.getenv("BUSINESS_CHROMIUM_EXECUTABLE")
     launch = {"executable_path": executable} if executable else {}
     with sync_playwright() as playwright:
@@ -51,7 +78,7 @@ def main() -> int:
             if request.method in READ_ONLY_METHODS:
                 route.continue_()
             else:
-                writes.append({"method": request.method, "url": clean_url(request.url)})
+                writes.append({"method": request.method, "url": clean_url(request.url), "payload": payload_summary(request)})
                 route.abort("blockedbyclient")
 
         context.route("**/*", guard)
@@ -151,12 +178,35 @@ def main() -> int:
                     ).evaluate_all("els => els.map(el => ({name:el.name, value:el.value}))"),
                 }
 
+            submit_capture = None
+            if args.capture_submit:
+                phone = form.locator(".checkaddress_address_phone")
+                phone_probe = {
+                    "count": phone.count(),
+                    "visible": phone.is_visible() if phone.count() else False,
+                    "editable": phone.is_editable() if phone.count() else False,
+                }
+                if not phone_probe["editable"]:
+                    raise RuntimeError(f"Phone field is not editable: {phone_probe}")
+                phone.click()
+                phone.press_sequentially(args.phone, delay=25)
+                page.wait_for_timeout(500)
+                form.locator(".checkaddress_address_button_send").click(timeout=args.timeout_ms)
+                page.wait_for_timeout(1_000)
+                submit_capture = [
+                    write for write in writes
+                    if {"CityName", "City", "Place"}.issubset(set(write["payload"]["field_names"]))
+                ]
+
             indicators = form.locator("#autocomplete_city_name, .autocomplete-city-name")
             result = {
                 "mode": "read_only_business_option_state",
                 "safety": (
-                    "Address fields were typed and only explicitly requested autocomplete choices were selected; submit was not clicked and all non-GET/HEAD/OPTIONS requests were aborted."
-                    if args.street else "No address fields were filled and submit was not clicked; all non-GET/HEAD/OPTIONS requests were aborted."
+                    "The submit click was intercepted before any POST left the browser; only field names and selected Samara/business values were recorded."
+                    if args.capture_submit else (
+                        "Address fields were typed and only explicitly requested autocomplete choices were selected; submit was not clicked and all non-GET/HEAD/OPTIONS requests were aborted."
+                        if args.street else "No address fields were filled and submit was not clicked; all non-GET/HEAD/OPTIONS requests were aborted."
+                    )
                 ),
                 "case_id": args.case_id,
                 "http_status": response.status if response else None,
@@ -187,8 +237,9 @@ def main() -> int:
                     ),
                 },
                 "address": address,
+                "submit_capture": submit_capture,
                 "blocked_write_count": len(writes),
-                "submit_clicked": False,
+                "submit_clicked": bool(args.capture_submit),
             }
         except (Error, RuntimeError) as exc:
             result = {
@@ -197,6 +248,7 @@ def main() -> int:
                 "error": f"{type(exc).__name__}: {str(exc).splitlines()[0]}",
                 "final_url": clean_url(page.url),
                 "address_probe": address_probe,
+                "phone_probe": phone_probe,
                 "blocked_write_count": len(writes),
                 "blocked_writes": writes,
                 "submit_clicked": False,

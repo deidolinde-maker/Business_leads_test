@@ -21,7 +21,18 @@ The user-defined rule permits the unchanged base URL for `Place` flows. It is no
 
 ## Blocking facts
 
-The inspection did not send a request, so it does not prove the business/region payload or positive response. The requested house `1` did not become the selected autocomplete result in the read-only flow; the first offered choice was `21` and was not accepted as a substitute. This candidate remains `blocked` until the exact address is selected and a blocked request capture establishes the business and Samara payload contract.
+The requested house `1` did not become the selected autocomplete result; the first offered choice was `21`. The user clarified that any address selected inside the ordinary popup is acceptable, so `Ленинградская ул, 21` was used only for the safe contract capture.
+
+## Blocked-submit contract
+
+The form was completed with the selected Samara address and the provided test phone, then submit was clicked while every POST was aborted before leaving the browser. One candidate request was captured:
+
+- endpoint: `POST https://mts-home.online/wp-admin/admin-ajax.php`;
+- region: `CityName=Самара`, `City=36401`, `IStreet=313620`, `IHouse=293579`;
+- business selection: `Place=Для бизнеса`;
+- form identity: `FormName=Проверьте подключение`, `lead_form_type=forma_proverit'_adress`, `service_id=2`.
+
+No phone value or raw request body was saved. This proves the selected business and Samara request contract, but not the positive response or CRM delivery. The candidate remains `blocked` until one explicitly approved production pilot verifies those two outcomes.
 
 ## Sources
 
