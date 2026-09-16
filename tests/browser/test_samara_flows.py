@@ -4,6 +4,8 @@ import pytest
 
 from business.errors import BusinessCheckError
 from business.runner import run_case
+from business.deadline import Deadline
+from business.submission import SubmissionGuard
 from tests.support import DATA, make_case
 
 
@@ -71,3 +73,53 @@ def test_exact_city_id_required_in_popup(browser, local_site, tmp_path):
     with pytest.raises(BusinessCheckError):
         run_case(browser, make_case(base, mode="popup_selection", fault="wrong-choice"), DATA, tmp_path, budget=3)
     assert not state["received"]
+
+
+@pytest.mark.parametrize("fault", [None, "query", "method"])
+def test_shared_endpoint_schema_get_does_not_bypass_submission_guard(browser, local_site, fault):
+    base, state = local_site
+    contract = make_case(base)["submission"]
+    contract["url"] = base + "/leads?action=feedback"
+    schema = base + "/leads?action=schema"
+    contract["read_only_requests"] = [{"url": schema, "method": "GET", "evidence": "local fixture schema"}]
+    guard = SubmissionGuard(contract, Deadline(10))
+    context = browser.new_context(service_workers="block")
+    try:
+        guard.install(context)
+        page = context.new_page()
+        page.goto(schema)
+        assert guard.seen == 0 and guard.error is None
+        guard.arm()
+        target = schema if fault == "method" else contract["url"] + ("&changed=1" if fault == "query" else "")
+        page.evaluate('''url => fetch(url, {method:'POST', headers:{'Content-Type':'application/json'},
+            body:JSON.stringify({form:'lead-fixture',business:true,region:'samara-fixture'})}).catch(()=>null)''', target)
+        if fault:
+            assert not state["received"]
+            with pytest.raises(BusinessCheckError, match="endpoint_changed"):
+                guard.assert_success()
+        else:
+            guard.assert_success()
+            assert len(state["received"]) == 1
+    finally:
+        context.close()
+
+
+@pytest.mark.parametrize("known_background", [True, False])
+def test_background_writes_are_blocked_and_unexpected_writes_fail(browser, local_site, known_background):
+    base, state = local_site
+    contract = make_case(base)["submission"]
+    if known_background:
+        contract["blocked_background_requests"] = [{"url": base + "/analytics", "evidence": "local fixture"}]
+    guard = SubmissionGuard(contract, Deadline(10))
+    context = browser.new_context(service_workers="block")
+    try:
+        guard.install(context)
+        page = context.new_page()
+        page.goto(base)
+        guard.arm()
+        page.evaluate('''() => fetch('/analytics?ignored=1', {method:'POST',body:'{}'}).catch(()=>null)''')
+        assert not state["received"]
+        assert guard.background_blocked == int(known_background)
+        assert guard.error == (None if known_background else "unexpected_write_endpoint")
+    finally:
+        context.close()

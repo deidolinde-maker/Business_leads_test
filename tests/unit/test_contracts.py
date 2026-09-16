@@ -67,6 +67,31 @@ def test_duplicate_json_city_rejected():
         parse_payload("application/json", b'{"city":"samara","city":"moscow"}')
 
 
+def test_browser_multipart_preserves_cyrillic_without_charset():
+    body = '--boundary\r\nContent-Disposition: form-data; name="CityName"\r\n\r\nСамара\r\n--boundary--\r\n'.encode('utf-8')
+    assert parse_payload('multipart/form-data; boundary=boundary', body) == {"CityName": "Самара"}
+
+
+def test_invalid_utf8_multipart_is_rejected():
+    body = b'--b\r\nContent-Disposition: form-data; name="CityName"\r\n\r\n\xff\r\n--b--\r\n'
+    with pytest.raises(UnicodeDecodeError):
+        parse_payload('multipart/form-data; boundary=b', body)
+
+
+def test_shared_submit_endpoint_cannot_allowlist_post_with_other_query():
+    contract = make_case()["submission"]
+    contract["read_only_requests"] = [{"url": contract["url"] + "?action=search", "method": "POST", "evidence": "same endpoint"}]
+    with pytest.raises(ConfigurationError, match="shared submission"):
+        validate_contract(contract)
+
+
+def test_submit_cannot_be_classified_as_background():
+    contract = make_case()["submission"]
+    contract["blocked_background_requests"] = [{"url": contract["url"], "evidence": "bad"}]
+    with pytest.raises(ConfigurationError, match="background"):
+        validate_contract(contract)
+
+
 def test_hidden_duplicate_urlencoded_city_cannot_pass():
     payload = parse_payload("application/x-www-form-urlencoded", b"city=samara&city=moscow")
     with pytest.raises(BusinessCheckError, match="mismatch"):

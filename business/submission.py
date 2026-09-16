@@ -39,7 +39,9 @@ def parse_payload(content_type: str, body: bytes) -> dict:
                 raise BusinessCheckError("unsupported_multipart_part")
             if name in result:
                 raise BusinessCheckError("duplicate_multipart_field")
-            result[name] = part.get_content()
+            # Browser FormData text parts commonly omit charset; their bytes are UTF-8.
+            # email.get_content() defaults to ASCII and silently replaces Cyrillic.
+            result[name] = part.get_payload(decode=True).decode(part.get_content_charset() or "utf-8")
         return result
     raise BusinessCheckError("unsupported_payload_encoding")
 
@@ -85,6 +87,15 @@ def validate_contract(contract: dict):
             raise ConfigurationError("read-only exceptions need exact URL/method/evidence")
         if rule["url"] == contract["url"]:
             raise ConfigurationError("submission cannot be allowlisted as read-only")
+        readonly = urlsplit(rule["url"])
+        if rule["method"] == "POST" and (readonly.scheme, readonly.netloc, readonly.path) == (endpoint.scheme, endpoint.netloc, endpoint.path):
+            raise ConfigurationError("shared submission endpoint only supports exact read-only GET exceptions")
+    for rule in contract.get("blocked_background_requests", []):
+        background = urlsplit(rule.get("url", ""))
+        if not rule.get("evidence") or background.scheme not in {"http", "https"} or not background.hostname or background.query:
+            raise ConfigurationError("background block needs exact origin/path without query and evidence")
+        if (background.scheme, background.netloc, background.path) == (endpoint.scheme, endpoint.netloc, endpoint.path):
+            raise ConfigurationError("submission cannot be classified as background")
 
 
 class SubmissionGuard:
@@ -97,6 +108,8 @@ class SubmissionGuard:
         self.forwarded = 0
         self.accepted = False
         self.error = None
+        self.errors = []
+        self.background_blocked = 0
         self.evidence = {}
         self.handler = self._handle
 
@@ -112,11 +125,25 @@ class SubmissionGuard:
 
     def _abort(self, route, reason):
         self.error = self.error or reason
+        if reason not in self.errors:
+            self.errors.append(reason)
         route.abort("blockedbyclient")
 
     def _handle(self, route):
         request = route.request
         target = self.contract["url"]
+        # WordPress serves schema GET and feedback POST through the same admin-ajax path.
+        # Only explicitly verified exact URLs/methods can precede the endpoint guard.
+        for rule in self.contract.get("read_only_requests", []):
+            if request.url == rule["url"] and request.method == rule["method"]:
+                try:
+                    response = route.fetch(max_redirects=0, max_retries=0, timeout=self.deadline.ms())
+                    if 300 <= response.status < 400:
+                        return self._abort(route, "read_only_redirect_not_supported")
+                    route.fulfill(response=response)
+                except Exception:
+                    self._abort(route, "read_only_dependency_failed")
+                return
         # Changed query strings on the same endpoint are not a reason to bypass validation.
         current = urlsplit(request.url)
         expected = urlsplit(target)
@@ -146,7 +173,13 @@ class SubmissionGuard:
                 if response.status not in reply["statuses"]:
                     raise BusinessCheckError("submission_response_rejected")
                 if reply.get("json_match"):
-                    matches(response.json(), reply["json_match"], "response")
+                    response_payload = response.json()
+                    # Persist only the standard machine status, never a raw server body.
+                    if isinstance(response_payload, dict):
+                        status = response_payload.get("status")
+                        if status in {"mail_sent", "mail_failed", "spam", "validation_failed", "aborted", "acceptance_missing", "accepted", "rejected"}:
+                            self.evidence["response_status"] = status
+                    matches(response_payload, reply["json_match"], "response")
                 if reply.get("location") and response.headers.get("location") != reply["location"]:
                     raise BusinessCheckError("response_location_mismatch")
                 self.accepted = True
@@ -156,22 +189,20 @@ class SubmissionGuard:
                 reason = str(exc) if isinstance(exc, BusinessCheckError) else f"submission_unconfirmed:{type(exc).__name__}"
                 self._abort(route, reason)
             return
-        for rule in self.contract.get("read_only_requests", []):
-            if request.url == rule["url"] and request.method == rule["method"]:
-                if request.method == "POST":
-                    try:
-                        response = route.fetch(max_redirects=0, max_retries=0, timeout=self.deadline.ms())
-                        if 300 <= response.status < 400:
-                            return self._abort(route, "read_only_post_redirect_not_supported")
-                        route.fulfill(response=response)
-                    except Exception:
-                        self._abort(route, "read_only_dependency_failed")
-                else:
-                    route.continue_()
+        for rule in self.contract.get("blocked_background_requests", []):
+            background = urlsplit(rule["url"])
+            if (current.scheme, current.netloc, current.path) == (background.scheme, background.netloc, background.path):
+                self.background_blocked += 1
+                route.abort("blockedbyclient")
                 return
         if request.method in {"GET", "HEAD", "OPTIONS"}:
             route.continue_()
         elif self.armed:
+            # No query or body in diagnostics: these may contain user data.
+            self.evidence.setdefault("unexpected_write_paths", [])
+            path = current._replace(query="", fragment="").geturl()
+            if path not in self.evidence["unexpected_write_paths"]:
+                self.evidence["unexpected_write_paths"].append(path)
             self._abort(route, "unexpected_write_endpoint")
         else:
             # POST dependencies must be individually identified as read-only during onboarding.

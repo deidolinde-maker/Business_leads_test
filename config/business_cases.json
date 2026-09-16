@@ -3604,15 +3604,41 @@
       "target_city_ui_id": "36401",
       "flow_kind": "business_page",
       "source_page_url": "https://rtk-internet.online/business",
-      "entry_url": null,
+      "entry_url": "https://rtk-internet.online/business",
       "status": "blocked",
-      "region": null,
-      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "region": {
+        "mode": "popup_selection",
+        "business_url": "https://rtk-internet.online/business",
+        "indicator": "span#autocomplete_city_name.autocomplete-city-name",
+        "trigger": ".autocomplete-city.button-select-city",
+        "popup": "#popup-select-city",
+        "search": "input#city-input.popup-select-city__input",
+        "choice": "a.region_item.region_link[id='36401']",
+        "choice_url": "https://rtk-internet.online/samara",
+        "after_choice_url": "https://rtk-internet.online/business"
+      },
+      "reason": "Production UI preparation verified 2026-09-16: Samara selected in-place; submit/response contract pending. Before submit, Info still mentions Moscow while CityName/BusinessCityId show Samara; outgoing consistency needs verification.",
       "source_refs": [
         "https://github.com/deidolinde-maker/Everyday_test/blob/8e87c77a79430e1a54b110682cf9f7912a29cac5/config/providers/rostelecom.py#L4",
         "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/config/providers/rostelecom.py#L4",
         "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/rostelecom.txt#L47"
-      ]
+      ],
+      "form": {
+        "selector": "#popup-business form.wpcf7-form",
+        "trigger": ".services-business__item:has(.services-business__item-title:text-is(\"Интернет для бизнеса\")) .business_no_address_button",
+        "submit": ".business_no_address_button_send",
+        "fields": [
+          {
+            "selector": ".business_no_address_full_address",
+            "data_key": "full_address"
+          },
+          {
+            "selector": ".business_no_address_phone",
+            "data_key": "phone"
+          }
+        ]
+      },
+      "verification": "docs/evidence/production-onboarding-20260916.md"
     },
     {
       "case_id": "rostelecom-business_option-388cda0ec85c",
@@ -4254,20 +4280,104 @@
       "flow_kind": "business_page",
       "source_page_url": "https://samara.beeline-ru.online/business/internet-dlya-biznesa",
       "entry_url": "https://samara.beeline-ru.online/business/internet-dlya-biznesa",
-      "status": "blocked",
+      "status": "active",
       "region": {
         "mode": "direct_city_subdomain",
         "business_url": "https://samara.beeline-ru.online/business/internet-dlya-biznesa",
         "indicator": "span#autocomplete_city_name.autocomplete-city-name"
       },
-      "reason": "Samara entry URL supplied by user; exact form, indicator presence, submission and response contracts still require verification",
       "source_refs": [
         "docs/SAMARA_ROUTES.md"
       ],
       "route_source": {
         "kind": "user_requirement",
         "date": "2026-09-16"
-      }
+      },
+      "form": {
+        "selector": "#popup-business form.wpcf7-form",
+        "trigger": ".business_no_address_button",
+        "submit": ".business_no_address_button_send",
+        "fields": [
+          {
+            "selector": ".business_no_address_full_address",
+            "data_key": "full_address"
+          },
+          {
+            "selector": ".business_no_address_phone",
+            "data_key": "phone"
+          }
+        ]
+      },
+      "submission": {
+        "url": "https://samara.beeline-ru.online/wp-admin/admin-ajax.php?action=cf7_proxy_submit_transport&cf7_form_id=952&cf7_operation=feedback",
+        "method": "POST",
+        "target_city": "Самара",
+        "target_city_ui_id": "36401",
+        "region_match": {
+          "BusinessCityId": "36401",
+          "CityName": "Самара"
+        },
+        "business_match": {
+          "FormName": "Заявка Бизнес",
+          "lead_form_type": "forma_podklyucheniya_biznes",
+          "service_id": "2"
+        },
+        "identity_match": {
+          "_wpcf7": "952",
+          "_wpcf7_unit_tag": "wpcf7-f952-o3",
+          "aa_proxy_context_host": "samara.beeline-ru.online"
+        },
+        "evidence": "docs/evidence/production-onboarding-20260916.md; DOM plus blocked browser multipart captured 2026-09-16; response status from deployed CF7 client and wpcf7submit handler",
+        "response": {
+          "statuses": [
+            200
+          ],
+          "json_match": {
+            "status": "mail_sent"
+          }
+        },
+        "read_only_requests": [
+          {
+            "url": "https://samara.beeline-ru.online/wp-admin/admin-ajax.php?action=cf7_proxy_submit_transport&cf7_form_id=949&cf7_operation=schema",
+            "method": "GET",
+            "evidence": "Exact GET observed during page load 2026-09-16; deployed CF7 transport maps feedback/schema to schema"
+          },
+          {
+            "url": "https://samara.beeline-ru.online/wp-admin/admin-ajax.php?action=cf7_proxy_submit_transport&cf7_form_id=950&cf7_operation=schema",
+            "method": "GET",
+            "evidence": "Exact GET observed during page load 2026-09-16; deployed CF7 transport maps feedback/schema to schema"
+          },
+          {
+            "url": "https://samara.beeline-ru.online/wp-admin/admin-ajax.php?action=cf7_proxy_submit_transport&cf7_form_id=951&cf7_operation=schema",
+            "method": "GET",
+            "evidence": "Exact GET observed during page load 2026-09-16; deployed CF7 transport maps feedback/schema to schema"
+          },
+          {
+            "url": "https://samara.beeline-ru.online/wp-admin/admin-ajax.php?action=cf7_proxy_submit_transport&cf7_form_id=952&cf7_operation=schema",
+            "method": "GET",
+            "evidence": "Exact GET observed during page load 2026-09-16; deployed CF7 transport maps feedback/schema to schema"
+          }
+        ],
+        "blocked_background_requests": [
+          {
+            "url": "https://mc.yandex.ru/watch/55479901",
+            "evidence": "Observed analytics requests during blocked-submit onboarding 2026-09-16; requests are aborted, never forwarded"
+          },
+          {
+            "url": "https://mc.yandex.ru/watch/55479901/1",
+            "evidence": "Observed analytics requests during blocked-submit onboarding 2026-09-16; requests are aborted, never forwarded"
+          },
+          {
+            "url": "https://mc.yandex.ru/webvisor/55479901",
+            "evidence": "Observed analytics requests during blocked-submit onboarding 2026-09-16; requests are aborted, never forwarded"
+          }
+        ]
+      },
+      "confirmation": {
+        "kind": "url",
+        "value": "https://samara.beeline-ru.online/thanks"
+      },
+      "verification": "docs/evidence/production-onboarding-20260916.md; production DOM and intercepted request, user-confirmed data/environment"
     },
     {
       "case_id": "beeline-business_page-samara-mobilnaya-svyaz-dlya-biznesa",
@@ -4278,20 +4388,104 @@
       "flow_kind": "business_page",
       "source_page_url": "https://samara.beeline-ru.online/business/mobilnaya-svyaz-dlya-biznesa",
       "entry_url": "https://samara.beeline-ru.online/business/mobilnaya-svyaz-dlya-biznesa",
-      "status": "blocked",
+      "status": "active",
       "region": {
         "mode": "direct_city_subdomain",
         "business_url": "https://samara.beeline-ru.online/business/mobilnaya-svyaz-dlya-biznesa",
         "indicator": "span#autocomplete_city_name.autocomplete-city-name"
       },
-      "reason": "Samara entry URL supplied by user; exact form, indicator presence, submission and response contracts still require verification",
       "source_refs": [
         "docs/SAMARA_ROUTES.md"
       ],
       "route_source": {
         "kind": "user_requirement",
         "date": "2026-09-16"
-      }
+      },
+      "form": {
+        "selector": "#popup-business form.wpcf7-form",
+        "trigger": ".business_no_address_button",
+        "submit": ".business_no_address_button_send",
+        "fields": [
+          {
+            "selector": ".business_no_address_full_address",
+            "data_key": "full_address"
+          },
+          {
+            "selector": ".business_no_address_phone",
+            "data_key": "phone"
+          }
+        ]
+      },
+      "submission": {
+        "url": "https://samara.beeline-ru.online/wp-admin/admin-ajax.php?action=cf7_proxy_submit_transport&cf7_form_id=952&cf7_operation=feedback",
+        "method": "POST",
+        "target_city": "Самара",
+        "target_city_ui_id": "36401",
+        "region_match": {
+          "BusinessCityId": "36401",
+          "CityName": "Самара"
+        },
+        "business_match": {
+          "FormName": "Заявка Бизнес",
+          "lead_form_type": "forma_podklyucheniya_biznes",
+          "service_id": "2"
+        },
+        "identity_match": {
+          "_wpcf7": "952",
+          "_wpcf7_unit_tag": "wpcf7-f952-o3",
+          "aa_proxy_context_host": "samara.beeline-ru.online"
+        },
+        "evidence": "docs/evidence/production-onboarding-20260916.md; DOM plus blocked browser multipart captured 2026-09-16; response status from deployed CF7 client and wpcf7submit handler",
+        "response": {
+          "statuses": [
+            200
+          ],
+          "json_match": {
+            "status": "mail_sent"
+          }
+        },
+        "read_only_requests": [
+          {
+            "url": "https://samara.beeline-ru.online/wp-admin/admin-ajax.php?action=cf7_proxy_submit_transport&cf7_form_id=949&cf7_operation=schema",
+            "method": "GET",
+            "evidence": "Exact GET observed during page load 2026-09-16; deployed CF7 transport maps feedback/schema to schema"
+          },
+          {
+            "url": "https://samara.beeline-ru.online/wp-admin/admin-ajax.php?action=cf7_proxy_submit_transport&cf7_form_id=950&cf7_operation=schema",
+            "method": "GET",
+            "evidence": "Exact GET observed during page load 2026-09-16; deployed CF7 transport maps feedback/schema to schema"
+          },
+          {
+            "url": "https://samara.beeline-ru.online/wp-admin/admin-ajax.php?action=cf7_proxy_submit_transport&cf7_form_id=951&cf7_operation=schema",
+            "method": "GET",
+            "evidence": "Exact GET observed during page load 2026-09-16; deployed CF7 transport maps feedback/schema to schema"
+          },
+          {
+            "url": "https://samara.beeline-ru.online/wp-admin/admin-ajax.php?action=cf7_proxy_submit_transport&cf7_form_id=952&cf7_operation=schema",
+            "method": "GET",
+            "evidence": "Exact GET observed during page load 2026-09-16; deployed CF7 transport maps feedback/schema to schema"
+          }
+        ],
+        "blocked_background_requests": [
+          {
+            "url": "https://mc.yandex.ru/watch/55479901",
+            "evidence": "Observed analytics requests during blocked-submit onboarding 2026-09-16; requests are aborted, never forwarded"
+          },
+          {
+            "url": "https://mc.yandex.ru/watch/55479901/1",
+            "evidence": "Observed analytics requests during blocked-submit onboarding 2026-09-16; requests are aborted, never forwarded"
+          },
+          {
+            "url": "https://mc.yandex.ru/webvisor/55479901",
+            "evidence": "Observed analytics requests during blocked-submit onboarding 2026-09-16; requests are aborted, never forwarded"
+          }
+        ]
+      },
+      "confirmation": {
+        "kind": "url",
+        "value": "https://samara.beeline-ru.online/thanks"
+      },
+      "verification": "docs/evidence/production-onboarding-20260916.md; production DOM and intercepted request, user-confirmed data/environment"
     },
     {
       "case_id": "mts-business_page-samara-korporativnie-tarify",
@@ -4308,14 +4502,15 @@
         "business_url": "https://samara.mts-home.online/business/korporativnie-tarify",
         "indicator": "span#autocomplete_city_name.autocomplete-city-name"
       },
-      "reason": "Samara entry URL supplied by user; exact form, indicator presence, submission and response contracts still require verification",
+      "reason": "Production 2026-09-16: business Connect links navigate to business.mts.ru; dedicated local business form absent. Existing address form has Samara text without data-item; external business route/region contract not verified.",
       "source_refs": [
         "docs/SAMARA_ROUTES.md"
       ],
       "route_source": {
         "kind": "user_requirement",
         "date": "2026-09-16"
-      }
+      },
+      "verification": "docs/evidence/production-onboarding-20260916.md"
     },
     {
       "case_id": "mts-business_page-samara-ip-telefoniya",
@@ -4332,14 +4527,15 @@
         "business_url": "https://samara.mts-home.online/business/ip-telefoniya",
         "indicator": "span#autocomplete_city_name.autocomplete-city-name"
       },
-      "reason": "Samara entry URL supplied by user; exact form, indicator presence, submission and response contracts still require verification",
+      "reason": "Production 2026-09-16: business Connect links navigate to business.mts.ru; dedicated local business form absent. Existing address form has Samara text without data-item; external business route/region contract not verified.",
       "source_refs": [
         "docs/SAMARA_ROUTES.md"
       ],
       "route_source": {
         "kind": "user_requirement",
         "date": "2026-09-16"
-      }
+      },
+      "verification": "docs/evidence/production-onboarding-20260916.md"
     }
   ]
 }

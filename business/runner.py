@@ -65,6 +65,8 @@ def run_case(browser, case: dict, data: dict, output: Path, budget: float = 75) 
         raise BusinessCheckError(result["error"]) from None
     finally:
         result["phase_seconds"] = deadline.timings
-        result["submission"] = {**guard.evidence, "observed": guard.seen, "forwarded": guard.forwarded}
+        result["submission"] = {**guard.evidence, "observed": guard.seen, "forwarded": guard.forwarded,
+                                "response_accepted": guard.accepted, "errors": guard.errors,
+                                "background_blocked": guard.background_blocked}
         (output / "result.json").write_text(json.dumps(result, ensure_ascii=False, indent=2), encoding="utf-8")
         context.close()
