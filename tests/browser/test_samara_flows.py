@@ -14,6 +14,7 @@ def test_samara_flow_sends_once(browser, local_site, tmp_path, mode):
     base, state = local_site
     result = run_case(browser, make_case(base, mode), DATA, tmp_path, budget=10)
     assert result["status"] == "passed"
+    assert result["confirmation_observed"] == {"kind": "locator", "value": "#thanks:visible"}
     assert state["received"] == [{"form": "lead-fixture", "business": True, "region": "samara-fixture"}]
     if mode == "popup_selection":
         assert "/samara" in state["gets"] and "/samara/business" in state["gets"]

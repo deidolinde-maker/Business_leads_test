@@ -47,7 +47,21 @@ The confirmed production data profile was filled, the submit control was clicked
 
 The hidden descriptive `Info` field still contained `Город: Выбрать город`. The structured region fields are correct and are enforced before dispatch; the stale description remains a CRM-verification risk for the pilot.
 
-The deployed page listens for `wpcf7submit`, requires `event.detail.status === 'mail_sent'`, and then assigns `/tilda/form1/submitted`. That exact success page returned HTTP 200 without a redirect during a read-only GET. The case now has an executable fail-closed submission contract and is `active`; a live MTS submit and CRM delivery are still unverified.
+The deployed page listens for `wpcf7submit`, requires `event.detail.status === 'mail_sent'`, and then assigns `/tilda/form1/submitted`. That exact success page returned HTTP 200 without a redirect during a read-only GET. At the end of blocked-submit onboarding, the case had an executable fail-closed contract and was ready for one live pilot.
+
+## Production pilot
+
+After explicit user approval, exactly one live run was executed with the confirmed Samara data profile. It passed in 7.84 seconds:
+
+- UI city: `Самара`, `data-item=36401`;
+- region, business, and form identity checks passed before dispatch;
+- target request: observed `1`, forwarded `1`;
+- HTTP `200`, response `status=mail_sent`, no invalid fields;
+- exact `/tilda/form1/submitted` URL assertion passed;
+- three known analytics writes were blocked;
+- no guard errors and no automatic retry.
+
+The automated production result is PASS. Delivery of this MTS request to CRM remains unconfirmed until the user checks the CRM.
 
 ## Sources and limits
 

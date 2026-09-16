@@ -50,8 +50,13 @@ def run_case(browser, case: dict, data: dict, output: Path, budget: float = 75) 
             confirmation = case["confirmation"]
             if confirmation["kind"] == "url":
                 expect(page).to_have_url(confirmation["value"], timeout=deadline.ms())
+                result["confirmation_observed"] = {"kind": "url", "value": page.url}
             else:
                 expect(page.locator(confirmation["value"])).to_be_visible(timeout=deadline.ms())
+                result["confirmation_observed"] = {
+                    "kind": "locator",
+                    "value": confirmation["value"],
+                }
             guard.assert_success()
         result["status"] = "passed"
         return result
