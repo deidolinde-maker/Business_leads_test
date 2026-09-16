@@ -1993,15 +1993,50 @@
       "target_city_ui_id": "36401",
       "flow_kind": "business_option",
       "source_page_url": "https://mts-home-online.ru/",
-      "entry_url": null,
+      "entry_url": "https://mts-home-online.ru/",
       "status": "blocked",
-      "region": null,
-      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "region": {
+        "mode": "popup_selection",
+        "business_url": "https://mts-home-online.ru/",
+        "indicator": "span#autocomplete_city_name.autocomplete-city-name",
+        "trigger": ".autocomplete-city-change.button-select-city",
+        "popup": "#popup-select-city",
+        "search": "input#city-input.popup-select-city__input",
+        "choice": "a.region_item.region_link[id='36401']",
+        "choice_url": "https://mts-home-online.ru/samara",
+        "after_choice_url": "https://mts-home-online.ru/"
+      },
+      "form": {
+        "selector": "form.wpcf7-form:has(input[name='_wpcf7_unit_tag'][value='wpcf7-f995-o1'])",
+        "submit": ".checkaddress_address_button_send",
+        "fields": [
+          {
+            "selector": ".checkaddress_address_street",
+            "data_key": "street"
+          },
+          {
+            "selector": ".checkaddress_address_house",
+            "data_key": "house"
+          },
+          {
+            "selector": ".checkaddress_address_phone",
+            "data_key": "phone"
+          }
+        ],
+        "business_control": {
+          "kind": "select",
+          "selector": "select[name='Place']",
+          "business_value": "Для бизнеса",
+          "alternative_value": "В квартиру"
+        }
+      },
+      "reason": "Production UI confirmed the MTS Place select and Samara indicator, but address preparation, submission city fields, exact multipart payload and positive response remain unverified; no business-option lead was sent.",
       "source_refs": [
         "https://github.com/deidolinde-maker/Everyday_test/blob/8e87c77a79430e1a54b110682cf9f7912a29cac5/config/providers/mts.py#L4",
         "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/config/providers/mts.py#L4",
         "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/mts.txt#L60"
-      ]
+      ],
+      "verification": "docs/evidence/mts-business-option-select-20260916.md"
     },
     {
       "case_id": "mts-business_page-c2d4cae355e7",

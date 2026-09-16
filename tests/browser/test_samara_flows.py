@@ -75,6 +75,20 @@ def test_radio_variants_finish_in_business_samara(browser, local_site, tmp_path)
     assert len(state["received"]) == 1 and state["received"][0]["business"] is True
 
 
+def test_select_business_option_finishes_in_business_samara(browser, local_site, tmp_path):
+    base, state = local_site
+    case = make_case(base, fault="select")
+    case["form"]["business_control"] = {
+        "kind": "select",
+        "selector": "#office",
+        "business_value": "Для бизнеса",
+        "alternative_value": "В квартиру",
+    }
+    result = run_case(browser, case, DATA, tmp_path, budget=5)
+    assert result["status"] == "passed"
+    assert len(state["received"]) == 1 and state["received"][0]["business"] is True
+
+
 def test_exact_city_id_required_in_popup(browser, local_site, tmp_path):
     base, state = local_site
     with pytest.raises(BusinessCheckError):

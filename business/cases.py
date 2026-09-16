@@ -58,8 +58,14 @@ def validate_case(case: dict) -> None:
     for key in ("selector", "submit", "fields"):
         if not form.get(key):
             raise ConfigurationError(f"{ident}: form.{key} required")
-    if case["flow_kind"] == "business_option" and form.get("business_control", {}).get("kind") not in {"checkbox", "radio"}:
-        raise ConfigurationError(f"{ident}: business_option needs a verified checkbox/radio")
+    if case["flow_kind"] == "business_option":
+        control = form.get("business_control", {})
+        if control.get("kind") not in {"checkbox", "radio", "select"}:
+            raise ConfigurationError(f"{ident}: business_option needs a verified checkbox/radio/select")
+        if control["kind"] == "select":
+            for key in ("business_value", "alternative_value"):
+                if not isinstance(control.get(key), str) or not control[key]:
+                    raise ConfigurationError(f"{ident}: select business control needs {key}")
     for field in form["fields"]:
         if not field.get("selector") or not field.get("data_key"):
             raise ConfigurationError(f"{ident}: field selector/data_key required")

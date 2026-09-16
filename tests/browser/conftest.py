@@ -32,8 +32,12 @@ document.querySelector('#office').onchange=()=>{
 };
 form.onsubmit=async event=>{
   event.preventDefault();
-  const payload={form:'lead-fixture', business:document.querySelector('#office').checked,
-    region:indicator.dataset.item==='36401'?'samara-fixture':'moscow-fixture'};
+  const businessControl=document.querySelector('#office');
+  const isBusiness=businessControl instanceof HTMLSelectElement
+    ? businessControl.value==='\u0414\u043b\u044f \u0431\u0438\u0437\u043d\u0435\u0441\u0430'
+    : businessControl.checked;
+  const payload={form:'lead-fixture', business:isBusiness,
+            region:indicator.dataset.item==='36401'?'samara-fixture':'moscow-fixture'};
   if(fault==='payload')payload.region='moscow-fixture';
   if(fault==='ordinary')payload.business=false;
   if(fault==='false-thanks'){document.querySelector('#thanks').hidden=false;return;}
@@ -65,6 +69,12 @@ def local_site():
                 html = html.replace('<input id="office" type="checkbox" style="position:absolute;opacity:0">',
                                     '<input id="home" type="radio" name="Place" checked><label for="home">Home</label>'
                                     '<input id="office" type="radio" name="Place">')
+            if 'fault=select' in self.path:
+                html = html.replace(
+                    '<input id="office" type="checkbox" style="position:absolute;opacity:0"><label for="office">В офис</label>',
+                    '<select id="office"><option value="В квартиру">В квартиру</option>'
+                    '<option value="Для бизнеса">Для бизнеса</option></select>',
+                )
             body = html.encode()
             self.send_response(200)
             self.send_header("Content-Type", "text/html; charset=utf-8")

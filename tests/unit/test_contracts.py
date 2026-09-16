@@ -163,4 +163,12 @@ def test_mts_business_page_scope_is_single_user_confirmed_landing():
         "note": "User confirmed that the single MTS production pilot arrived correctly in CRM.",
     }
     assert all(c["status"] == "excluded" for c in pages if c is not target)
-    assert any(c["provider"] == "mts" and c["flow_kind"] == "business_option" for c in cases)
+    option = next(c for c in cases if c["case_id"] == "mts-business_option-d5a93099ffb1")
+    assert option["status"] == "blocked"
+    assert option["form"]["business_control"] == {
+        "kind": "select",
+        "selector": "select[name='Place']",
+        "business_value": "Для бизнеса",
+        "alternative_value": "В квартиру",
+    }
+    assert option["verification"] == "docs/evidence/mts-business-option-select-20260916.md"

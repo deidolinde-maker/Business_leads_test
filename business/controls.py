@@ -32,6 +32,15 @@ def set_business(form, case, deadline):
             select(target if business else alternative, True,
                    control.get("click_selector" if business else "alternative_click_selector"))
             expect(target if not business else alternative).to_be_checked(checked=False, timeout=deadline.ms())
+    elif kind == "select":
+        for key in ("business_value", "alternative_value"):
+            if not control.get(key):
+                raise ConfigurationError(f"select {key} must be verified")
+        for value in (control["alternative_value"], control["business_value"],
+                      control["alternative_value"], control["business_value"]):
+            target.select_option(value=value, timeout=deadline.ms())
+            expect(target).to_have_value(value, timeout=deadline.ms())
+            assert_samara(form, case["region"], deadline)
     else:
         raise ConfigurationError("unsupported business control")
     assert_business(form, case, deadline)
@@ -40,4 +49,8 @@ def set_business(form, case, deadline):
 def assert_business(form, case, deadline):
     control = case["form"].get("business_control")
     if control:
-        expect(form.locator(control["selector"])).to_be_checked(timeout=deadline.ms())
+        target = form.locator(control["selector"])
+        if control["kind"] == "select":
+            expect(target).to_have_value(control["business_value"], timeout=deadline.ms())
+        else:
+            expect(target).to_be_checked(timeout=deadline.ms())
