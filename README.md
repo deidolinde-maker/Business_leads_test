@@ -106,6 +106,8 @@ Jenkins запускает представителя бренда через `M
 
 GitHub Actions проверяет только локальные fixtures. Jenkinsfile содержит режимы local/representative/collect/live; по умолчанию local. `representative` всегда collect-only и не может принимать фильтры. Самара фиксирована, параметра произвольного города нет. Скрипт CI передаёт фильтры через argv, а не вставляет их в shell-команду.
 
+Jenkins хранит кэш Python-пакетов и Chromium Playwright в постоянной директории Jenkins-пользователя. Первый запуск заполняет кэш, последующие используют его даже после нового checkout или очистки workspace.
+
 ## Документы
 
 - [Функциональная спецификация](docs/specs/01-business-test-spec.md).

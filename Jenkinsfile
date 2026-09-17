@@ -19,10 +19,26 @@ pipeline {
     stage('Dependencies') {
       steps {
         script {
+          def cacheBase = env.JENKINS_HOME ?: env.HOME ?: env.WORKSPACE
           if (isUnix()) {
-            sh 'python3 -m venv .venv && .venv/bin/python -m pip install -e . && .venv/bin/python -m playwright install chromium'
+            env.PIP_CACHE_DIR = "${cacheBase}/.cache/business-leads-test/pip"
+            env.PLAYWRIGHT_BROWSERS_PATH = "${cacheBase}/.cache/business-leads-test/playwright"
+            sh '''
+              mkdir -p "$PIP_CACHE_DIR" "$PLAYWRIGHT_BROWSERS_PATH"
+              if [ ! -x .venv/bin/python ]; then python3 -m venv .venv; fi
+              .venv/bin/python -m pip install --cache-dir "$PIP_CACHE_DIR" --prefer-binary -e .
+              .venv/bin/python -m playwright install chromium
+            '''
           } else {
-            bat 'python -m venv .venv && .venv\\Scripts\\python.exe -m pip install -e . && .venv\\Scripts\\python.exe -m playwright install chromium'
+            env.PIP_CACHE_DIR = "${cacheBase}\\.cache\\business-leads-test\\pip"
+            env.PLAYWRIGHT_BROWSERS_PATH = "${cacheBase}\\.cache\\business-leads-test\\playwright"
+            bat '''
+              if not exist "%PIP_CACHE_DIR%" mkdir "%PIP_CACHE_DIR%"
+              if not exist "%PLAYWRIGHT_BROWSERS_PATH%" mkdir "%PLAYWRIGHT_BROWSERS_PATH%"
+              if not exist ".venv\\Scripts\\python.exe" python -m venv .venv
+              .venv\\Scripts\\python.exe -m pip install --cache-dir "%PIP_CACHE_DIR%" --prefer-binary -e .
+              .venv\\Scripts\\python.exe -m playwright install chromium
+            '''
           }
         }
       }
