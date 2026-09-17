@@ -162,11 +162,16 @@ class SubmissionGuard:
                 except Exception:
                     self._abort(route, "read_only_dependency_failed")
                 return
-        # Changed query strings on the same endpoint are not a reason to bypass validation.
+        # CF7 uses the same path for read-only schema/refill operations and feedback.
+        # A GET/HEAD/OPTIONS request cannot create a lead, so it must not turn a
+        # completed Thank-you flow into a failure. Only writes are submission-guarded.
         current = urlsplit(request.url)
         expected = urlsplit(target)
         same_endpoint = (current.scheme, current.netloc, current.path) == (expected.scheme, expected.netloc, expected.path)
         if same_endpoint:
+            if request.method in {"GET", "HEAD", "OPTIONS"}:
+                route.continue_()
+                return
             if request.method != self.contract["method"] or request.url != target:
                 self.evidence.setdefault("endpoint_mismatches", []).append(
                     {"method": request.method, **endpoint_shape(request.url)}

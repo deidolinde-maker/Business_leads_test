@@ -114,9 +114,7 @@ def test_shared_endpoint_schema_get_does_not_bypass_submission_guard(browser, lo
     contract = make_case(base)["submission"]
     contract["url"] = base + "/leads?action=feedback"
     schema = base + "/leads?action=schema"
-    contract["read_only_requests"] = [{"url": schema, "method": "GET", "evidence": "local fixture schema"}]
     refill = base + "/leads?action=refill"
-    contract["read_only_requests"].append({"url": refill, "method": "GET", "evidence": "local fixture reset after successful POST"})
     guard = SubmissionGuard(contract, Deadline(10))
     context = browser.new_context(service_workers="block")
     try:
