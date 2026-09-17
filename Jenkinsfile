@@ -6,10 +6,10 @@ pipeline {
     timeout(time: 15, unit: 'MINUTES')
   }
   parameters {
-    choice(name: 'MODE', choices: ['representative', 'local', 'collect', 'live'], description: 'representative is the default non-submitting preflight. live sends one lead for one reviewed CASE_ID.')
+    choice(name: 'MODE', choices: ['representative', 'live', 'local', 'collect'], description: 'representative is a non-submitting preflight. live sends one lead for every active case selected by PROVIDER and CASE_ID; leave both empty for all active cases.')
     choice(name: 'TARGET_ENV', choices: ['prod', 'unset', 'stage'], description: 'Required for representative, collect and live. City is always Samara.')
-    string(name: 'PROVIDER', defaultValue: '', description: 'Provider filter for collect only. Leave empty for representative and live.')
-    choice(name: 'CASE_ID', choices: ['', 'beeline-business_page-samara-mobilnaya-svyaz-dlya-biznesa', 'mts-business_page-c2d4cae355e7', 'beeline-business_option-afd9e17b2c35', 'mts-business_option-5d75c21b6980'], description: 'Required for live: choose one reviewed representative. Leave empty for representative.')
+    choice(name: 'PROVIDER', choices: ['', 'beeline', 'mts'], description: 'Optional scope for collect and live. Leave empty to use all matching cases.')
+    choice(name: 'CASE_ID', choices: ['', 'beeline-business_option-afd9e17b2c35', 'beeline-business_page-samara-internet-dlya-biznesa', 'beeline-business_page-samara-mobilnaya-svyaz-dlya-biznesa', 'mts-business_page-c2d4cae355e7', 'mts-business_option-5d75c21b6980'], description: 'Optional exact active case for live. Leave empty to run all active cases in the selected scope.')
     string(name: 'DATA_FILE', defaultValue: 'config/data/samara.json', description: 'Path to an environment-confirmed data profile on the agent.')
   }
   stages {

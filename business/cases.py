@@ -91,12 +91,14 @@ def load_cases(path: Path = ROOT / "config/business_cases.json") -> list[dict]:
     return cases
 
 
-def select_cases(cases: list[dict], environment: str, provider=None, case_id=None) -> list[dict]:
+def select_cases(cases: list[dict], environment: str, provider=None, case_id=None,
+                 active_only: bool = False) -> list[dict]:
     if environment not in {"stage", "prod"}:
         raise ConfigurationError("--env=stage or --env=prod is required")
     selected = [c for c in cases if c["environment"] == environment
                 and (not provider or c["provider"] == provider)
-                and (not case_id or c["case_id"] == case_id)]
+                and (not case_id or c["case_id"] == case_id)
+                and (not active_only or c["status"] == "active")]
     if not selected:
         raise ConfigurationError("empty case selection; no verified coverage for these filters")
     return selected

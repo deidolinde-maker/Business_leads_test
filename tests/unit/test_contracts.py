@@ -45,6 +45,18 @@ def test_representative_scope_has_one_case_per_provider_and_flow_type():
     assert {case["target_city"] for case in selected} == {"Самара"}
 
 
+def test_live_scope_contains_only_submission_ready_cases():
+    selected = select_cases(load_cases(), "prod", active_only=True)
+    assert [case["case_id"] for case in selected] == [
+        "beeline-business_option-afd9e17b2c35",
+        "mts-business_page-c2d4cae355e7",
+        "mts-business_option-5d75c21b6980",
+        "beeline-business_page-samara-internet-dlya-biznesa",
+        "beeline-business_page-samara-mobilnaya-svyaz-dlya-biznesa",
+    ]
+    assert all(case["status"] == "active" for case in selected)
+
+
 def test_environment_required():
     with pytest.raises(ConfigurationError, match="required"):
         select_cases([make_case()], None)

@@ -83,7 +83,7 @@ python tools/discover_business_options.py --provider mts --limit 12 --concurrenc
 python tools/inspect_business_option_state.py --url https://example.test/ --case-id provider-business_option-id --output artifacts/onboarding/state.json
 ```
 
-Для отправки заявки в Jenkins выберите `MODE=live`, `TARGET_ENV=prod`, оставьте `PROVIDER` пустым и выберите один `CASE_ID`. Доступны только четыре reviewed representative: business-page и `Place` flow для MTS и Beeline. Один build создаёт одну заявку; повторной отправки внутри кейса нет.
+Для отправки заявок в Jenkins выберите `MODE=live`, `TARGET_ENV=prod`. Jenkins запускает только `active`-кейсы: у них подтверждены форма, Самара, договор отправки и критерий «Спасибо». `PROVIDER` и `CASE_ID` необязательны: пустые поля запускают весь активный набор, фильтр провайдера — все его активные кейсы, `CASE_ID` — один конкретный кейс. Один build создаёт по одной заявке на каждый выбранный кейс; повторной отправки внутри кейса нет.
 
 Для тестового CI запуска без новой заявки выберите `MODE=representative`, `TARGET_ENV=prod` и оставьте `PROVIDER`/`CASE_ID` пустыми. Он выполняет неотправляющий preflight четырёх закреплённых представителей: business-page и `Place` flow для MTS и Beeline. Каждый представитель отображается отдельным успешным результатом Jenkins.
 
@@ -104,7 +104,7 @@ python tools/inspect_business_option_state.py --url https://example.test/ --case
 
 `artifacts/<case_id>/result.json` содержит результат и длительности; при ошибке сохраняется скриншот с маскировкой полей. `artifacts/summary.json` показывает active/blocked/excluded, passed/failed/incomplete и полное покрытие выбранной области. Collect-only всегда обозначен как collection, не PASS.
 
-GitHub Actions проверяет только локальные fixtures. Jenkinsfile содержит режимы local/representative/collect/live; по умолчанию representative. `representative` не открывает браузер и не может принимать фильтры. Самара фиксирована, параметра произвольного города нет. Скрипт CI передаёт фильтры через argv, а не вставляет их в shell-команду.
+GitHub Actions проверяет только локальные fixtures. Jenkinsfile содержит режимы local/representative/collect/live; по умолчанию representative. `representative` не открывает браузер и не может принимать фильтры. В `live` используется только active-подмножество реестра, поэтому инвентарные blocked/excluded URL не открываются и не отправляют заявку. Самара фиксирована, параметра произвольного города нет. Скрипт CI передаёт фильтры через argv, а не вставляет их в shell-команду.
 
 Jenkins хранит кэш Python-пакетов и Chromium Playwright в постоянной директории Jenkins-пользователя. Первый запуск заполняет кэш, последующие используют его даже после нового checkout или очистки workspace.
 
