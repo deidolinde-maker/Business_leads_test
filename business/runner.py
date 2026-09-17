@@ -30,25 +30,36 @@ def run_case(browser, case: dict, data: dict, output: Path, budget: float = 75) 
     try:
         guard.install(context)
         with deadline.phase("navigation"):
+            deadline.mark("navigation.open_entry")
             response = page.goto(case["entry_url"], wait_until="domcontentloaded", timeout=deadline.ms())
             if response and response.status >= 400:
                 raise BusinessCheckError("navigation_failed")
             expect(page).to_have_url(case.get("entry_final_url", case["entry_url"]), timeout=deadline.ms())
         with deadline.phase("form"):
+            deadline.mark("form.open_target")
             form = adapter.open_form(page, case, deadline)
         with deadline.phase("region"):
+            deadline.mark("region.select_samara")
             form = ensure_samara(page, form, case, adapter, deadline)
         with deadline.phase("fill"):
+            deadline.mark("fill.business_control")
             set_business(form, case, deadline)
+            deadline.mark("fill.fields")
             adapter.fill(form, case, data, deadline)
+            deadline.mark("fill.final_business_check")
             assert_business(form, case, deadline)
+            deadline.mark("fill.final_samara_check")
             result["city_observed"] = assert_samara(form, case["region"], deadline)
         with deadline.phase("submission"):
+            deadline.mark("submission.arm")
             guard.arm()
             submit = form.locator(case["form"]["submit"])
+            deadline.mark("submission.submit_control")
             expect(submit).to_have_count(1, timeout=deadline.ms())
+            deadline.mark("submission.click")
             submit.click(timeout=deadline.ms())
             confirmation = case["confirmation"]
+            deadline.mark("submission.confirmation")
             if confirmation["kind"] == "url":
                 expect(page).to_have_url(confirmation["value"], timeout=deadline.ms())
                 result["confirmation_observed"] = {"kind": "url", "value": page.url}
@@ -66,7 +77,13 @@ def run_case(browser, case: dict, data: dict, output: Path, budget: float = 75) 
         result["status"] = "passed"
         return result
     except Exception as exc:
-        result["error"] = guard.error or (str(exc) if isinstance(exc, BusinessCheckError) else type(exc).__name__)
+        if guard.error:
+            result["error"] = guard.error
+        elif isinstance(exc, BusinessCheckError):
+            result["error"] = str(exc)
+        else:
+            failed_step = deadline.failed_step or deadline.current_step
+            result["error"] = f"{failed_step}:{type(exc).__name__}"
         try:
             # Mask all visible data controls; no trace/raw body exports by default.
             page.screenshot(path=str(output / "failure.png"), mask=page.locator("input, textarea").all())

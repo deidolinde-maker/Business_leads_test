@@ -1,6 +1,5 @@
 from playwright.sync_api import expect
 
-from business.region import assert_samara
 from business.errors import ConfigurationError
 
 
@@ -19,7 +18,6 @@ def set_business(form, case, deadline, exercise_variants: bool = False):
         else:
             locator.set_checked(wanted, timeout=deadline.ms())
         expect(locator).to_be_checked(checked=wanted, timeout=deadline.ms())
-        assert_samara(form, case["region"], deadline)
 
     if kind == "checkbox":
         values = (False, True, False, True) if exercise_variants else (True,)
@@ -44,7 +42,6 @@ def set_business(form, case, deadline, exercise_variants: bool = False):
         for value in values:
             target.select_option(value=value, timeout=deadline.ms())
             expect(target).to_have_value(value, timeout=deadline.ms())
-            assert_samara(form, case["region"], deadline)
     else:
         raise ConfigurationError("unsupported business control")
     assert_business(form, case, deadline)

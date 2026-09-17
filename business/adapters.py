@@ -1,7 +1,6 @@
 from playwright.sync_api import expect
 
 from business.errors import BusinessCheckError, ConfigurationError
-from business.region import assert_samara
 from business.controls import assert_business
 
 
@@ -40,7 +39,6 @@ class FormAdapter:
                 expect(suggestion).to_have_count(1, timeout=deadline.ms())
                 expect(suggestion).to_have_text(expected_text, timeout=deadline.ms())
                 suggestion.click(timeout=deadline.ms())
-            assert_samara(form, case["region"], deadline)
         for consent in case["form"].get("consents", []):
             box = form.locator(consent["selector"])
             if consent.get("click_selector"):
@@ -50,7 +48,6 @@ class FormAdapter:
                 box.check(timeout=deadline.ms())
             expect(box).to_be_checked(timeout=deadline.ms())
         assert_business(form, case, deadline)
-        assert_samara(form, case["region"], deadline)
         # Local validation, no synthetic submit or direct DOM state mutation.
         if not form.evaluate("el => typeof el.checkValidity !== 'function' || el.checkValidity()"):
             raise BusinessCheckError("form_validation_failed")
