@@ -76,7 +76,10 @@ def pytest_sessionfinish(session, exitstatus):
         return
     cases = config._business_cases
     outcomes = getattr(config, "_business_outcomes", {})
-    summary = {"mode": "collection" if config.option.collectonly else "live",
+    mode = "representative" if config.getoption("--representatives") else (
+        "collection" if config.option.collectonly else "live"
+    )
+    summary = {"mode": mode,
                "selected": len(cases), "target_city": "Самара",
                "cases": [{"case_id": c["case_id"], "status": c["status"], "reason": c.get("reason"),
                           "outcome": outcomes.get(c["case_id"], "not_run")}

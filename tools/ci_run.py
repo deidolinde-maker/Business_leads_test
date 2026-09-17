@@ -15,7 +15,8 @@ elif mode in {"collect", "live", "representative"}:
     case_id = os.getenv("BIZ_CASE_ID", "").strip()
     if mode == "live" and (provider or not case_id):
         raise SystemExit("live mode requires one exact CASE_ID and an empty PROVIDER; use representative for the safe CI check.")
-    args += ["tests/test_business_submission.py", "--env=" + environment]
+    test_path = "tests/test_representative_preflight.py" if mode == "representative" else "tests/test_business_submission.py"
+    args += [test_path, "--env=" + environment]
     for option, variable in (("--provider", "BIZ_PROVIDER"), ("--case-id", "BIZ_CASE_ID"), ("--data-file", "BIZ_DATA_FILE")):
         value = os.getenv(variable, "").strip()
         if value:
@@ -24,7 +25,6 @@ elif mode in {"collect", "live", "representative"}:
         if provider or case_id:
             raise SystemExit("representative mode does not accept PROVIDER or CASE_ID filters")
         args.append("--representatives")
-        args.append("--collect-only")
     elif mode == "collect":
         args.append("--collect-only")
 else:

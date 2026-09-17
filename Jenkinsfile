@@ -6,7 +6,7 @@ pipeline {
     timeout(time: 15, unit: 'MINUTES')
   }
   parameters {
-    choice(name: 'MODE', choices: ['representative', 'local', 'collect', 'live'], description: 'representative is the default non-submitting collection of reviewed brand/type cases; live needs one exact verified CASE_ID.')
+    choice(name: 'MODE', choices: ['representative', 'local', 'collect', 'live'], description: 'representative is the default non-submitting preflight of reviewed brand/type cases; live needs one exact verified CASE_ID.')
     choice(name: 'TARGET_ENV', choices: ['unset', 'stage', 'prod'], description: 'Required for collect/live. City is always Samara.')
     string(name: 'PROVIDER', defaultValue: '', description: 'Provider filter for collect only. Leave empty for representative and live.')
     string(name: 'CASE_ID', defaultValue: '', description: 'Required for live: one exact active case ID. Leave empty for representative.')

@@ -85,7 +85,7 @@ python tools/inspect_business_option_state.py --url https://example.test/ --case
 
 Jenkins запускает представителя бренда через `MODE=live`, `TARGET_ENV=prod` и точные `PROVIDER` либо `CASE_ID`. В live scope входят только `active` записи с подтверждённым CRM результатом.
 
-Для тестового CI запуска без новой заявки выберите `MODE=representative`, `TARGET_ENV=prod` и оставьте `PROVIDER`/`CASE_ID` пустыми. Он делает только collection четырёх закреплённых представителей: business-page и `Place` flow для MTS и Beeline.
+Для тестового CI запуска без новой заявки выберите `MODE=representative`, `TARGET_ENV=prod` и оставьте `PROVIDER`/`CASE_ID` пустыми. Он выполняет неотправляющий preflight четырёх закреплённых представителей: business-page и `Place` flow для MTS и Beeline. Каждый представитель отображается отдельным успешным результатом Jenkins.
 
 ## Отправка и ограничения v0.1
 
@@ -104,7 +104,7 @@ Jenkins запускает представителя бренда через `M
 
 `artifacts/<case_id>/result.json` содержит результат и длительности; при ошибке сохраняется скриншот с маскировкой полей. `artifacts/summary.json` показывает active/blocked/excluded, passed/failed/incomplete и полное покрытие выбранной области. Collect-only всегда обозначен как collection, не PASS.
 
-GitHub Actions проверяет только локальные fixtures. Jenkinsfile содержит режимы local/representative/collect/live; по умолчанию local. `representative` всегда collect-only и не может принимать фильтры. Самара фиксирована, параметра произвольного города нет. Скрипт CI передаёт фильтры через argv, а не вставляет их в shell-команду.
+GitHub Actions проверяет только локальные fixtures. Jenkinsfile содержит режимы local/representative/collect/live; по умолчанию representative. `representative` не открывает браузер и не может принимать фильтры. Самара фиксирована, параметра произвольного города нет. Скрипт CI передаёт фильтры через argv, а не вставляет их в shell-команду.
 
 Jenkins хранит кэш Python-пакетов и Chromium Playwright в постоянной директории Jenkins-пользователя. Первый запуск заполняет кэш, последующие используют его даже после нового checkout или очистки workspace.
 
