@@ -193,7 +193,7 @@ class SubmissionGuard:
                 }
                 # Dispatch this exact request only after validation. Never retry or auto-follow a redirecting POST.
                 self.forwarded += 1
-                response = route.fetch(max_redirects=0, max_retries=0, timeout=self.deadline.ms())
+                response = route.fetch(max_redirects=0, max_retries=0, timeout=self.deadline.ms(30000))
                 self.evidence["status"] = response.status
                 reply = self.contract["response"]
                 if response.status not in reply["statuses"]:
