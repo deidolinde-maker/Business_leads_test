@@ -40,6 +40,14 @@ One explicitly approved production submission was sent on 16.09.2026 using the s
 
 The legacy suites define `/tilda/form1/submitted` as the positive «Спасибо» page for this form family. Together with the observed HTTP 200, the exact Samara/business POST contract and user-confirmed CRM delivery, it is now an `active` representative for live automation.
 
+## Transport update — 17.09.2026
+
+The deployed public HTML was read without opening or filling the form. Its inline Contact Form 7 transport maps feedback for form `1645` to this exact URL:
+
+`POST https://mts-home.online/wp-admin/admin-ajax.php?action=cf7_proxy_submit_transport&cf7_form_id=1645&cf7_operation=feedback`
+
+This replaces the former query-free `admin-ajax.php` contract. No personal data was entered and no request was sent during this verification.
+
 ## Sources
 
 - User rule for in-place Samara selection in `checkbox`/`select Place` flows, 16.09.2026.

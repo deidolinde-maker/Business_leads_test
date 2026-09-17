@@ -2235,7 +2235,7 @@
         }
       },
       "submission": {
-        "url": "https://mts-home.online/wp-admin/admin-ajax.php",
+        "url": "https://mts-home.online/wp-admin/admin-ajax.php?action=cf7_proxy_submit_transport&cf7_form_id=1645&cf7_operation=feedback",
         "method": "POST",
         "target_city": "Самара",
         "target_city_ui_id": "36401",
@@ -2251,7 +2251,7 @@
           "lead_form_type": "forma_proverit'_adress",
           "service_id": "2"
         },
-        "evidence": "docs/evidence/mts-home-online-business-option-20260916.md; blocked production submit captured 2026-09-16, one approved pilot reached /tilda/form1/submitted, and the legacy business suites define this URL as the positive confirmation.",
+        "evidence": "docs/evidence/mts-home-online-business-option-20260916.md; blocked production submit captured 2026-09-16, one approved pilot reached /tilda/form1/submitted, and public deployed CF7 transport source verified the exact feedback proxy URL for form 1645 on 2026-09-17.",
         "response": {
           "statuses": [
             200
