@@ -2259,6 +2259,21 @@
         },
         "read_only_requests": [
           {
+            "url": "https://mts-home.online/wp-admin/admin-ajax.php?action=cf7_proxy_submit_transport&cf7_form_id=79&cf7_operation=schema",
+            "method": "GET",
+            "evidence": "Public deployed HTML read on 2026-09-17 contains form 79 and its CF7 transport maps schema to this exact proxy URL; it is read-only."
+          },
+          {
+            "url": "https://mts-home.online/wp-admin/admin-ajax.php?action=cf7_proxy_submit_transport&cf7_form_id=1643&cf7_operation=schema",
+            "method": "GET",
+            "evidence": "Public deployed HTML read on 2026-09-17 contains form 1643 and its CF7 transport maps schema to this exact proxy URL; it is read-only."
+          },
+          {
+            "url": "https://mts-home.online/wp-admin/admin-ajax.php?action=cf7_proxy_submit_transport&cf7_form_id=1644&cf7_operation=schema",
+            "method": "GET",
+            "evidence": "Public deployed HTML read on 2026-09-17 contains form 1644 and its CF7 transport maps schema to this exact proxy URL; it is read-only."
+          },
+          {
             "url": "https://mts-home.online/wp-admin/admin-ajax.php?action=cf7_proxy_submit_transport&cf7_form_id=1645&cf7_operation=schema",
             "method": "GET",
             "evidence": "Public deployed CF7 transport source read on 2026-09-17 maps the form-1645 schema request to this exact proxy URL; it is read-only."
@@ -2267,6 +2282,11 @@
             "url": "https://mts-home.online/wp-admin/admin-ajax.php?action=cf7_proxy_submit_transport&cf7_form_id=1645&cf7_operation=refill",
             "method": "GET",
             "evidence": "Public deployed CF7 transport source read on 2026-09-17 maps the form-1645 refill request to this exact proxy URL; it is read-only."
+          },
+          {
+            "url": "https://mts-home.online/wp-admin/admin-ajax.php?action=cf7_proxy_submit_transport&cf7_form_id=2461&cf7_operation=schema",
+            "method": "GET",
+            "evidence": "Public deployed HTML read on 2026-09-17 contains form 2461 and its CF7 transport maps schema to this exact proxy URL; it is read-only."
           }
         ]
       },

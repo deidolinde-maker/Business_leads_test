@@ -48,7 +48,7 @@ The deployed public HTML was read without opening or filling the form. Its inlin
 
 This replaces the former query-free `admin-ajax.php` contract. No personal data was entered and no request was sent during this verification.
 
-The same deployed source maps the form's `schema` and `refill` operations to exact `GET` URLs with the same action and form ID. They are recorded as narrow read-only exceptions so the one-shot feedback guard continues to reject every other write request.
+The same deployed source maps the form's `schema` and `refill` operations to exact `GET` URLs with the same action and form ID. The public HTML contained CF7 forms `79`, `1643`, `1644`, `1645`, and `2461`; only their exact schema GETs and form `1645`'s refill GET are recorded as narrow read-only exceptions. The one-shot feedback guard continues to reject every other write request.
 
 ## Sources
 
