@@ -19,7 +19,7 @@
 
 ## Установка и локальный запуск
 
-Python 3.12+. Linux-агенту нужны системные зависимости Chromium; в GitHub Actions они устанавливаются через `playwright install --with-deps chromium`.
+Python 3.10+. Linux-агенту нужны системные зависимости Chromium; в GitHub Actions они устанавливаются через `playwright install --with-deps chromium`.
 
 ```text
 python -m venv .venv
