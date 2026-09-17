@@ -3,7 +3,7 @@ import json
 import re
 from email import policy
 from email.parser import BytesParser
-from urllib.parse import parse_qs, urlsplit
+from urllib.parse import parse_qs, parse_qsl, urlsplit
 
 from business.errors import BusinessCheckError, ConfigurationError
 
@@ -62,6 +62,25 @@ def matches(payload: dict, expected: dict, label: str):
         # bool True must not equal city ID 1; retain exact JSON/form types.
         if type(actual) is not type(value) or actual != value:
             raise BusinessCheckError(f"{label}_mismatch:{path}")
+
+
+def endpoint_shape(url: str) -> dict:
+    """Keep only non-sensitive routing data for a blocked endpoint mismatch."""
+    parsed = urlsplit(url)
+    allowed = {"action", "cf7_form_id", "cf7_operation", "rest_route"}
+    query = {}
+    for key, value in parse_qsl(parsed.query, keep_blank_values=True):
+        if key not in allowed:
+            continue
+        if key == "cf7_form_id" and value.isdigit():
+            query[key] = value
+        elif key == "cf7_operation" and value in {"feedback", "schema", "refill"}:
+            query[key] = value
+        elif key == "action" and re.fullmatch(r"[a-z0-9_]{1,80}", value):
+            query[key] = value
+        elif key == "rest_route" and re.fullmatch(r"/[A-Za-z0-9_./-]{1,160}", value):
+            query[key] = value
+    return {"path": parsed.path, "query": query}
 
 
 def validate_contract(contract: dict):
@@ -149,7 +168,9 @@ class SubmissionGuard:
         same_endpoint = (current.scheme, current.netloc, current.path) == (expected.scheme, expected.netloc, expected.path)
         if same_endpoint:
             if request.method != self.contract["method"] or request.url != target:
-                self.evidence.setdefault("endpoint_mismatches", []).append({"method": request.method, "path": current.path})
+                self.evidence.setdefault("endpoint_mismatches", []).append(
+                    {"method": request.method, **endpoint_shape(request.url)}
+                )
                 return self._abort(route, "submission_endpoint_changed")
             self.seen += 1
             if not self.armed:
