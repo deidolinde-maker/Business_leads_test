@@ -53,6 +53,7 @@ class FormAdapter:
                 box.check(timeout=deadline.ms())
             expect(box).to_be_checked(timeout=deadline.ms())
         assert_business(form, case, deadline)
-        # Local validation, no synthetic submit or direct DOM state mutation.
-        if not form.evaluate("el => typeof el.checkValidity !== 'function' || el.checkValidity()"):
-            raise BusinessCheckError("form_validation_failed")
+        # Do not gate provider forms with form.checkValidity(): unrelated hidden
+        # controls can be invalid even though the site's own submit handler accepts
+        # this form. The browser performs its normal validation on click, while the
+        # submission guard validates the exact outgoing business/Samara payload.
