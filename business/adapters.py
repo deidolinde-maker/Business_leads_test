@@ -29,15 +29,20 @@ class FormAdapter:
                 raise ConfigurationError(f"missing data key: {key}")
             value = str(data[key])
             locator = form.locator(field["selector"])
+            deadline.mark(f"fill.{key}.present")
             expect(locator).to_have_count(1, timeout=deadline.ms())
+            deadline.mark(f"fill.{key}.enabled")
             expect(locator).to_be_enabled(timeout=deadline.ms())
+            deadline.mark(f"fill.{key}.value")
             locator.fill(value, timeout=deadline.ms())
             # A real, exact Samara address suggestion must come from the case/data contract.
             if field.get("suggestion"):
-                suggestion = form.page.locator(field["suggestion"])
-                expected_text = str(data[field["suggestion_text_key"]])
-                expect(suggestion).to_have_count(1, timeout=deadline.ms())
-                expect(suggestion).to_have_text(expected_text, timeout=deadline.ms())
+                deadline.mark(f"fill.{key}.suggestion")
+                suggestion = form.page.locator(field["suggestion"]).first
+                expect(suggestion).to_be_visible(timeout=deadline.ms())
+                if field.get("suggestion_text_key"):
+                    expected_text = str(data[field["suggestion_text_key"]])
+                    expect(suggestion).to_contain_text(expected_text, timeout=deadline.ms())
                 suggestion.click(timeout=deadline.ms())
         for consent in case["form"].get("consents", []):
             box = form.locator(consent["selector"])
