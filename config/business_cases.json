@@ -2256,7 +2256,19 @@
           "statuses": [
             200
           ]
-        }
+        },
+        "read_only_requests": [
+          {
+            "url": "https://mts-home.online/wp-admin/admin-ajax.php?action=cf7_proxy_submit_transport&cf7_form_id=1645&cf7_operation=schema",
+            "method": "GET",
+            "evidence": "Public deployed CF7 transport source read on 2026-09-17 maps the form-1645 schema request to this exact proxy URL; it is read-only."
+          },
+          {
+            "url": "https://mts-home.online/wp-admin/admin-ajax.php?action=cf7_proxy_submit_transport&cf7_form_id=1645&cf7_operation=refill",
+            "method": "GET",
+            "evidence": "Public deployed CF7 transport source read on 2026-09-17 maps the form-1645 refill request to this exact proxy URL; it is read-only."
+          }
+        ]
       },
       "confirmation": {
         "kind": "url",

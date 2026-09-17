@@ -48,6 +48,8 @@ The deployed public HTML was read without opening or filling the form. Its inlin
 
 This replaces the former query-free `admin-ajax.php` contract. No personal data was entered and no request was sent during this verification.
 
+The same deployed source maps the form's `schema` and `refill` operations to exact `GET` URLs with the same action and form ID. They are recorded as narrow read-only exceptions so the one-shot feedback guard continues to reject every other write request.
+
 ## Sources
 
 - User rule for in-place Samara selection in `checkbox`/`select Place` flows, 16.09.2026.
