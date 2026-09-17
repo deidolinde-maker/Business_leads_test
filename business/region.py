@@ -22,9 +22,22 @@ def ensure_samara(page, form, case, adapter, deadline):
         expect(page).to_have_url(region["business_url"], timeout=deadline.ms())
         assert_samara(form, region, deadline)
         return form
-    trigger = form.locator(region["trigger"])
-    expect(trigger).to_have_count(1, timeout=deadline.ms())
-    trigger.click(timeout=deadline.ms())
+
+    # Some landing pages first ask visitors to confirm the browser-detected
+    # city. Choosing "change region" is the only route into the verified city
+    # picker; clicking the form-level trigger underneath leaves both dialogs
+    # open and prevents selecting Samara.
+    initial_trigger = region.get("initial_trigger")
+    if initial_trigger:
+        initial = page.locator(initial_trigger)
+        if initial.count() == 1 and initial.is_visible():
+            initial.click(timeout=deadline.ms())
+        else:
+            initial_trigger = None
+    if not initial_trigger:
+        trigger = form.locator(region["trigger"])
+        expect(trigger).to_have_count(1, timeout=deadline.ms())
+        trigger.click(timeout=deadline.ms())
     popup = page.locator(region["popup"])
     expect(popup).to_have_count(1, timeout=deadline.ms())
     expect(popup).to_be_visible(timeout=deadline.ms())
