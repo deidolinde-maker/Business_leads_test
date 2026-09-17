@@ -64,6 +64,17 @@ def matches(payload: dict, expected: dict, label: str):
             raise BusinessCheckError(f"{label}_mismatch:{path}")
 
 
+def matches_submission_contract(payload: dict, contract: dict) -> bool:
+    """Whether a payload is a complete, verified Samara business lead."""
+    try:
+        matches(payload, contract["region_match"], "region")
+        matches(payload, contract["business_match"], "business")
+        matches(payload, contract["identity_match"], "identity")
+    except BusinessCheckError:
+        return False
+    return True
+
+
 def endpoint_shape(url: str) -> dict:
     """Keep only non-sensitive routing data for a blocked endpoint mismatch."""
     parsed = urlsplit(url)
@@ -177,9 +188,21 @@ class SubmissionGuard:
                     {"method": request.method, **endpoint_shape(request.url)}
                 )
                 return self._abort(route, "submission_endpoint_changed")
-            self.seen += 1
             if not self.armed:
-                return self._abort(route, "submission_before_explicit_click")
+                try:
+                    payload = parse_payload(request.headers.get("content-type", ""), request.post_data_buffer or b"")
+                except Exception:
+                    payload = None
+                if payload is not None and matches_submission_contract(payload, self.contract):
+                    self.seen += 1
+                    return self._abort(route, "submission_before_explicit_click")
+                # Some address widgets use the feedback transport for incomplete
+                # validation/refill requests. Block them without treating them as
+                # a lead; only a complete matching payload is a submission attempt.
+                self.evidence["prearm_nonlead_blocked"] = self.evidence.get("prearm_nonlead_blocked", 0) + 1
+                route.abort("blockedbyclient")
+                return
+            self.seen += 1
             if self.seen > 1:
                 return self._abort(route, "duplicate_submission")
             try:

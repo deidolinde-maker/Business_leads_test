@@ -4,7 +4,7 @@ import pytest
 
 from business.cases import load_cases, load_data, select_cases, select_representatives, validate_case
 from business.errors import BusinessCheckError, ConfigurationError
-from business.submission import matches, parse_payload, validate_contract
+from business.submission import matches, matches_submission_contract, parse_payload, validate_contract
 from tests.support import make_case
 
 
@@ -129,6 +129,16 @@ def test_exact_types_no_bool_city_alias():
 def test_missing_nested_city_rejected():
     with pytest.raises(BusinessCheckError, match="missing"):
         matches({"address": {}}, {"address.city": "Samara"}, "region")
+
+
+def test_only_complete_matching_payload_is_a_lead():
+    contract = make_case()["submission"]
+    assert matches_submission_contract(
+        {"form": "lead-fixture", "business": True, "region": "samara-fixture"}, contract
+    )
+    assert not matches_submission_contract(
+        {"form": "lead-fixture", "business": True}, contract
+    )
 
 
 def test_target_not_allowed_as_readonly():
