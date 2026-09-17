@@ -24,19 +24,16 @@ def ensure_samara(page, form, case, adapter, deadline):
         return form
 
     # Some landing pages first ask visitors to confirm the browser-detected
-    # city. Choosing "change region" opens the verified city picker. The
-    # confirmation prompt can remain visible while the picker is active.
-    initial_trigger = region.get("initial_trigger")
-    if initial_trigger:
-        initial = page.locator(initial_trigger)
+    # city. Close that prompt, then open the picker from the target form: on
+    # Beeline this is what writes the selected city into that form's fields.
+    initial_dismiss = region.get("initial_dismiss")
+    if initial_dismiss:
+        initial = page.locator(initial_dismiss)
         if initial.count() == 1 and initial.is_visible():
             initial.click(timeout=deadline.ms())
-        else:
-            initial_trigger = None
-    if not initial_trigger:
-        trigger = form.locator(region["trigger"])
-        expect(trigger).to_have_count(1, timeout=deadline.ms())
-        trigger.click(timeout=deadline.ms())
+    trigger = form.locator(region["trigger"])
+    expect(trigger).to_have_count(1, timeout=deadline.ms())
+    trigger.click(timeout=deadline.ms())
     popup = page.locator(region["popup"])
     expect(popup).to_have_count(1, timeout=deadline.ms())
     expect(popup).to_be_visible(timeout=deadline.ms())
