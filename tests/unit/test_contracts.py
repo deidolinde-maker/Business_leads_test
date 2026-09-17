@@ -230,6 +230,11 @@ def test_mts_business_page_scope_is_single_user_confirmed_landing():
     assert mts_home["verification"] == "docs/evidence/mts-home-online-business-option-20260916.md"
     beeline_option = next(c for c in cases if c["case_id"] == "beeline-business_option-afd9e17b2c35")
     assert beeline_option["status"] == "active"
+    assert beeline_option["region"]["initial_trigger"] == (
+        "#popup-confirm-region button.popup-confirm-region__button.city"
+    )
+    assert beeline_option["region"]["search"] == "input#city-input.popup-select-city__input"
+    assert beeline_option["region"]["choice"] == "a.region_item.region_link[id='36401']"
     assert beeline_option["confirmation"] == {"kind": "url_contains", "value": "/thanks"}
     assert beeline_option["submission"]["response"] == {"statuses": [200]}
     assert beeline_option["crm_verification"] == {

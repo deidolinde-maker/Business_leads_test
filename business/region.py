@@ -24,9 +24,8 @@ def ensure_samara(page, form, case, adapter, deadline):
         return form
 
     # Some landing pages first ask visitors to confirm the browser-detected
-    # city. Choosing "change region" is the only route into the verified city
-    # picker; clicking the form-level trigger underneath leaves both dialogs
-    # open and prevents selecting Samara.
+    # city. Choosing "change region" opens the verified city picker. The
+    # confirmation prompt can remain visible while the picker is active.
     initial_trigger = region.get("initial_trigger")
     if initial_trigger:
         initial = page.locator(initial_trigger)
