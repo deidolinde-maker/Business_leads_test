@@ -6,10 +6,10 @@ pipeline {
     timeout(time: 15, unit: 'MINUTES')
   }
   parameters {
-    choice(name: 'MODE', choices: ['local', 'representative', 'collect', 'live'], description: 'representative is a non-submitting collection of reviewed brand/type cases; live needs a verified active case.')
+    choice(name: 'MODE', choices: ['representative', 'local', 'collect', 'live'], description: 'representative is the default non-submitting collection of reviewed brand/type cases; live needs one exact verified CASE_ID.')
     choice(name: 'TARGET_ENV', choices: ['unset', 'stage', 'prod'], description: 'Required for collect/live. City is always Samara.')
-    string(name: 'PROVIDER', defaultValue: '', description: 'Exact provider filter; empty selects the whole environment.')
-    string(name: 'CASE_ID', defaultValue: '', description: 'Optional exact case ID.')
+    string(name: 'PROVIDER', defaultValue: '', description: 'Provider filter for collect only. Leave empty for representative and live.')
+    string(name: 'CASE_ID', defaultValue: '', description: 'Required for live: one exact active case ID. Leave empty for representative.')
     string(name: 'DATA_FILE', defaultValue: 'config/data/samara.json', description: 'Path to an environment-confirmed data profile on the agent.')
   }
   stages {

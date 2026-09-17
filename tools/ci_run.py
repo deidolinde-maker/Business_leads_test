@@ -11,13 +11,17 @@ elif mode in {"collect", "live", "representative"}:
     environment = os.getenv("BIZ_ENV")
     if environment not in {"stage", "prod"}:
         raise SystemExit("Set TARGET_ENV to stage/prod. City is fixed to Samara.")
+    provider = os.getenv("BIZ_PROVIDER", "").strip()
+    case_id = os.getenv("BIZ_CASE_ID", "").strip()
+    if mode == "live" and (provider or not case_id):
+        raise SystemExit("live mode requires one exact CASE_ID and an empty PROVIDER; use representative for the safe CI check.")
     args += ["tests/test_business_submission.py", "--env=" + environment]
     for option, variable in (("--provider", "BIZ_PROVIDER"), ("--case-id", "BIZ_CASE_ID"), ("--data-file", "BIZ_DATA_FILE")):
         value = os.getenv(variable, "").strip()
         if value:
             args += [option + "=" + value]
     if mode == "representative":
-        if os.getenv("BIZ_PROVIDER", "").strip() or os.getenv("BIZ_CASE_ID", "").strip():
+        if provider or case_id:
             raise SystemExit("representative mode does not accept PROVIDER or CASE_ID filters")
         args.append("--representatives")
         args.append("--collect-only")
