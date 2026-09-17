@@ -22,7 +22,7 @@ def run_case(browser, case: dict, data: dict, output: Path, budget: float = 75) 
     output.mkdir(parents=True, exist_ok=True)
     deadline = Deadline(budget)
     adapter = FormAdapter()
-    guard = SubmissionGuard(case["submission"], deadline)
+    guard = SubmissionGuard(case["submission"], deadline, data)
     context = browser.new_context(service_workers="block", viewport={"width": 1366, "height": 900})
     page = context.new_page()
     result = {"case_id": case["case_id"], "environment": case["environment"],

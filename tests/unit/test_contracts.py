@@ -133,11 +133,13 @@ def test_missing_nested_city_rejected():
 
 def test_only_complete_matching_payload_is_a_lead():
     contract = make_case()["submission"]
+    user_data = {"Phone": "synthetic-phone"}
     assert matches_submission_contract(
-        {"form": "lead-fixture", "business": True, "region": "samara-fixture"}, contract
+        {"form": "lead-fixture", "business": True, "region": "samara-fixture", "Phone": "synthetic-phone"},
+        contract, user_data,
     )
     assert not matches_submission_contract(
-        {"form": "lead-fixture", "business": True}, contract
+        {"form": "lead-fixture", "business": True, "region": "samara-fixture"}, contract, user_data,
     )
 
 
