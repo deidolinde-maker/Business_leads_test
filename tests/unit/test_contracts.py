@@ -233,6 +233,7 @@ def test_mts_business_page_scope_is_single_user_confirmed_landing():
     assert beeline_option["region"]["initial_dismiss"] == "#popup-confirm-region #yesButton"
     assert beeline_option["region"]["search"] == "input#city-input.popup-select-city__input"
     assert beeline_option["region"]["choice"] == "a.region_item.region_link[id='36401']"
+    assert beeline_option["form"]["dismiss"] == ["#popup-lead-catcher .popup__close"]
     assert beeline_option["confirmation"] == {"kind": "url_contains", "value": "/thanks"}
     assert beeline_option["submission"]["response"] == {"statuses": [200]}
     assert beeline_option["crm_verification"] == {

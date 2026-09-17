@@ -1,7 +1,7 @@
 import re
 from urllib.parse import urljoin
 
-from playwright.sync_api import expect
+from playwright.sync_api import TimeoutError as PlaywrightTimeoutError, expect
 
 from business.cases import CITY_NAME, CITY_UI_ID
 from business.errors import BusinessCheckError
@@ -29,8 +29,11 @@ def ensure_samara(page, form, case, adapter, deadline):
     initial_dismiss = region.get("initial_dismiss")
     if initial_dismiss:
         initial = page.locator(initial_dismiss)
-        if initial.count() == 1 and initial.is_visible():
+        try:
+            initial.wait_for(state="visible", timeout=min(3_000, deadline.ms()))
             initial.click(timeout=deadline.ms())
+        except PlaywrightTimeoutError:
+            pass
     trigger = form.locator(region["trigger"])
     expect(trigger).to_have_count(1, timeout=deadline.ms())
     trigger.click(timeout=deadline.ms())
