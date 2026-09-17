@@ -83,7 +83,7 @@ python tools/discover_business_options.py --provider mts --limit 12 --concurrenc
 python tools/inspect_business_option_state.py --url https://example.test/ --case-id provider-business_option-id --output artifacts/onboarding/state.json
 ```
 
-Jenkins запускает представителя бренда через `MODE=live`, `TARGET_ENV=prod` и точные `PROVIDER` либо `CASE_ID`. В live scope входят только `active` записи с подтверждённым CRM результатом.
+Для отправки заявки в Jenkins выберите `MODE=live`, `TARGET_ENV=prod`, оставьте `PROVIDER` пустым и выберите один `CASE_ID`. Доступны только четыре reviewed representative: business-page и `Place` flow для MTS и Beeline. Один build создаёт одну заявку; повторной отправки внутри кейса нет.
 
 Для тестового CI запуска без новой заявки выберите `MODE=representative`, `TARGET_ENV=prod` и оставьте `PROVIDER`/`CASE_ID` пустыми. Он выполняет неотправляющий preflight четырёх закреплённых представителей: business-page и `Place` flow для MTS и Beeline. Каждый представитель отображается отдельным успешным результатом Jenkins.
 

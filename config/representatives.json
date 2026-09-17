@@ -1,6 +1,6 @@
 {
   "environment": "prod",
-  "purpose": "Non-submitting Jenkins collection for one reviewed representative of each provider and flow type. It is intentionally not a live sender.",
+  "purpose": "Reviewed representative of each provider and flow type. Representative mode is non-submitting; live mode may use exactly one of these case IDs.",
   "case_ids": [
     "beeline-business_page-samara-mobilnaya-svyaz-dlya-biznesa",
     "mts-business_page-c2d4cae355e7",

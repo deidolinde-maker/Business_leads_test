@@ -6,10 +6,10 @@ pipeline {
     timeout(time: 15, unit: 'MINUTES')
   }
   parameters {
-    choice(name: 'MODE', choices: ['representative', 'local', 'collect', 'live'], description: 'representative is the default non-submitting preflight of reviewed brand/type cases; live needs one exact verified CASE_ID.')
-    choice(name: 'TARGET_ENV', choices: ['unset', 'stage', 'prod'], description: 'Required for collect/live. City is always Samara.')
+    choice(name: 'MODE', choices: ['representative', 'local', 'collect', 'live'], description: 'representative is the default non-submitting preflight. live sends one lead for one reviewed CASE_ID.')
+    choice(name: 'TARGET_ENV', choices: ['prod', 'unset', 'stage'], description: 'Required for representative, collect and live. City is always Samara.')
     string(name: 'PROVIDER', defaultValue: '', description: 'Provider filter for collect only. Leave empty for representative and live.')
-    string(name: 'CASE_ID', defaultValue: '', description: 'Required for live: one exact active case ID. Leave empty for representative.')
+    choice(name: 'CASE_ID', choices: ['', 'beeline-business_page-samara-mobilnaya-svyaz-dlya-biznesa', 'mts-business_page-c2d4cae355e7', 'beeline-business_option-afd9e17b2c35', 'mts-business_option-5d75c21b6980'], description: 'Required for live: choose one reviewed representative. Leave empty for representative.')
     string(name: 'DATA_FILE', defaultValue: 'config/data/samara.json', description: 'Path to an environment-confirmed data profile on the agent.')
   }
   stages {
