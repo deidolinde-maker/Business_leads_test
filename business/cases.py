@@ -9,11 +9,28 @@ CITY_NAME = "Самара"
 CITY_UI_ID = "36401"
 ROOT = Path(__file__).resolve().parent.parent
 REPRESENTATIVES = ROOT / "config" / "representatives.json"
+BUSINESS_POPUP_EXACT_HOSTS = {
+    "online-beeline.ru",
+    "beeline-internet.online",
+    "beeline-ru.online",
+    "rtk-home.ru",
+    "rtk-ru.online",
+    "rtk-internet.online",
+    "mts-home-online.ru",
+}
+BUSINESS_POPUP_SUBDOMAIN_ROOTS = {"beeline-ru.online", "rtk-ru.online"}
 
 
 def valid_url(value: str) -> bool:
     parsed = urlsplit(value)
     return parsed.scheme in {"https", "http"} and bool(parsed.hostname) and not parsed.username
+
+
+def business_popup_allowed(value: str) -> bool:
+    host = (urlsplit(value).hostname or "").lower()
+    return host in BUSINESS_POPUP_EXACT_HOSTS or any(
+        host.endswith("." + root) for root in BUSINESS_POPUP_SUBDOMAIN_ROOTS
+    )
 
 
 def validate_case(case: dict) -> None:
@@ -39,6 +56,8 @@ def validate_case(case: dict) -> None:
         raise ConfigurationError(f"{ident}: invalid entry_url")
     if case.get("flow_kind") not in {"business_page", "business_option"}:
         raise ConfigurationError(f"{ident}: invalid flow_kind")
+    if case["flow_kind"] == "business_page" and not business_popup_allowed(case["entry_url"]):
+        raise ConfigurationError(f"{ident}: business popup host is outside the confirmed scope")
     region = case["region"]
     if region.get("mode") not in {"popup_selection", "direct_city_subdomain"}:
         raise ConfigurationError(f"{ident}: region mode required")

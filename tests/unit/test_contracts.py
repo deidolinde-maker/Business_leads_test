@@ -2,7 +2,14 @@ import json
 
 import pytest
 
-from business.cases import load_cases, load_data, select_cases, select_representatives, validate_case
+from business.cases import (
+    business_popup_allowed,
+    load_cases,
+    load_data,
+    select_cases,
+    select_representatives,
+    validate_case,
+)
 from business.errors import ConfigurationError
 from tests.support import make_case
 
@@ -36,6 +43,30 @@ def test_active_case_does_not_require_network_contract():
     case = make_case()
     assert "submission" not in case
     validate_case(case)
+
+
+@pytest.mark.parametrize("url", [
+    "https://online-beeline.ru/business",
+    "https://beeline-internet.online/business",
+    "https://beeline-ru.online/business",
+    "https://samara.beeline-ru.online/business/internet-dlya-biznesa",
+    "https://rtk-home.ru/business",
+    "https://rtk-ru.online/business",
+    "https://samara.rtk-ru.online/business",
+    "https://rtk-internet.online/business",
+    "https://mts-home-online.ru/business",
+])
+def test_business_popup_scope_is_explicit(url):
+    assert business_popup_allowed(url)
+
+
+@pytest.mark.parametrize("url", [
+    "https://mts-home.online/business",
+    "https://samara.mts-home.online/business",
+    "https://mega-home-internet.ru/business",
+])
+def test_business_popup_scope_rejects_other_hosts(url):
+    assert not business_popup_allowed(url)
 
 
 def test_blocked_case_does_not_need_browser_contract():
