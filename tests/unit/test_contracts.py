@@ -116,7 +116,7 @@ def test_duplicate_cases_are_rejected(tmp_path):
 
 def test_live_scope_contains_only_active_ui_flows():
     selected = select_cases(load_cases(), "prod", active_only=True)
-    assert len(selected) == 15
+    assert len(selected) == 12
     assert all(case["target_city"] == "Самара" for case in selected)
     assert all(case["confirmation"]["value"] for case in selected)
 

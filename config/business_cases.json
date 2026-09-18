@@ -62,7 +62,8 @@
       "flow_kind": "business_page",
       "source_page_url": "https://beeline-internet.online/business",
       "entry_url": "https://beeline-internet.online/business",
-      "status": "active",
+      "status": "excluded",
+      "reason": "CI video confirmed this catalog page has no direct business application popup; its service cards navigate to separate landing pages.",
       "region": {
         "mode": "popup_selection",
         "business_url": "https://beeline-internet.online/business",
@@ -291,7 +292,8 @@
       "flow_kind": "business_page",
       "source_page_url": "https://beeline-ru.online/business",
       "entry_url": "https://samara.beeline-ru.online/business",
-      "status": "active",
+      "status": "excluded",
+      "reason": "CI video confirmed this catalog page has no direct business application popup; its service cards navigate to separate landing pages.",
       "region": {
         "mode": "direct_city_subdomain",
         "business_url": "https://samara.beeline-ru.online/business",
@@ -4006,7 +4008,7 @@
       },
       "confirmation": {
         "kind": "url_contains",
-        "value": "/tilda/form1/submitted"
+        "value": "/thanks"
       },
       "verification": "User-confirmed business-popup domain rollout 2026-09-18; shared dedicated business popup UI contract."
     },
@@ -4119,7 +4121,7 @@
       "verification": "User-confirmed business-popup domain rollout 2026-09-18; shared dedicated business popup UI contract.",
       "confirmation": {
         "kind": "url_contains",
-        "value": "/tilda/form1/submitted"
+        "value": "/thanks"
       }
     },
     {
@@ -4196,7 +4198,8 @@
       "flow_kind": "business_page",
       "source_page_url": "https://rtk-ru.online/business",
       "entry_url": "https://samara.rtk-ru.online/business",
-      "status": "active",
+      "status": "excluded",
+      "reason": "CI video confirmed this catalog page has no direct business application popup; its service cards navigate to separate landing pages.",
       "region": {
         "mode": "direct_city_subdomain",
         "business_url": "https://samara.rtk-ru.online/business",
@@ -4262,7 +4265,7 @@
       },
       "confirmation": {
         "kind": "url_contains",
-        "value": "/tilda/form1/submitted"
+        "value": "/thanks"
       },
       "verification": "User-confirmed business-popup domain rollout 2026-09-18; shared dedicated business popup UI contract."
     },
@@ -4301,7 +4304,7 @@
       },
       "confirmation": {
         "kind": "url_contains",
-        "value": "/tilda/form1/submitted"
+        "value": "/thanks"
       },
       "verification": "User-confirmed business-popup domain rollout 2026-09-18; shared dedicated business popup UI contract."
     },

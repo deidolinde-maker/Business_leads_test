@@ -32,7 +32,12 @@ phone.addEventListener('focus',()=>setTimeout(()=>phoneMaskReady=true,100),{once
 phone.addEventListener('keydown',event=>{
   if(!phoneMaskReady && /^\\d$/.test(event.key))event.preventDefault();
 });
-document.querySelector('#choose-region').onclick=()=>document.querySelector('#region-dialog').hidden=false;
+document.querySelector('#choose-region').onclick=()=>{
+  if(fault!=='trigger-fallback')document.querySelector('#region-dialog').hidden=false;
+};
+indicator.onclick=()=>{
+  if(fault==='trigger-fallback')document.querySelector('#region-dialog').hidden=false;
+};
 document.querySelector('#region-dialog a[id="36401"]').onclick=event=>{
   if(fault==='in-place-city') {
     event.preventDefault();

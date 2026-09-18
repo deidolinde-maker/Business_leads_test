@@ -36,6 +36,21 @@ def test_business_option_allows_samara_popup_without_url_change(browser, local_s
     assert not any(urlsplit(path).path.startswith("/samara") for path in state["gets"])
 
 
+def test_city_label_opens_picker_when_wrapper_handler_is_absent(browser, local_site, tmp_path):
+    base, state = local_site
+
+    result = run_case(
+        browser,
+        make_case(base, mode="popup_selection", fault="trigger-fallback"),
+        DATA,
+        tmp_path,
+        budget=8,
+    )
+
+    assert result["status"] == "passed"
+    assert "/samara" in state["gets"]
+
+
 def test_city_reset_stops_before_submit(browser, local_site, tmp_path):
     base, _state = local_site
 

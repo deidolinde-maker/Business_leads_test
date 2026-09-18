@@ -39,6 +39,14 @@ def ensure_samara(page, form, case, adapter, deadline):
     trigger.click(timeout=deadline.ms())
     popup = page.locator(region["popup"])
     expect(popup).to_have_count(1, timeout=deadline.ms())
+    try:
+        popup.wait_for(state="visible", timeout=min(1_500, deadline.ms()))
+    except PlaywrightTimeoutError:
+        # Some business templates render the same city control but attach the
+        # popup handler to the visible city label instead of its wrapper.
+        indicator = form.locator(region["indicator"])
+        expect(indicator).to_have_count(1, timeout=deadline.ms())
+        indicator.click(timeout=deadline.ms())
     expect(popup).to_be_visible(timeout=deadline.ms())
     popup.locator(region["search"]).fill(CITY_NAME, timeout=deadline.ms())
     choice = popup.locator(region["choice"]).filter(has_text=re.compile(r"^\s*Самара\s*$"))
