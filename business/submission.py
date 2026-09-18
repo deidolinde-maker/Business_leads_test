@@ -101,6 +101,15 @@ def validate_contract(contract: dict):
     endpoint = urlsplit(contract.get("url", ""))
     if endpoint.scheme not in {"http", "https"} or not endpoint.hostname or endpoint.username:
         raise ConfigurationError("verified submission URL required")
+    alternate_urls = contract.get("alternate_urls", [])
+    if not isinstance(alternate_urls, list) or any(
+        not isinstance(url, str) or not url or url == contract["url"] for url in alternate_urls
+    ) or len(set(alternate_urls)) != len(alternate_urls):
+        raise ConfigurationError("alternate_urls must contain unique verified URLs")
+    for url in alternate_urls:
+        alternate = urlsplit(url)
+        if (alternate.scheme, alternate.netloc, alternate.path) != (endpoint.scheme, endpoint.netloc, endpoint.path):
+            raise ConfigurationError("alternate submission URLs must use the verified origin and path")
     if contract.get("method") != "POST":
         raise ConfigurationError("bootstrap supports verified POST contracts only")
     for key in ("region_match", "business_match", "identity_match"):
@@ -124,7 +133,7 @@ def validate_contract(contract: dict):
     for rule in contract.get("read_only_requests", []):
         if not rule.get("evidence") or not rule.get("url") or rule.get("method") not in {"POST", "GET"}:
             raise ConfigurationError("read-only exceptions need exact URL/method/evidence")
-        if rule["url"] == contract["url"]:
+        if rule["url"] in [contract["url"], *alternate_urls]:
             raise ConfigurationError("submission cannot be allowlisted as read-only")
         readonly = urlsplit(rule["url"])
         if rule["method"] == "POST" and (readonly.scheme, readonly.netloc, readonly.path) == (endpoint.scheme, endpoint.netloc, endpoint.path):
@@ -176,6 +185,7 @@ class SubmissionGuard:
     def _handle(self, route):
         request = route.request
         target = self.contract["url"]
+        verified_targets = [target, *self.contract.get("alternate_urls", [])]
         # WordPress serves schema GET and feedback POST through the same admin-ajax path.
         # Only explicitly verified exact URLs/methods can precede the endpoint guard.
         for rule in self.contract.get("read_only_requests", []):
@@ -198,7 +208,7 @@ class SubmissionGuard:
             if request.method in {"GET", "HEAD", "OPTIONS"}:
                 route.continue_()
                 return
-            if request.method != self.contract["method"] or request.url != target:
+            if request.method != self.contract["method"] or request.url not in verified_targets:
                 self.evidence.setdefault("endpoint_mismatches", []).append(
                     {"method": request.method, **endpoint_shape(request.url)}
                 )
@@ -228,7 +238,7 @@ class SubmissionGuard:
                 if self.user_data_match:
                     matches(payload, self.user_data_match, "user_data")
                 self.evidence = {
-                    "url": target, "method": request.method, "region_checked": True,
+                    "url": request.url, "method": request.method, "region_checked": True,
                     "business_checked": True, "identity_checked": True,
                 }
                 if self.user_data_match:

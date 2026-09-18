@@ -18,4 +18,6 @@ Jenkins observed and blocked the current form-430 feedback request before it lef
 
 This replaces the former query-free `admin-ajax.php` contract. No lead was sent during this observation.
 
+A following Jenkins run with the proxy endpoint as primary observed the previously verified query-free `POST /wp-admin/admin-ajax.php` first and blocked it before transmission. The live contract therefore accepts these two exact same-origin form-430 transports. The one-shot guard still validates the complete payload and forwards only the first matching request; any second submission is rejected as a duplicate.
+
 Sources: user requirements, 16.09.2026; ignored local onboarding artifacts; [QA workflow](../references/qa/analyze-task.md).

@@ -3,8 +3,9 @@ import json
 import pytest
 
 from business.cases import load_cases, load_data, select_cases, select_representatives, validate_case
+from business.deadline import Deadline
 from business.errors import BusinessCheckError, ConfigurationError
-from business.submission import matches, matches_submission_contract, parse_payload, validate_contract
+from business.submission import SubmissionGuard, matches, matches_submission_contract, parse_payload, validate_contract
 from tests.support import make_case
 
 
@@ -106,6 +107,66 @@ def test_shared_submit_endpoint_cannot_allowlist_post_with_other_query():
     contract["read_only_requests"] = [{"url": contract["url"] + "?action=search", "method": "POST", "evidence": "same endpoint"}]
     with pytest.raises(ConfigurationError, match="shared submission"):
         validate_contract(contract)
+
+
+def test_exact_alternate_submit_url_is_allowed_on_same_origin_and_path():
+    contract = make_case()["submission"]
+    contract["alternate_urls"] = [contract["url"] + "?transport=verified"]
+    validate_contract(contract)
+
+
+def test_alternate_submit_url_cannot_change_path():
+    contract = make_case()["submission"]
+    contract["alternate_urls"] = [contract["url"] + "/other"]
+    with pytest.raises(ConfigurationError, match="verified origin and path"):
+        validate_contract(contract)
+
+
+def test_verified_alternate_submit_url_is_forwarded_once():
+    contract = make_case()["submission"]
+    alternate = contract["url"] + "?transport=verified"
+    contract["alternate_urls"] = [alternate]
+
+    class Response:
+        status = 200
+        headers = {}
+
+        @staticmethod
+        def json():
+            return {"status": "accepted"}
+
+    class Request:
+        url = alternate
+        method = "POST"
+        headers = {"content-type": "application/json"}
+        post_data_buffer = json.dumps({
+            "form": "lead-fixture", "business": True, "region": "samara-fixture",
+        }).encode()
+
+    class Route:
+        request = Request()
+        fulfilled = False
+
+        @staticmethod
+        def fetch(**_kwargs):
+            return Response()
+
+        def fulfill(self, **_kwargs):
+            self.fulfilled = True
+
+        @staticmethod
+        def abort(_reason):
+            raise AssertionError("verified alternate endpoint must not be aborted")
+
+    guard = SubmissionGuard(contract, Deadline(10))
+    guard.arm()
+    route = Route()
+    guard._handle(route)
+    guard.assert_success()
+
+    assert route.fulfilled
+    assert guard.forwarded == 1
+    assert guard.evidence["url"] == alternate
 
 
 def test_submit_cannot_be_classified_as_background():
@@ -251,6 +312,9 @@ def test_mts_business_page_scope_is_single_user_confirmed_landing():
         "https://beeline-ru.online/wp-admin/admin-ajax.php?"
         "action=cf7_proxy_submit_transport&cf7_form_id=430&cf7_operation=feedback"
     )
+    assert beeline_option["submission"]["alternate_urls"] == [
+        "https://beeline-ru.online/wp-admin/admin-ajax.php"
+    ]
     assert beeline_option["submission"]["response"] == {"statuses": [200]}
     assert [item["url"] for item in beeline_option["submission"]["blocked_background_requests"]] == [
         "https://mc.yandex.ru/watch/55479901",
