@@ -1,6 +1,8 @@
 import json
 import re
+import shutil
 from pathlib import Path
+from urllib.parse import urlsplit
 
 from playwright.sync_api import expect
 
@@ -12,6 +14,44 @@ from business.errors import BusinessCheckError
 from business.region import assert_samara, ensure_samara
 
 
+def _safe_url(url: str) -> str:
+    parsed = urlsplit(url)
+    return f"{parsed.scheme}://{parsed.netloc}{parsed.path}" if parsed.scheme else parsed.path
+
+
+def _ui_state(page, form) -> dict:
+    state = {"url": _safe_url(page.url), "invalid_controls": [], "form_state": []}
+    if form is None:
+        return state
+    try:
+        state["invalid_controls"] = form.locator(":invalid").evaluate_all(
+            """controls => controls.slice(0, 10).map(control => ({
+                id: control.id || null,
+                name: control.name || null,
+                type: control.type || control.tagName.toLowerCase()
+            }))"""
+        )
+        known_states = {"sent", "invalid", "failed", "spam", "aborted", "submitting", "resetting"}
+        state["form_state"] = [
+            value for value in (form.get_attribute("class") or "").split() if value in known_states
+        ]
+    except Exception:
+        pass
+    return state
+
+
+def _finish_video(page, context, output: Path, keep: bool) -> None:
+    video = page.video
+    try:
+        context.close()
+        if keep:
+            video.save_as(str(output / "failure.webm"))
+        else:
+            video.delete()
+    finally:
+        shutil.rmtree(output / ".video", ignore_errors=True)
+
+
 def run_case(browser, case: dict, data: dict, output: Path, budget: float = 75) -> dict:
     validate_case(case)
     if case["status"] != "active":
@@ -21,8 +61,15 @@ def run_case(browser, case: dict, data: dict, output: Path, budget: float = 75) 
     output.mkdir(parents=True, exist_ok=True)
     deadline = Deadline(budget)
     adapter = FormAdapter()
-    context = browser.new_context(viewport={"width": 1366, "height": 900})
+    for stale in (output / "failure.png", output / "failure.webm"):
+        stale.unlink(missing_ok=True)
+    context = browser.new_context(
+        viewport={"width": 1366, "height": 900},
+        record_video_dir=str(output / ".video"),
+        record_video_size={"width": 1366, "height": 900},
+    )
     page = context.new_page()
+    form = None
     result = {"case_id": case["case_id"], "environment": case["environment"],
               "region_mode": case["region"]["mode"], "target_city": "Самара", "status": "failed"}
     try:
@@ -76,6 +123,7 @@ def run_case(browser, case: dict, data: dict, output: Path, budget: float = 75) 
         else:
             failed_step = deadline.failed_step or deadline.current_step
             result["error"] = f"{failed_step}:{type(exc).__name__}"
+        result["ui_after_error"] = _ui_state(page, form)
         try:
             # Mask all visible data controls; no trace/raw body exports by default.
             page.screenshot(path=str(output / "failure.png"), mask=page.locator("input, textarea").all())
@@ -85,4 +133,4 @@ def run_case(browser, case: dict, data: dict, output: Path, budget: float = 75) 
     finally:
         result["phase_seconds"] = deadline.timings
         (output / "result.json").write_text(json.dumps(result, ensure_ascii=False, indent=2), encoding="utf-8")
-        context.close()
+        _finish_video(page, context, output, keep=result["status"] == "failed")

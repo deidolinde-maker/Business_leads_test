@@ -46,6 +46,8 @@ pipeline {
     stage('Checks') {
       steps {
         script {
+          if (isUnix()) { sh 'rm -rf artifacts allure-results && mkdir -p artifacts allure-results' }
+          else { bat 'if exist artifacts rmdir /s /q artifacts & if exist allure-results rmdir /s /q allure-results & mkdir artifacts & mkdir allure-results' }
           withEnv(["BIZ_MODE=${params.MODE}", "BIZ_ENV=${params.TARGET_ENV}",
                    "BIZ_PROVIDER=${params.PROVIDER}", "BIZ_CASE_ID=${params.CASE_ID}",
                    "BIZ_DATA_FILE=${params.DATA_FILE}"]) {
@@ -60,6 +62,13 @@ pipeline {
     always {
       archiveArtifacts artifacts: 'artifacts/**,allure-results/**', allowEmptyArchive: true
       junit testResults: 'artifacts/results.xml', allowEmptyResults: true
+      script {
+        try {
+          allure includeProperties: false, jdk: '', results: [[path: 'allure-results']]
+        } catch (err) {
+          echo "Allure report publishing failed: ${err}"
+        }
+      }
     }
   }
 }

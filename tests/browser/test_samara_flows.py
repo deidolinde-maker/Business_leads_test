@@ -16,6 +16,7 @@ def test_samara_flow_reaches_thanks(browser, local_site, tmp_path, mode):
     assert result["status"] == "passed"
     assert result["confirmation_observed"] == {"kind": "locator", "value": "#thanks:visible"}
     assert "submission" not in result
+    assert not (tmp_path / "failure.webm").exists()
     if mode == "popup_selection":
         assert "/samara" in state["gets"] and "/samara/business" in state["gets"]
     else:
@@ -44,6 +45,9 @@ def test_city_reset_stops_before_submit(browser, local_site, tmp_path):
     result = json.loads((tmp_path / "result.json").read_text(encoding="utf-8"))
     assert result["status"] == "failed"
     assert "submission" not in result
+    assert result["ui_after_error"]["url"].startswith("http://127.0.0.1:")
+    assert (tmp_path / "failure.png").exists()
+    assert (tmp_path / "failure.webm").exists()
 
 
 def test_failed_case_cannot_be_covered_by_previous_success(browser, local_site, tmp_path):
