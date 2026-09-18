@@ -79,6 +79,10 @@ def run_case(browser, case: dict, data: dict, output: Path, budget: float = 75) 
     except Exception as exc:
         if guard.error:
             result["error"] = guard.error
+            if guard.error == "unexpected_write_endpoint":
+                paths = guard.evidence.get("unexpected_write_paths", [])
+                if paths:
+                    result["error"] = f"{guard.error}:{paths[0]}"
         elif isinstance(exc, BusinessCheckError):
             result["error"] = str(exc)
         else:
