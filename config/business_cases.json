@@ -61,15 +61,44 @@
       "target_city_ui_id": "36401",
       "flow_kind": "business_page",
       "source_page_url": "https://beeline-internet.online/business",
-      "entry_url": null,
-      "status": "blocked",
-      "region": null,
-      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "entry_url": "https://beeline-internet.online/business",
+      "status": "active",
+      "region": {
+        "mode": "popup_selection",
+        "business_url": "https://beeline-internet.online/business",
+        "indicator": "span#autocomplete_city_name.autocomplete-city-name",
+        "trigger": ".autocomplete-city-change.button-select-city, .autocomplete-city.button-select-city",
+        "popup": "#popup-select-city",
+        "search": "input#city-input.popup-select-city__input",
+        "choice": "a.region_item.region_link[id='36401']",
+        "choice_url": "https://beeline-internet.online/samara",
+        "after_choice_url": "https://beeline-internet.online/business"
+      },
       "source_refs": [
         "https://github.com/deidolinde-maker/Everyday_test/blob/8e87c77a79430e1a54b110682cf9f7912a29cac5/config/providers/beeline.py#L4",
         "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/config/providers/beeline.py#L4",
         "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/beeline.txt#L47"
-      ]
+      ],
+      "form": {
+        "selector": "#popup-business form.wpcf7-form",
+        "trigger": ":nth-match(.business_no_address_button, 1)",
+        "submit": ".business_no_address_button_send",
+        "fields": [
+          {
+            "selector": ".business_no_address_full_address",
+            "data_key": "full_address"
+          },
+          {
+            "selector": ".business_no_address_phone",
+            "data_key": "phone"
+          }
+        ]
+      },
+      "confirmation": {
+        "kind": "url_contains",
+        "value": "/thanks"
+      },
+      "verification": "User-confirmed business-popup domain rollout 2026-09-18; shared dedicated business popup UI contract."
     },
     {
       "case_id": "beeline-business_option-42305fde436d",
@@ -113,11 +142,107 @@
       "source_page_url": "https://beeline-ru.online/",
       "entry_url": "https://beeline-ru.online/",
       "status": "active",
-      "region": {"mode": "popup_selection", "business_url": "https://beeline-ru.online/", "indicator": "span#autocomplete_city_name.autocomplete-city-name", "initial_dismiss": "#popup-confirm-region #yesButton", "trigger": ".autocomplete-city-change.button-select-city", "popup": "#popup-select-city", "search": "input#city-input.popup-select-city__input", "choice": "a.region_item.region_link[id='36401']", "choice_url": "https://samara.beeline-ru.online/", "after_choice_url": "https://beeline-ru.online/"},
-      "form": {"selector": "form.wpcf7-form:has(input[name='_wpcf7_unit_tag'][value='wpcf7-f430-o1'])", "dismiss": ["#popup-lead-catcher .popup__close"], "submit": ".checkaddress_address_button_send", "fields": [{"selector": ".checkaddress_address_street", "data_key": "street", "suggestion": "div.autocomplete-street:visible"}, {"selector": ".checkaddress_address_house", "data_key": "house", "suggestion": "#house-list div.autocomplete-item:visible"}, {"selector": ".checkaddress_address_phone", "data_key": "phone"}], "business_control": {"kind": "select", "selector": "select[name='Place']", "business_value": "Для бизнеса", "alternative_value": "В квартиру"}},
-      "submission": {"url": "https://beeline-ru.online/wp-admin/admin-ajax.php?action=cf7_proxy_submit_transport&cf7_form_id=430&cf7_operation=feedback", "alternate_urls": ["https://beeline-ru.online/wp-admin/admin-ajax.php"], "method": "POST", "target_city": "Самара", "target_city_ui_id": "36401", "region_match": {"CityName": "Самара", "City": "36401"}, "business_match": {"Place": "Для бизнеса"}, "identity_match": {"FormName": "Проверьте подключение", "lead_form_type": "forma_proverit'_adress", "service_id": "2"}, "required_nonempty_fields": ["AddresStreet", "AddresHouse", "IStreet", "IHouse"], "phone_data_match": {"Phone": "phone"}, "evidence": "docs/evidence/beeline-ru-business-option-20260916.md; exact proxy and query-free endpoints observed in Jenkins on 2026-09-18; the query-free endpoint previously delivered the confirmed CRM pilot; selected Samara address identifiers are required while the popup may normalize street and house text; the phone is compared by normalized Russian subscriber digits; the legacy business suites define /thanks as the positive confirmation for this form family.", "response": {"statuses": [200]}, "blocked_background_requests": [{"url": "https://mc.yandex.ru/watch/55479901", "evidence": "Observed Beeline analytics POST during production onboarding 2026-09-16; request is aborted, never forwarded"}, {"url": "https://mc.yandex.ru/watch/55479901/1", "evidence": "Observed Beeline analytics POST during production onboarding 2026-09-16; request is aborted, never forwarded"}, {"url": "https://mc.yandex.ru/webvisor/55479901", "evidence": "Observed Beeline analytics POST during production onboarding 2026-09-16; request is aborted, never forwarded"}]},
-      "confirmation": {"kind": "url_contains", "value": "/thanks"},
-      "crm_verification": {"status": "confirmed", "source": "user", "date": "2026-09-16", "note": "User confirmed that the single Beeline business-option pilot arrived correctly in CRM."},
+      "region": {
+        "mode": "popup_selection",
+        "business_url": "https://beeline-ru.online/",
+        "indicator": "span#autocomplete_city_name.autocomplete-city-name",
+        "initial_dismiss": "#popup-confirm-region #yesButton",
+        "trigger": ".autocomplete-city-change.button-select-city",
+        "popup": "#popup-select-city",
+        "search": "input#city-input.popup-select-city__input",
+        "choice": "a.region_item.region_link[id='36401']",
+        "choice_url": "https://samara.beeline-ru.online/",
+        "after_choice_url": "https://beeline-ru.online/"
+      },
+      "form": {
+        "selector": "form.wpcf7-form:has(input[name='_wpcf7_unit_tag'][value='wpcf7-f430-o1'])",
+        "dismiss": [
+          "#popup-lead-catcher .popup__close"
+        ],
+        "submit": ".checkaddress_address_button_send",
+        "fields": [
+          {
+            "selector": ".checkaddress_address_street",
+            "data_key": "street",
+            "suggestion": "div.autocomplete-street:visible"
+          },
+          {
+            "selector": ".checkaddress_address_house",
+            "data_key": "house",
+            "suggestion": "#house-list div.autocomplete-item:visible"
+          },
+          {
+            "selector": ".checkaddress_address_phone",
+            "data_key": "phone"
+          }
+        ],
+        "business_control": {
+          "kind": "select",
+          "selector": "select[name='Place']",
+          "business_value": "Для бизнеса",
+          "alternative_value": "В квартиру"
+        }
+      },
+      "submission": {
+        "url": "https://beeline-ru.online/wp-admin/admin-ajax.php?action=cf7_proxy_submit_transport&cf7_form_id=430&cf7_operation=feedback",
+        "alternate_urls": [
+          "https://beeline-ru.online/wp-admin/admin-ajax.php"
+        ],
+        "method": "POST",
+        "target_city": "Самара",
+        "target_city_ui_id": "36401",
+        "region_match": {
+          "CityName": "Самара",
+          "City": "36401"
+        },
+        "business_match": {
+          "Place": "Для бизнеса"
+        },
+        "identity_match": {
+          "FormName": "Проверьте подключение",
+          "lead_form_type": "forma_proverit'_adress",
+          "service_id": "2"
+        },
+        "required_nonempty_fields": [
+          "AddresStreet",
+          "AddresHouse",
+          "IStreet",
+          "IHouse"
+        ],
+        "phone_data_match": {
+          "Phone": "phone"
+        },
+        "evidence": "docs/evidence/beeline-ru-business-option-20260916.md; exact proxy and query-free endpoints observed in Jenkins on 2026-09-18; the query-free endpoint previously delivered the confirmed CRM pilot; selected Samara address identifiers are required while the popup may normalize street and house text; the phone is compared by normalized Russian subscriber digits; the legacy business suites define /thanks as the positive confirmation for this form family.",
+        "response": {
+          "statuses": [
+            200
+          ]
+        },
+        "blocked_background_requests": [
+          {
+            "url": "https://mc.yandex.ru/watch/55479901",
+            "evidence": "Observed Beeline analytics POST during production onboarding 2026-09-16; request is aborted, never forwarded"
+          },
+          {
+            "url": "https://mc.yandex.ru/watch/55479901/1",
+            "evidence": "Observed Beeline analytics POST during production onboarding 2026-09-16; request is aborted, never forwarded"
+          },
+          {
+            "url": "https://mc.yandex.ru/webvisor/55479901",
+            "evidence": "Observed Beeline analytics POST during production onboarding 2026-09-16; request is aborted, never forwarded"
+          }
+        ]
+      },
+      "confirmation": {
+        "kind": "url_contains",
+        "value": "/thanks"
+      },
+      "crm_verification": {
+        "status": "confirmed",
+        "source": "user",
+        "date": "2026-09-16",
+        "note": "User confirmed that the single Beeline business-option pilot arrived correctly in CRM."
+      },
       "source_refs": [
         "https://github.com/deidolinde-maker/Everyday_test/blob/8e87c77a79430e1a54b110682cf9f7912a29cac5/config/providers/beeline.py#L4",
         "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/config/providers/beeline.py#L4",
@@ -165,14 +290,37 @@
       "target_city_ui_id": "36401",
       "flow_kind": "business_page",
       "source_page_url": "https://beeline-ru.online/business",
-      "entry_url": null,
-      "status": "blocked",
-      "region": null,
-      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "entry_url": "https://samara.beeline-ru.online/business",
+      "status": "active",
+      "region": {
+        "mode": "direct_city_subdomain",
+        "business_url": "https://samara.beeline-ru.online/business",
+        "indicator": "span#autocomplete_city_name.autocomplete-city-name"
+      },
       "source_refs": [
         "https://github.com/deidolinde-maker/Everyday_test/blob/8e87c77a79430e1a54b110682cf9f7912a29cac5/config/providers/beeline.py#L4",
         "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/config/providers/beeline.py#L4"
-      ]
+      ],
+      "form": {
+        "selector": "#popup-business form.wpcf7-form",
+        "trigger": ":nth-match(.business_no_address_button, 1)",
+        "submit": ".business_no_address_button_send",
+        "fields": [
+          {
+            "selector": ".business_no_address_full_address",
+            "data_key": "full_address"
+          },
+          {
+            "selector": ".business_no_address_phone",
+            "data_key": "phone"
+          }
+        ]
+      },
+      "confirmation": {
+        "kind": "url_contains",
+        "value": "/thanks"
+      },
+      "verification": "User-confirmed business-popup domain rollout 2026-09-18; shared dedicated business popup UI contract."
     },
     {
       "case_id": "beeline-business_page-8567e41b6a4f",
@@ -182,13 +330,36 @@
       "target_city_ui_id": "36401",
       "flow_kind": "business_page",
       "source_page_url": "https://beeline-ru.online/business/bilajn-prodvizhenie",
-      "entry_url": null,
-      "status": "blocked",
-      "region": null,
-      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "entry_url": "https://samara.beeline-ru.online/business/bilajn-prodvizhenie",
+      "status": "active",
+      "region": {
+        "mode": "direct_city_subdomain",
+        "business_url": "https://samara.beeline-ru.online/business/bilajn-prodvizhenie",
+        "indicator": "span#autocomplete_city_name.autocomplete-city-name"
+      },
       "source_refs": [
         "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/beeline.txt#L72"
-      ]
+      ],
+      "form": {
+        "selector": "#popup-business form.wpcf7-form",
+        "trigger": ":nth-match(.business_no_address_button, 1)",
+        "submit": ".business_no_address_button_send",
+        "fields": [
+          {
+            "selector": ".business_no_address_full_address",
+            "data_key": "full_address"
+          },
+          {
+            "selector": ".business_no_address_phone",
+            "data_key": "phone"
+          }
+        ]
+      },
+      "confirmation": {
+        "kind": "url_contains",
+        "value": "/thanks"
+      },
+      "verification": "User-confirmed business-popup domain rollout 2026-09-18; shared dedicated business popup UI contract."
     },
     {
       "case_id": "beeline-business_page-d8e15d6e05cd",
@@ -198,13 +369,36 @@
       "target_city_ui_id": "36401",
       "flow_kind": "business_page",
       "source_page_url": "https://beeline-ru.online/business/zashchita-ot-ddos-atak",
-      "entry_url": null,
-      "status": "blocked",
-      "region": null,
-      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "entry_url": "https://samara.beeline-ru.online/business/zashchita-ot-ddos-atak",
+      "status": "active",
+      "region": {
+        "mode": "direct_city_subdomain",
+        "business_url": "https://samara.beeline-ru.online/business/zashchita-ot-ddos-atak",
+        "indicator": "span#autocomplete_city_name.autocomplete-city-name"
+      },
       "source_refs": [
         "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/beeline.txt#L71"
-      ]
+      ],
+      "form": {
+        "selector": "#popup-business form.wpcf7-form",
+        "trigger": ":nth-match(.business_no_address_button, 1)",
+        "submit": ".business_no_address_button_send",
+        "fields": [
+          {
+            "selector": ".business_no_address_full_address",
+            "data_key": "full_address"
+          },
+          {
+            "selector": ".business_no_address_phone",
+            "data_key": "phone"
+          }
+        ]
+      },
+      "confirmation": {
+        "kind": "url_contains",
+        "value": "/thanks"
+      },
+      "verification": "User-confirmed business-popup domain rollout 2026-09-18; shared dedicated business popup UI contract."
     },
     {
       "case_id": "beeline-business_option-bdde03ba1d38",
@@ -747,12 +941,13 @@
       "flow_kind": "business_page",
       "source_page_url": "https://moskva.beeline-ru.online/business",
       "entry_url": null,
-      "status": "blocked",
+      "status": "excluded",
       "region": null,
-      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "reason": "Duplicate Samara target of beeline-business_page-f577b1dbf510.",
       "source_refs": [
         "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/beeline.txt#L39"
-      ]
+      ],
+      "verification": "User-confirmed popup scope rollout; duplicate Samara destination removed."
     },
     {
       "case_id": "beeline-business_option-6c0da136b531",
@@ -1116,15 +1311,44 @@
       "target_city_ui_id": "36401",
       "flow_kind": "business_page",
       "source_page_url": "https://online-beeline.ru/business",
-      "entry_url": null,
-      "status": "blocked",
-      "region": null,
-      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "entry_url": "https://online-beeline.ru/business",
+      "status": "active",
+      "region": {
+        "mode": "popup_selection",
+        "business_url": "https://online-beeline.ru/business",
+        "indicator": "span#autocomplete_city_name.autocomplete-city-name",
+        "trigger": ".autocomplete-city-change.button-select-city, .autocomplete-city.button-select-city",
+        "popup": "#popup-select-city",
+        "search": "input#city-input.popup-select-city__input",
+        "choice": "a.region_item.region_link[id='36401']",
+        "choice_url": "https://online-beeline.ru/samara",
+        "after_choice_url": "https://online-beeline.ru/business"
+      },
       "source_refs": [
         "https://github.com/deidolinde-maker/Everyday_test/blob/8e87c77a79430e1a54b110682cf9f7912a29cac5/config/providers/beeline.py#L4",
         "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/config/providers/beeline.py#L4",
         "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/beeline.txt#L43"
-      ]
+      ],
+      "form": {
+        "selector": "#popup-business form.wpcf7-form",
+        "trigger": ":nth-match(.business_no_address_button, 1)",
+        "submit": ".business_no_address_button_send",
+        "fields": [
+          {
+            "selector": ".business_no_address_full_address",
+            "data_key": "full_address"
+          },
+          {
+            "selector": ".business_no_address_phone",
+            "data_key": "phone"
+          }
+        ]
+      },
+      "confirmation": {
+        "kind": "url_contains",
+        "value": "/thanks"
+      },
+      "verification": "User-confirmed business-popup domain rollout 2026-09-18; shared dedicated business popup UI contract."
     },
     {
       "case_id": "beeline-business_option-0f619f7d8179",
@@ -3201,13 +3425,14 @@
       "flow_kind": "business_page",
       "source_page_url": "http://rtk-home.ru/business",
       "entry_url": null,
-      "status": "blocked",
+      "status": "excluded",
       "region": null,
-      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "reason": "HTTP duplicate of rostelecom-business_page-56b694534a4d.",
       "source_refs": [
         "https://github.com/deidolinde-maker/Everyday_test/blob/8e87c77a79430e1a54b110682cf9f7912a29cac5/config/providers/rostelecom.py#L4",
         "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/config/providers/rostelecom.py#L4"
-      ]
+      ],
+      "verification": "User-confirmed popup scope rollout; duplicate Samara destination removed."
     },
     {
       "case_id": "rostelecom-business_option-6c404bbacac9",
@@ -3748,13 +3973,42 @@
       "target_city_ui_id": "36401",
       "flow_kind": "business_page",
       "source_page_url": "https://rtk-home.ru/business",
-      "entry_url": null,
-      "status": "blocked",
-      "region": null,
-      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "entry_url": "https://rtk-home.ru/business",
+      "status": "active",
+      "region": {
+        "mode": "popup_selection",
+        "business_url": "https://rtk-home.ru/business",
+        "indicator": "span#autocomplete_city_name.autocomplete-city-name",
+        "trigger": ".autocomplete-city-change.button-select-city, .autocomplete-city.button-select-city",
+        "popup": "#popup-select-city",
+        "search": "input#city-input.popup-select-city__input",
+        "choice": "a.region_item.region_link[id='36401']",
+        "choice_url": "https://rtk-home.ru/samara",
+        "after_choice_url": "https://rtk-home.ru/business"
+      },
       "source_refs": [
         "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/rostelecom.txt#L52"
-      ]
+      ],
+      "form": {
+        "selector": "#popup-business form.wpcf7-form",
+        "trigger": ":nth-match(.business_no_address_button, 1)",
+        "submit": ".business_no_address_button_send",
+        "fields": [
+          {
+            "selector": ".business_no_address_full_address",
+            "data_key": "full_address"
+          },
+          {
+            "selector": ".business_no_address_phone",
+            "data_key": "phone"
+          }
+        ]
+      },
+      "confirmation": {
+        "kind": "url_contains",
+        "value": "/tilda/form1/submitted"
+      },
+      "verification": "User-confirmed business-popup domain rollout 2026-09-18; shared dedicated business popup UI contract."
     },
     {
       "case_id": "rostelecom-business_option-244944c59b1f",
@@ -3830,19 +4084,18 @@
       "flow_kind": "business_page",
       "source_page_url": "https://rtk-internet.online/business",
       "entry_url": "https://rtk-internet.online/business",
-      "status": "blocked",
+      "status": "active",
       "region": {
         "mode": "popup_selection",
         "business_url": "https://rtk-internet.online/business",
         "indicator": "span#autocomplete_city_name.autocomplete-city-name",
-        "trigger": ".autocomplete-city.button-select-city",
+        "trigger": ".autocomplete-city-change.button-select-city, .autocomplete-city.button-select-city",
         "popup": "#popup-select-city",
         "search": "input#city-input.popup-select-city__input",
         "choice": "a.region_item.region_link[id='36401']",
         "choice_url": "https://rtk-internet.online/samara",
         "after_choice_url": "https://rtk-internet.online/business"
       },
-      "reason": "Production UI preparation verified 2026-09-16: Samara selected in-place; submit/response contract pending. Before submit, Info still mentions Moscow while CityName/BusinessCityId show Samara; outgoing consistency needs verification.",
       "source_refs": [
         "https://github.com/deidolinde-maker/Everyday_test/blob/8e87c77a79430e1a54b110682cf9f7912a29cac5/config/providers/rostelecom.py#L4",
         "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/config/providers/rostelecom.py#L4",
@@ -3850,7 +4103,7 @@
       ],
       "form": {
         "selector": "#popup-business form.wpcf7-form",
-        "trigger": ".services-business__item:has(.services-business__item-title:text-is(\"Интернет для бизнеса\")) .business_no_address_button",
+        "trigger": ":nth-match(.business_no_address_button, 1)",
         "submit": ".business_no_address_button_send",
         "fields": [
           {
@@ -3863,7 +4116,11 @@
           }
         ]
       },
-      "verification": "docs/evidence/production-onboarding-20260916.md"
+      "verification": "User-confirmed business-popup domain rollout 2026-09-18; shared dedicated business popup UI contract.",
+      "confirmation": {
+        "kind": "url_contains",
+        "value": "/tilda/form1/submitted"
+      }
     },
     {
       "case_id": "rostelecom-business_option-388cda0ec85c",
@@ -3938,14 +4195,37 @@
       "target_city_ui_id": "36401",
       "flow_kind": "business_page",
       "source_page_url": "https://rtk-ru.online/business",
-      "entry_url": null,
-      "status": "blocked",
-      "region": null,
-      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "entry_url": "https://samara.rtk-ru.online/business",
+      "status": "active",
+      "region": {
+        "mode": "direct_city_subdomain",
+        "business_url": "https://samara.rtk-ru.online/business",
+        "indicator": "span#autocomplete_city_name.autocomplete-city-name"
+      },
       "source_refs": [
         "https://github.com/deidolinde-maker/Everyday_test/blob/8e87c77a79430e1a54b110682cf9f7912a29cac5/config/providers/rostelecom.py#L4",
         "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/config/providers/rostelecom.py#L4"
-      ]
+      ],
+      "form": {
+        "selector": "#popup-business form.wpcf7-form",
+        "trigger": ":nth-match(.business_no_address_button, 1)",
+        "submit": ".business_no_address_button_send",
+        "fields": [
+          {
+            "selector": ".business_no_address_full_address",
+            "data_key": "full_address"
+          },
+          {
+            "selector": ".business_no_address_phone",
+            "data_key": "phone"
+          }
+        ]
+      },
+      "confirmation": {
+        "kind": "url_contains",
+        "value": "/tilda/form1/submitted"
+      },
+      "verification": "User-confirmed business-popup domain rollout 2026-09-18; shared dedicated business popup UI contract."
     },
     {
       "case_id": "rostelecom-business_page-27e1a637f387",
@@ -3955,13 +4235,36 @@
       "target_city_ui_id": "36401",
       "flow_kind": "business_page",
       "source_page_url": "https://rtk-ru.online/business/internet-dlya-biznesa",
-      "entry_url": null,
-      "status": "blocked",
-      "region": null,
-      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "entry_url": "https://samara.rtk-ru.online/business/internet-dlya-biznesa",
+      "status": "active",
+      "region": {
+        "mode": "direct_city_subdomain",
+        "business_url": "https://samara.rtk-ru.online/business/internet-dlya-biznesa",
+        "indicator": "span#autocomplete_city_name.autocomplete-city-name"
+      },
       "source_refs": [
         "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/rostelecom.txt#L65"
-      ]
+      ],
+      "form": {
+        "selector": "#popup-business form.wpcf7-form",
+        "trigger": ":nth-match(.business_no_address_button, 1)",
+        "submit": ".business_no_address_button_send",
+        "fields": [
+          {
+            "selector": ".business_no_address_full_address",
+            "data_key": "full_address"
+          },
+          {
+            "selector": ".business_no_address_phone",
+            "data_key": "phone"
+          }
+        ]
+      },
+      "confirmation": {
+        "kind": "url_contains",
+        "value": "/tilda/form1/submitted"
+      },
+      "verification": "User-confirmed business-popup domain rollout 2026-09-18; shared dedicated business popup UI contract."
     },
     {
       "case_id": "rostelecom-business_page-15cfc1c39d38",
@@ -3971,13 +4274,36 @@
       "target_city_ui_id": "36401",
       "flow_kind": "business_page",
       "source_page_url": "https://rtk-ru.online/business/virtualnaya-ats",
-      "entry_url": null,
-      "status": "blocked",
-      "region": null,
-      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "entry_url": "https://samara.rtk-ru.online/business/virtualnaya-ats",
+      "status": "active",
+      "region": {
+        "mode": "direct_city_subdomain",
+        "business_url": "https://samara.rtk-ru.online/business/virtualnaya-ats",
+        "indicator": "span#autocomplete_city_name.autocomplete-city-name"
+      },
       "source_refs": [
         "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/rostelecom.txt#L66"
-      ]
+      ],
+      "form": {
+        "selector": "#popup-business form.wpcf7-form",
+        "trigger": ":nth-match(.business_no_address_button, 1)",
+        "submit": ".business_no_address_button_send",
+        "fields": [
+          {
+            "selector": ".business_no_address_full_address",
+            "data_key": "full_address"
+          },
+          {
+            "selector": ".business_no_address_phone",
+            "data_key": "phone"
+          }
+        ]
+      },
+      "confirmation": {
+        "kind": "url_contains",
+        "value": "/tilda/form1/submitted"
+      },
+      "verification": "User-confirmed business-popup domain rollout 2026-09-18; shared dedicated business popup UI contract."
     },
     {
       "case_id": "rostelecom-business_option-82d50544b83e",

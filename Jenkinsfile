@@ -9,7 +9,7 @@ pipeline {
     choice(name: 'MODE', choices: ['representative', 'live', 'local', 'collect'], description: 'representative is a non-submitting preflight. live sends one lead for every active case selected by PROVIDER and CASE_ID; leave both empty for all active cases.')
     choice(name: 'TARGET_ENV', choices: ['prod', 'unset', 'stage'], description: 'Required for representative, collect and live. City is always Samara.')
     choice(name: 'PROVIDER', choices: ['', 'beeline', 'mts'], description: 'Optional scope for collect and live. Leave empty to use all matching cases.')
-    choice(name: 'CASE_ID', choices: ['', 'beeline-business_option-afd9e17b2c35', 'beeline-business_page-samara-internet-dlya-biznesa', 'beeline-business_page-samara-mobilnaya-svyaz-dlya-biznesa', 'mts-business_page-c2d4cae355e7', 'mts-business_option-5d75c21b6980'], description: 'Optional exact active case for live. Leave empty to run all active cases in the selected scope.')
+    string(name: 'CASE_ID', defaultValue: '', description: 'Optional exact active case ID for live. Leave empty to run all active cases in the selected scope.')
     string(name: 'DATA_FILE', defaultValue: 'config/data/samara.json', description: 'Path to an environment-confirmed data profile on the agent.')
   }
   stages {

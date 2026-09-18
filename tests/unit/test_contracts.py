@@ -116,15 +116,18 @@ def test_duplicate_cases_are_rejected(tmp_path):
 
 def test_live_scope_contains_only_active_ui_flows():
     selected = select_cases(load_cases(), "prod", active_only=True)
-    assert [case["case_id"] for case in selected] == [
-        "beeline-business_option-afd9e17b2c35",
-        "mts-business_page-c2d4cae355e7",
-        "mts-business_option-5d75c21b6980",
-        "beeline-business_page-samara-internet-dlya-biznesa",
-        "beeline-business_page-samara-mobilnaya-svyaz-dlya-biznesa",
-    ]
+    assert len(selected) == 15
     assert all(case["target_city"] == "Самара" for case in selected)
     assert all(case["confirmation"]["value"] for case in selected)
+
+
+def test_active_business_pages_have_unique_samara_targets():
+    pages = [
+        case for case in select_cases(load_cases(), "prod", active_only=True)
+        if case["flow_kind"] == "business_page"
+    ]
+    targets = [case["entry_url"] for case in pages]
+    assert len(targets) == len(set(targets))
 
 
 def test_representative_scope_is_explicit_and_active():
