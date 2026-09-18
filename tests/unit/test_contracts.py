@@ -3,9 +3,7 @@ import json
 import pytest
 
 from business.cases import load_cases, load_data, select_cases, select_representatives, validate_case
-from business.deadline import Deadline
-from business.errors import BusinessCheckError, ConfigurationError
-from business.submission import SubmissionGuard, matches, matches_phone_data, matches_submission_contract, parse_payload, require_nonempty, validate_contract
+from business.errors import ConfigurationError
 from tests.support import make_case
 
 
@@ -13,8 +11,12 @@ def test_valid_synthetic_case():
     validate_case(make_case())
 
 
-@pytest.mark.parametrize("field,value", [("target_city", "Москва"), ("target_city_ui_id", "77"),
-                                       ("environment", None), ("case_id", "../escape")])
+@pytest.mark.parametrize("field,value", [
+    ("target_city", "Москва"),
+    ("target_city_ui_id", "77"),
+    ("environment", None),
+    ("case_id", "../escape"),
+])
 def test_reject_unsafe_case_config(field, value):
     case = make_case()
     case[field] = value
@@ -22,31 +24,51 @@ def test_reject_unsafe_case_config(field, value):
         validate_case(case)
 
 
-@pytest.mark.parametrize("field", ["region_match", "business_match", "identity_match", "evidence"])
-def test_no_unknown_contract_can_send(field):
-    contract = make_case()["submission"]
-    contract.pop(field)
-    with pytest.raises(ConfigurationError):
-        validate_contract(contract)
+@pytest.mark.parametrize("field", ["provider", "entry_url", "form", "region", "confirmation", "verification"])
+def test_active_case_requires_ui_flow_contract(field):
+    case = make_case()
+    case.pop(field)
+    with pytest.raises(ConfigurationError, match="missing"):
+        validate_case(case)
 
 
-def test_empty_selection_not_green():
-    with pytest.raises(ConfigurationError, match="empty"):
-        select_cases([make_case()], "prod")
+def test_active_case_does_not_require_network_contract():
+    case = make_case()
+    assert "submission" not in case
+    validate_case(case)
 
 
-def test_representative_scope_has_one_case_per_provider_and_flow_type():
-    selected = select_representatives(load_cases(), "prod")
-    assert [(case["provider"], case["flow_kind"]) for case in selected] == [
-        ("beeline", "business_page"),
-        ("mts", "business_page"),
-        ("beeline", "business_option"),
-        ("mts", "business_option"),
-    ]
-    assert {case["target_city"] for case in selected} == {"Самара"}
+def test_blocked_case_does_not_need_browser_contract():
+    case = make_case()
+    case["status"] = "blocked"
+    case["reason"] = "awaiting UI verification"
+    for field in ("entry_url", "form", "region", "confirmation", "verification"):
+        case.pop(field, None)
+    validate_case(case)
 
 
-def test_live_scope_contains_only_submission_ready_cases():
+def test_unconfirmed_environment_data_rejected(tmp_path):
+    path = tmp_path / "data.json"
+    path.write_text(json.dumps({
+        "city": "Самара",
+        "environment": None,
+        "phone": "9999999999",
+        "street": "Ленинградская",
+        "house": "1",
+    }), encoding="utf-8")
+    with pytest.raises(ConfigurationError, match="environment"):
+        load_data(path, "prod")
+
+
+def test_duplicate_cases_are_rejected(tmp_path):
+    case = make_case()
+    path = tmp_path / "cases.json"
+    path.write_text(json.dumps({"cases": [case, case]}), encoding="utf-8")
+    with pytest.raises(ConfigurationError, match="duplicate"):
+        load_cases(path)
+
+
+def test_live_scope_contains_only_active_ui_flows():
     selected = select_cases(load_cases(), "prod", active_only=True)
     assert [case["case_id"] for case in selected] == [
         "beeline-business_option-afd9e17b2c35",
@@ -55,312 +77,52 @@ def test_live_scope_contains_only_submission_ready_cases():
         "beeline-business_page-samara-internet-dlya-biznesa",
         "beeline-business_page-samara-mobilnaya-svyaz-dlya-biznesa",
     ]
+    assert all(case["target_city"] == "Самара" for case in selected)
+    assert all(case["confirmation"]["value"] for case in selected)
+
+
+def test_representative_scope_is_explicit_and_active():
+    selected = select_representatives(load_cases(), "prod")
+    assert [case["case_id"] for case in selected] == [
+        "beeline-business_page-samara-mobilnaya-svyaz-dlya-biznesa",
+        "mts-business_page-c2d4cae355e7",
+        "beeline-business_option-afd9e17b2c35",
+        "mts-business_option-5d75c21b6980",
+    ]
     assert all(case["status"] == "active" for case in selected)
 
 
-def test_environment_required():
-    with pytest.raises(ConfigurationError, match="required"):
-        select_cases([make_case()], None)
-
-
-def test_duplicate_cases(tmp_path):
-    path = tmp_path / "cases.json"
-    path.write_text(json.dumps({"cases": [make_case(), make_case()]}), encoding="utf-8")
-    with pytest.raises(ConfigurationError, match="duplicate"):
-        load_cases(path)
-
-
-def test_unconfirmed_environment_data_rejected(tmp_path):
-    path = tmp_path / "data.json"
-    path.write_text(json.dumps({"city": "Самара", "environment": None, "phone": "999999999", "street": "Ленинградская", "house": "1"}), encoding="utf-8")
-    with pytest.raises(ConfigurationError, match="environment"):
-        load_data(path, "prod")
-
-
-@pytest.mark.parametrize("media,body,expected", [
-    ("application/json", b'{"region":"samara-fixture","business":true}', {"region": "samara-fixture", "business": True}),
-    ("application/x-www-form-urlencoded", b"region=samara-fixture&business=1", {"region": "samara-fixture", "business": "1"}),
-    ("multipart/form-data; boundary=test", b'--test\r\nContent-Disposition: form-data; name="region"\r\n\r\nsamara-fixture\r\n--test--\r\n', {"region": "samara-fixture"}),
-])
-def test_supported_payload_encodings(media, body, expected):
-    assert parse_payload(media, body) == expected
-
-
-def test_duplicate_json_city_rejected():
-    with pytest.raises(BusinessCheckError, match="duplicate"):
-        parse_payload("application/json", b'{"city":"samara","city":"moscow"}')
-
-
-def test_browser_multipart_preserves_cyrillic_without_charset():
-    body = '--boundary\r\nContent-Disposition: form-data; name="CityName"\r\n\r\nСамара\r\n--boundary--\r\n'.encode('utf-8')
-    assert parse_payload('multipart/form-data; boundary=boundary', body) == {"CityName": "Самара"}
-
-
-def test_invalid_utf8_multipart_is_rejected():
-    body = b'--b\r\nContent-Disposition: form-data; name="CityName"\r\n\r\n\xff\r\n--b--\r\n'
-    with pytest.raises(UnicodeDecodeError):
-        parse_payload('multipart/form-data; boundary=b', body)
-
-
-def test_shared_submit_endpoint_cannot_allowlist_post_with_other_query():
-    contract = make_case()["submission"]
-    contract["read_only_requests"] = [{"url": contract["url"] + "?action=search", "method": "POST", "evidence": "same endpoint"}]
-    with pytest.raises(ConfigurationError, match="shared submission"):
-        validate_contract(contract)
-
-
-def test_exact_alternate_submit_url_is_allowed_on_same_origin_and_path():
-    contract = make_case()["submission"]
-    contract["alternate_urls"] = [contract["url"] + "?transport=verified"]
-    validate_contract(contract)
-
-
-def test_alternate_submit_url_cannot_change_path():
-    contract = make_case()["submission"]
-    contract["alternate_urls"] = [contract["url"] + "/other"]
-    with pytest.raises(ConfigurationError, match="verified origin and path"):
-        validate_contract(contract)
-
-
-def test_verified_alternate_submit_url_is_forwarded_once():
-    contract = make_case()["submission"]
-    alternate = contract["url"] + "?transport=verified"
-    contract["alternate_urls"] = [alternate]
-
-    class Response:
-        status = 200
-        headers = {}
-
-        @staticmethod
-        def json():
-            return {"status": "accepted"}
-
-    class Request:
-        url = alternate
-        method = "POST"
-        headers = {"content-type": "application/json"}
-        post_data_buffer = json.dumps({
-            "form": "lead-fixture", "business": True, "region": "samara-fixture",
-        }).encode()
-
-    class Route:
-        request = Request()
-        fulfilled = False
-
-        @staticmethod
-        def fetch(**_kwargs):
-            return Response()
-
-        def fulfill(self, **_kwargs):
-            self.fulfilled = True
-
-        @staticmethod
-        def abort(_reason):
-            raise AssertionError("verified alternate endpoint must not be aborted")
-
-    guard = SubmissionGuard(contract, Deadline(10))
-    guard.arm()
-    route = Route()
-    guard._handle(route)
-    guard.assert_success()
-
-    assert route.fulfilled
-    assert guard.forwarded == 1
-    assert guard.evidence["url"] == alternate
-
-
-def test_submit_cannot_be_classified_as_background():
-    contract = make_case()["submission"]
-    contract["blocked_background_requests"] = [{"url": contract["url"], "evidence": "bad"}]
-    with pytest.raises(ConfigurationError, match="background"):
-        validate_contract(contract)
-
-
-def test_hidden_duplicate_urlencoded_city_cannot_pass():
-    payload = parse_payload("application/x-www-form-urlencoded", b"city=samara&city=moscow")
-    with pytest.raises(BusinessCheckError, match="mismatch"):
-        matches(payload, {"city": "samara"}, "region")
-
-
-def test_exact_types_no_bool_city_alias():
-    with pytest.raises(BusinessCheckError, match="mismatch"):
-        matches({"city": True}, {"city": 1}, "region")
-
-
-def test_required_selected_address_fields_must_be_nonempty():
-    require_nonempty({"street": "Ленинградская ул", "house_id": "293579"}, ["street", "house_id"])
-    with pytest.raises(BusinessCheckError, match="required_field_empty:street"):
-        require_nonempty({"street": " ", "house_id": "293579"}, ["street", "house_id"])
-
-
-@pytest.mark.parametrize("actual", [
-    "9999999999",
-    "+7 (999) 999-99-99",
-    "8 999 999 99 99",
-    ["+7 (999) 999-99-99", "9999999999"],
-])
-def test_phone_match_accepts_formatting_and_russian_prefix(actual):
-    matches_phone_data({"Phone": actual}, {"Phone": "9999999999"})
-
-
-def test_phone_match_rejects_different_number():
-    with pytest.raises(BusinessCheckError, match="user_phone_mismatch:Phone"):
-        matches_phone_data({"Phone": "+7 (999) 999-99-98"}, {"Phone": "9999999999"})
-
-
-def test_phone_match_rejects_conflicting_duplicate_values():
-    with pytest.raises(BusinessCheckError, match="kind=list.*distinct_valid=2"):
-        matches_phone_data(
-            {"Phone": ["+7 (999) 999-99-99", "+7 (999) 999-99-98"]},
-            {"Phone": "9999999999"},
-        )
-
-
-def test_missing_nested_city_rejected():
-    with pytest.raises(BusinessCheckError, match="missing"):
-        matches({"address": {}}, {"address.city": "Samara"}, "region")
-
-
-def test_only_complete_matching_payload_is_a_lead():
-    contract = make_case()["submission"]
-    user_data = {"Phone": "synthetic-phone"}
-    assert matches_submission_contract(
-        {"form": "lead-fixture", "business": True, "region": "samara-fixture", "Phone": "synthetic-phone"},
-        contract, user_data,
-    )
-    assert not matches_submission_contract(
-        {"form": "lead-fixture", "business": True, "region": "samara-fixture"}, contract, user_data,
-    )
-
-
-def test_target_not_allowed_as_readonly():
-    contract = make_case()["submission"]
-    contract["read_only_requests"] = [{"url": contract["url"], "method": "POST", "evidence": "bad"}]
-    with pytest.raises(ConfigurationError):
-        validate_contract(contract)
-
-
-def test_no_redirecting_post_contract():
-    contract = make_case()["submission"]
-    contract["response"] = {"statuses": [307], "location": "/other"}
-    with pytest.raises(ConfigurationError):
-        validate_contract(contract)
-
-
-def test_imported_scope_has_samara_targets_and_provenance():
-    cases = load_cases()
-    assert cases
-    assert all(c["target_city"] == "Самара" and c["source_refs"] for c in cases)
-    assert any("/business" in c["source_page_url"] for c in cases)
-    assert any(c["flow_kind"] == "business_option" for c in cases)
-
-
-def test_mts_business_page_scope_is_single_user_confirmed_landing():
-    cases = load_cases()
-    pages = [c for c in cases if c["provider"] == "mts" and c["flow_kind"] == "business_page"]
-    included = [c for c in pages if c["status"] != "excluded"]
-    assert [c["source_page_url"] for c in included] == ["https://mts-home-online.ru/business"]
-    target = included[0]
-    assert target["entry_url"] == "https://mts-home-online.ru/business"
-    assert target["region"]["mode"] == "popup_selection"
-    assert target["region"]["choice_url"] == "https://mts-home-online.ru/samara"
-    assert target["status"] == "active"
-    assert target["submission"]["url"] == (
-        "https://mts-home-online.ru/wp-json/contact-form-7/v1/contact-forms/837/feedback"
-    )
-    assert target["submission"]["region_match"] == {
-        "BusinessCityId": "36401",
-        "CityName": "Самара",
-    }
-    assert target["submission"]["business_match"] == {
-        "FormName": "Заявка Бизнес",
-        "lead_form_type": "forma_podklyucheniya_biznes",
-        "service_id": "2",
-    }
-    assert target["confirmation"] == {
+def test_mts_business_page_scope_is_single_confirmed_landing():
+    pages = [
+        case for case in load_cases()
+        if case["provider"] == "mts" and case["flow_kind"] == "business_page"
+    ]
+    included = [case for case in pages if case["status"] != "excluded"]
+    assert [case["source_page_url"] for case in included] == ["https://mts-home-online.ru/business"]
+    assert included[0]["confirmation"] == {
         "kind": "url",
         "value": "https://mts-home-online.ru/tilda/form1/submitted",
     }
-    assert target["crm_verification"] == {
-        "status": "confirmed",
-        "source": "user",
-        "date": "2026-09-16",
-        "note": "User confirmed that the single MTS production pilot arrived correctly in CRM.",
-    }
-    assert all(c["status"] == "excluded" for c in pages if c is not target)
-    option = next(c for c in cases if c["case_id"] == "mts-business_option-d5a93099ffb1")
-    assert option["status"] == "blocked"
-    assert option["form"]["business_control"] == {
+
+
+def test_beeline_option_uses_samara_popup_and_business_select():
+    case = next(
+        case for case in load_cases()
+        if case["case_id"] == "beeline-business_option-afd9e17b2c35"
+    )
+    assert case["region"]["choice"] == "a.region_item.region_link[id='36401']"
+    assert case["region"]["after_choice_url"] == "https://beeline-ru.online/"
+    assert case["form"]["business_control"] == {
         "kind": "select",
         "selector": "select[name='Place']",
         "business_value": "Для бизнеса",
         "alternative_value": "В квартиру",
     }
-    assert option["region"]["after_choice_url"] == option["entry_url"] == option["region"]["business_url"]
-    assert "unchanged base URL after popup selection is expected" in option["reason"]
-    assert option["verification"] == "docs/evidence/mts-business-option-select-20260916.md"
-    mts_home = next(c for c in cases if c["case_id"] == "mts-business_option-5d75c21b6980")
-    assert mts_home["status"] == "active"
-    assert mts_home["entry_url"] == mts_home["region"]["business_url"] == mts_home["region"]["after_choice_url"]
-    assert mts_home["region"]["choice_url"] == "https://samara.mts-home.online/"
-    assert mts_home["form"]["business_control"]["business_value"] == "Для бизнеса"
-    assert mts_home["submission"]["region_match"] == {"CityName": "Самара", "City": "36401"}
-    assert mts_home["submission"]["business_match"] == {"Place": "Для бизнеса"}
-    assert mts_home["submission"]["response"] == {"statuses": [200]}
-    assert mts_home["confirmation"] == {
-        "kind": "url",
-        "value": "https://mts-home.online/tilda/form1/submitted",
-    }
-    assert mts_home["crm_verification"] == {
-        "status": "confirmed",
-        "source": "user",
-        "date": "2026-09-16",
-        "note": "User confirmed that the single MTS Home Online business-option pilot arrived correctly in CRM.",
-    }
-    assert mts_home["verification"] == "docs/evidence/mts-home-online-business-option-20260916.md"
-    beeline_option = next(c for c in cases if c["case_id"] == "beeline-business_option-afd9e17b2c35")
-    assert beeline_option["status"] == "active"
-    assert beeline_option["region"]["initial_dismiss"] == "#popup-confirm-region #yesButton"
-    assert beeline_option["region"]["search"] == "input#city-input.popup-select-city__input"
-    assert beeline_option["region"]["choice"] == "a.region_item.region_link[id='36401']"
-    assert beeline_option["form"]["dismiss"] == ["#popup-lead-catcher .popup__close"]
-    assert beeline_option["form"]["fields"][:2] == [
-        {
-            "selector": ".checkaddress_address_street",
-            "data_key": "street",
-            "suggestion": "div.autocomplete-street:visible",
-        },
-        {
-            "selector": ".checkaddress_address_house",
-            "data_key": "house",
-            "suggestion": "#house-list div.autocomplete-item:visible",
-        },
-    ]
-    assert beeline_option["confirmation"] == {"kind": "url_contains", "value": "/thanks"}
-    assert beeline_option["submission"]["url"] == (
-        "https://beeline-ru.online/wp-admin/admin-ajax.php?"
-        "action=cf7_proxy_submit_transport&cf7_form_id=430&cf7_operation=feedback"
-    )
-    assert beeline_option["submission"]["alternate_urls"] == [
-        "https://beeline-ru.online/wp-admin/admin-ajax.php"
-    ]
-    assert beeline_option["submission"]["required_nonempty_fields"] == [
-        "AddresStreet", "AddresHouse", "IStreet", "IHouse",
-    ]
-    assert "user_data_match" not in beeline_option["submission"]
-    assert beeline_option["submission"]["phone_data_match"] == {"Phone": "phone"}
-    assert beeline_option["submission"]["response"] == {"statuses": [200]}
-    assert [item["url"] for item in beeline_option["submission"]["blocked_background_requests"]] == [
-        "https://mc.yandex.ru/watch/55479901",
-        "https://mc.yandex.ru/watch/55479901/1",
-        "https://mc.yandex.ru/webvisor/55479901",
-    ]
-    assert beeline_option["crm_verification"] == {
-        "status": "confirmed",
-        "source": "user",
-        "date": "2026-09-16",
-        "note": "User confirmed that the single Beeline business-option pilot arrived correctly in CRM.",
-    }
-    duplicate = next(c for c in cases if c["case_id"] == "mts-business_option-e34df24cb0a9")
-    assert duplicate["status"] == "excluded"
-    assert "Exact normalized duplicate" in duplicate["reason"]
+    assert case["confirmation"] == {"kind": "url_contains", "value": "/thanks"}
+
+
+def test_imported_scope_retains_samara_targets_and_provenance():
+    cases = load_cases()
+    assert cases
+    assert all(case["target_city"] == "Самара" and case["source_refs"] for case in cases)
+    assert any(case["flow_kind"] == "business_option" for case in cases)

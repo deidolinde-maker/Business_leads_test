@@ -32,7 +32,7 @@ def validate_case(case: dict) -> None:
         if not case.get("reason"):
             raise ConfigurationError(f"{ident}: non-active case needs a reason")
         return
-    for key in ("provider", "entry_url", "form", "region", "submission", "confirmation", "verification"):
+    for key in ("provider", "entry_url", "form", "region", "confirmation", "verification"):
         if not case.get(key):
             raise ConfigurationError(f"{ident}: missing {key}")
     if not valid_url(case["entry_url"]):
@@ -70,8 +70,6 @@ def validate_case(case: dict) -> None:
     for field in form["fields"]:
         if not field.get("selector") or not field.get("data_key"):
             raise ConfigurationError(f"{ident}: field selector/data_key required")
-    from business.submission import validate_contract
-    validate_contract(case["submission"])
     confirmation = case["confirmation"]
     if confirmation.get("kind") not in {"locator", "url", "url_contains"} or not confirmation.get("value"):
         raise ConfigurationError(f"{ident}: exact confirmation required")

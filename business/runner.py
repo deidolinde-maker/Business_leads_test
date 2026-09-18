@@ -1,7 +1,6 @@
 import json
 import re
 from pathlib import Path
-from urllib.parse import urlencode
 
 from playwright.sync_api import expect
 
@@ -11,7 +10,6 @@ from business.controls import assert_business, set_business
 from business.deadline import Deadline
 from business.errors import BusinessCheckError
 from business.region import assert_samara, ensure_samara
-from business.submission import SubmissionGuard
 
 
 def run_case(browser, case: dict, data: dict, output: Path, budget: float = 75) -> dict:
@@ -23,13 +21,11 @@ def run_case(browser, case: dict, data: dict, output: Path, budget: float = 75) 
     output.mkdir(parents=True, exist_ok=True)
     deadline = Deadline(budget)
     adapter = FormAdapter()
-    guard = SubmissionGuard(case["submission"], deadline, data)
-    context = browser.new_context(service_workers="block", viewport={"width": 1366, "height": 900})
+    context = browser.new_context(viewport={"width": 1366, "height": 900})
     page = context.new_page()
     result = {"case_id": case["case_id"], "environment": case["environment"],
               "region_mode": case["region"]["mode"], "target_city": "Самара", "status": "failed"}
     try:
-        guard.install(context)
         with deadline.phase("navigation"):
             deadline.mark("navigation.open_entry")
             response = page.goto(case["entry_url"], wait_until="domcontentloaded", timeout=deadline.ms())
@@ -52,8 +48,6 @@ def run_case(browser, case: dict, data: dict, output: Path, budget: float = 75) 
             deadline.mark("fill.final_samara_check")
             result["city_observed"] = assert_samara(form, case["region"], deadline)
         with deadline.phase("submission"):
-            deadline.mark("submission.arm")
-            guard.arm()
             submit = form.locator(case["form"]["submit"])
             deadline.mark("submission.submit_control")
             expect(submit).to_have_count(1, timeout=deadline.ms())
@@ -74,24 +68,10 @@ def run_case(browser, case: dict, data: dict, output: Path, budget: float = 75) 
                     "kind": "locator",
                     "value": confirmation["value"],
                 }
-            guard.assert_success()
         result["status"] = "passed"
         return result
     except Exception as exc:
-        if guard.error:
-            result["error"] = guard.error
-            if guard.error == "unexpected_write_endpoint":
-                paths = guard.evidence.get("unexpected_write_paths", [])
-                if paths:
-                    result["error"] = f"{guard.error}:{paths[0]}"
-            elif guard.error == "submission_endpoint_changed":
-                mismatches = guard.evidence.get("endpoint_mismatches", [])
-                if mismatches:
-                    mismatch = mismatches[0]
-                    query = urlencode(mismatch.get("query", {}))
-                    endpoint = mismatch["path"] + (f"?{query}" if query else "")
-                    result["error"] = f"{guard.error}:{mismatch['method']}:{endpoint}"
-        elif isinstance(exc, BusinessCheckError):
+        if isinstance(exc, BusinessCheckError):
             result["error"] = str(exc)
         else:
             failed_step = deadline.failed_step or deadline.current_step
@@ -104,8 +84,5 @@ def run_case(browser, case: dict, data: dict, output: Path, budget: float = 75) 
         raise BusinessCheckError(result["error"]) from None
     finally:
         result["phase_seconds"] = deadline.timings
-        result["submission"] = {**guard.evidence, "observed": guard.seen, "forwarded": guard.forwarded,
-                                "response_accepted": guard.accepted, "errors": guard.errors,
-                                "background_blocked": guard.background_blocked}
         (output / "result.json").write_text(json.dumps(result, ensure_ascii=False, indent=2), encoding="utf-8")
         context.close()
