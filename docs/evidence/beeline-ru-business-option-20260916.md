@@ -10,4 +10,12 @@ One explicitly approved production pilot forwarded exactly one target POST; all 
 
 The legacy suites define `/thanks` as the positive «Спасибо» page for this form family. The live contract requires this URL after the exact Samara/business POST and HTTP 200; together with the user-confirmed CRM delivery, the case is now an `active` representative for live automation.
 
+## Transport update — 18.09.2026
+
+Jenkins observed and blocked the current form-430 feedback request before it left the browser. The exact current endpoint is:
+
+`POST https://beeline-ru.online/wp-admin/admin-ajax.php?action=cf7_proxy_submit_transport&cf7_form_id=430&cf7_operation=feedback`
+
+This replaces the former query-free `admin-ajax.php` contract. No lead was sent during this observation.
+
 Sources: user requirements, 16.09.2026; ignored local onboarding artifacts; [QA workflow](../references/qa/analyze-task.md).

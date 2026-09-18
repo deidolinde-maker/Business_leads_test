@@ -247,6 +247,10 @@ def test_mts_business_page_scope_is_single_user_confirmed_landing():
         },
     ]
     assert beeline_option["confirmation"] == {"kind": "url_contains", "value": "/thanks"}
+    assert beeline_option["submission"]["url"] == (
+        "https://beeline-ru.online/wp-admin/admin-ajax.php?"
+        "action=cf7_proxy_submit_transport&cf7_form_id=430&cf7_operation=feedback"
+    )
     assert beeline_option["submission"]["response"] == {"statuses": [200]}
     assert [item["url"] for item in beeline_option["submission"]["blocked_background_requests"]] == [
         "https://mc.yandex.ru/watch/55479901",
