@@ -5,7 +5,7 @@ import pytest
 from business.cases import load_cases, load_data, select_cases, select_representatives, validate_case
 from business.deadline import Deadline
 from business.errors import BusinessCheckError, ConfigurationError
-from business.submission import SubmissionGuard, matches, matches_submission_contract, parse_payload, validate_contract
+from business.submission import SubmissionGuard, matches, matches_submission_contract, parse_payload, require_nonempty, validate_contract
 from tests.support import make_case
 
 
@@ -187,6 +187,12 @@ def test_exact_types_no_bool_city_alias():
         matches({"city": True}, {"city": 1}, "region")
 
 
+def test_required_selected_address_fields_must_be_nonempty():
+    require_nonempty({"street": "Ленинградская ул", "house_id": "293579"}, ["street", "house_id"])
+    with pytest.raises(BusinessCheckError, match="required_field_empty:street"):
+        require_nonempty({"street": " ", "house_id": "293579"}, ["street", "house_id"])
+
+
 def test_missing_nested_city_rejected():
     with pytest.raises(BusinessCheckError, match="missing"):
         matches({"address": {}}, {"address.city": "Samara"}, "region")
@@ -315,6 +321,10 @@ def test_mts_business_page_scope_is_single_user_confirmed_landing():
     assert beeline_option["submission"]["alternate_urls"] == [
         "https://beeline-ru.online/wp-admin/admin-ajax.php"
     ]
+    assert beeline_option["submission"]["required_nonempty_fields"] == [
+        "AddresStreet", "AddresHouse", "IStreet", "IHouse",
+    ]
+    assert beeline_option["submission"]["user_data_match"] == {"Phone": "phone"}
     assert beeline_option["submission"]["response"] == {"statuses": [200]}
     assert [item["url"] for item in beeline_option["submission"]["blocked_background_requests"]] == [
         "https://mc.yandex.ru/watch/55479901",

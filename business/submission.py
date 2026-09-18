@@ -64,6 +64,13 @@ def matches(payload: dict, expected: dict, label: str):
             raise BusinessCheckError(f"{label}_mismatch:{path}")
 
 
+def require_nonempty(payload: dict, paths: list[str]):
+    for path in paths:
+        value = lookup(payload, path)
+        if not isinstance(value, str) or not value.strip():
+            raise BusinessCheckError(f"required_field_empty:{path}")
+
+
 def matches_submission_contract(payload: dict, contract: dict,
                                 user_data_match: dict | None = None) -> bool:
     """Whether a payload is a complete, verified Samara business lead."""
@@ -71,6 +78,7 @@ def matches_submission_contract(payload: dict, contract: dict,
         matches(payload, contract["region_match"], "region")
         matches(payload, contract["business_match"], "business")
         matches(payload, contract["identity_match"], "identity")
+        require_nonempty(payload, contract.get("required_nonempty_fields", []))
         if user_data_match:
             matches(payload, user_data_match, "user_data")
     except BusinessCheckError:
@@ -124,6 +132,12 @@ def validate_contract(contract: dict):
         for payload_field, data_key in user_data_match.items()
     ):
         raise ConfigurationError("user_data_match must map payload fields to data keys")
+    required_nonempty = contract.get("required_nonempty_fields", [])
+    if not isinstance(required_nonempty, list) or any(
+        not isinstance(path, str) or not re.fullmatch(r"[A-Za-z_][A-Za-z0-9_.\[\]-]{0,80}", path)
+        for path in required_nonempty
+    ) or len(set(required_nonempty)) != len(required_nonempty):
+        raise ConfigurationError("required_nonempty_fields must contain unique safe field paths")
     if contract.get("target_city") != "Самара" or contract.get("target_city_ui_id") != "36401":
         raise ConfigurationError("contract must explicitly map its region_match to Samara / 36401")
     reply = contract.get("response", {})
@@ -235,12 +249,15 @@ class SubmissionGuard:
                 matches(payload, self.contract["region_match"], "region")
                 matches(payload, self.contract["business_match"], "business")
                 matches(payload, self.contract["identity_match"], "identity")
+                require_nonempty(payload, self.contract.get("required_nonempty_fields", []))
                 if self.user_data_match:
                     matches(payload, self.user_data_match, "user_data")
                 self.evidence = {
                     "url": request.url, "method": request.method, "region_checked": True,
                     "business_checked": True, "identity_checked": True,
                 }
+                if self.contract.get("required_nonempty_fields"):
+                    self.evidence["required_fields_checked"] = True
                 if self.user_data_match:
                     self.evidence["user_data_checked"] = True
                 # Dispatch this exact request only after validation. Never retry or auto-follow a redirecting POST.
