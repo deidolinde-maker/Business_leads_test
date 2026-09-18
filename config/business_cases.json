@@ -2205,8 +2205,8 @@
         "indicator": "span#autocomplete_city_name.autocomplete-city-name",
         "trigger": ".autocomplete-city-change.button-select-city",
         "popup": "#popup-select-city",
-        "search": "#popup-select-city #city-input",
-        "choice": "#popup-select-city a.region_item.region_link[id='36401']",
+        "search": "input#city-input",
+        "choice": "a.region_item.region_link[id='36401']",
         "choice_url": "https://samara.mts-home.online/",
         "after_choice_url": "https://mts-home.online/"
       },

@@ -136,6 +136,16 @@ def test_beeline_option_uses_samara_popup_and_business_select():
     assert case["confirmation"] == {"kind": "url_contains", "value": "/thanks"}
 
 
+def test_mts_option_uses_popup_relative_samara_locators():
+    case = next(
+        case for case in load_cases()
+        if case["case_id"] == "mts-business_option-5d75c21b6980"
+    )
+    assert case["region"]["popup"] == "#popup-select-city"
+    assert case["region"]["search"] == "input#city-input"
+    assert case["region"]["choice"] == "a.region_item.region_link[id='36401']"
+
+
 def test_imported_scope_retains_samara_targets_and_provenance():
     cases = load_cases()
     assert cases
