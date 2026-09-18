@@ -25,4 +25,4 @@ def make_case(base="http://127.0.0.1:8099", mode="direct_city_subdomain", fault=
 
 
 DATA = {"city": "Самара", "environment": "stage", "street": "synthetic street", "house": "1",
-        "full_address": "synthetic Samara address", "phone": "synthetic-phone"}
+        "full_address": "synthetic Samara address", "phone": "9999999999"}

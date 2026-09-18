@@ -130,4 +130,6 @@ def load_data(path: Path, environment: str) -> dict:
         raise ConfigurationError("data profile environment is not confirmed for this run")
     if not data.get("phone") or not data.get("street") or not data.get("house"):
         raise ConfigurationError("phone/street/house required; values are never padded or invented")
+    if not re.fullmatch(r"\d{10}", str(data["phone"])):
+        raise ConfigurationError("phone must contain exactly 10 digits outside the mask")
     return data

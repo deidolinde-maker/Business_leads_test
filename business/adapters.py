@@ -1,7 +1,16 @@
+import re
+
 from playwright.sync_api import expect
 
 from business.errors import BusinessCheckError, ConfigurationError
 from business.controls import assert_business
+
+
+def subscriber_digits(displayed_value: str) -> str:
+    digits = re.sub(r"\D", "", displayed_value)
+    if len(digits) == 11 and digits.startswith(("7", "8")):
+        return digits[1:]
+    return digits
 
 
 class FormAdapter:
@@ -35,10 +44,16 @@ class FormAdapter:
             expect(locator).to_be_enabled(timeout=deadline.ms())
             deadline.mark(f"fill.{key}.value")
             if key == "phone":
-                # Phone masks react to keyboard events and can corrupt values set
-                # atomically through fill(). Enter the number as a user would.
-                locator.fill("", timeout=deadline.ms())
-                locator.press_sequentially(value, delay=40, timeout=deadline.ms())
+                if not re.fullmatch(r"\d{10}", value):
+                    raise ConfigurationError("phone must contain exactly 10 digits outside the mask")
+                # Pass all ten subscriber digits in one input event. The site's mask
+                # renders them as +7 (999) 999-99-99; sequential typing can lose the
+                # first digit while the mask is being initialized.
+                locator.fill(value, timeout=deadline.ms())
+                locator.blur(timeout=deadline.ms())
+                deadline.mark("fill.phone.complete")
+                if subscriber_digits(locator.input_value(timeout=deadline.ms())) != value:
+                    raise BusinessCheckError("phone_not_fully_entered")
             else:
                 locator.fill(value, timeout=deadline.ms())
             # A real, exact Samara address suggestion must come from the case/data contract.

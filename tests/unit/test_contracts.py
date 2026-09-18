@@ -60,6 +60,21 @@ def test_unconfirmed_environment_data_rejected(tmp_path):
         load_data(path, "prod")
 
 
+@pytest.mark.parametrize("phone", ["999999999", "99999999999", "+79999999999", "99999abc99"])
+def test_phone_must_be_exactly_ten_digits_outside_mask(tmp_path, phone):
+    path = tmp_path / "data.json"
+    path.write_text(json.dumps({
+        "city": "Самара",
+        "environment": "prod",
+        "phone": phone,
+        "street": "Ленинградская",
+        "house": "1",
+    }), encoding="utf-8")
+
+    with pytest.raises(ConfigurationError, match="exactly 10 digits"):
+        load_data(path, "prod")
+
+
 def test_duplicate_cases_are_rejected(tmp_path):
     case = make_case()
     path = tmp_path / "cases.json"
