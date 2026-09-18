@@ -83,8 +83,23 @@ def normalize_phone(value: str) -> str:
 def matches_phone_data(payload: dict, expected: dict):
     for path, value in expected.items():
         actual = lookup(payload, path)
-        if not isinstance(actual, str) or normalize_phone(actual) != normalize_phone(value):
-            raise BusinessCheckError(f"user_phone_mismatch:{path}")
+        values = actual if isinstance(actual, list) else [actual]
+        normalized = set()
+        digit_lengths = []
+        for item in values:
+            if not isinstance(item, str) or not item.strip():
+                continue
+            digit_lengths.append(len(re.sub(r"\D", "", item)))
+            try:
+                normalized.add(normalize_phone(item))
+            except BusinessCheckError:
+                pass
+        if normalized != {normalize_phone(value)}:
+            kind = "list" if isinstance(actual, list) else type(actual).__name__
+            lengths = ",".join(str(length) for length in sorted(digit_lengths)) or "none"
+            raise BusinessCheckError(
+                f"user_phone_mismatch:{path}:kind={kind}:digit_lengths={lengths}:distinct_valid={len(normalized)}"
+            )
 
 
 def matches_submission_contract(payload: dict, contract: dict,

@@ -193,7 +193,12 @@ def test_required_selected_address_fields_must_be_nonempty():
         require_nonempty({"street": " ", "house_id": "293579"}, ["street", "house_id"])
 
 
-@pytest.mark.parametrize("actual", ["9999999999", "+7 (999) 999-99-99", "8 999 999 99 99"])
+@pytest.mark.parametrize("actual", [
+    "9999999999",
+    "+7 (999) 999-99-99",
+    "8 999 999 99 99",
+    ["+7 (999) 999-99-99", "9999999999"],
+])
 def test_phone_match_accepts_formatting_and_russian_prefix(actual):
     matches_phone_data({"Phone": actual}, {"Phone": "9999999999"})
 
@@ -201,6 +206,14 @@ def test_phone_match_accepts_formatting_and_russian_prefix(actual):
 def test_phone_match_rejects_different_number():
     with pytest.raises(BusinessCheckError, match="user_phone_mismatch:Phone"):
         matches_phone_data({"Phone": "+7 (999) 999-99-98"}, {"Phone": "9999999999"})
+
+
+def test_phone_match_rejects_conflicting_duplicate_values():
+    with pytest.raises(BusinessCheckError, match="kind=list.*distinct_valid=2"):
+        matches_phone_data(
+            {"Phone": ["+7 (999) 999-99-99", "+7 (999) 999-99-98"]},
+            {"Phone": "9999999999"},
+        )
 
 
 def test_missing_nested_city_rejected():
