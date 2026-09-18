@@ -34,7 +34,13 @@ class FormAdapter:
             deadline.mark(f"fill.{key}.enabled")
             expect(locator).to_be_enabled(timeout=deadline.ms())
             deadline.mark(f"fill.{key}.value")
-            locator.fill(value, timeout=deadline.ms())
+            if key == "phone":
+                # Phone masks react to keyboard events and can corrupt values set
+                # atomically through fill(). Enter the number as a user would.
+                locator.fill("", timeout=deadline.ms())
+                locator.press_sequentially(value, delay=40, timeout=deadline.ms())
+            else:
+                locator.fill(value, timeout=deadline.ms())
             # A real, exact Samara address suggestion must come from the case/data contract.
             if field.get("suggestion"):
                 deadline.mark(f"fill.{key}.suggestion")
