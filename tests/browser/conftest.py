@@ -26,6 +26,12 @@ HTML = '''<!doctype html><html><meta charset="utf-8"><body>
 const form=document.querySelector('#lead');
 const indicator=form.querySelector('#autocomplete_city_name');
 const fault=new URLSearchParams(location.search).get('fault');
+const phone=document.querySelector('#phone');
+let phoneMaskReady=false;
+phone.addEventListener('focus',()=>setTimeout(()=>phoneMaskReady=true,100),{once:true});
+phone.addEventListener('keydown',event=>{
+  if(!phoneMaskReady && /^\\d$/.test(event.key))event.preventDefault();
+});
 document.querySelector('#choose-region').onclick=()=>document.querySelector('#region-dialog').hidden=false;
 document.querySelector('#region-dialog a[id="36401"]').onclick=event=>{
   if(fault==='in-place-city') {

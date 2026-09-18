@@ -46,10 +46,13 @@ class FormAdapter:
             if key == "phone":
                 if not re.fullmatch(r"\d{10}", value):
                     raise ConfigurationError("phone must contain exactly 10 digits outside the mask")
-                # Pass all ten subscriber digits in one input event. The site's mask
-                # renders them as +7 (999) 999-99-99; sequential typing can lose the
-                # first digit while the mask is being initialized.
-                locator.fill(value, timeout=deadline.ms())
+                # This mask ignores atomic fill() and can also lose the first key if
+                # typing starts while focus initialization is still in progress.
+                # Focus it first, let the mask initialize, then type all ten digits.
+                locator.click(timeout=deadline.ms())
+                form.page.wait_for_timeout(250)
+                locator.press_sequentially(value, delay=50, timeout=deadline.ms())
+                form.page.wait_for_timeout(200)
                 locator.blur(timeout=deadline.ms())
                 deadline.mark("fill.phone.complete")
                 if subscriber_digits(locator.input_value(timeout=deadline.ms())) != value:
