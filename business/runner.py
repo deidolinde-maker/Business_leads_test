@@ -1,6 +1,7 @@
 import json
 import re
 from pathlib import Path
+from urllib.parse import urlencode
 
 from playwright.sync_api import expect
 
@@ -83,6 +84,13 @@ def run_case(browser, case: dict, data: dict, output: Path, budget: float = 75) 
                 paths = guard.evidence.get("unexpected_write_paths", [])
                 if paths:
                     result["error"] = f"{guard.error}:{paths[0]}"
+            elif guard.error == "submission_endpoint_changed":
+                mismatches = guard.evidence.get("endpoint_mismatches", [])
+                if mismatches:
+                    mismatch = mismatches[0]
+                    query = urlencode(mismatch.get("query", {}))
+                    endpoint = mismatch["path"] + (f"?{query}" if query else "")
+                    result["error"] = f"{guard.error}:{mismatch['method']}:{endpoint}"
         elif isinstance(exc, BusinessCheckError):
             result["error"] = str(exc)
         else:
