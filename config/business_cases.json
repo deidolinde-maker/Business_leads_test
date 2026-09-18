@@ -2216,11 +2216,13 @@
         "fields": [
           {
             "selector": ".checkaddress_address_street",
-            "data_key": "street"
+            "data_key": "street",
+            "suggestion": "div.autocomplete-street:visible"
           },
           {
             "selector": ".checkaddress_address_house",
-            "data_key": "house"
+            "data_key": "house",
+            "suggestion": "#house-list div.autocomplete-item:visible"
           },
           {
             "selector": ".checkaddress_address_phone",

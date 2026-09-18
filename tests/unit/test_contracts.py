@@ -144,6 +144,18 @@ def test_mts_option_uses_popup_relative_samara_locators():
     assert case["region"]["popup"] == "#popup-select-city"
     assert case["region"]["search"] == "input#city-input"
     assert case["region"]["choice"] == "a.region_item.region_link[id='36401']"
+    assert case["form"]["fields"][:2] == [
+        {
+            "selector": ".checkaddress_address_street",
+            "data_key": "street",
+            "suggestion": "div.autocomplete-street:visible",
+        },
+        {
+            "selector": ".checkaddress_address_house",
+            "data_key": "house",
+            "suggestion": "#house-list div.autocomplete-item:visible",
+        },
+    ]
 
 
 def test_imported_scope_retains_samara_targets_and_provenance():
