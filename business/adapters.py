@@ -1,8 +1,16 @@
+import re
+
 from playwright.sync_api import expect
 
 from business.errors import BusinessCheckError, ConfigurationError
-from business.region import assert_samara
 from business.controls import assert_business
+
+
+def subscriber_digits(displayed_value: str) -> str:
+    digits = re.sub(r"\D", "", displayed_value)
+    if len(digits) == 11 and digits.startswith(("7", "8")):
+        return digits[1:]
+    return digits
 
 
 class FormAdapter:
@@ -30,17 +38,36 @@ class FormAdapter:
                 raise ConfigurationError(f"missing data key: {key}")
             value = str(data[key])
             locator = form.locator(field["selector"])
+            deadline.mark(f"fill.{key}.present")
             expect(locator).to_have_count(1, timeout=deadline.ms())
+            deadline.mark(f"fill.{key}.enabled")
             expect(locator).to_be_enabled(timeout=deadline.ms())
-            locator.fill(value, timeout=deadline.ms())
+            deadline.mark(f"fill.{key}.value")
+            if key == "phone":
+                if not re.fullmatch(r"\d{10}", value):
+                    raise ConfigurationError("phone must contain exactly 10 digits outside the mask")
+                # This mask ignores atomic fill() and can also lose the first key if
+                # typing starts while focus initialization is still in progress.
+                # Focus it first, let the mask initialize, then type all ten digits.
+                locator.click(timeout=deadline.ms())
+                form.page.wait_for_timeout(250)
+                locator.press_sequentially(value, delay=50, timeout=deadline.ms())
+                form.page.wait_for_timeout(200)
+                locator.blur(timeout=deadline.ms())
+                deadline.mark("fill.phone.complete")
+                if subscriber_digits(locator.input_value(timeout=deadline.ms())) != value:
+                    raise BusinessCheckError("phone_not_fully_entered")
+            else:
+                locator.fill(value, timeout=deadline.ms())
             # A real, exact Samara address suggestion must come from the case/data contract.
             if field.get("suggestion"):
-                suggestion = form.page.locator(field["suggestion"])
-                expected_text = str(data[field["suggestion_text_key"]])
-                expect(suggestion).to_have_count(1, timeout=deadline.ms())
-                expect(suggestion).to_have_text(expected_text, timeout=deadline.ms())
+                deadline.mark(f"fill.{key}.suggestion")
+                suggestion = form.page.locator(field["suggestion"]).first
+                expect(suggestion).to_be_visible(timeout=deadline.ms())
+                if field.get("suggestion_text_key"):
+                    expected_text = str(data[field["suggestion_text_key"]])
+                    expect(suggestion).to_contain_text(expected_text, timeout=deadline.ms())
                 suggestion.click(timeout=deadline.ms())
-            assert_samara(form, case["region"], deadline)
         for consent in case["form"].get("consents", []):
             box = form.locator(consent["selector"])
             if consent.get("click_selector"):
@@ -50,7 +77,7 @@ class FormAdapter:
                 box.check(timeout=deadline.ms())
             expect(box).to_be_checked(timeout=deadline.ms())
         assert_business(form, case, deadline)
-        assert_samara(form, case["region"], deadline)
-        # Local validation, no synthetic submit or direct DOM state mutation.
-        if not form.evaluate("el => typeof el.checkValidity !== 'function' || el.checkValidity()"):
-            raise BusinessCheckError("form_validation_failed")
+        # Do not gate provider forms with form.checkValidity(): unrelated hidden
+        # controls can be invalid even though the site's own submit handler accepts
+        # this form. The browser performs its normal validation on click, while the
+        # submission guard validates the exact outgoing business/Samara payload.

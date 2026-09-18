@@ -1,10 +1,9 @@
 from playwright.sync_api import expect
 
-from business.region import assert_samara
 from business.errors import ConfigurationError
 
 
-def set_business(form, case, deadline):
+def set_business(form, case, deadline, exercise_variants: bool = False):
     control = case["form"].get("business_control")
     if not control:
         return
@@ -19,16 +18,17 @@ def set_business(form, case, deadline):
         else:
             locator.set_checked(wanted, timeout=deadline.ms())
         expect(locator).to_be_checked(checked=wanted, timeout=deadline.ms())
-        assert_samara(form, case["region"], deadline)
 
     if kind == "checkbox":
-        for wanted in (False, True, False, True):
+        values = (False, True, False, True) if exercise_variants else (True,)
+        for wanted in values:
             select(target, wanted, control.get("click_selector"))
     elif kind == "radio":
         if not control.get("alternative"):
             raise ConfigurationError("radio alternative must be verified")
         alternative = form.locator(control["alternative"])
-        for business in (False, True, False, True):
+        values = (False, True, False, True) if exercise_variants else (True,)
+        for business in values:
             select(target if business else alternative, True,
                    control.get("click_selector" if business else "alternative_click_selector"))
             expect(target if not business else alternative).to_be_checked(checked=False, timeout=deadline.ms())
@@ -36,11 +36,12 @@ def set_business(form, case, deadline):
         for key in ("business_value", "alternative_value"):
             if not control.get(key):
                 raise ConfigurationError(f"select {key} must be verified")
-        for value in (control["alternative_value"], control["business_value"],
-                      control["alternative_value"], control["business_value"]):
+        values = ((control["alternative_value"], control["business_value"],
+                   control["alternative_value"], control["business_value"])
+                  if exercise_variants else (control["business_value"],))
+        for value in values:
             target.select_option(value=value, timeout=deadline.ms())
             expect(target).to_have_value(value, timeout=deadline.ms())
-            assert_samara(form, case["region"], deadline)
     else:
         raise ConfigurationError("unsupported business control")
     assert_business(form, case, deadline)

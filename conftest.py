@@ -15,6 +15,8 @@ def pytest_addoption(parser):
     group.addoption("--case-id")
     group.addoption("--representatives", action="store_true",
                     help="Use the reviewed non-submitting representative scope.")
+    group.addoption("--active-only", action="store_true",
+                    help="Run only active, submission-ready cases in the selected scope.")
     group.addoption("--case-file", default=str(ROOT / "config/business_cases.json"))
     group.addoption("--data-file", default=str(ROOT / "config/data/samara.json"))
     group.addoption("--artifact-dir", default=str(ROOT / "artifacts"))
@@ -32,7 +34,8 @@ def pytest_generate_tests(metafunc):
             cases = select_representatives(loaded_cases, config.getoption("--env"))
         else:
             cases = select_cases(loaded_cases, config.getoption("--env"),
-                                 config.getoption("--provider"), config.getoption("--case-id"))
+                                 config.getoption("--provider"), config.getoption("--case-id"),
+                                 config.getoption("--active-only"))
     except (ConfigurationError, OSError, ValueError) as exc:
         raise pytest.UsageError(str(exc)) from exc
     config._business_cases = cases
