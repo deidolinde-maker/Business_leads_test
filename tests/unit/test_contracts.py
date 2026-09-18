@@ -5,7 +5,7 @@ import pytest
 from business.cases import load_cases, load_data, select_cases, select_representatives, validate_case
 from business.deadline import Deadline
 from business.errors import BusinessCheckError, ConfigurationError
-from business.submission import SubmissionGuard, matches, matches_submission_contract, parse_payload, require_nonempty, validate_contract
+from business.submission import SubmissionGuard, matches, matches_phone_data, matches_submission_contract, parse_payload, require_nonempty, validate_contract
 from tests.support import make_case
 
 
@@ -193,6 +193,16 @@ def test_required_selected_address_fields_must_be_nonempty():
         require_nonempty({"street": " ", "house_id": "293579"}, ["street", "house_id"])
 
 
+@pytest.mark.parametrize("actual", ["9999999999", "+7 (999) 999-99-99", "8 999 999 99 99"])
+def test_phone_match_accepts_formatting_and_russian_prefix(actual):
+    matches_phone_data({"Phone": actual}, {"Phone": "9999999999"})
+
+
+def test_phone_match_rejects_different_number():
+    with pytest.raises(BusinessCheckError, match="user_phone_mismatch:Phone"):
+        matches_phone_data({"Phone": "+7 (999) 999-99-98"}, {"Phone": "9999999999"})
+
+
 def test_missing_nested_city_rejected():
     with pytest.raises(BusinessCheckError, match="missing"):
         matches({"address": {}}, {"address.city": "Samara"}, "region")
@@ -324,7 +334,8 @@ def test_mts_business_page_scope_is_single_user_confirmed_landing():
     assert beeline_option["submission"]["required_nonempty_fields"] == [
         "AddresStreet", "AddresHouse", "IStreet", "IHouse",
     ]
-    assert beeline_option["submission"]["user_data_match"] == {"Phone": "phone"}
+    assert "user_data_match" not in beeline_option["submission"]
+    assert beeline_option["submission"]["phone_data_match"] == {"Phone": "phone"}
     assert beeline_option["submission"]["response"] == {"statuses": [200]}
     assert [item["url"] for item in beeline_option["submission"]["blocked_background_requests"]] == [
         "https://mc.yandex.ru/watch/55479901",

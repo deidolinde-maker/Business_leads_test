@@ -71,8 +71,25 @@ def require_nonempty(payload: dict, paths: list[str]):
             raise BusinessCheckError(f"required_field_empty:{path}")
 
 
+def normalize_phone(value: str) -> str:
+    digits = re.sub(r"\D", "", value)
+    if len(digits) == 11 and digits[0] in {"7", "8"}:
+        digits = digits[1:]
+    if len(digits) != 10:
+        raise BusinessCheckError("phone_format_mismatch")
+    return digits
+
+
+def matches_phone_data(payload: dict, expected: dict):
+    for path, value in expected.items():
+        actual = lookup(payload, path)
+        if not isinstance(actual, str) or normalize_phone(actual) != normalize_phone(value):
+            raise BusinessCheckError(f"user_phone_mismatch:{path}")
+
+
 def matches_submission_contract(payload: dict, contract: dict,
-                                user_data_match: dict | None = None) -> bool:
+                                user_data_match: dict | None = None,
+                                phone_data_match: dict | None = None) -> bool:
     """Whether a payload is a complete, verified Samara business lead."""
     try:
         matches(payload, contract["region_match"], "region")
@@ -81,6 +98,8 @@ def matches_submission_contract(payload: dict, contract: dict,
         require_nonempty(payload, contract.get("required_nonempty_fields", []))
         if user_data_match:
             matches(payload, user_data_match, "user_data")
+        if phone_data_match:
+            matches_phone_data(payload, phone_data_match)
     except BusinessCheckError:
         return False
     return True
@@ -132,6 +151,13 @@ def validate_contract(contract: dict):
         for payload_field, data_key in user_data_match.items()
     ):
         raise ConfigurationError("user_data_match must map payload fields to data keys")
+    phone_data_match = contract.get("phone_data_match", {})
+    if not isinstance(phone_data_match, dict) or any(
+        not isinstance(payload_field, str) or not payload_field
+        or not isinstance(data_key, str) or not re.fullmatch(r"[a-z_][a-z0-9_]*", data_key)
+        for payload_field, data_key in phone_data_match.items()
+    ):
+        raise ConfigurationError("phone_data_match must map payload fields to data keys")
     required_nonempty = contract.get("required_nonempty_fields", [])
     if not isinstance(required_nonempty, list) or any(
         not isinstance(path, str) or not re.fullmatch(r"[A-Za-z_][A-Za-z0-9_.\[\]-]{0,80}", path)
@@ -167,6 +193,11 @@ class SubmissionGuard:
         self.user_data_match = {
             payload_field: data[data_key]
             for payload_field, data_key in contract.get("user_data_match", {}).items()
+            if data and isinstance(data.get(data_key), str) and data[data_key]
+        }
+        self.phone_data_match = {
+            payload_field: data[data_key]
+            for payload_field, data_key in contract.get("phone_data_match", {}).items()
             if data and isinstance(data.get(data_key), str) and data[data_key]
         }
         self.deadline = deadline
@@ -232,7 +263,9 @@ class SubmissionGuard:
                     payload = parse_payload(request.headers.get("content-type", ""), request.post_data_buffer or b"")
                 except Exception:
                     payload = None
-                if payload is not None and matches_submission_contract(payload, self.contract, self.user_data_match):
+                if payload is not None and matches_submission_contract(
+                    payload, self.contract, self.user_data_match, self.phone_data_match
+                ):
                     self.seen += 1
                     return self._abort(route, "submission_before_explicit_click")
                 # Some address widgets use the feedback transport for incomplete
@@ -252,6 +285,8 @@ class SubmissionGuard:
                 require_nonempty(payload, self.contract.get("required_nonempty_fields", []))
                 if self.user_data_match:
                     matches(payload, self.user_data_match, "user_data")
+                if self.phone_data_match:
+                    matches_phone_data(payload, self.phone_data_match)
                 self.evidence = {
                     "url": request.url, "method": request.method, "region_checked": True,
                     "business_checked": True, "identity_checked": True,
@@ -260,6 +295,8 @@ class SubmissionGuard:
                     self.evidence["required_fields_checked"] = True
                 if self.user_data_match:
                     self.evidence["user_data_checked"] = True
+                if self.phone_data_match:
+                    self.evidence["phone_checked"] = True
                 # Dispatch this exact request only after validation. Never retry or auto-follow a redirecting POST.
                 self.forwarded += 1
                 response = route.fetch(max_redirects=0, max_retries=0, timeout=self.deadline.ms(30000))
