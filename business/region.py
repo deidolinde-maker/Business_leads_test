@@ -57,7 +57,9 @@ def ensure_samara(page, form, case, adapter, deadline):
     expect(choice).to_be_visible(timeout=deadline.ms())
     expect(choice).to_have_attribute("id", CITY_UI_ID, timeout=deadline.ms())
     href = choice.get_attribute("href")
-    if not href or urljoin(page.url, href) != region["choice_url"]:
+    actual_choice_url = urljoin(page.url, href) if href else ""
+    expected_choice_url = region["choice_url"]
+    if actual_choice_url.rstrip("/") != expected_choice_url.rstrip("/"):
         raise BusinessCheckError("unexpected_samara_choice_href")
     choice.click(timeout=deadline.ms())
     if region["after_choice_url"] != case["entry_url"]:

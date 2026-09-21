@@ -962,22 +962,20 @@
       ],
       "verification": "Legacy checkaddress/Place locator profile imported from Everyday_test and Big_landing_test for the 23-URL pilot.",
       "form": {
-        "selector": "form:has(.checkaddress_address_street):has(.checkaddress_address_house)",
+        "selector": "form.AdressForm",
         "trigger": "button.SegmentItem[data-segment='business']",
         "submit": "button[type='submit'], input.checkaddress_address_button_send",
         "fields": [
           {
-            "selector": ".checkaddress_address_street",
-            "data_key": "street",
-            "suggestion": "div.autocomplete-street:visible"
+            "selector": "input[name='Street']",
+            "data_key": "street"
           },
           {
-            "selector": ".checkaddress_address_house",
-            "data_key": "house",
-            "suggestion": "#house-list div.autocomplete-item:visible"
+            "selector": "input[name='House']",
+            "data_key": "house"
           },
           {
-            "selector": ".checkaddress_address_phone",
+            "selector": "input[name='Phone']",
             "data_key": "phone"
           }
         ],
@@ -1039,7 +1037,7 @@
         "business_control": {
           "kind": "select",
           "selector": "select[name='Place']",
-          "business_value": "Для бизнеса",
+          "business_value": "В офис",
           "alternative_value": "В квартиру"
         }
       },
@@ -1097,7 +1095,7 @@
         "business_control": {
           "kind": "select",
           "selector": "select[name='Place']",
-          "business_value": "Для бизнеса",
+          "business_value": "В офис",
           "alternative_value": "В квартиру"
         }
       },
@@ -1214,7 +1212,7 @@
         "business_control": {
           "kind": "select",
           "selector": "select[name='Place']",
-          "business_value": "Для бизнеса",
+          "business_value": "В офис",
           "alternative_value": "В квартиру"
         }
       },
@@ -1272,7 +1270,7 @@
         "business_control": {
           "kind": "select",
           "selector": "select[name='Place']",
-          "business_value": "Для бизнеса",
+          "business_value": "В офис",
           "alternative_value": "В квартиру"
         }
       },
@@ -1368,7 +1366,7 @@
       "verification": "Legacy checkaddress/Place locator profile imported from Everyday_test and Big_landing_test for the 23-URL pilot.",
       "form": {
         "selector": "form:has(input[name='_wpcf7_unit_tag'][value='wpcf7-f10-o1'])",
-        "trigger": ".checkaddress_address_button",
+        "trigger": "button.button-send.connection_address_button",
         "submit": ".checkaddress_address_button_send",
         "fields": [
           {
@@ -1428,7 +1426,7 @@
       "verification": "Legacy checkaddress/Place locator profile imported from Everyday_test and Big_landing_test for the 23-URL pilot.",
       "form": {
         "selector": "form:has(input[name='_wpcf7_unit_tag'][value='wpcf7-f296-o1'])",
-        "trigger": ".checkaddress_address_button",
+        "trigger": "button.connection_address_button",
         "submit": ".checkaddress_address_button_send",
         "fields": [
           {
@@ -1459,6 +1457,9 @@
     }
   ]
 }
+
+
+
 
 
 
