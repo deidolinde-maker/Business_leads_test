@@ -30,7 +30,7 @@
       ],
       "verification": "User-provided production DOM for beeline-home.online; checkaddress fields and Place select.",
       "form": {
-        "selector": "form.wpcf7-form:has(.autocomplete-address)",
+        "selector": "form:has(input[name='_wpcf7_unit_tag'][value='wpcf7-f485-o1'])",
         "trigger": ".checkaddress_address_button, .checkaddress_address_button_send",
         "submit": ".checkaddress_address_button_send",
         "fields": [
@@ -105,7 +105,7 @@
       ],
       "verification": "Legacy checkaddress/Place locator profile imported from Everyday_test and Big_landing_test for the 23-URL pilot.",
       "form": {
-        "selector": "form:has(.checkaddress_address_street):has(.checkaddress_address_house)",
+        "selector": "form:has(input[name='_wpcf7_unit_tag'][value='wpcf7-f767-o2'])",
         "trigger": ".checkaddress_address_button",
         "submit": ".checkaddress_address_button_send",
         "fields": [
@@ -236,7 +236,7 @@
         "after_choice_url": "https://beeline-ru.online/"
       },
       "form": {
-        "selector": "form:has(.checkaddress_address_street):has(.checkaddress_address_house)",
+        "selector": "form:has(input[name='_wpcf7_unit_tag'][value='wpcf7-f430-o1'])",
         "trigger": ".checkaddress_address_button",
         "submit": ".checkaddress_address_button_send",
         "fields": [
@@ -1014,7 +1014,7 @@
       ],
       "verification": "Legacy checkaddress/Place locator profile imported from Everyday_test and Big_landing_test for the 23-URL pilot.",
       "form": {
-        "selector": "form:has(.checkaddress_address_street):has(.checkaddress_address_house)",
+        "selector": "form:has(input[name='_wpcf7_unit_tag'][value='wpcf7-f951-o1'])",
         "trigger": ".checkaddress_address_button",
         "submit": ".checkaddress_address_button_send",
         "fields": [
@@ -1424,7 +1424,7 @@
       ],
       "verification": "Legacy checkaddress/Place locator profile imported from Everyday_test and Big_landing_test for the 23-URL pilot.",
       "form": {
-        "selector": "form:has(.checkaddress_address_street):has(.checkaddress_address_house)",
+        "selector": "form:has(input[name='_wpcf7_unit_tag'][value='wpcf7-f257-o1'])",
         "trigger": ".checkaddress_address_button",
         "submit": ".checkaddress_address_button_send",
         "fields": [
@@ -1576,7 +1576,7 @@
       ],
       "verification": "Legacy checkaddress/Place locator profile imported from Everyday_test and Big_landing_test for the 23-URL pilot.",
       "form": {
-        "selector": "form:has(.checkaddress_address_street):has(.checkaddress_address_house)",
+        "selector": "form:has(input[name='_wpcf7_unit_tag'][value='wpcf7-f460-o2'])",
         "trigger": ".checkaddress_address_button",
         "submit": ".checkaddress_address_button_send",
         "fields": [
@@ -1697,7 +1697,7 @@
       ],
       "verification": "Legacy checkaddress/Place locator profile imported from Everyday_test and Big_landing_test for the 23-URL pilot.",
       "form": {
-        "selector": "form:has(.checkaddress_address_street):has(.checkaddress_address_house)",
+        "selector": "form:has(input[name='_wpcf7_unit_tag'][value='wpcf7-f85-o2'])",
         "trigger": ".checkaddress_address_button",
         "submit": ".checkaddress_address_button_send",
         "fields": [
@@ -1754,7 +1754,7 @@
       ],
       "verification": "Legacy checkaddress/Place locator profile imported from Everyday_test and Big_landing_test for the 23-URL pilot.",
       "form": {
-        "selector": "form:has(.checkaddress_address_street):has(.checkaddress_address_house)",
+        "selector": "form:has(input[name='_wpcf7_unit_tag'][value='wpcf7-f60-o1'])",
         "trigger": ".checkaddress_address_button",
         "submit": ".checkaddress_address_button_send",
         "fields": [
@@ -1811,7 +1811,7 @@
       ],
       "verification": "Legacy checkaddress/Place locator profile imported from Everyday_test and Big_landing_test for the 23-URL pilot.",
       "form": {
-        "selector": "form:has(.checkaddress_address_street):has(.checkaddress_address_house)",
+        "selector": "form:has(input[name='_wpcf7_unit_tag'][value='wpcf7-f217-o1'])",
         "trigger": ".checkaddress_address_button",
         "submit": ".checkaddress_address_button_send",
         "fields": [
@@ -1874,7 +1874,7 @@
         "popup": "#popup-select-city",
         "search": "input#city-input.popup-select-city__input",
         "choice": "a.region_item.region_link[id='36401']",
-        "choice_url": "https://moskva.mega-home-internet.ru/domashnij-internet/samara",
+        "choice_url": "https://samara.mega-home-internet.ru/",
         "after_choice_url": "https://moskva.mega-home-internet.ru/domashnij-internet/"
       },
       "source_refs": [
@@ -1882,7 +1882,7 @@
       ],
       "verification": "Legacy checkaddress/Place locator profile imported from Everyday_test and Big_landing_test for the 23-URL pilot.",
       "form": {
-        "selector": "form:has(.checkaddress_address_street):has(.checkaddress_address_house)",
+        "selector": "form:has(input[name='_wpcf7_unit_tag'][value='wpcf7-f130-o1'])",
         "trigger": ".checkaddress_address_button",
         "submit": ".checkaddress_address_button_send",
         "fields": [
@@ -2019,7 +2019,7 @@
       ],
       "verification": "Legacy checkaddress/Place locator profile imported from Everyday_test and Big_landing_test for the 23-URL pilot.",
       "form": {
-        "selector": "form:has(.checkaddress_address_street):has(.checkaddress_address_house)",
+        "selector": "form:has(input[name='_wpcf7_unit_tag'][value='wpcf7-f416-o2'])",
         "trigger": ".checkaddress_address_button",
         "submit": ".checkaddress_address_button_send",
         "fields": [
@@ -2573,7 +2573,7 @@
       ],
       "verification": "Legacy checkaddress/Place locator profile imported from Everyday_test and Big_landing_test for the 23-URL pilot.",
       "form": {
-        "selector": "form:has(.checkaddress_address_street):has(.checkaddress_address_house)",
+        "selector": "form:has(input[name='_wpcf7_unit_tag'][value='wpcf7-f909-o1'])",
         "trigger": ".checkaddress_address_button",
         "submit": ".checkaddress_address_button_send",
         "fields": [
@@ -2658,7 +2658,7 @@
         "after_choice_url": "https://mts-home-online.ru/"
       },
       "form": {
-        "selector": "form:has(.checkaddress_address_street):has(.checkaddress_address_house)",
+        "selector": "form:has(input[name='_wpcf7_unit_tag'][value='wpcf7-f995-o1'])",
         "trigger": ".checkaddress_address_button",
         "submit": ".checkaddress_address_button_send",
         "fields": [
@@ -2862,7 +2862,7 @@
         "after_choice_url": "https://mts-home.online/"
       },
       "form": {
-        "selector": "form:has(.checkaddress_address_street):has(.checkaddress_address_house)",
+        "selector": "form:has(input[name='_wpcf7_unit_tag'][value='wpcf7-f1645-o1'])",
         "trigger": ".checkaddress_address_button",
         "submit": ".checkaddress_address_button_send",
         "fields": [
@@ -3612,8 +3612,8 @@
       "verification": "Legacy checkaddress/Place locator profile imported from Everyday_test and Big_landing_test for the 23-URL pilot.",
       "form": {
         "selector": "form:has(.checkaddress_address_street):has(.checkaddress_address_house)",
-        "trigger": ".checkaddress_address_button",
-        "submit": ".checkaddress_address_button_send",
+        "trigger": "button.SegmentItem[data-segment='business']",
+        "submit": "button[type='submit'], input.checkaddress_address_button_send",
         "fields": [
           {
             "selector": ".checkaddress_address_street",
@@ -3631,7 +3631,7 @@
           }
         ],
         "business_control": {
-          "kind": "auto",
+          "kind": "button",
           "selector": "button.SegmentItem[data-segment='business']"
         }
       },
@@ -4359,7 +4359,7 @@
       ],
       "verification": "Legacy checkaddress/Place locator profile imported from Everyday_test and Big_landing_test for the 23-URL pilot.",
       "form": {
-        "selector": "form:has(.checkaddress_address_street):has(.checkaddress_address_house)",
+        "selector": "form:has(input[name='_wpcf7_unit_tag'][value='wpcf7-f6648-o1'])",
         "trigger": ".checkaddress_address_button",
         "submit": ".checkaddress_address_button_send",
         "fields": [
@@ -4463,7 +4463,7 @@
       ],
       "verification": "Legacy checkaddress/Place locator profile imported from Everyday_test and Big_landing_test for the 23-URL pilot.",
       "form": {
-        "selector": "form:has(.checkaddress_address_street):has(.checkaddress_address_house)",
+        "selector": "form:has(input[name='_wpcf7_unit_tag'][value='wpcf7-f6651-o1'])",
         "trigger": ".checkaddress_address_button",
         "submit": ".checkaddress_address_button_send",
         "fields": [
@@ -4628,7 +4628,7 @@
       ],
       "verification": "Legacy checkaddress/Place locator profile imported from Everyday_test and Big_landing_test for the 23-URL pilot.",
       "form": {
-        "selector": "form:has(.checkaddress_address_street):has(.checkaddress_address_house)",
+        "selector": "form:has(input[name='_wpcf7_unit_tag'][value='wpcf7-f3824-o3'])",
         "trigger": ".checkaddress_address_button",
         "submit": ".checkaddress_address_button_send",
         "fields": [
@@ -4747,7 +4747,7 @@
       ],
       "verification": "Legacy checkaddress/Place locator profile imported from Everyday_test and Big_landing_test for the 23-URL pilot.",
       "form": {
-        "selector": "form:has(.checkaddress_address_street):has(.checkaddress_address_house)",
+        "selector": "form:has(input[name='_wpcf7_unit_tag'][value='wpcf7-f13-o3'])",
         "trigger": ".checkaddress_address_button",
         "submit": ".checkaddress_address_button_send",
         "fields": [
@@ -5259,7 +5259,7 @@
       ],
       "verification": "Legacy checkaddress/Place locator profile imported from Everyday_test and Big_landing_test for the 23-URL pilot.",
       "form": {
-        "selector": "form:has(.checkaddress_address_street):has(.checkaddress_address_house)",
+        "selector": "form:has(input[name='_wpcf7_unit_tag'][value='wpcf7-f668-o1'])",
         "trigger": ".checkaddress_address_button",
         "submit": ".checkaddress_address_button_send",
         "fields": [
@@ -5279,8 +5279,10 @@
           }
         ],
         "business_control": {
-          "kind": "auto",
-          "selector": "select[name='Place'], input[name='Place'][value='Для бизнеса'], input[name='Place'][value='В офис']"
+          "kind": "select",
+          "selector": "select[name='Place']",
+          "business_value": "Для бизнеса",
+          "alternative_value": "В квартиру"
         }
       },
       "confirmation": {
@@ -5475,7 +5477,7 @@
       ],
       "verification": "Legacy checkaddress/Place locator profile imported from Everyday_test and Big_landing_test for the 23-URL pilot.",
       "form": {
-        "selector": "form:has(.checkaddress_address_street):has(.checkaddress_address_house)",
+        "selector": "form:has(input[name='_wpcf7_unit_tag'][value='wpcf7-f10-o1'])",
         "trigger": ".checkaddress_address_button",
         "submit": ".checkaddress_address_button_send",
         "fields": [
@@ -5535,7 +5537,7 @@
       ],
       "verification": "Legacy checkaddress/Place locator profile imported from Everyday_test and Big_landing_test for the 23-URL pilot.",
       "form": {
-        "selector": "form:has(.checkaddress_address_street):has(.checkaddress_address_house)",
+        "selector": "form:has(input[name='_wpcf7_unit_tag'][value='wpcf7-f296-o1'])",
         "trigger": ".checkaddress_address_button",
         "submit": ".checkaddress_address_button_send",
         "fields": [
@@ -5555,8 +5557,9 @@
           }
         ],
         "business_control": {
-          "kind": "auto",
-          "selector": "select[name='Place'], input[name='Place'][value='Для бизнеса'], input[name='Place'][value='В офис']"
+          "kind": "radio",
+          "selector": "input[name='Place'][value='В офис']",
+          "alternative": "input[name='Place'][value='В квартиру']"
         }
       },
       "confirmation": {
@@ -5866,7 +5869,7 @@
         "after_choice_url": "https://rtk-home.ru/"
       },
       "form": {
-        "selector": "form:has(.checkaddress_address_street):has(.checkaddress_address_house)",
+        "selector": "form:has(input[name='_wpcf7_unit_tag'][value='wpcf7-f5304-o1'])",
         "trigger": ".checkaddress_address_button",
         "submit": ".checkaddress_address_button_send",
         "fields": [
