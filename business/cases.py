@@ -93,6 +93,14 @@ def validate_case(case: dict) -> None:
     for field in form["fields"]:
         if not field.get("selector") or not field.get("data_key"):
             raise ConfigurationError(f"{ident}: field selector/data_key required")
+    if case["flow_kind"] == "business_option" and any(
+        "checkaddress" in str(field.get("selector", "")) for field in form["fields"]
+    ):
+        by_key = {field["data_key"]: field for field in form["fields"]}
+        if "street" not in by_key or "house" not in by_key:
+            raise ConfigurationError(f"{ident}: checkaddress requires separate street and house fields")
+        if by_key["street"]["selector"] == by_key["house"]["selector"]:
+            raise ConfigurationError(f"{ident}: checkaddress street and house selectors must differ")
     confirmation = case["confirmation"]
     if confirmation.get("kind") not in {"locator", "url", "url_contains"} or not confirmation.get("value"):
         raise ConfigurationError(f"{ident}: exact confirmation required")
