@@ -125,8 +125,10 @@
           }
         ],
         "business_control": {
-          "kind": "auto",
-          "selector": "select[name='Place'], input[name='Place'][value='Для бизнеса'], input[name='Place'][value='В офис']"
+          "kind": "select",
+          "selector": "select[name='Place']",
+          "business_value": "Для бизнеса",
+          "alternative_value": "В квартиру"
         }
       },
       "confirmation": {
@@ -232,7 +234,7 @@
         "popup": "#popup-select-city",
         "search": "input#city-input.popup-select-city__input",
         "choice": "a.region_item.region_link[id='36401']",
-        "choice_url": "https://beeline-ru.online/samara",
+        "choice_url": "https://samara.beeline-ru.online/",
         "after_choice_url": "https://beeline-ru.online/"
       },
       "form": {
@@ -256,8 +258,10 @@
           }
         ],
         "business_control": {
-          "kind": "auto",
-          "selector": "select[name='Place'], input[name='Place'][value='Для бизнеса'], input[name='Place'][value='В офис']"
+          "kind": "select",
+          "selector": "select[name='Place']",
+          "business_value": "Для бизнеса",
+          "alternative_value": "В квартиру"
         }
       },
       "submission": {
@@ -1034,8 +1038,10 @@
           }
         ],
         "business_control": {
-          "kind": "auto",
-          "selector": "select[name='Place'], input[name='Place'][value='Для бизнеса'], input[name='Place'][value='В офис']"
+          "kind": "select",
+          "selector": "select[name='Place']",
+          "business_value": "Для бизнеса",
+          "alternative_value": "В квартиру"
         }
       },
       "confirmation": {
@@ -1444,8 +1450,10 @@
           }
         ],
         "business_control": {
-          "kind": "auto",
-          "selector": "select[name='Place'], input[name='Place'][value='Для бизнеса'], input[name='Place'][value='В офис']"
+          "kind": "select",
+          "selector": "select[name='Place']",
+          "business_value": "Для бизнеса",
+          "alternative_value": "В квартиру"
         }
       },
       "confirmation": {
@@ -1596,8 +1604,10 @@
           }
         ],
         "business_control": {
-          "kind": "auto",
-          "selector": "select[name='Place'], input[name='Place'][value='Для бизнеса'], input[name='Place'][value='В офис']"
+          "kind": "select",
+          "selector": "select[name='Place']",
+          "business_value": "Для бизнеса",
+          "alternative_value": "В квартиру"
         }
       },
       "confirmation": {
@@ -1687,7 +1697,7 @@
         "popup": "#popup-select-city",
         "search": "input#city-input.popup-select-city__input",
         "choice": "a.region_item.region_link[id='36401']",
-        "choice_url": "https://providerdom.ru/samara",
+        "choice_url": "https://samara.providerdom.ru/",
         "after_choice_url": "https://providerdom.ru/"
       },
       "source_refs": [
@@ -1717,8 +1727,10 @@
           }
         ],
         "business_control": {
-          "kind": "auto",
-          "selector": "select[name='Place'], input[name='Place'][value='Для бизнеса'], input[name='Place'][value='В офис']"
+          "kind": "select",
+          "selector": "select[name='Place']",
+          "business_value": "Для бизнеса",
+          "alternative_value": "В квартиру"
         }
       },
       "confirmation": {
@@ -1744,7 +1756,7 @@
         "popup": "#popup-select-city",
         "search": "input#city-input.popup-select-city__input",
         "choice": "a.region_item.region_link[id='36401']",
-        "choice_url": "https://mega-home-internet.ru/samara",
+        "choice_url": "https://samara.mega-home-internet.ru/",
         "after_choice_url": "https://mega-home-internet.ru/"
       },
       "source_refs": [
@@ -1774,8 +1786,10 @@
           }
         ],
         "business_control": {
-          "kind": "auto",
-          "selector": "select[name='Place'], input[name='Place'][value='Для бизнеса'], input[name='Place'][value='В офис']"
+          "kind": "select",
+          "selector": "select[name='Place']",
+          "business_value": "Для бизнеса",
+          "alternative_value": "В квартиру"
         }
       },
       "confirmation": {
@@ -1831,8 +1845,10 @@
           }
         ],
         "business_control": {
-          "kind": "auto",
-          "selector": "select[name='Place'], input[name='Place'][value='Для бизнеса'], input[name='Place'][value='В офис']"
+          "kind": "select",
+          "selector": "select[name='Place']",
+          "business_value": "Для бизнеса",
+          "alternative_value": "В квартиру"
         }
       },
       "confirmation": {
@@ -1902,8 +1918,10 @@
           }
         ],
         "business_control": {
-          "kind": "auto",
-          "selector": "select[name='Place'], input[name='Place'][value='Для бизнеса'], input[name='Place'][value='В офис']"
+          "kind": "select",
+          "selector": "select[name='Place']",
+          "business_value": "Для бизнеса",
+          "alternative_value": "В квартиру"
         }
       },
       "confirmation": {
@@ -2039,8 +2057,10 @@
           }
         ],
         "business_control": {
-          "kind": "auto",
-          "selector": "select[name='Place'], input[name='Place'][value='Для бизнеса'], input[name='Place'][value='В офис']"
+          "kind": "select",
+          "selector": "select[name='Place']",
+          "business_value": "Для бизнеса",
+          "alternative_value": "В квартиру"
         }
       },
       "confirmation": {
@@ -2593,8 +2613,10 @@
           }
         ],
         "business_control": {
-          "kind": "auto",
-          "selector": "select[name='Place'], input[name='Place'][value='Для бизнеса'], input[name='Place'][value='В офис']"
+          "kind": "select",
+          "selector": "select[name='Place']",
+          "business_value": "Для бизнеса",
+          "alternative_value": "В квартиру"
         }
       },
       "confirmation": {
@@ -2678,8 +2700,10 @@
           }
         ],
         "business_control": {
-          "kind": "auto",
-          "selector": "select[name='Place'], input[name='Place'][value='Для бизнеса'], input[name='Place'][value='В офис']"
+          "kind": "select",
+          "selector": "select[name='Place']",
+          "business_value": "Для бизнеса",
+          "alternative_value": "В квартиру"
         }
       },
       "source_refs": [
@@ -2858,7 +2882,7 @@
         "popup": "#popup-select-city",
         "search": "input#city-input.popup-select-city__input",
         "choice": "a.region_item.region_link[id='36401']",
-        "choice_url": "https://mts-home.online/samara",
+        "choice_url": "https://samara.mts-home.online/",
         "after_choice_url": "https://mts-home.online/"
       },
       "form": {
@@ -2882,8 +2906,10 @@
           }
         ],
         "business_control": {
-          "kind": "auto",
-          "selector": "select[name='Place'], input[name='Place'][value='Для бизнеса'], input[name='Place'][value='В офис']"
+          "kind": "select",
+          "selector": "select[name='Place']",
+          "business_value": "Для бизнеса",
+          "alternative_value": "В квартиру"
         }
       },
       "submission": {
@@ -4379,8 +4405,10 @@
           }
         ],
         "business_control": {
-          "kind": "auto",
-          "selector": "select[name='Place'], input[name='Place'][value='Для бизнеса'], input[name='Place'][value='В офис']"
+          "kind": "select",
+          "selector": "select[name='Place']",
+          "business_value": "Для бизнеса",
+          "alternative_value": "В квартиру"
         }
       },
       "confirmation": {
@@ -4483,8 +4511,10 @@
           }
         ],
         "business_control": {
-          "kind": "auto",
-          "selector": "select[name='Place'], input[name='Place'][value='Для бизнеса'], input[name='Place'][value='В офис']"
+          "kind": "select",
+          "selector": "select[name='Place']",
+          "business_value": "Для бизнеса",
+          "alternative_value": "В квартиру"
         }
       },
       "confirmation": {
@@ -4648,8 +4678,10 @@
           }
         ],
         "business_control": {
-          "kind": "auto",
-          "selector": "select[name='Place'], input[name='Place'][value='Для бизнеса'], input[name='Place'][value='В офис']"
+          "kind": "select",
+          "selector": "select[name='Place']",
+          "business_value": "Для бизнеса",
+          "alternative_value": "В квартиру"
         }
       },
       "confirmation": {
@@ -4738,7 +4770,7 @@
         "popup": "#popup-select-city",
         "search": "input#city-input.popup-select-city__input",
         "choice": "a.region_item.region_link[id='36401']",
-        "choice_url": "https://rtk-ru.online/samara",
+        "choice_url": "https://samara.rtk-ru.online/",
         "after_choice_url": "https://rtk-ru.online/"
       },
       "source_refs": [
@@ -4767,8 +4799,10 @@
           }
         ],
         "business_control": {
-          "kind": "auto",
-          "selector": "select[name='Place'], input[name='Place'][value='Для бизнеса'], input[name='Place'][value='В офис']"
+          "kind": "select",
+          "selector": "select[name='Place']",
+          "business_value": "Для бизнеса",
+          "alternative_value": "В квартиру"
         }
       },
       "confirmation": {
@@ -5889,8 +5923,10 @@
           }
         ],
         "business_control": {
-          "kind": "auto",
-          "selector": "select[name='Place'], input[name='Place'][value='Для бизнеса'], input[name='Place'][value='В офис']"
+          "kind": "select",
+          "selector": "select[name='Place']",
+          "business_value": "Для бизнеса",
+          "alternative_value": "В квартиру"
         }
       },
       "confirmation": {
@@ -5900,3 +5936,7 @@
     }
   ]
 }
+
+
+
+
