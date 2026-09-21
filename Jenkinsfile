@@ -10,6 +10,7 @@ pipeline {
     choice(name: 'TARGET_ENV', choices: ['prod', 'unset', 'stage'], description: 'Required for representative, collect and live. City is always Samara.')
     choice(name: 'PROVIDER', choices: ['', 'beeline', 'mts'], description: 'Optional scope for collect and live. Leave empty to use all matching cases.')
     string(name: 'CASE_ID', defaultValue: '', description: 'Optional exact active case ID for live. Leave empty to run all active cases in the selected scope.')
+    string(name: 'CASE_FILE', defaultValue: 'config/place_scope_23.json', description: 'Case registry for this job. The default file contains the approved 23 Place/checkaddress cases.')
     string(name: 'DATA_FILE', defaultValue: 'config/data/samara.json', description: 'Path to an environment-confirmed data profile on the agent.')
   }
   stages {
@@ -50,7 +51,7 @@ pipeline {
           else { bat 'if exist artifacts rmdir /s /q artifacts & if exist allure-results rmdir /s /q allure-results & mkdir artifacts & mkdir allure-results' }
           withEnv(["BIZ_MODE=${params.MODE}", "BIZ_ENV=${params.TARGET_ENV}",
                    "BIZ_PROVIDER=${params.PROVIDER}", "BIZ_CASE_ID=${params.CASE_ID}",
-                   "BIZ_DATA_FILE=${params.DATA_FILE}"]) {
+                   "BIZ_DATA_FILE=${params.DATA_FILE}", "BIZ_CASE_FILE=${params.CASE_FILE}"]) {
             if (isUnix()) { sh '.venv/bin/python tools/ci_run.py' }
             else { bat '.venv\\Scripts\\python.exe tools/ci_run.py' }
           }

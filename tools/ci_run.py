@@ -19,6 +19,9 @@ elif mode in {"collect", "live", "representative"}:
         value = os.getenv(variable, "").strip()
         if value:
             args += [option + "=" + value]
+    case_file = os.getenv("BIZ_CASE_FILE", "").strip()
+    if case_file:
+        args += ["--case-file=" + case_file]
     if mode == "representative":
         if provider or case_id:
             raise SystemExit("representative mode does not accept PROVIDER or CASE_ID filters")

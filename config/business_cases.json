@@ -9,15 +9,57 @@
       "target_city_ui_id": "36401",
       "flow_kind": "business_option",
       "source_page_url": "https://beeline-home.online/",
-      "entry_url": null,
-      "status": "blocked",
-      "region": null,
-      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "entry_url": "https://beeline-home.online/",
+      "status": "active",
+      "region": {
+        "mode": "popup_selection",
+        "business_url": "https://beeline-home.online/",
+        "indicator": "span#autocomplete_city_name.autocomplete-city-name",
+        "trigger": ".autocomplete-city-change.button-select-city, .checkaddress_address_button_change_city",
+        "popup": "#popup-select-city",
+        "search": "input#city-input.popup-select-city__input",
+        "choice": "a.region_item.region_link[id='36401']",
+        "choice_url": "https://beeline-home.online/samara",
+        "after_choice_url": "https://beeline-home.online/"
+      },
       "source_refs": [
         "https://github.com/deidolinde-maker/Everyday_test/blob/8e87c77a79430e1a54b110682cf9f7912a29cac5/config/providers/beeline.py#L4",
         "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/config/providers/beeline.py#L4",
-        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/beeline.txt#L53"
-      ]
+        "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/beeline.txt#L53",
+        "user-provided HTML attachment 2026-09-21"
+      ],
+      "verification": "User-provided production DOM for beeline-home.online; checkaddress fields and Place select.",
+      "form": {
+        "selector": "form.wpcf7-form:has(.autocomplete-address)",
+        "trigger": ".checkaddress_address_button, .checkaddress_address_button_send",
+        "submit": ".checkaddress_address_button_send",
+        "fields": [
+          {
+            "selector": ".checkaddress_address_street",
+            "data_key": "street",
+            "suggestion": "#street-list div.autocomplete-item:visible, #street-list [data-value]:visible"
+          },
+          {
+            "selector": ".checkaddress_address_house",
+            "data_key": "house",
+            "suggestion": "#house-list div.autocomplete-item:visible, #house-list [data-value]:visible"
+          },
+          {
+            "selector": ".checkaddress_address_phone",
+            "data_key": "phone"
+          }
+        ],
+        "business_control": {
+          "kind": "select",
+          "selector": "select[name='Place']",
+          "business_value": "Для бизнеса",
+          "alternative_value": "В квартиру"
+        }
+      },
+      "confirmation": {
+        "kind": "url_contains",
+        "value": "/thanks"
+      }
     },
     {
       "case_id": "beeline-business_option-a4837113000b",
@@ -43,15 +85,54 @@
       "target_city_ui_id": "36401",
       "flow_kind": "business_option",
       "source_page_url": "https://beeline-internet.online/",
-      "entry_url": null,
-      "status": "blocked",
-      "region": null,
-      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "entry_url": "https://beeline-internet.online/",
+      "status": "active",
+      "region": {
+        "mode": "popup_selection",
+        "business_url": "https://beeline-internet.online/",
+        "indicator": "span#autocomplete_city_name.autocomplete-city-name",
+        "trigger": ".autocomplete-city-change.button-select-city, .autocomplete-city.button-select-city, span#autocomplete_city_name.button-select-city, .button-select-city",
+        "popup": "#popup-select-city",
+        "search": "input#city-input.popup-select-city__input",
+        "choice": "a.region_item.region_link[id='36401']",
+        "choice_url": "https://beeline-internet.online/samara",
+        "after_choice_url": "https://beeline-internet.online/"
+      },
       "source_refs": [
         "https://github.com/deidolinde-maker/Everyday_test/blob/8e87c77a79430e1a54b110682cf9f7912a29cac5/config/providers/beeline.py#L4",
         "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/config/providers/beeline.py#L4",
         "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/beeline.txt#L44"
-      ]
+      ],
+      "verification": "Legacy checkaddress/Place locator profile imported from Everyday_test and Big_landing_test for the 23-URL pilot.",
+      "form": {
+        "selector": "form:has(.checkaddress_address_street):has(.checkaddress_address_house)",
+        "trigger": ".checkaddress_address_button",
+        "submit": ".checkaddress_address_button_send",
+        "fields": [
+          {
+            "selector": ".checkaddress_address_street",
+            "data_key": "street",
+            "suggestion": "div.autocomplete-street:visible"
+          },
+          {
+            "selector": ".checkaddress_address_house",
+            "data_key": "house",
+            "suggestion": "#house-list div.autocomplete-item:visible"
+          },
+          {
+            "selector": ".checkaddress_address_phone",
+            "data_key": "phone"
+          }
+        ],
+        "business_control": {
+          "kind": "auto",
+          "selector": "select[name='Place'], input[name='Place'][value='Для бизнеса'], input[name='Place'][value='В офис']"
+        }
+      },
+      "confirmation": {
+        "kind": "url_contains",
+        "value": "/thanks"
+      }
     },
     {
       "case_id": "beeline-business_page-1ac0aedc3125",
@@ -147,19 +228,16 @@
         "mode": "popup_selection",
         "business_url": "https://beeline-ru.online/",
         "indicator": "span#autocomplete_city_name.autocomplete-city-name",
-        "initial_dismiss": "#popup-confirm-region #yesButton",
-        "trigger": ".autocomplete-city-change.button-select-city",
+        "trigger": ".autocomplete-city-change.button-select-city, .autocomplete-city.button-select-city, span#autocomplete_city_name.button-select-city, .button-select-city",
         "popup": "#popup-select-city",
         "search": "input#city-input.popup-select-city__input",
         "choice": "a.region_item.region_link[id='36401']",
-        "choice_url": "https://samara.beeline-ru.online/",
+        "choice_url": "https://beeline-ru.online/samara",
         "after_choice_url": "https://beeline-ru.online/"
       },
       "form": {
-        "selector": "form.wpcf7-form:has(input[name='_wpcf7_unit_tag'][value='wpcf7-f430-o1'])",
-        "dismiss": [
-          "#popup-lead-catcher .popup__close"
-        ],
+        "selector": "form:has(.checkaddress_address_street):has(.checkaddress_address_house)",
+        "trigger": ".checkaddress_address_button",
         "submit": ".checkaddress_address_button_send",
         "fields": [
           {
@@ -178,10 +256,8 @@
           }
         ],
         "business_control": {
-          "kind": "select",
-          "selector": "select[name='Place']",
-          "business_value": "Для бизнеса",
-          "alternative_value": "В квартиру"
+          "kind": "auto",
+          "selector": "select[name='Place'], input[name='Place'][value='Для бизнеса'], input[name='Place'][value='В офис']"
         }
       },
       "submission": {
@@ -249,7 +325,7 @@
         "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/config/providers/beeline.py#L4",
         "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/beeline.txt#L2"
       ],
-      "verification": "docs/evidence/beeline-ru-business-option-20260916.md"
+      "verification": "Legacy checkaddress/Place locator profile imported from Everyday_test and Big_landing_test for the 23-URL pilot."
     },
     {
       "case_id": "beeline-business_option-c2660a08887d",
@@ -926,13 +1002,46 @@
       "target_city_ui_id": "36401",
       "flow_kind": "business_option",
       "source_page_url": "https://samara.beeline-ru.online/",
-      "entry_url": null,
-      "status": "blocked",
-      "region": null,
-      "reason": "Selected for the next pilot; exact Samara form/control and submission contract still require verification before activation.",
+      "entry_url": "https://samara.beeline-ru.online/",
+      "status": "active",
+      "region": {
+        "mode": "direct_city_subdomain",
+        "business_url": "https://samara.beeline-ru.online/",
+        "indicator": "span#autocomplete_city_name.autocomplete-city-name"
+      },
       "source_refs": [
         "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/beeline.txt#L21"
-      ]
+      ],
+      "verification": "Legacy checkaddress/Place locator profile imported from Everyday_test and Big_landing_test for the 23-URL pilot.",
+      "form": {
+        "selector": "form:has(.checkaddress_address_street):has(.checkaddress_address_house)",
+        "trigger": ".checkaddress_address_button",
+        "submit": ".checkaddress_address_button_send",
+        "fields": [
+          {
+            "selector": ".checkaddress_address_street",
+            "data_key": "street",
+            "suggestion": "div.autocomplete-street:visible"
+          },
+          {
+            "selector": ".checkaddress_address_house",
+            "data_key": "house",
+            "suggestion": "#house-list div.autocomplete-item:visible"
+          },
+          {
+            "selector": ".checkaddress_address_phone",
+            "data_key": "phone"
+          }
+        ],
+        "business_control": {
+          "kind": "auto",
+          "selector": "select[name='Place'], input[name='Place'][value='Для бизнеса'], input[name='Place'][value='В офис']"
+        }
+      },
+      "confirmation": {
+        "kind": "url_contains",
+        "value": "/thanks"
+      }
     },
     {
       "case_id": "beeline-business_page-3b84e52cee9e",
@@ -1295,15 +1404,54 @@
       "target_city_ui_id": "36401",
       "flow_kind": "business_option",
       "source_page_url": "https://online-beeline.ru/",
-      "entry_url": null,
-      "status": "blocked",
-      "region": null,
-      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "entry_url": "https://online-beeline.ru/",
+      "status": "active",
+      "region": {
+        "mode": "popup_selection",
+        "business_url": "https://online-beeline.ru/",
+        "indicator": "span#autocomplete_city_name.autocomplete-city-name",
+        "trigger": ".autocomplete-city-change.button-select-city, .autocomplete-city.button-select-city, span#autocomplete_city_name.button-select-city, .button-select-city",
+        "popup": "#popup-select-city",
+        "search": "input#city-input.popup-select-city__input",
+        "choice": "a.region_item.region_link[id='36401']",
+        "choice_url": "https://online-beeline.ru/samara",
+        "after_choice_url": "https://online-beeline.ru/"
+      },
       "source_refs": [
         "https://github.com/deidolinde-maker/Everyday_test/blob/8e87c77a79430e1a54b110682cf9f7912a29cac5/config/providers/beeline.py#L4",
         "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/config/providers/beeline.py#L4",
         "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/beeline.txt#L41"
-      ]
+      ],
+      "verification": "Legacy checkaddress/Place locator profile imported from Everyday_test and Big_landing_test for the 23-URL pilot.",
+      "form": {
+        "selector": "form:has(.checkaddress_address_street):has(.checkaddress_address_house)",
+        "trigger": ".checkaddress_address_button",
+        "submit": ".checkaddress_address_button_send",
+        "fields": [
+          {
+            "selector": ".checkaddress_address_street",
+            "data_key": "street",
+            "suggestion": "div.autocomplete-street:visible"
+          },
+          {
+            "selector": ".checkaddress_address_house",
+            "data_key": "house",
+            "suggestion": "#house-list div.autocomplete-item:visible"
+          },
+          {
+            "selector": ".checkaddress_address_phone",
+            "data_key": "phone"
+          }
+        ],
+        "business_control": {
+          "kind": "auto",
+          "selector": "select[name='Place'], input[name='Place'][value='Для бизнеса'], input[name='Place'][value='В офис']"
+        }
+      },
+      "confirmation": {
+        "kind": "url_contains",
+        "value": "/thanks"
+      }
     },
     {
       "case_id": "beeline-business_page-46426053747e",
@@ -1408,15 +1556,54 @@
       "target_city_ui_id": "36401",
       "flow_kind": "business_option",
       "source_page_url": "https://dom-provider.online/",
-      "entry_url": null,
-      "status": "blocked",
-      "region": null,
-      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "entry_url": "https://dom-provider.online/",
+      "status": "active",
+      "region": {
+        "mode": "popup_selection",
+        "business_url": "https://dom-provider.online/",
+        "indicator": "span#autocomplete_city_name.autocomplete-city-name",
+        "trigger": ".autocomplete-city-change.button-select-city, .autocomplete-city.button-select-city, span#autocomplete_city_name.button-select-city, .button-select-city",
+        "popup": "#popup-select-city",
+        "search": "input#city-input.popup-select-city__input",
+        "choice": "a.region_item.region_link[id='36401']",
+        "choice_url": "https://dom-provider.online/samara",
+        "after_choice_url": "https://dom-provider.online/"
+      },
       "source_refs": [
         "https://github.com/deidolinde-maker/Everyday_test/blob/8e87c77a79430e1a54b110682cf9f7912a29cac5/config/providers/domru.py#L4",
         "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/config/providers/domru.py#L4",
         "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/domru.txt#L2"
-      ]
+      ],
+      "verification": "Legacy checkaddress/Place locator profile imported from Everyday_test and Big_landing_test for the 23-URL pilot.",
+      "form": {
+        "selector": "form:has(.checkaddress_address_street):has(.checkaddress_address_house)",
+        "trigger": ".checkaddress_address_button",
+        "submit": ".checkaddress_address_button_send",
+        "fields": [
+          {
+            "selector": ".checkaddress_address_street",
+            "data_key": "street",
+            "suggestion": "div.autocomplete-street:visible"
+          },
+          {
+            "selector": ".checkaddress_address_house",
+            "data_key": "house",
+            "suggestion": "#house-list div.autocomplete-item:visible"
+          },
+          {
+            "selector": ".checkaddress_address_phone",
+            "data_key": "phone"
+          }
+        ],
+        "business_control": {
+          "kind": "auto",
+          "selector": "select[name='Place'], input[name='Place'][value='Для бизнеса'], input[name='Place'][value='В офис']"
+        }
+      },
+      "confirmation": {
+        "kind": "url_contains",
+        "value": "/thanks"
+      }
     },
     {
       "case_id": "domru-business_option-17d383de1dfb",
@@ -1490,15 +1677,54 @@
       "target_city_ui_id": "36401",
       "flow_kind": "business_option",
       "source_page_url": "https://providerdom.ru/",
-      "entry_url": null,
-      "status": "blocked",
-      "region": null,
-      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "entry_url": "https://providerdom.ru/",
+      "status": "active",
+      "region": {
+        "mode": "popup_selection",
+        "business_url": "https://providerdom.ru/",
+        "indicator": "span#autocomplete_city_name.autocomplete-city-name",
+        "trigger": ".autocomplete-city-change.button-select-city, .autocomplete-city.button-select-city, span#autocomplete_city_name.button-select-city, .button-select-city",
+        "popup": "#popup-select-city",
+        "search": "input#city-input.popup-select-city__input",
+        "choice": "a.region_item.region_link[id='36401']",
+        "choice_url": "https://providerdom.ru/samara",
+        "after_choice_url": "https://providerdom.ru/"
+      },
       "source_refs": [
         "https://github.com/deidolinde-maker/Everyday_test/blob/8e87c77a79430e1a54b110682cf9f7912a29cac5/config/providers/domru.py#L4",
         "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/config/providers/domru.py#L4",
         "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/domru.txt#L4"
-      ]
+      ],
+      "verification": "Legacy checkaddress/Place locator profile imported from Everyday_test and Big_landing_test for the 23-URL pilot.",
+      "form": {
+        "selector": "form:has(.checkaddress_address_street):has(.checkaddress_address_house)",
+        "trigger": ".checkaddress_address_button",
+        "submit": ".checkaddress_address_button_send",
+        "fields": [
+          {
+            "selector": ".checkaddress_address_street",
+            "data_key": "street",
+            "suggestion": "div.autocomplete-street:visible"
+          },
+          {
+            "selector": ".checkaddress_address_house",
+            "data_key": "house",
+            "suggestion": "#house-list div.autocomplete-item:visible"
+          },
+          {
+            "selector": ".checkaddress_address_phone",
+            "data_key": "phone"
+          }
+        ],
+        "business_control": {
+          "kind": "auto",
+          "selector": "select[name='Place'], input[name='Place'][value='Для бизнеса'], input[name='Place'][value='В офис']"
+        }
+      },
+      "confirmation": {
+        "kind": "url_contains",
+        "value": "/thanks"
+      }
     },
     {
       "case_id": "megafon-business_option-984645aec26a",
@@ -1508,15 +1734,54 @@
       "target_city_ui_id": "36401",
       "flow_kind": "business_option",
       "source_page_url": "https://mega-home-internet.ru/",
-      "entry_url": null,
-      "status": "blocked",
-      "region": null,
-      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "entry_url": "https://mega-home-internet.ru/",
+      "status": "active",
+      "region": {
+        "mode": "popup_selection",
+        "business_url": "https://mega-home-internet.ru/",
+        "indicator": "span#autocomplete_city_name.autocomplete-city-name",
+        "trigger": ".autocomplete-city-change.button-select-city, .autocomplete-city.button-select-city, span#autocomplete_city_name.button-select-city, .button-select-city",
+        "popup": "#popup-select-city",
+        "search": "input#city-input.popup-select-city__input",
+        "choice": "a.region_item.region_link[id='36401']",
+        "choice_url": "https://mega-home-internet.ru/samara",
+        "after_choice_url": "https://mega-home-internet.ru/"
+      },
       "source_refs": [
         "https://github.com/deidolinde-maker/Everyday_test/blob/8e87c77a79430e1a54b110682cf9f7912a29cac5/config/providers/megafon.py#L4",
         "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/config/providers/megafon.py#L4",
         "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/megafon.txt#L4"
-      ]
+      ],
+      "verification": "Legacy checkaddress/Place locator profile imported from Everyday_test and Big_landing_test for the 23-URL pilot.",
+      "form": {
+        "selector": "form:has(.checkaddress_address_street):has(.checkaddress_address_house)",
+        "trigger": ".checkaddress_address_button",
+        "submit": ".checkaddress_address_button_send",
+        "fields": [
+          {
+            "selector": ".checkaddress_address_street",
+            "data_key": "street",
+            "suggestion": "div.autocomplete-street:visible"
+          },
+          {
+            "selector": ".checkaddress_address_house",
+            "data_key": "house",
+            "suggestion": "#house-list div.autocomplete-item:visible"
+          },
+          {
+            "selector": ".checkaddress_address_phone",
+            "data_key": "phone"
+          }
+        ],
+        "business_control": {
+          "kind": "auto",
+          "selector": "select[name='Place'], input[name='Place'][value='Для бизнеса'], input[name='Place'][value='В офис']"
+        }
+      },
+      "confirmation": {
+        "kind": "url_contains",
+        "value": "/thanks"
+      }
     },
     {
       "case_id": "megafon-business_option-8f2951ce5344",
@@ -1526,15 +1791,54 @@
       "target_city_ui_id": "36401",
       "flow_kind": "business_option",
       "source_page_url": "https://mega-premium.ru/",
-      "entry_url": null,
-      "status": "blocked",
-      "region": null,
-      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "entry_url": "https://mega-premium.ru/",
+      "status": "active",
+      "region": {
+        "mode": "popup_selection",
+        "business_url": "https://mega-premium.ru/",
+        "indicator": "span#autocomplete_city_name.autocomplete-city-name",
+        "trigger": ".autocomplete-city-change.button-select-city, .autocomplete-city.button-select-city, span#autocomplete_city_name.button-select-city, .button-select-city",
+        "popup": "#popup-select-city",
+        "search": "input#city-input.popup-select-city__input",
+        "choice": "a.region_item.region_link[id='36401']",
+        "choice_url": "https://mega-premium.ru/samara",
+        "after_choice_url": "https://mega-premium.ru/"
+      },
       "source_refs": [
         "https://github.com/deidolinde-maker/Everyday_test/blob/8e87c77a79430e1a54b110682cf9f7912a29cac5/config/providers/megafon.py#L4",
         "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/config/providers/megafon.py#L4",
         "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/megafon.txt#L2"
-      ]
+      ],
+      "verification": "Legacy checkaddress/Place locator profile imported from Everyday_test and Big_landing_test for the 23-URL pilot.",
+      "form": {
+        "selector": "form:has(.checkaddress_address_street):has(.checkaddress_address_house)",
+        "trigger": ".checkaddress_address_button",
+        "submit": ".checkaddress_address_button_send",
+        "fields": [
+          {
+            "selector": ".checkaddress_address_street",
+            "data_key": "street",
+            "suggestion": "div.autocomplete-street:visible"
+          },
+          {
+            "selector": ".checkaddress_address_house",
+            "data_key": "house",
+            "suggestion": "#house-list div.autocomplete-item:visible"
+          },
+          {
+            "selector": ".checkaddress_address_phone",
+            "data_key": "phone"
+          }
+        ],
+        "business_control": {
+          "kind": "auto",
+          "selector": "select[name='Place'], input[name='Place'][value='Для бизнеса'], input[name='Place'][value='В офис']"
+        }
+      },
+      "confirmation": {
+        "kind": "url_contains",
+        "value": "/thanks"
+      }
     },
     {
       "case_id": "megafon-business_option-2738d4004737",
@@ -1560,13 +1864,52 @@
       "target_city_ui_id": "36401",
       "flow_kind": "business_option",
       "source_page_url": "https://moskva.mega-home-internet.ru/domashnij-internet/",
-      "entry_url": null,
-      "status": "blocked",
-      "region": null,
-      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "entry_url": "https://moskva.mega-home-internet.ru/domashnij-internet/",
+      "status": "active",
+      "region": {
+        "mode": "popup_selection",
+        "business_url": "https://moskva.mega-home-internet.ru/domashnij-internet/",
+        "indicator": "span#autocomplete_city_name.autocomplete-city-name",
+        "trigger": ".autocomplete-city-change.button-select-city, .autocomplete-city.button-select-city, span#autocomplete_city_name.button-select-city, .button-select-city",
+        "popup": "#popup-select-city",
+        "search": "input#city-input.popup-select-city__input",
+        "choice": "a.region_item.region_link[id='36401']",
+        "choice_url": "https://moskva.mega-home-internet.ru/domashnij-internet/samara",
+        "after_choice_url": "https://moskva.mega-home-internet.ru/domashnij-internet/"
+      },
       "source_refs": [
         "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/megafon.txt#L5"
-      ]
+      ],
+      "verification": "Legacy checkaddress/Place locator profile imported from Everyday_test and Big_landing_test for the 23-URL pilot.",
+      "form": {
+        "selector": "form:has(.checkaddress_address_street):has(.checkaddress_address_house)",
+        "trigger": ".checkaddress_address_button",
+        "submit": ".checkaddress_address_button_send",
+        "fields": [
+          {
+            "selector": ".checkaddress_address_street",
+            "data_key": "street",
+            "suggestion": "div.autocomplete-street:visible"
+          },
+          {
+            "selector": ".checkaddress_address_house",
+            "data_key": "house",
+            "suggestion": "#house-list div.autocomplete-item:visible"
+          },
+          {
+            "selector": ".checkaddress_address_phone",
+            "data_key": "phone"
+          }
+        ],
+        "business_control": {
+          "kind": "auto",
+          "selector": "select[name='Place'], input[name='Place'][value='Для бизнеса'], input[name='Place'][value='В офис']"
+        }
+      },
+      "confirmation": {
+        "kind": "url_contains",
+        "value": "/thanks"
+      }
     },
     {
       "case_id": "megafon-business_option-f19f01dc4b6e",
@@ -1656,15 +1999,54 @@
       "target_city_ui_id": "36401",
       "flow_kind": "business_option",
       "source_page_url": "https://internet-mts-home.online/",
-      "entry_url": null,
-      "status": "blocked",
-      "region": null,
-      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "entry_url": "https://internet-mts-home.online/",
+      "status": "active",
+      "region": {
+        "mode": "popup_selection",
+        "business_url": "https://internet-mts-home.online/",
+        "indicator": "span#autocomplete_city_name.autocomplete-city-name",
+        "trigger": ".autocomplete-city-change.button-select-city, .autocomplete-city.button-select-city, span#autocomplete_city_name.button-select-city, .button-select-city",
+        "popup": "#popup-select-city",
+        "search": "input#city-input.popup-select-city__input",
+        "choice": "a.region_item.region_link[id='36401']",
+        "choice_url": "https://internet-mts-home.online/samara",
+        "after_choice_url": "https://internet-mts-home.online/"
+      },
       "source_refs": [
         "https://github.com/deidolinde-maker/Everyday_test/blob/8e87c77a79430e1a54b110682cf9f7912a29cac5/config/providers/mts.py#L4",
         "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/config/providers/mts.py#L4",
         "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/mts.txt#L63"
-      ]
+      ],
+      "verification": "Legacy checkaddress/Place locator profile imported from Everyday_test and Big_landing_test for the 23-URL pilot.",
+      "form": {
+        "selector": "form:has(.checkaddress_address_street):has(.checkaddress_address_house)",
+        "trigger": ".checkaddress_address_button",
+        "submit": ".checkaddress_address_button_send",
+        "fields": [
+          {
+            "selector": ".checkaddress_address_street",
+            "data_key": "street",
+            "suggestion": "div.autocomplete-street:visible"
+          },
+          {
+            "selector": ".checkaddress_address_house",
+            "data_key": "house",
+            "suggestion": "#house-list div.autocomplete-item:visible"
+          },
+          {
+            "selector": ".checkaddress_address_phone",
+            "data_key": "phone"
+          }
+        ],
+        "business_control": {
+          "kind": "auto",
+          "selector": "select[name='Place'], input[name='Place'][value='Для бизнеса'], input[name='Place'][value='В офис']"
+        }
+      },
+      "confirmation": {
+        "kind": "url_contains",
+        "value": "/thanks"
+      }
     },
     {
       "case_id": "mts-business_option-cbf0155cd748",
@@ -2171,15 +2553,54 @@
       "target_city_ui_id": "36401",
       "flow_kind": "business_option",
       "source_page_url": "https://mts-home-gpon.ru/",
-      "entry_url": null,
-      "status": "blocked",
-      "region": null,
-      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "entry_url": "https://mts-home-gpon.ru/",
+      "status": "active",
+      "region": {
+        "mode": "popup_selection",
+        "business_url": "https://mts-home-gpon.ru/",
+        "indicator": "span#autocomplete_city_name.autocomplete-city-name",
+        "trigger": ".autocomplete-city-change.button-select-city, .autocomplete-city.button-select-city, span#autocomplete_city_name.button-select-city, .button-select-city",
+        "popup": "#popup-select-city",
+        "search": "input#city-input.popup-select-city__input",
+        "choice": "a.region_item.region_link[id='36401']",
+        "choice_url": "https://mts-home-gpon.ru/samara",
+        "after_choice_url": "https://mts-home-gpon.ru/"
+      },
       "source_refs": [
         "https://github.com/deidolinde-maker/Everyday_test/blob/8e87c77a79430e1a54b110682cf9f7912a29cac5/config/providers/mts.py#L4",
         "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/config/providers/mts.py#L4",
         "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/mts.txt#L57"
-      ]
+      ],
+      "verification": "Legacy checkaddress/Place locator profile imported from Everyday_test and Big_landing_test for the 23-URL pilot.",
+      "form": {
+        "selector": "form:has(.checkaddress_address_street):has(.checkaddress_address_house)",
+        "trigger": ".checkaddress_address_button",
+        "submit": ".checkaddress_address_button_send",
+        "fields": [
+          {
+            "selector": ".checkaddress_address_street",
+            "data_key": "street",
+            "suggestion": "div.autocomplete-street:visible"
+          },
+          {
+            "selector": ".checkaddress_address_house",
+            "data_key": "house",
+            "suggestion": "#house-list div.autocomplete-item:visible"
+          },
+          {
+            "selector": ".checkaddress_address_phone",
+            "data_key": "phone"
+          }
+        ],
+        "business_control": {
+          "kind": "auto",
+          "selector": "select[name='Place'], input[name='Place'][value='Для бизнеса'], input[name='Place'][value='В офис']"
+        }
+      },
+      "confirmation": {
+        "kind": "url_contains",
+        "value": "/thanks"
+      }
     },
     {
       "case_id": "mts-business_page-9b059cc303f1",
@@ -2224,12 +2645,12 @@
       "flow_kind": "business_option",
       "source_page_url": "https://mts-home-online.ru/",
       "entry_url": "https://mts-home-online.ru/",
-      "status": "blocked",
+      "status": "active",
       "region": {
         "mode": "popup_selection",
         "business_url": "https://mts-home-online.ru/",
         "indicator": "span#autocomplete_city_name.autocomplete-city-name",
-        "trigger": ".autocomplete-city-change.button-select-city",
+        "trigger": ".autocomplete-city-change.button-select-city, .autocomplete-city.button-select-city, span#autocomplete_city_name.button-select-city, .button-select-city",
         "popup": "#popup-select-city",
         "search": "input#city-input.popup-select-city__input",
         "choice": "a.region_item.region_link[id='36401']",
@@ -2237,16 +2658,19 @@
         "after_choice_url": "https://mts-home-online.ru/"
       },
       "form": {
-        "selector": "form.wpcf7-form:has(input[name='_wpcf7_unit_tag'][value='wpcf7-f995-o1'])",
+        "selector": "form:has(.checkaddress_address_street):has(.checkaddress_address_house)",
+        "trigger": ".checkaddress_address_button",
         "submit": ".checkaddress_address_button_send",
         "fields": [
           {
             "selector": ".checkaddress_address_street",
-            "data_key": "street"
+            "data_key": "street",
+            "suggestion": "div.autocomplete-street:visible"
           },
           {
             "selector": ".checkaddress_address_house",
-            "data_key": "house"
+            "data_key": "house",
+            "suggestion": "#house-list div.autocomplete-item:visible"
           },
           {
             "selector": ".checkaddress_address_phone",
@@ -2254,19 +2678,20 @@
           }
         ],
         "business_control": {
-          "kind": "select",
-          "selector": "select[name='Place']",
-          "business_value": "Для бизнеса",
-          "alternative_value": "В квартиру"
+          "kind": "auto",
+          "selector": "select[name='Place'], input[name='Place'][value='Для бизнеса'], input[name='Place'][value='В офис']"
         }
       },
-      "reason": "Production UI confirmed the MTS Place select and Samara indicator. Per the user requirement, the unchanged base URL after popup selection is expected for this business-option flow; address preparation, submission city fields, exact multipart payload and positive response remain unverified; no business-option lead was sent.",
       "source_refs": [
         "https://github.com/deidolinde-maker/Everyday_test/blob/8e87c77a79430e1a54b110682cf9f7912a29cac5/config/providers/mts.py#L4",
         "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/config/providers/mts.py#L4",
         "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/mts.txt#L60"
       ],
-      "verification": "docs/evidence/mts-business-option-select-20260916.md"
+      "verification": "Legacy checkaddress/Place locator profile imported from Everyday_test and Big_landing_test for the 23-URL pilot.",
+      "confirmation": {
+        "kind": "url_contains",
+        "value": "/thanks"
+      }
     },
     {
       "case_id": "mts-business_page-c2d4cae355e7",
@@ -2429,15 +2854,16 @@
         "mode": "popup_selection",
         "business_url": "https://mts-home.online/",
         "indicator": "span#autocomplete_city_name.autocomplete-city-name",
-        "trigger": ".autocomplete-city-change.button-select-city",
+        "trigger": ".autocomplete-city-change.button-select-city, .autocomplete-city.button-select-city, span#autocomplete_city_name.button-select-city, .button-select-city",
         "popup": "#popup-select-city",
-        "search": "input#city-input",
+        "search": "input#city-input.popup-select-city__input",
         "choice": "a.region_item.region_link[id='36401']",
-        "choice_url": "https://samara.mts-home.online/",
+        "choice_url": "https://mts-home.online/samara",
         "after_choice_url": "https://mts-home.online/"
       },
       "form": {
-        "selector": "form.wpcf7-form:has(input[name='_wpcf7_unit_tag'][value='wpcf7-f1645-o1'])",
+        "selector": "form:has(.checkaddress_address_street):has(.checkaddress_address_house)",
+        "trigger": ".checkaddress_address_button",
         "submit": ".checkaddress_address_button_send",
         "fields": [
           {
@@ -2456,10 +2882,8 @@
           }
         ],
         "business_control": {
-          "kind": "select",
-          "selector": "select[name='Place']",
-          "business_value": "Для бизнеса",
-          "alternative_value": "В квартиру"
+          "kind": "auto",
+          "selector": "select[name='Place'], input[name='Place'][value='Для бизнеса'], input[name='Place'][value='В офис']"
         }
       },
       "submission": {
@@ -2519,8 +2943,8 @@
         ]
       },
       "confirmation": {
-        "kind": "url",
-        "value": "https://mts-home.online/tilda/form1/submitted"
+        "kind": "url_contains",
+        "value": "/thanks"
       },
       "crm_verification": {
         "status": "confirmed",
@@ -2532,7 +2956,7 @@
         "https://github.com/deidolinde-maker/Everyday_test/blob/8e87c77a79430e1a54b110682cf9f7912a29cac5/config/providers/mts.py#L4",
         "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/config/providers/mts.py#L4"
       ],
-      "verification": "docs/evidence/mts-home-online-business-option-20260916.md"
+      "verification": "Legacy checkaddress/Place locator profile imported from Everyday_test and Big_landing_test for the 23-URL pilot."
     },
     {
       "case_id": "mts-business_option-a0fa9891c3c9",
@@ -3168,14 +3592,53 @@
       "target_city_ui_id": "36401",
       "flow_kind": "business_option",
       "source_page_url": "https://mts-internet.online/",
-      "entry_url": null,
-      "status": "blocked",
-      "region": null,
-      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "entry_url": "https://mts-internet.online/",
+      "status": "active",
+      "region": {
+        "mode": "popup_selection",
+        "business_url": "https://mts-internet.online/",
+        "indicator": "span#autocomplete_city_name.autocomplete-city-name",
+        "trigger": ".autocomplete-city-change.button-select-city, .autocomplete-city.button-select-city, span#autocomplete_city_name.button-select-city, .button-select-city",
+        "popup": "#popup-select-city",
+        "search": "input#city-input.popup-select-city__input",
+        "choice": "a.region_item.region_link[id='36401']",
+        "choice_url": "https://mts-internet.online/samara",
+        "after_choice_url": "https://mts-internet.online/"
+      },
       "source_refs": [
         "https://github.com/deidolinde-maker/Everyday_test/blob/8e87c77a79430e1a54b110682cf9f7912a29cac5/config/providers/mts.py#L4",
         "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/config/providers/mts.py#L4"
-      ]
+      ],
+      "verification": "Legacy checkaddress/Place locator profile imported from Everyday_test and Big_landing_test for the 23-URL pilot.",
+      "form": {
+        "selector": "form:has(.checkaddress_address_street):has(.checkaddress_address_house)",
+        "trigger": ".checkaddress_address_button",
+        "submit": ".checkaddress_address_button_send",
+        "fields": [
+          {
+            "selector": ".checkaddress_address_street",
+            "data_key": "street",
+            "suggestion": "div.autocomplete-street:visible"
+          },
+          {
+            "selector": ".checkaddress_address_house",
+            "data_key": "house",
+            "suggestion": "#house-list div.autocomplete-item:visible"
+          },
+          {
+            "selector": ".checkaddress_address_phone",
+            "data_key": "phone"
+          }
+        ],
+        "business_control": {
+          "kind": "auto",
+          "selector": "button.SegmentItem[data-segment='business']"
+        }
+      },
+      "confirmation": {
+        "kind": "url_contains",
+        "value": "/thanks"
+      }
     },
     {
       "case_id": "mts-business_option-18d42468dd6d",
@@ -3876,15 +4339,54 @@
       "target_city_ui_id": "36401",
       "flow_kind": "business_option",
       "source_page_url": "https://rt-internet.online/",
-      "entry_url": null,
-      "status": "blocked",
-      "region": null,
-      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "entry_url": "https://rt-internet.online/",
+      "status": "active",
+      "region": {
+        "mode": "popup_selection",
+        "business_url": "https://rt-internet.online/",
+        "indicator": "span#autocomplete_city_name.autocomplete-city-name",
+        "trigger": ".autocomplete-city-change.button-select-city, .autocomplete-city.button-select-city, span#autocomplete_city_name.button-select-city, .button-select-city",
+        "popup": "#popup-select-city",
+        "search": "input#city-input.popup-select-city__input",
+        "choice": "a.region_item.region_link[id='36401']",
+        "choice_url": "https://rt-internet.online/samara",
+        "after_choice_url": "https://rt-internet.online/"
+      },
       "source_refs": [
         "https://github.com/deidolinde-maker/Everyday_test/blob/8e87c77a79430e1a54b110682cf9f7912a29cac5/config/providers/rostelecom.py#L4",
         "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/config/providers/rostelecom.py#L4",
         "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/rostelecom.txt#L40"
-      ]
+      ],
+      "verification": "Legacy checkaddress/Place locator profile imported from Everyday_test and Big_landing_test for the 23-URL pilot.",
+      "form": {
+        "selector": "form:has(.checkaddress_address_street):has(.checkaddress_address_house)",
+        "trigger": ".checkaddress_address_button",
+        "submit": ".checkaddress_address_button_send",
+        "fields": [
+          {
+            "selector": ".checkaddress_address_street",
+            "data_key": "street",
+            "suggestion": "div.autocomplete-street:visible"
+          },
+          {
+            "selector": ".checkaddress_address_house",
+            "data_key": "house",
+            "suggestion": "#house-list div.autocomplete-item:visible"
+          },
+          {
+            "selector": ".checkaddress_address_phone",
+            "data_key": "phone"
+          }
+        ],
+        "business_control": {
+          "kind": "auto",
+          "selector": "select[name='Place'], input[name='Place'][value='Для бизнеса'], input[name='Place'][value='В офис']"
+        }
+      },
+      "confirmation": {
+        "kind": "url_contains",
+        "value": "/thanks"
+      }
     },
     {
       "case_id": "rostelecom-business_option-e3dc6e16250a",
@@ -3942,14 +4444,53 @@
       "target_city_ui_id": "36401",
       "flow_kind": "business_option",
       "source_page_url": "https://rtk-home-internet.ru/",
-      "entry_url": null,
-      "status": "blocked",
-      "region": null,
-      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "entry_url": "https://rtk-home-internet.ru/",
+      "status": "active",
+      "region": {
+        "mode": "popup_selection",
+        "business_url": "https://rtk-home-internet.ru/",
+        "indicator": "span#autocomplete_city_name.autocomplete-city-name",
+        "trigger": ".autocomplete-city-change.button-select-city, .autocomplete-city.button-select-city, span#autocomplete_city_name.button-select-city, .button-select-city",
+        "popup": "#popup-select-city",
+        "search": "input#city-input.popup-select-city__input",
+        "choice": "a.region_item.region_link[id='36401']",
+        "choice_url": "https://rtk-home-internet.ru/samara",
+        "after_choice_url": "https://rtk-home-internet.ru/"
+      },
       "source_refs": [
         "https://github.com/deidolinde-maker/Everyday_test/blob/8e87c77a79430e1a54b110682cf9f7912a29cac5/config/providers/rostelecom.py#L4",
         "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/config/providers/rostelecom.py#L4"
-      ]
+      ],
+      "verification": "Legacy checkaddress/Place locator profile imported from Everyday_test and Big_landing_test for the 23-URL pilot.",
+      "form": {
+        "selector": "form:has(.checkaddress_address_street):has(.checkaddress_address_house)",
+        "trigger": ".checkaddress_address_button",
+        "submit": ".checkaddress_address_button_send",
+        "fields": [
+          {
+            "selector": ".checkaddress_address_street",
+            "data_key": "street",
+            "suggestion": "div.autocomplete-street:visible"
+          },
+          {
+            "selector": ".checkaddress_address_house",
+            "data_key": "house",
+            "suggestion": "#house-list div.autocomplete-item:visible"
+          },
+          {
+            "selector": ".checkaddress_address_phone",
+            "data_key": "phone"
+          }
+        ],
+        "business_control": {
+          "kind": "auto",
+          "selector": "select[name='Place'], input[name='Place'][value='Для бизнеса'], input[name='Place'][value='В офис']"
+        }
+      },
+      "confirmation": {
+        "kind": "url_contains",
+        "value": "/thanks"
+      }
     },
     {
       "case_id": "rostelecom-business_option-39a63c20f86c",
@@ -4068,14 +4609,53 @@
       "target_city_ui_id": "36401",
       "flow_kind": "business_option",
       "source_page_url": "https://rtk-internet.online/",
-      "entry_url": null,
-      "status": "blocked",
-      "region": null,
-      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "entry_url": "https://rtk-internet.online/",
+      "status": "active",
+      "region": {
+        "mode": "popup_selection",
+        "business_url": "https://rtk-internet.online/",
+        "indicator": "span#autocomplete_city_name.autocomplete-city-name",
+        "trigger": ".autocomplete-city-change.button-select-city, .autocomplete-city.button-select-city, span#autocomplete_city_name.button-select-city, .button-select-city",
+        "popup": "#popup-select-city",
+        "search": "input#city-input.popup-select-city__input",
+        "choice": "a.region_item.region_link[id='36401']",
+        "choice_url": "https://rtk-internet.online/samara",
+        "after_choice_url": "https://rtk-internet.online/"
+      },
       "source_refs": [
         "https://github.com/deidolinde-maker/Everyday_test/blob/8e87c77a79430e1a54b110682cf9f7912a29cac5/config/providers/rostelecom.py#L4",
         "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/config/providers/rostelecom.py#L4"
-      ]
+      ],
+      "verification": "Legacy checkaddress/Place locator profile imported from Everyday_test and Big_landing_test for the 23-URL pilot.",
+      "form": {
+        "selector": "form:has(.checkaddress_address_street):has(.checkaddress_address_house)",
+        "trigger": ".checkaddress_address_button",
+        "submit": ".checkaddress_address_button_send",
+        "fields": [
+          {
+            "selector": ".checkaddress_address_street",
+            "data_key": "street",
+            "suggestion": "div.autocomplete-street:visible"
+          },
+          {
+            "selector": ".checkaddress_address_house",
+            "data_key": "house",
+            "suggestion": "#house-list div.autocomplete-item:visible"
+          },
+          {
+            "selector": ".checkaddress_address_phone",
+            "data_key": "phone"
+          }
+        ],
+        "business_control": {
+          "kind": "auto",
+          "selector": "select[name='Place'], input[name='Place'][value='Для бизнеса'], input[name='Place'][value='В офис']"
+        }
+      },
+      "confirmation": {
+        "kind": "url_contains",
+        "value": "/thanks"
+      }
     },
     {
       "case_id": "rostelecom-business_page-1d75bfbed2d2",
@@ -4148,14 +4728,53 @@
       "target_city_ui_id": "36401",
       "flow_kind": "business_option",
       "source_page_url": "https://rtk-ru.online/",
-      "entry_url": null,
-      "status": "blocked",
-      "region": null,
-      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "entry_url": "https://rtk-ru.online/",
+      "status": "active",
+      "region": {
+        "mode": "popup_selection",
+        "business_url": "https://rtk-ru.online/",
+        "indicator": "span#autocomplete_city_name.autocomplete-city-name",
+        "trigger": ".autocomplete-city-change.button-select-city, .autocomplete-city.button-select-city, span#autocomplete_city_name.button-select-city, .button-select-city",
+        "popup": "#popup-select-city",
+        "search": "input#city-input.popup-select-city__input",
+        "choice": "a.region_item.region_link[id='36401']",
+        "choice_url": "https://rtk-ru.online/samara",
+        "after_choice_url": "https://rtk-ru.online/"
+      },
       "source_refs": [
         "https://github.com/deidolinde-maker/Everyday_test/blob/8e87c77a79430e1a54b110682cf9f7912a29cac5/config/providers/rostelecom.py#L4",
         "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/config/providers/rostelecom.py#L4"
-      ]
+      ],
+      "verification": "Legacy checkaddress/Place locator profile imported from Everyday_test and Big_landing_test for the 23-URL pilot.",
+      "form": {
+        "selector": "form:has(.checkaddress_address_street):has(.checkaddress_address_house)",
+        "trigger": ".checkaddress_address_button",
+        "submit": ".checkaddress_address_button_send",
+        "fields": [
+          {
+            "selector": ".checkaddress_address_street",
+            "data_key": "street",
+            "suggestion": "div.autocomplete-street:visible"
+          },
+          {
+            "selector": ".checkaddress_address_house",
+            "data_key": "house",
+            "suggestion": "#house-list div.autocomplete-item:visible"
+          },
+          {
+            "selector": ".checkaddress_address_phone",
+            "data_key": "phone"
+          }
+        ],
+        "business_control": {
+          "kind": "auto",
+          "selector": "select[name='Place'], input[name='Place'][value='Для бизнеса'], input[name='Place'][value='В офис']"
+        }
+      },
+      "confirmation": {
+        "kind": "url_contains",
+        "value": "/thanks"
+      }
     },
     {
       "case_id": "rostelecom-business_option-accc78abd7ca",
@@ -4620,15 +5239,54 @@
       "target_city_ui_id": "36401",
       "flow_kind": "business_option",
       "source_page_url": "https://t2-ru.online",
-      "entry_url": null,
-      "status": "blocked",
-      "region": null,
-      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "entry_url": "https://t2-ru.online/",
+      "status": "active",
+      "region": {
+        "mode": "popup_selection",
+        "business_url": "https://t2-ru.online/",
+        "indicator": "span#autocomplete_city_name.autocomplete-city-name",
+        "trigger": ".autocomplete-city-change.button-select-city, .autocomplete-city.button-select-city, span#autocomplete_city_name.button-select-city, .button-select-city",
+        "popup": "#popup-select-city",
+        "search": "input#city-input.popup-select-city__input",
+        "choice": "a.region_item.region_link[id='36401']",
+        "choice_url": "https://t2-ru.online/samara",
+        "after_choice_url": "https://t2-ru.online/"
+      },
       "source_refs": [
         "https://github.com/deidolinde-maker/Everyday_test/blob/8e87c77a79430e1a54b110682cf9f7912a29cac5/config/providers/t2.py#L4",
         "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/config/providers/t2.py#L4",
         "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/t2.txt#L2"
-      ]
+      ],
+      "verification": "Legacy checkaddress/Place locator profile imported from Everyday_test and Big_landing_test for the 23-URL pilot.",
+      "form": {
+        "selector": "form:has(.checkaddress_address_street):has(.checkaddress_address_house)",
+        "trigger": ".checkaddress_address_button",
+        "submit": ".checkaddress_address_button_send",
+        "fields": [
+          {
+            "selector": ".checkaddress_address_street",
+            "data_key": "street",
+            "suggestion": "div.autocomplete-street:visible"
+          },
+          {
+            "selector": ".checkaddress_address_house",
+            "data_key": "house",
+            "suggestion": "#house-list div.autocomplete-item:visible"
+          },
+          {
+            "selector": ".checkaddress_address_phone",
+            "data_key": "phone"
+          }
+        ],
+        "business_control": {
+          "kind": "auto",
+          "selector": "select[name='Place'], input[name='Place'][value='Для бизнеса'], input[name='Place'][value='В офис']"
+        }
+      },
+      "confirmation": {
+        "kind": "url_contains",
+        "value": "/thanks"
+      }
     },
     {
       "case_id": "t2-business_option-dc3eb1055c64",
@@ -4798,14 +5456,56 @@
       "target_city_ui_id": "36401",
       "flow_kind": "business_option",
       "source_page_url": "https://ttk-internet.ru/",
-      "entry_url": null,
-      "status": "blocked",
-      "region": null,
-      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "entry_url": "https://ttk-internet.ru/",
+      "status": "active",
+      "region": {
+        "mode": "popup_selection",
+        "business_url": "https://ttk-internet.ru/",
+        "indicator": "span#autocomplete_city_name.autocomplete-city-name",
+        "trigger": ".autocomplete-city-change.button-select-city, .autocomplete-city.button-select-city, span#autocomplete_city_name.button-select-city, .button-select-city",
+        "popup": "#popup-select-city",
+        "search": "input#city-input.popup-select-city__input",
+        "choice": "a.region_item.region_link[id='36401']",
+        "choice_url": "https://ttk-internet.ru/samara",
+        "after_choice_url": "https://ttk-internet.ru/"
+      },
       "source_refs": [
         "https://github.com/deidolinde-maker/Everyday_test/blob/8e87c77a79430e1a54b110682cf9f7912a29cac5/config/providers/ttk.py#L4",
         "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/config/providers/ttk.py#L4"
-      ]
+      ],
+      "verification": "Legacy checkaddress/Place locator profile imported from Everyday_test and Big_landing_test for the 23-URL pilot.",
+      "form": {
+        "selector": "form:has(.checkaddress_address_street):has(.checkaddress_address_house)",
+        "trigger": ".checkaddress_address_button",
+        "submit": ".checkaddress_address_button_send",
+        "fields": [
+          {
+            "selector": ".checkaddress_address_street",
+            "data_key": "street",
+            "suggestion": "div.autocomplete-street:visible"
+          },
+          {
+            "selector": ".checkaddress_address_house",
+            "data_key": "house",
+            "suggestion": "#house-list div.autocomplete-item:visible"
+          },
+          {
+            "selector": ".checkaddress_address_phone",
+            "data_key": "phone"
+          }
+        ],
+        "business_control": {
+          "kind": "custom_select",
+          "selector": ".custom-select-trigger",
+          "trigger": ".custom-select-trigger",
+          "business_option": "li[data-value='В офис']",
+          "selected_text": "В офис"
+        }
+      },
+      "confirmation": {
+        "kind": "url_contains",
+        "value": "/thanks"
+      }
     },
     {
       "case_id": "ttk-business_option-7d42a1c6004f",
@@ -4815,15 +5515,54 @@
       "target_city_ui_id": "36401",
       "flow_kind": "business_option",
       "source_page_url": "https://ttk-ru.online/",
-      "entry_url": null,
-      "status": "blocked",
-      "region": null,
-      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "entry_url": "https://ttk-ru.online/",
+      "status": "active",
+      "region": {
+        "mode": "popup_selection",
+        "business_url": "https://ttk-ru.online/",
+        "indicator": "span#autocomplete_city_name.autocomplete-city-name",
+        "trigger": ".autocomplete-city-change.button-select-city, .autocomplete-city.button-select-city, span#autocomplete_city_name.button-select-city, .button-select-city",
+        "popup": "#popup-select-city",
+        "search": "input#city-input.popup-select-city__input",
+        "choice": "a.region_item.region_link[id='36401']",
+        "choice_url": "https://ttk-ru.online/samara",
+        "after_choice_url": "https://ttk-ru.online/"
+      },
       "source_refs": [
         "https://github.com/deidolinde-maker/Everyday_test/blob/8e87c77a79430e1a54b110682cf9f7912a29cac5/config/providers/ttk.py#L4",
         "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/config/providers/ttk.py#L4",
         "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/ttk.txt#L2"
-      ]
+      ],
+      "verification": "Legacy checkaddress/Place locator profile imported from Everyday_test and Big_landing_test for the 23-URL pilot.",
+      "form": {
+        "selector": "form:has(.checkaddress_address_street):has(.checkaddress_address_house)",
+        "trigger": ".checkaddress_address_button",
+        "submit": ".checkaddress_address_button_send",
+        "fields": [
+          {
+            "selector": ".checkaddress_address_street",
+            "data_key": "street",
+            "suggestion": "div.autocomplete-street:visible"
+          },
+          {
+            "selector": ".checkaddress_address_house",
+            "data_key": "house",
+            "suggestion": "#house-list div.autocomplete-item:visible"
+          },
+          {
+            "selector": ".checkaddress_address_phone",
+            "data_key": "phone"
+          }
+        ],
+        "business_control": {
+          "kind": "auto",
+          "selector": "select[name='Place'], input[name='Place'][value='Для бизнеса'], input[name='Place'][value='В офис']"
+        }
+      },
+      "confirmation": {
+        "kind": "url_contains",
+        "value": "/thanks"
+      }
     },
     {
       "case_id": "beeline-business_page-samara-internet-dlya-biznesa",
@@ -5100,6 +5839,61 @@
         "date": "2026-09-16"
       },
       "verification": "docs/evidence/mts-business-scope-20260916.md"
+    },
+    {
+      "case_id": "rtk-home-ru-business_option-9ba49f8259b4",
+      "provider": "rtk",
+      "environment": "prod",
+      "target_city": "Самара",
+      "target_city_ui_id": "36401",
+      "flow_kind": "business_option",
+      "source_page_url": "https://rtk-home.ru/",
+      "entry_url": "https://rtk-home.ru/",
+      "source_refs": [
+        "user-approved Place pilot scope 2026-09-21"
+      ],
+      "status": "active",
+      "verification": "Legacy checkaddress/Place locator profile imported from Everyday_test and Big_landing_test for the 23-URL pilot.",
+      "region": {
+        "mode": "popup_selection",
+        "business_url": "https://rtk-home.ru/",
+        "indicator": "span#autocomplete_city_name.autocomplete-city-name",
+        "trigger": ".autocomplete-city-change.button-select-city, .autocomplete-city.button-select-city, span#autocomplete_city_name.button-select-city, .button-select-city",
+        "popup": "#popup-select-city",
+        "search": "input#city-input.popup-select-city__input",
+        "choice": "a.region_item.region_link[id='36401']",
+        "choice_url": "https://rtk-home.ru/samara",
+        "after_choice_url": "https://rtk-home.ru/"
+      },
+      "form": {
+        "selector": "form:has(.checkaddress_address_street):has(.checkaddress_address_house)",
+        "trigger": ".checkaddress_address_button",
+        "submit": ".checkaddress_address_button_send",
+        "fields": [
+          {
+            "selector": ".checkaddress_address_street",
+            "data_key": "street",
+            "suggestion": "div.autocomplete-street:visible"
+          },
+          {
+            "selector": ".checkaddress_address_house",
+            "data_key": "house",
+            "suggestion": "#house-list div.autocomplete-item:visible"
+          },
+          {
+            "selector": ".checkaddress_address_phone",
+            "data_key": "phone"
+          }
+        ],
+        "business_control": {
+          "kind": "auto",
+          "selector": "select[name='Place'], input[name='Place'][value='Для бизнеса'], input[name='Place'][value='В офис']"
+        }
+      },
+      "confirmation": {
+        "kind": "url_contains",
+        "value": "/thanks"
+      }
     }
   ]
 }
