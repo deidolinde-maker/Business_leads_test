@@ -16,6 +16,21 @@ def subscriber_digits(displayed_value: str) -> str:
 class FormAdapter:
     def open_form(self, page, case, deadline):
         cfg = case["form"]
+        # Legacy suites wait for delayed region/cookie overlays before opening
+        # checkaddress.  Reuse the same selectors so the form is not covered.
+        page.wait_for_timeout(600)
+        overlay_selectors = [
+            "#noButton", "#yesButton",
+            ".popup-select-region__button.city",
+            ".popup-select-region__content-wrapper .popup__close",
+            "#cookieButton", "#cookieAccept", ".cookie-btn", "#cookie-accept",
+            ".cookie-accept", ".t886__btn",
+        ]
+        for selector in overlay_selectors:
+            overlay = page.locator(selector).first
+            if overlay.count() == 1 and overlay.is_visible():
+                overlay.click(force=True, timeout=deadline.ms())
+                page.wait_for_timeout(300)
         for selector in cfg.get("dismiss", []):
             overlay_close = page.locator(selector)
             if overlay_close.count() == 1 and overlay_close.is_visible():
