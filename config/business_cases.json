@@ -4008,7 +4008,7 @@
       },
       "confirmation": {
         "kind": "url_contains",
-        "value": "/thanks"
+        "value": "/tilda/form1/submitted"
       },
       "verification": "User-confirmed business-popup domain rollout 2026-09-18; shared dedicated business popup UI contract."
     },

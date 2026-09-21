@@ -201,6 +201,10 @@ def test_rtk_home_business_popup_uses_verified_city_trigger():
         "span#autocomplete_city_name.autocomplete-city-name."
         "button-select-city.checkaddress_address_button_change_city"
     )
+    assert case["confirmation"] == {
+        "kind": "url_contains",
+        "value": "/tilda/form1/submitted",
+    }
 
 
 def test_imported_scope_retains_samara_targets_and_provenance():
