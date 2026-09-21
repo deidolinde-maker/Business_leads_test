@@ -401,7 +401,7 @@
       },
       "confirmation": {
         "kind": "url_contains",
-        "value": "/thanks"
+        "value": "/tilda/form1/submitted"
       }
     },
     {
@@ -578,7 +578,7 @@
       },
       "confirmation": {
         "kind": "url_contains",
-        "value": "/thanks"
+        "value": "/tilda/form1/submitted"
       }
     },
     {
@@ -753,7 +753,7 @@
       },
       "confirmation": {
         "kind": "url_contains",
-        "value": "/thanks"
+        "value": "/tilda/form1/submitted"
       }
     },
     {
@@ -812,7 +812,7 @@
       "verification": "Legacy checkaddress/Place locator profile imported from Everyday_test and Big_landing_test for the 23-URL pilot.",
       "confirmation": {
         "kind": "url_contains",
-        "value": "/thanks"
+        "value": "/tilda/form1/submitted"
       }
     },
     {
@@ -1459,6 +1459,7 @@
     }
   ]
 }
+
 
 
 
