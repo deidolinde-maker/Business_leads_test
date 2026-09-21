@@ -460,7 +460,7 @@
       },
       "confirmation": {
         "kind": "url_contains",
-        "value": "/thanks"
+        "value": "/tilda/form1/submitted"
       }
     },
     {
@@ -519,7 +519,7 @@
       },
       "confirmation": {
         "kind": "url_contains",
-        "value": "/thanks"
+        "value": "/tilda/form1/submitted"
       }
     },
     {
@@ -635,7 +635,7 @@
       },
       "confirmation": {
         "kind": "url_contains",
-        "value": "/thanks"
+        "value": "/tilda/form1/submitted"
       }
     },
     {
@@ -1457,6 +1457,7 @@
     }
   ]
 }
+
 
 
 

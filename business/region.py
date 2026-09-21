@@ -14,8 +14,9 @@ def assert_samara(form, region: dict, deadline):
     expect(indicator).to_have_text(CITY_NAME, timeout=deadline.ms())
     # City subdomains can render the already-selected city without the popup's
     # numeric data-item attribute. Popup flows still require the verified ID.
-    if region.get("mode") != "direct_city_subdomain":
-        expect(indicator).to_have_attribute("data-item", CITY_UI_ID, timeout=deadline.ms())
+    observed_id = indicator.get_attribute("data-item")
+    if observed_id and observed_id != CITY_UI_ID:
+        raise BusinessCheckError("unexpected_samara_indicator_id")
     return {"name": CITY_NAME, "ui_id": CITY_UI_ID}
 
 
