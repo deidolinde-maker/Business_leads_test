@@ -925,11 +925,11 @@
       "target_city": "Самара",
       "target_city_ui_id": "36401",
       "flow_kind": "business_option",
-      "source_page_url": "https://moskva.beeline-ru.online/",
+      "source_page_url": "https://samara.beeline-ru.online/",
       "entry_url": null,
       "status": "blocked",
       "region": null,
-      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "reason": "Selected for the next pilot; exact Samara form/control and submission contract still require verification before activation.",
       "source_refs": [
         "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/beeline.txt#L21"
       ]
@@ -1459,9 +1459,9 @@
       "flow_kind": "business_option",
       "source_page_url": "https://moskva.providerdom.ru/domashnij-internet/",
       "entry_url": null,
-      "status": "blocked",
+      "status": "excluded",
       "region": null,
-      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "reason": "Removed from the pilot list by user request on 2026-09-21.",
       "source_refs": [
         "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/domru.txt#L6"
       ]
@@ -4655,9 +4655,9 @@
       "flow_kind": "business_option",
       "source_page_url": "https://t2-ru.online/besplatnyj-domashnij-internet-tele2",
       "entry_url": null,
-      "status": "blocked",
+      "status": "excluded",
       "region": null,
-      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "reason": "Removed from the pilot list by user request on 2026-09-21.",
       "source_refs": [
         "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/t2.txt#L4"
       ]
@@ -4703,9 +4703,9 @@
       "flow_kind": "business_option",
       "source_page_url": "https://t2-ru.online/mobilnaya-svyaz",
       "entry_url": null,
-      "status": "blocked",
+      "status": "excluded",
       "region": null,
-      "reason": "Needs verified Samara route, exact form/control and submission region contract; source exclusions retained in inventory",
+      "reason": "Removed from the pilot list by user request on 2026-09-21.",
       "source_refs": [
         "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/t2.txt#L8"
       ]
