@@ -42,6 +42,21 @@ def set_business(form, case, deadline, exercise_variants: bool = False):
         for value in values:
             target.select_option(value=value, timeout=deadline.ms())
             expect(target).to_have_value(value, timeout=deadline.ms())
+    elif kind == "button":
+        target.click(timeout=deadline.ms())
+        if control.get("selected_attribute") and control.get("selected_value"):
+            expect(target).to_have_attribute(
+                control["selected_attribute"], control["selected_value"], timeout=deadline.ms()
+            )
+    elif kind == "custom_select":
+        trigger = form.locator(control["trigger"])
+        option = form.locator(control["business_option"])
+        expect(trigger).to_have_count(1, timeout=deadline.ms())
+        trigger.click(timeout=deadline.ms())
+        expect(option).to_have_count(1, timeout=deadline.ms())
+        option.click(timeout=deadline.ms())
+        if control.get("selected_text"):
+            expect(trigger).to_contain_text(control["selected_text"], timeout=deadline.ms())
     else:
         raise ConfigurationError("unsupported business control")
     assert_business(form, case, deadline)
@@ -53,5 +68,9 @@ def assert_business(form, case, deadline):
         target = form.locator(control["selector"])
         if control["kind"] == "select":
             expect(target).to_have_value(control["business_value"], timeout=deadline.ms())
-        else:
+        elif control["kind"] in {"checkbox", "radio"}:
             expect(target).to_be_checked(timeout=deadline.ms())
+        elif control["kind"] == "button" and control.get("selected_attribute") and control.get("selected_value"):
+            expect(target).to_have_attribute(control["selected_attribute"], control["selected_value"], timeout=deadline.ms())
+        elif control["kind"] == "custom_select" and control.get("selected_text"):
+            expect(form.locator(control["trigger"])).to_contain_text(control["selected_text"], timeout=deadline.ms())
