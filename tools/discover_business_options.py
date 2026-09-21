@@ -105,16 +105,28 @@ async def inspect_one(browser, candidate: dict, timeout_ms: int) -> dict:
                 }
                 return text(el.closest('label'));
               };
-              const controls = [...document.querySelectorAll('select, input[type="checkbox"], input[type="radio"]')]
+              const controls = [...document.querySelectorAll(
+                'select, input[type="checkbox"], input[type="radio"], '
+                + 'button.SegmentItem[data-segment], .custom-select-trigger, '
+                + 'li[data-value]'
+              )]
                 .filter(visible)
                 .map(el => ({
                   tag: el.tagName.toLowerCase(), type: el.type || null, name: el.name || null,
-                  id: el.id || null, value: el.value || null, label: label(el),
+                  id: el.id || null, value: el.value || el.dataset.value || el.dataset.segment || null,
+                  label: label(el) || text(el),
                   form_action: el.form ? el.form.action.split('?')[0] : null,
                   form_class: el.form ? [...el.form.classList]
                     .filter(name => !['init', 'resetting', 'sent', 'invalid', 'failed', 'spam'].includes(name))
                     .sort().join(' ') || null : null,
-                  options: el.tagName === 'SELECT' ? [...el.options].map(option => option.value) : [],
+                  options: el.tagName === 'SELECT'
+                    ? [...el.options].map(option => option.value)
+                    : (el.matches('li[data-value]')
+                      ? [el.dataset.value]
+                      : (el.matches('.custom-select-trigger')
+                        ? [...(el.parentElement || el).querySelectorAll('li[data-value]')]
+                          .map(option => option.dataset.value)
+                        : [])),
                 }))
                 .filter(control => /для бизнеса|бизнес|офис/i.test([control.value, control.label, ...control.options].filter(Boolean).join(' ')));
               const cityIndicator = document.querySelector('#autocomplete_city_name');
