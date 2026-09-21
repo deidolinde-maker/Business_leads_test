@@ -11,6 +11,19 @@ def set_business(form, case, deadline, exercise_variants: bool = False):
     target = form.locator(control["selector"])
     expect(target).to_have_count(1, timeout=deadline.ms())
 
+    if kind == "auto":
+        tag = (target.evaluate("el => el.tagName.toLowerCase()") or "").lower()
+        if tag == "select":
+            kind = "select"
+        elif tag == "input" and (target.get_attribute("type") or "").lower() in {"radio", "checkbox"}:
+            kind = (target.get_attribute("type") or "radio").lower()
+        elif target.locator("xpath=ancestor-or-self::button").count() > 0:
+            kind = "button"
+        elif target.get_attribute("class") and "custom-select-trigger" in target.get_attribute("class"):
+            kind = "custom_select"
+        else:
+            raise ConfigurationError("auto business control type could not be detected")
+
     def select(locator, wanted, click_selector=None):
         if click_selector:
             if locator.is_checked() != wanted:
