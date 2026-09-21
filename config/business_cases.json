@@ -3981,7 +3981,7 @@
         "mode": "popup_selection",
         "business_url": "https://rtk-home.ru/business",
         "indicator": "span#autocomplete_city_name.autocomplete-city-name",
-        "trigger": ".autocomplete-city-change.button-select-city, .autocomplete-city.button-select-city",
+        "trigger": "span#autocomplete_city_name.autocomplete-city-name.button-select-city.checkaddress_address_button_change_city",
         "popup": "#popup-select-city",
         "search": "input#city-input.popup-select-city__input",
         "choice": "a.region_item.region_link[id='36401']",

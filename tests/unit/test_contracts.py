@@ -192,6 +192,17 @@ def test_mts_option_uses_popup_relative_samara_locators():
     ]
 
 
+def test_rtk_home_business_popup_uses_verified_city_trigger():
+    case = next(
+        case for case in load_cases()
+        if case["case_id"] == "rostelecom-business_page-56b694534a4d"
+    )
+    assert case["region"]["trigger"] == (
+        "span#autocomplete_city_name.autocomplete-city-name."
+        "button-select-city.checkaddress_address_button_change_city"
+    )
+
+
 def test_imported_scope_retains_samara_targets_and_provenance():
     cases = load_cases()
     assert cases
