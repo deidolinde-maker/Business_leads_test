@@ -1016,7 +1016,7 @@
         "after_choice_url": "https://rtk-home.ru/"
       },
       "form": {
-        "selector": "form[data-address-autocomplete-initialized]:visible",
+        "selector": "form:has(input[name='_wpcf7_unit_tag'][value='wpcf7-f5304-o1']):visible",
         "trigger": ".checkaddress_address_button",
         "submit": "input.checkaddress_address_button_send:visible",
         "fields": [
