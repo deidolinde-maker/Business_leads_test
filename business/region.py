@@ -21,7 +21,9 @@ def assert_samara(form, region: dict, deadline, *, allow_unrendered=False):
             return {"name": CITY_NAME, "ui_id": CITY_UI_ID, "source": "verified_choice"}
     expect(indicator).to_have_count(1, timeout=deadline.ms())
     expect(indicator).to_be_visible(timeout=deadline.ms())
-    expect(indicator).to_have_text(CITY_NAME, timeout=deadline.ms())
+    # Providers often render a prefix/suffix (for example "г. Самара").
+    # The city name itself is the business assertion.
+    expect(indicator).to_contain_text(CITY_NAME, timeout=deadline.ms())
     # City subdomains can render the already-selected city without the popup's
     # numeric data-item attribute. Popup flows still require the verified ID.
     observed_id = indicator.get_attribute("data-item")

@@ -73,16 +73,22 @@ class FormAdapter:
                 # This mask ignores atomic fill() and can also lose the first key if
                 # typing starts while focus initialization is still in progress.
                 # Focus it first, let the mask initialize, then type all ten digits.
-                locator.click(timeout=deadline.ms())
+                locator.click(force=True, timeout=deadline.ms())
                 form.page.wait_for_timeout(250)
                 try:
-                    locator.press_sequentially(value, delay=50, timeout=deadline.ms())
+                    locator.press_sequentially(value, delay=50, timeout=min(8_000, deadline.ms()))
                 except PlaywrightTimeoutError:
-                    # React masks may replace the input while it is focused.
-                    # Re-resolve it and use the native input event fallback.
+                    # Masked inputs can be replaced after focus. Re-resolve and
+                    # retry once with the same real-key path used by Everyday_test.
                     locator = form.locator(field["selector"])
                     expect(locator).to_have_count(1, timeout=deadline.ms())
-                    locator.fill(value, timeout=deadline.ms())
+                    locator.click(force=True, timeout=deadline.ms())
+                    try:
+                        locator.press("Control+A", timeout=min(2_000, deadline.ms()))
+                        locator.fill("", timeout=min(2_000, deadline.ms()))
+                    except PlaywrightTimeoutError:
+                        pass
+                    locator.press_sequentially(value, delay=80, timeout=min(8_000, deadline.ms()))
                 form.page.wait_for_timeout(200)
                 locator.blur(timeout=deadline.ms())
                 deadline.mark("fill.phone.complete")
