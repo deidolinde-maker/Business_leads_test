@@ -111,12 +111,29 @@ class FormAdapter:
                 # suggestion is valid for this flow; selecting it is the
                 # important part (street and house labels vary by provider).
                 suggestion = candidates.first
-                form.page.wait_for_timeout(300)
+                form.page.wait_for_timeout(int(field.get("suggestion_delay_ms", 300)))
                 expect(suggestion).to_be_visible(timeout=deadline.ms())
                 if field.get("suggestion_text_key"):
                     expected_text = str(data[field["suggestion_text_key"]])
                     expect(suggestion).to_contain_text(expected_text, timeout=deadline.ms())
                 suggestion.click(timeout=deadline.ms())
+                # Address widgets update hidden IDs and unlock the house input
+                # asynchronously after the visible suggestion click.  Do not
+                # continue to phone/submit while that update is still pending.
+                if key in {"street", "house"}:
+                    form.page.wait_for_timeout(800)
+                    refreshed = form.locator(field["selector"])
+                    if key == "house":
+                        try:
+                            expect(refreshed).to_be_enabled(timeout=min(5_000, deadline.ms()))
+                        except PlaywrightTimeoutError:
+                            # A delayed list can rerender the item after the
+                            # first click; select the current visible item once more.
+                            retry = form.page.locator(field["suggestion"]).first
+                            expect(retry).to_be_visible(timeout=deadline.ms())
+                            retry.click(force=True, timeout=deadline.ms())
+                            expect(refreshed).to_be_enabled(timeout=deadline.ms())
+                    expect(refreshed).not_to_have_value("", timeout=deadline.ms())
         for consent in case["form"].get("consents", []):
             box = form.locator(consent["selector"])
             if consent.get("click_selector"):
