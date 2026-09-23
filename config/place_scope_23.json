@@ -837,22 +837,22 @@
         "after_choice_url": "https://mts-home.online/"
       },
       "form": {
-        "selector": "form:has(input[name='_wpcf7_unit_tag'][value='wpcf7-f1645-o1'])",
+        "selector": "form.checkaddress:visible",
         "trigger": ".checkaddress_address_button",
-        "submit": ".checkaddress_address_button_send",
+        "submit": "input[type='submit']:visible",
         "fields": [
           {
-            "selector": ".checkaddress_address_street",
+            "selector": "input[name='AddresStreet']:visible",
             "data_key": "street",
             "suggestion": "div.autocomplete-street:visible"
           },
           {
-            "selector": ".checkaddress_address_house",
+            "selector": "input[name='AddresHouse']:visible",
             "data_key": "house",
             "suggestion": "#house-list div.autocomplete-item:visible"
           },
           {
-            "selector": ".checkaddress_address_phone",
+            "selector": "input[name='Phone']:visible",
             "data_key": "phone"
           }
         ],
@@ -1016,22 +1016,22 @@
         "after_choice_url": "https://rtk-home.ru/"
       },
       "form": {
-        "selector": "form:has(input[name='_wpcf7_unit_tag'][value='wpcf7-f5304-o1'])",
+        "selector": "form[data-address-autocomplete-initialized]:visible",
         "trigger": ".checkaddress_address_button",
-        "submit": ".checkaddress_address_button_send",
+        "submit": "input.checkaddress_address_button_send:visible",
         "fields": [
           {
-            "selector": ".checkaddress_address_street",
+            "selector": "input[name='AddresStreet']:visible",
             "data_key": "street",
             "suggestion": "div.autocomplete-street:visible"
           },
           {
-            "selector": ".checkaddress_address_house",
+            "selector": "input[name='AddresHouse']:visible",
             "data_key": "house",
             "suggestion": "#house-list div.autocomplete-item:visible"
           },
           {
-            "selector": ".checkaddress_address_phone",
+            "selector": "input[name='Phone']:visible",
             "data_key": "phone"
           }
         ],
