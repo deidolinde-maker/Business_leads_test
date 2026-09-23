@@ -43,7 +43,7 @@ def _submit_and_confirm(page, form, case, deadline):
             submit.click(force=True, timeout=deadline.ms())
         except Exception as exc:
             last_error = exc
-            # CF7/Tilda can replace the button while validating the address.
+            # Страница может заменить кнопку во время проверки адреса.
             submit = form.locator(case["form"]["submit"]).first
             expect(submit).to_be_visible(timeout=deadline.ms())
             expect(submit).to_be_enabled(timeout=deadline.ms())
