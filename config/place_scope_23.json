@@ -968,15 +968,15 @@
         "submit": "button[type='submit'], input.checkaddress_address_button_send",
         "fields": [
           {
-            "selector": "input[name='Street']",
+            "selector": "input[name='Street']:visible",
             "data_key": "street"
           },
           {
-            "selector": "input[name='House']",
+            "selector": "input[name='House']:visible",
             "data_key": "house"
           },
           {
-            "selector": "input[name='Phone']",
+            "selector": "input[name='Phone']:visible",
             "data_key": "phone"
           }
         ],
@@ -1132,7 +1132,7 @@
       ],
       "verification": "Legacy checkaddress/Place locator profile imported from Everyday_test and Big_landing_test for the 23-URL pilot.",
       "form": {
-        "selector": "form:has(input[name='_wpcf7_unit_tag'][value='wpcf7-f13-o3'])",
+        "selector": "form:has(input[name='_wpcf7_unit_tag'][value='wpcf7-f281-o1'])",
         "trigger": ".checkaddress_address_button",
         "submit": ".checkaddress_address_button_send",
         "fields": [
