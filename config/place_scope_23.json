@@ -844,7 +844,7 @@
           {
             "selector": "input[name='AddresStreet']:visible",
             "data_key": "street",
-            "suggestion": "div.autocomplete-street:visible",
+            "suggestion": "#street-list div.autocomplete-item:visible",
             "suggestion_delay_ms": 1200
           },
           {
@@ -1025,7 +1025,7 @@
           {
             "selector": "input[name='AddresStreet']:visible",
             "data_key": "street",
-            "suggestion": "div.autocomplete-street:visible",
+            "suggestion": "#street-list div.autocomplete-item:visible",
             "suggestion_delay_ms": 1200
           },
           {
