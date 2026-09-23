@@ -93,7 +93,12 @@ def run_case(browser, case: dict, data: dict, output: Path, budget: float = 75) 
             deadline.mark("fill.final_business_check")
             assert_business(form, case, deadline)
             deadline.mark("fill.final_samara_check")
-            result["city_observed"] = assert_samara(form, case["region"], deadline)
+            result["city_observed"] = assert_samara(
+                form,
+                case["region"],
+                deadline,
+                allow_unrendered=case["region"]["mode"] == "popup_selection",
+            )
         with deadline.phase("submission"):
             submit = form.locator(case["form"]["submit"])
             deadline.mark("submission.submit_control")

@@ -4,6 +4,7 @@ from playwright.sync_api import expect
 
 from business.errors import BusinessCheckError, ConfigurationError
 from business.controls import assert_business
+from business.cases import CITY_NAME
 
 
 def subscriber_digits(displayed_value: str) -> str:
@@ -23,6 +24,7 @@ class FormAdapter:
             "#noButton", "#yesButton",
             ".popup-select-region__button.city",
             ".popup-select-region__content-wrapper .popup__close",
+            ".Backdrop[data-modal='city'] button.city",
             "#cookieButton", "#cookieAccept", ".cookie-btn", "#cookie-accept",
             ".cookie-accept", ".t886__btn",
         ]
@@ -84,7 +86,23 @@ class FormAdapter:
             # A real, exact Samara address suggestion must come from the case/data contract.
             if field.get("suggestion"):
                 deadline.mark(f"fill.{key}.suggestion")
-                suggestion = form.page.locator(field["suggestion"]).first
+                candidates = form.page.locator(field["suggestion"])
+                # Address APIs return several cities for the same street name.
+                # Select the Samara item itself instead of the first result
+                # (which is often the same street in another locality).
+                if key == "street":
+                    city_items = form.page.locator("div.autocomplete-item:visible").filter(
+                        has_text=re.compile(rf"\b{re.escape(CITY_NAME)}\b")
+                    )
+                    if city_items.count():
+                        candidates = city_items
+                # House suggestions can contain 21/100 before the exact house
+                # 1. Match the complete displayed value, not a substring.
+                if key == "house":
+                    exact = candidates.filter(has_text=re.compile(rf"^\s*{re.escape(value)}\s*$"))
+                    if exact.count():
+                        candidates = exact
+                suggestion = candidates.first
                 form.page.wait_for_timeout(300)
                 expect(suggestion).to_be_visible(timeout=deadline.ms())
                 if field.get("suggestion_text_key"):

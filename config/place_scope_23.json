@@ -947,14 +947,15 @@
       "status": "active",
       "region": {
         "mode": "popup_selection",
-        "business_url": "https://mts-internet.online/",
+        "business_url": "https://mts-internet.online/samara",
         "indicator": "span#autocomplete_city_name.autocomplete-city-name",
-        "trigger": ".autocomplete-city-change.button-select-city, .autocomplete-city.button-select-city, span#autocomplete_city_name.button-select-city, .button-select-city",
-        "popup": "#popup-select-city",
-        "search": "input#city-input.popup-select-city__input",
-        "choice": "a.region_item.region_link[id='36401']",
+        "trigger": ".popup-select-region__button.city, .button-select-city",
+        "popup": ".popup-select-region.is-open",
+        "search": "input.popup-select-region__input",
+        "choice": "a.popup-select-region__item[data-region-id='36401']",
+        "choice_id_attribute": "data-region-id",
         "choice_url": "https://mts-internet.online/samara",
-        "after_choice_url": "https://mts-internet.online/"
+        "after_choice_url": "https://mts-internet.online/samara"
       },
       "source_refs": [
         "https://github.com/deidolinde-maker/Everyday_test/blob/8e87c77a79430e1a54b110682cf9f7912a29cac5/config/providers/mts.py#L4",

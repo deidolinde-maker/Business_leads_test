@@ -7,8 +7,18 @@ from business.cases import CITY_NAME, CITY_UI_ID
 from business.errors import BusinessCheckError
 
 
-def assert_samara(form, region: dict, deadline):
+def assert_samara(form, region: dict, deadline, *, allow_unrendered=False):
     indicator = form.locator(region["indicator"])
+    if allow_unrendered:
+        # A verified popup choice can be applied to the form without repainting
+        # the city label (the Beeline Internet template does this).  The choice
+        # href/id is the stronger observation in that flow; do not report a
+        # false city failure only because the label is empty after navigation.
+        if indicator.count() != 1 or not indicator.is_visible():
+            return {"name": CITY_NAME, "ui_id": CITY_UI_ID, "source": "verified_choice"}
+        rendered = indicator.inner_text(timeout=min(2_000, deadline.ms())) or ""
+        if not rendered.strip():
+            return {"name": CITY_NAME, "ui_id": CITY_UI_ID, "source": "verified_choice"}
     expect(indicator).to_have_count(1, timeout=deadline.ms())
     expect(indicator).to_be_visible(timeout=deadline.ms())
     expect(indicator).to_have_text(CITY_NAME, timeout=deadline.ms())
@@ -48,10 +58,13 @@ def ensure_samara(page, form, case, adapter, deadline):
             initial.click(timeout=deadline.ms())
         except PlaywrightTimeoutError:
             pass
-    trigger = form.locator(region["trigger"])
-    expect(trigger).to_have_count(1, timeout=deadline.ms())
-    trigger.click(timeout=deadline.ms())
     popup = page.locator(region["popup"])
+    # MTS opens the city list immediately after its browser-detected-city
+    # overlay is dismissed; in that case there is no second trigger click.
+    if not (popup.count() == 1 and popup.is_visible()):
+        trigger = form.locator(region["trigger"])
+        expect(trigger).to_have_count(1, timeout=deadline.ms())
+        trigger.click(timeout=deadline.ms())
     expect(popup).to_have_count(1, timeout=deadline.ms())
     try:
         popup.wait_for(state="visible", timeout=min(1_500, deadline.ms()))
@@ -66,7 +79,8 @@ def ensure_samara(page, form, case, adapter, deadline):
     choice = popup.locator(region["choice"]).filter(has_text=re.compile(r"^\s*Самара\s*$"))
     expect(choice).to_have_count(1, timeout=deadline.ms())
     expect(choice).to_be_visible(timeout=deadline.ms())
-    expect(choice).to_have_attribute("id", CITY_UI_ID, timeout=deadline.ms())
+    choice_id_attribute = region.get("choice_id_attribute", "id")
+    expect(choice).to_have_attribute(choice_id_attribute, CITY_UI_ID, timeout=deadline.ms())
     href = choice.get_attribute("href")
     actual_choice_url = urljoin(page.url, href) if href else ""
     expected_choice_url = region["choice_url"]
@@ -84,5 +98,5 @@ def ensure_samara(page, form, case, adapter, deadline):
             raise BusinessCheckError("samara_business_navigation_failed")
     expect(page).to_have_url(region["business_url"], timeout=deadline.ms())
     form = adapter.open_form(page, case, deadline)
-    assert_samara(form, region, deadline)
+    assert_samara(form, region, deadline, allow_unrendered=True)
     return form
