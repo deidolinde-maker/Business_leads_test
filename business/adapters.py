@@ -116,13 +116,16 @@ class FormAdapter:
                 if field.get("suggestion_text_key"):
                     expected_text = str(data[field["suggestion_text_key"]])
                     expect(suggestion).to_contain_text(expected_text, timeout=deadline.ms())
-                suggestion.click(timeout=deadline.ms())
+                suggestion.click(force=True, timeout=deadline.ms())
                 # Address widgets update hidden IDs and unlock the house input
                 # asynchronously after the visible suggestion click.  Do not
                 # continue to phone/submit while that update is still pending.
                 if key in {"street", "house"}:
                     form.page.wait_for_timeout(800)
                     refreshed = form.locator(field["selector"])
+                    hidden_name = "IStreet" if key == "street" else "IHouse"
+                    hidden = form.locator(f"input[name='{hidden_name}']")
+                    hidden_present = hidden.count() == 1
                     if key == "house":
                         try:
                             expect(refreshed).to_be_enabled(timeout=min(5_000, deadline.ms()))
@@ -133,6 +136,14 @@ class FormAdapter:
                             expect(retry).to_be_visible(timeout=deadline.ms())
                             retry.click(force=True, timeout=deadline.ms())
                             expect(refreshed).to_be_enabled(timeout=deadline.ms())
+                    if hidden_present:
+                        try:
+                            expect(hidden).not_to_have_value("", timeout=min(5_000, deadline.ms()))
+                        except PlaywrightTimeoutError:
+                            retry = form.page.locator(field["suggestion"]).first
+                            expect(retry).to_be_visible(timeout=deadline.ms())
+                            retry.click(force=True, timeout=deadline.ms())
+                            expect(hidden).not_to_have_value("", timeout=deadline.ms())
                     expect(refreshed).not_to_have_value("", timeout=deadline.ms())
         for consent in case["form"].get("consents", []):
             box = form.locator(consent["selector"])
