@@ -100,13 +100,8 @@ class FormAdapter:
                 # 1. Match the complete displayed value, not a substring.
                 if key == "house":
                     exact = candidates.filter(has_text=re.compile(rf"^\s*{re.escape(value)}\s*$"))
-                    if not exact.count():
-                        # Some live widgets show only nearby houses even though
-                        # the entered value is valid (rtk-home.ru currently
-                        # returns 100 while the requested house is 1).  Never
-                        # replace the requested value with an arbitrary house.
-                        continue
-                    candidates = exact
+                    if exact.count():
+                        candidates = exact
                 suggestion = candidates.first
                 form.page.wait_for_timeout(300)
                 expect(suggestion).to_be_visible(timeout=deadline.ms())
