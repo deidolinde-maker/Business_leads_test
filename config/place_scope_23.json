@@ -1371,17 +1371,17 @@
         "submit": ".checkaddress_address_button_send",
         "fields": [
           {
-            "selector": ".checkaddress_address_street",
+            "selector": "input[name='AddresStreet']:visible",
             "data_key": "street",
             "suggestion": "div.autocomplete-street:visible"
           },
           {
-            "selector": ".checkaddress_address_house",
+            "selector": "input[name='AddresHouse']:visible",
             "data_key": "house",
             "suggestion": "#house-list div.autocomplete-item:visible"
           },
           {
-            "selector": ".checkaddress_address_phone",
+            "selector": "input[name='Phone']:visible",
             "data_key": "phone"
           }
         ],
@@ -1431,24 +1431,24 @@
         "submit": ".checkaddress_address_button_send",
         "fields": [
           {
-            "selector": ".checkaddress_address_street",
+            "selector": "input[name='AddresStreet']:visible",
             "data_key": "street",
             "suggestion": "div.autocomplete-street:visible"
           },
           {
-            "selector": ".checkaddress_address_house",
+            "selector": "input[name='AddresHouse']:visible",
             "data_key": "house",
             "suggestion": "#house-list div.autocomplete-item:visible"
           },
           {
-            "selector": ".checkaddress_address_phone",
+            "selector": "input[name='Phone']:visible",
             "data_key": "phone"
           }
         ],
         "business_control": {
           "kind": "radio",
-          "selector": "input[name='Place'][value='В офис']",
-          "alternative": "input[name='Place'][value='В квартиру']"
+          "selector": "input[name='Place'][value='В офис']:visible",
+          "alternative": "input[name='Place'][value='В квартиру']:visible"
         }
       },
       "confirmation": {
