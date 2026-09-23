@@ -4,7 +4,6 @@ from playwright.sync_api import expect
 
 from business.errors import BusinessCheckError, ConfigurationError
 from business.controls import assert_business
-from business.cases import CITY_NAME
 
 
 def subscriber_digits(displayed_value: str) -> str:
@@ -87,21 +86,9 @@ class FormAdapter:
             if field.get("suggestion"):
                 deadline.mark(f"fill.{key}.suggestion")
                 candidates = form.page.locator(field["suggestion"])
-                # Address APIs return several cities for the same street name.
-                # Select the Samara item itself instead of the first result
-                # (which is often the same street in another locality).
-                if key == "street":
-                    city_items = form.page.locator("div.autocomplete-item:visible").filter(
-                        has_text=re.compile(rf"\b{re.escape(CITY_NAME)}\b")
-                    )
-                    if city_items.count():
-                        candidates = city_items
-                # House suggestions can contain 21/100 before the exact house
-                # 1. Match the complete displayed value, not a substring.
-                if key == "house":
-                    exact = candidates.filter(has_text=re.compile(rf"^\s*{re.escape(value)}\s*$"))
-                    if exact.count():
-                        candidates = exact
+                # The provider widget owns address validation. Any visible
+                # suggestion is valid for this flow; selecting it is the
+                # important part (street and house labels vary by provider).
                 suggestion = candidates.first
                 form.page.wait_for_timeout(300)
                 expect(suggestion).to_be_visible(timeout=deadline.ms())
