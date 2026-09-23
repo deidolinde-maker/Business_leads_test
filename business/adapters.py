@@ -1,6 +1,6 @@
 import re
 
-from playwright.sync_api import expect
+from playwright.sync_api import TimeoutError as PlaywrightTimeoutError, expect
 
 from business.errors import BusinessCheckError, ConfigurationError
 from business.controls import assert_business
@@ -38,6 +38,14 @@ class FormAdapter:
                 overlay_close.click(timeout=deadline.ms())
         form = page.locator(cfg["selector"])
         if not (form.count() == 1 and form.is_visible()):
+            # Some landing templates hydrate the target form after the first
+            # paint. Give the direct form a short chance to appear before
+            # clicking a separate opener (TTK does this on /samara).
+            try:
+                form.first.wait_for(state="visible", timeout=min(3_000, deadline.ms()))
+            except PlaywrightTimeoutError:
+                pass
+        if not (form.count() == 1 and form.is_visible()):
             if not cfg.get("trigger"):
                 raise BusinessCheckError("target_form_not_visible_and_no_trigger")
             trigger = page.locator(cfg["trigger"])
@@ -67,7 +75,14 @@ class FormAdapter:
                 # Focus it first, let the mask initialize, then type all ten digits.
                 locator.click(timeout=deadline.ms())
                 form.page.wait_for_timeout(250)
-                locator.press_sequentially(value, delay=50, timeout=deadline.ms())
+                try:
+                    locator.press_sequentially(value, delay=50, timeout=deadline.ms())
+                except PlaywrightTimeoutError:
+                    # React masks may replace the input while it is focused.
+                    # Re-resolve it and use the native input event fallback.
+                    locator = form.locator(field["selector"])
+                    expect(locator).to_have_count(1, timeout=deadline.ms())
+                    locator.fill(value, timeout=deadline.ms())
                 form.page.wait_for_timeout(200)
                 locator.blur(timeout=deadline.ms())
                 deadline.mark("fill.phone.complete")

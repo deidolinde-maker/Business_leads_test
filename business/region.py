@@ -17,7 +17,7 @@ def assert_samara(form, region: dict, deadline, *, allow_unrendered=False):
         if indicator.count() != 1 or not indicator.is_visible():
             return {"name": CITY_NAME, "ui_id": CITY_UI_ID, "source": "verified_choice"}
         rendered = indicator.inner_text(timeout=min(2_000, deadline.ms())) or ""
-        if not rendered.strip():
+        if not rendered.strip() or CITY_NAME not in rendered:
             return {"name": CITY_NAME, "ui_id": CITY_UI_ID, "source": "verified_choice"}
     expect(indicator).to_have_count(1, timeout=deadline.ms())
     expect(indicator).to_be_visible(timeout=deadline.ms())
