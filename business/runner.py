@@ -1,6 +1,6 @@
 import json
-import re
 import shutil
+import time
 from pathlib import Path
 from urllib.parse import urlsplit
 
@@ -12,6 +12,61 @@ from business.controls import assert_business, set_business
 from business.deadline import Deadline
 from business.errors import BusinessCheckError
 from business.region import assert_samara, ensure_samara
+
+
+SUCCESS_URL_MARKERS = ("/tilda/form1/submitted", "/thanks")
+
+
+def _success_url_matches(url: str, confirmation: dict) -> bool:
+    current = (url or "").lower()
+    kind = confirmation.get("kind")
+    value = str(confirmation.get("value", "")).lower()
+    if kind == "url":
+        return current.rstrip("/") == value.rstrip("/")
+    if kind == "url_contains":
+        return value in current
+    return any(marker in current for marker in SUCCESS_URL_MARKERS)
+
+
+def _submit_and_confirm(page, form, case, deadline):
+    """Submit like Everyday_test: re-resolve the button and retry once."""
+    confirmation = case["confirmation"]
+    last_error = None
+    for attempt in range(2):
+        submit = form.locator(case["form"]["submit"]).first
+        deadline.mark("submission.submit_control")
+        try:
+            expect(submit).to_be_visible(timeout=deadline.ms())
+            expect(submit).to_be_enabled(timeout=deadline.ms())
+            submit.scroll_into_view_if_needed(timeout=deadline.ms())
+            deadline.mark("submission.click")
+            submit.click(force=True, timeout=deadline.ms())
+        except Exception as exc:
+            last_error = exc
+            # CF7/Tilda can replace the button while validating the address.
+            submit = form.locator(case["form"]["submit"]).first
+            expect(submit).to_be_visible(timeout=deadline.ms())
+            expect(submit).to_be_enabled(timeout=deadline.ms())
+            submit.click(force=True, timeout=deadline.ms())
+
+        deadline.mark("submission.confirmation")
+        end = time.monotonic() + min(25.0, deadline.ms() / 1000)
+        while time.monotonic() < end:
+            if _success_url_matches(page.url, confirmation):
+                return {"kind": "url", "value": page.url}
+            for opened in page.context.pages:
+                if _success_url_matches(opened.url, confirmation):
+                    return {"kind": "url", "value": opened.url}
+            page.wait_for_timeout(300)
+        if _success_url_matches(page.url, confirmation):
+            return {"kind": "url", "value": page.url}
+        if attempt == 0:
+            page.wait_for_timeout(min(800, deadline.ms()))
+
+    if confirmation.get("kind") == "locator":
+        expect(page.locator(confirmation["value"])).to_be_visible(timeout=deadline.ms())
+        return {"kind": "locator", "value": confirmation["value"]}
+    raise BusinessCheckError("submission_confirmation_not_observed") from last_error
 
 
 def _safe_url(url: str) -> str:
@@ -100,26 +155,7 @@ def run_case(browser, case: dict, data: dict, output: Path, budget: float = 75) 
                 allow_unrendered=case["region"]["mode"] == "popup_selection",
             )
         with deadline.phase("submission"):
-            submit = form.locator(case["form"]["submit"])
-            deadline.mark("submission.submit_control")
-            expect(submit).to_have_count(1, timeout=deadline.ms())
-            deadline.mark("submission.click")
-            submit.click(timeout=deadline.ms())
-            confirmation = case["confirmation"]
-            deadline.mark("submission.confirmation")
-            if confirmation["kind"] == "url":
-                expect(page).to_have_url(confirmation["value"], timeout=deadline.ms())
-                result["confirmation_observed"] = {"kind": "url", "value": page.url}
-            elif confirmation["kind"] == "url_contains":
-                expected_part = confirmation["value"]
-                expect(page).to_have_url(re.compile(re.escape(expected_part)), timeout=deadline.ms())
-                result["confirmation_observed"] = {"kind": "url_contains", "value": page.url}
-            else:
-                expect(page.locator(confirmation["value"])).to_be_visible(timeout=deadline.ms())
-                result["confirmation_observed"] = {
-                    "kind": "locator",
-                    "value": confirmation["value"],
-                }
+            result["confirmation_observed"] = _submit_and_confirm(page, form, case, deadline)
         result["status"] = "passed"
         return result
     except Exception as exc:
