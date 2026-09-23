@@ -73,11 +73,19 @@ class FormAdapter:
                 if subscriber_digits(locator.input_value(timeout=deadline.ms())) != value:
                     raise BusinessCheckError("phone_not_fully_entered")
             else:
-                locator.fill(value, timeout=deadline.ms())
+                # Address autocomplete widgets need real keystrokes to load
+                # street/house suggestions; atomic fill() can outrun them.
+                if key in {"street", "house"}:
+                    locator.click(timeout=deadline.ms())
+                    locator.press_sequentially(value, delay=80, timeout=deadline.ms())
+                    form.page.wait_for_timeout(500)
+                else:
+                    locator.fill(value, timeout=deadline.ms())
             # A real, exact Samara address suggestion must come from the case/data contract.
             if field.get("suggestion"):
                 deadline.mark(f"fill.{key}.suggestion")
                 suggestion = form.page.locator(field["suggestion"]).first
+                form.page.wait_for_timeout(300)
                 expect(suggestion).to_be_visible(timeout=deadline.ms())
                 if field.get("suggestion_text_key"):
                     expected_text = str(data[field["suggestion_text_key"]])

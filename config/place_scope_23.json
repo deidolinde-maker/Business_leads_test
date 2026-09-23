@@ -1136,17 +1136,17 @@
         "submit": ".checkaddress_address_button_send",
         "fields": [
           {
-            "selector": ".checkaddress_address_street",
+            "selector": "input[name='AddresStreet']",
             "data_key": "street",
             "suggestion": "div.autocomplete-street:visible"
           },
           {
-            "selector": ".checkaddress_address_house",
+            "selector": "input[name='AddresHouse']",
             "data_key": "house",
             "suggestion": "#house-list div.autocomplete-item:visible"
           },
           {
-            "selector": ".checkaddress_address_phone",
+            "selector": "input[name='Phone']",
             "data_key": "phone"
           }
         ],
@@ -1346,11 +1346,11 @@
       "target_city_ui_id": "36401",
       "flow_kind": "business_option",
       "source_page_url": "https://ttk-internet.ru/",
-      "entry_url": "https://ttk-internet.ru/",
+      "entry_url": "https://ttk-internet.ru/samara",
       "status": "active",
       "region": {
-        "mode": "popup_selection",
-        "business_url": "https://ttk-internet.ru/",
+        "mode": "direct_city_subdomain",
+        "business_url": "https://ttk-internet.ru/samara",
         "indicator": "span#autocomplete_city_name.autocomplete-city-name",
         "trigger": ".autocomplete-city-change.button-select-city, .autocomplete-city.button-select-city, span#autocomplete_city_name.button-select-city, .button-select-city",
         "popup": "#popup-select-city",
@@ -1405,11 +1405,11 @@
       "target_city_ui_id": "36401",
       "flow_kind": "business_option",
       "source_page_url": "https://ttk-ru.online/",
-      "entry_url": "https://ttk-ru.online/",
+      "entry_url": "https://ttk-ru.online/samara",
       "status": "active",
       "region": {
-        "mode": "popup_selection",
-        "business_url": "https://ttk-ru.online/",
+        "mode": "direct_city_subdomain",
+        "business_url": "https://ttk-ru.online/samara",
         "indicator": "span#autocomplete_city_name.autocomplete-city-name",
         "trigger": ".autocomplete-city-change.button-select-city, .autocomplete-city.button-select-city, span#autocomplete_city_name.button-select-city, .button-select-city",
         "popup": "#popup-select-city",
@@ -1457,6 +1457,8 @@
     }
   ]
 }
+
+
 
 
 

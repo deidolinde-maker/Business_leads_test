@@ -27,6 +27,16 @@ def ensure_samara(page, form, case, adapter, deadline):
         assert_samara(form, region, deadline)
         return form
 
+    # Some landing pages already have Samara selected when the browser opens.
+    # Do not reopen the picker and treat the unchanged popup as a failure.
+    indicator = form.locator(region["indicator"])
+    if indicator.count() == 1 and indicator.is_visible():
+        try:
+            if CITY_NAME in (indicator.inner_text(timeout=min(2_000, deadline.ms())) or ""):
+                return form
+        except Exception:
+            pass
+
     # Some landing pages first ask visitors to confirm the browser-detected
     # city. Close that prompt, then open the picker from the target form: on
     # Beeline this is what writes the selected city into that form's fields.
