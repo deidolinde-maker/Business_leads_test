@@ -21,11 +21,12 @@ def _success_url_matches(url: str, confirmation: dict) -> bool:
     current = (url or "").lower()
     kind = confirmation.get("kind")
     value = str(confirmation.get("value", "")).lower()
+    generic_success = any(marker in current for marker in SUCCESS_URL_MARKERS)
     if kind == "url":
-        return current.rstrip("/") == value.rstrip("/")
+        return current.rstrip("/") == value.rstrip("/") or generic_success
     if kind == "url_contains":
-        return value in current
-    return any(marker in current for marker in SUCCESS_URL_MARKERS)
+        return value in current or generic_success
+    return generic_success
 
 
 def _success_locator_matches(page, confirmation: dict) -> bool:
