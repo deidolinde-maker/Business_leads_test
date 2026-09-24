@@ -28,6 +28,16 @@ def _success_url_matches(url: str, confirmation: dict) -> bool:
     return any(marker in current for marker in SUCCESS_URL_MARKERS)
 
 
+def _success_locator_matches(page, confirmation: dict) -> bool:
+    if confirmation.get("kind") != "locator":
+        return False
+    try:
+        locator = page.locator(confirmation["value"]).first
+        return locator.count() > 0 and locator.is_visible()
+    except Exception:
+        return False
+
+
 def _submit_and_confirm(page, form, case, deadline):
     """Submit like Everyday_test: re-resolve the button and retry once."""
     confirmation = case["confirmation"]
@@ -62,6 +72,8 @@ def _submit_and_confirm(page, form, case, deadline):
         while time.monotonic() < end:
             if _success_url_matches(page.url, confirmation):
                 return {"kind": "url", "value": page.url}
+            if _success_locator_matches(page, confirmation):
+                return {"kind": "locator", "value": confirmation["value"]}
             for opened in page.context.pages:
                 if _success_url_matches(opened.url, confirmation):
                     return {"kind": "url", "value": opened.url}

@@ -1051,8 +1051,8 @@
         }
       },
       "confirmation": {
-        "kind": "url_contains",
-        "value": "/thanks"
+        "kind": "locator",
+        "value": "text=Ваш дом подключен к Ростелеком!"
       }
     },
     {
