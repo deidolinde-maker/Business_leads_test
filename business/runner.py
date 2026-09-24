@@ -34,6 +34,9 @@ def _submit_and_confirm(page, form, case, deadline):
     last_error = None
     adapter = FormAdapter()
     for attempt in range(2):
+        # The RTK profit catcher is delayed and can appear after form filling.
+        # Close it immediately before resolving/clicking the real submit button.
+        adapter._dismiss_profit_popup(page)
         submit = adapter.submit_locator(form, case)
         deadline.mark("submission.submit_control")
         try:
