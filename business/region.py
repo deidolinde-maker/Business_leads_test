@@ -99,6 +99,7 @@ def ensure_samara(page, form, case, adapter, deadline):
     # Most city pickers need keyboard events, while the two MTS pickers that
     # previously passed in the live suite require the native fill path.
     if region.get("search_input") == "fill":
+        search.click(force=True, timeout=deadline.ms())
         search.fill(CITY_NAME, timeout=deadline.ms())
     else:
         search.click(force=True, timeout=deadline.ms())
