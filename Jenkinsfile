@@ -5,12 +5,15 @@ pipeline {
     timestamps()
     timeout(time: 15, unit: 'MINUTES')
   }
+  triggers { cron('0 4 * * *') }
   parameters {
-    choice(name: 'MODE', choices: ['representative', 'local', 'collect', 'live'], description: 'representative is the default non-submitting preflight. live sends one lead for one reviewed CASE_ID.')
-    choice(name: 'TARGET_ENV', choices: ['prod', 'unset', 'stage'], description: 'Required for representative, collect and live. City is always Samara.')
-    string(name: 'PROVIDER', defaultValue: '', description: 'Provider filter for collect only. Leave empty for representative and live.')
-    choice(name: 'CASE_ID', choices: ['', 'beeline-business_page-samara-mobilnaya-svyaz-dlya-biznesa', 'mts-business_page-c2d4cae355e7', 'beeline-business_option-afd9e17b2c35', 'mts-business_option-5d75c21b6980'], description: 'Required for live: choose one reviewed representative. Leave empty for representative.')
+    choice(name: 'FLOW_SCOPE', choices: ['all', 'business_popup', 'forms'], description: 'all runs both business pop-up pages and business forms; forms runs Place/checkbox/select cases.')
+    choice(name: 'DOMAIN', choices: ['all', 'beeline-home.online', 'beeline-internet.online', 'samara.beeline-ru.online', 'online-beeline.ru', 'dom-provider.online', 'providerdom.ru', 'mega-home-internet.ru', 'mega-premium.ru', 'moskva.mega-home-internet.ru', 'internet-mts-home.online', 'mts-home-gpon.ru', 'mts-home-online.ru', 'mts-home.online', 'samara.mts-home.online', 'mts-internet.online', 'rtk-home.ru', 'rtk-internet.online', 'rtk-ru.online', 'rt-internet.online', 'rtk-home-internet.ru', 'samara.rtk-ru.online', 't2-ru.online'], description: 'Exact landing domain. all runs the full active scope.')
+    choice(name: 'PROVIDER', choices: ['all', 'beeline', 'mts', 'rostelecom', 'megafon', 'domru', 't2', 'ttk'], description: 'Optional provider filter.')
     string(name: 'DATA_FILE', defaultValue: 'config/data/samara.json', description: 'Path to an environment-confirmed data profile on the agent.')
+    booleanParam(name: 'ALERT_SEND', defaultValue: true, description: 'Send Telegram alerts on failures and recoveries.')
+    booleanParam(name: 'ALERT_RECOVERED', defaultValue: true, description: 'Include recovered domains in the alert.')
+    booleanParam(name: 'USE_TELEGRAM_PROXY', defaultValue: true, description: 'Use Big_landing_test Telegram proxy credentials.')
   }
   stages {
     stage('Checkout') {
@@ -46,9 +49,15 @@ pipeline {
     stage('Checks') {
       steps {
         script {
-          withEnv(["BIZ_MODE=${params.MODE}", "BIZ_ENV=${params.TARGET_ENV}",
-                   "BIZ_PROVIDER=${params.PROVIDER}", "BIZ_CASE_ID=${params.CASE_ID}",
-                   "BIZ_DATA_FILE=${params.DATA_FILE}"]) {
+          if (isUnix()) { sh 'rm -rf artifacts allure-results && mkdir -p artifacts allure-results' }
+          else { bat 'if exist artifacts rmdir /s /q artifacts & if exist allure-results rmdir /s /q allure-results & mkdir artifacts & mkdir allure-results' }
+          def flowKind = params.FLOW_SCOPE == 'business_popup' ? 'business_page' : (params.FLOW_SCOPE == 'forms' ? 'business_option' : '')
+          def domain = params.DOMAIN == 'all' ? '' : params.DOMAIN
+          def provider = params.PROVIDER == 'all' ? '' : params.PROVIDER
+          echo "Business scope: flow=${flowKind ?: 'all'}, domain=${domain ?: 'all'}, provider=${provider ?: 'all'}"
+          withEnv(["BIZ_ENV=prod", "BIZ_FLOW_KIND=${flowKind}", "BIZ_DOMAIN=${domain}",
+                   "BIZ_PROVIDER=${provider}",
+                   "BIZ_DATA_FILE=${params.DATA_FILE}", "BIZ_CASE_FILE=config/business_cases.json"]) {
             if (isUnix()) { sh '.venv/bin/python tools/ci_run.py' }
             else { bat '.venv\\Scripts\\python.exe tools/ci_run.py' }
           }
@@ -58,8 +67,37 @@ pipeline {
   }
   post {
     always {
+      script {
+        try {
+          def notifySummary = {
+            withEnv(["ALLURE_RESULTS_DIR=allure-results", "RUN_URL=${env.BUILD_URL}", "ALLURE_URL=${env.BUILD_URL}allure/",
+                     "ALERT_SEND_ENABLED=${params.ALERT_SEND}", "ALERT_RECOVERED_ENABLED=${params.ALERT_RECOVERED}"]) {
+              if (isUnix()) { sh '.venv/bin/python tools/notify_from_allure.py' }
+              else { bat '.venv\\Scripts\\python.exe tools/notify_from_allure.py' }
+            }
+          }
+          if (params.USE_TELEGRAM_PROXY) {
+            withCredentials([
+              string(credentialsId: 'telegram_proxy_url', variable: 'TELEGRAM_PROXY_URL'),
+              string(credentialsId: 'telegram_proxy_auth_secret', variable: 'TELEGRAM_PROXY_AUTH_SECRET'),
+              string(credentialsId: 'telegram_proxy_global_test', variable: 'TELEGRAM_PROXY_CREDS')
+            ]) {
+              notifySummary()
+            }
+          } else {
+            notifySummary()
+          }
+        } catch (err) { echo "Alert generation failed: ${err}" }
+      }
       archiveArtifacts artifacts: 'artifacts/**,allure-results/**', allowEmptyArchive: true
       junit testResults: 'artifacts/results.xml', allowEmptyResults: true
+      script {
+        try {
+          allure includeProperties: false, jdk: '', results: [[path: 'allure-results']]
+        } catch (err) {
+          echo "Allure report publishing failed: ${err}"
+        }
+      }
     }
   }
 }

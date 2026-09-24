@@ -9,11 +9,28 @@ CITY_NAME = "Самара"
 CITY_UI_ID = "36401"
 ROOT = Path(__file__).resolve().parent.parent
 REPRESENTATIVES = ROOT / "config" / "representatives.json"
+BUSINESS_POPUP_EXACT_HOSTS = {
+    "online-beeline.ru",
+    "beeline-internet.online",
+    "beeline-ru.online",
+    "rtk-home.ru",
+    "rtk-ru.online",
+    "rtk-internet.online",
+    "mts-home-online.ru",
+}
+BUSINESS_POPUP_SUBDOMAIN_ROOTS = {"beeline-ru.online", "rtk-ru.online"}
 
 
 def valid_url(value: str) -> bool:
     parsed = urlsplit(value)
     return parsed.scheme in {"https", "http"} and bool(parsed.hostname) and not parsed.username
+
+
+def business_popup_allowed(value: str) -> bool:
+    host = (urlsplit(value).hostname or "").lower()
+    return host in BUSINESS_POPUP_EXACT_HOSTS or any(
+        host.endswith("." + root) for root in BUSINESS_POPUP_SUBDOMAIN_ROOTS
+    )
 
 
 def validate_case(case: dict) -> None:
@@ -32,13 +49,15 @@ def validate_case(case: dict) -> None:
         if not case.get("reason"):
             raise ConfigurationError(f"{ident}: non-active case needs a reason")
         return
-    for key in ("provider", "entry_url", "form", "region", "submission", "confirmation", "verification"):
+    for key in ("provider", "entry_url", "form", "region", "confirmation", "verification"):
         if not case.get(key):
             raise ConfigurationError(f"{ident}: missing {key}")
     if not valid_url(case["entry_url"]):
         raise ConfigurationError(f"{ident}: invalid entry_url")
     if case.get("flow_kind") not in {"business_page", "business_option"}:
         raise ConfigurationError(f"{ident}: invalid flow_kind")
+    if case["flow_kind"] == "business_page" and not business_popup_allowed(case["entry_url"]):
+        raise ConfigurationError(f"{ident}: business popup host is outside the confirmed scope")
     region = case["region"]
     if region.get("mode") not in {"popup_selection", "direct_city_subdomain"}:
         raise ConfigurationError(f"{ident}: region mode required")
@@ -61,17 +80,27 @@ def validate_case(case: dict) -> None:
             raise ConfigurationError(f"{ident}: form.{key} required")
     if case["flow_kind"] == "business_option":
         control = form.get("business_control", {})
-        if control.get("kind") not in {"checkbox", "radio", "select"}:
+        if control.get("kind") not in {"auto", "checkbox", "radio", "select", "button", "custom_select"}:
             raise ConfigurationError(f"{ident}: business_option needs a verified checkbox/radio/select")
         if control["kind"] == "select":
             for key in ("business_value", "alternative_value"):
                 if not isinstance(control.get(key), str) or not control[key]:
                     raise ConfigurationError(f"{ident}: select business control needs {key}")
+        if control["kind"] == "custom_select":
+            for key in ("trigger", "business_option"):
+                if not isinstance(control.get(key), str) or not control[key]:
+                    raise ConfigurationError(f"{ident}: custom_select business control needs {key}")
     for field in form["fields"]:
         if not field.get("selector") or not field.get("data_key"):
             raise ConfigurationError(f"{ident}: field selector/data_key required")
-    from business.submission import validate_contract
-    validate_contract(case["submission"])
+    if case["flow_kind"] == "business_option" and any(
+        "checkaddress" in str(field.get("selector", "")) for field in form["fields"]
+    ):
+        by_key = {field["data_key"]: field for field in form["fields"]}
+        if "street" not in by_key or "house" not in by_key:
+            raise ConfigurationError(f"{ident}: checkaddress requires separate street and house fields")
+        if by_key["street"]["selector"] == by_key["house"]["selector"]:
+            raise ConfigurationError(f"{ident}: checkaddress street and house selectors must differ")
     confirmation = case["confirmation"]
     if confirmation.get("kind") not in {"locator", "url", "url_contains"} or not confirmation.get("value"):
         raise ConfigurationError(f"{ident}: exact confirmation required")
@@ -91,12 +120,27 @@ def load_cases(path: Path = ROOT / "config/business_cases.json") -> list[dict]:
     return cases
 
 
-def select_cases(cases: list[dict], environment: str, provider=None, case_id=None) -> list[dict]:
+def select_cases(cases: list[dict], environment: str, provider=None, case_id=None,
+                 active_only: bool = False, flow_kind=None, domain=None) -> list[dict]:
     if environment not in {"stage", "prod"}:
         raise ConfigurationError("--env=stage or --env=prod is required")
+    provider = None if provider in {None, "", "all"} else provider
+    case_id = None if case_id in {None, "", "all"} else case_id
+    flow_kind = None if flow_kind in {None, "", "all"} else flow_kind
+    domain = None if domain in {None, "", "all"} else domain
+    def domain_matches(case: dict) -> bool:
+        if not domain:
+            return True
+        host = (urlsplit(case.get("entry_url", "")).hostname or "").lower()
+        requested = domain.lower().lstrip(".")
+        return host == requested or host.endswith("." + requested)
+
     selected = [c for c in cases if c["environment"] == environment
                 and (not provider or c["provider"] == provider)
-                and (not case_id or c["case_id"] == case_id)]
+                and (not case_id or c["case_id"] == case_id)
+                and (not flow_kind or c.get("flow_kind") == flow_kind)
+                and domain_matches(c)
+                and (not active_only or c["status"] == "active")]
     if not selected:
         raise ConfigurationError("empty case selection; no verified coverage for these filters")
     return selected
@@ -130,4 +174,6 @@ def load_data(path: Path, environment: str) -> dict:
         raise ConfigurationError("data profile environment is not confirmed for this run")
     if not data.get("phone") or not data.get("street") or not data.get("house"):
         raise ConfigurationError("phone/street/house required; values are never padded or invented")
+    if not re.fullmatch(r"\d{10}", str(data["phone"])):
+        raise ConfigurationError("phone must contain exactly 10 digits outside the mask")
     return data

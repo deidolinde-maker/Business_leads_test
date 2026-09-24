@@ -20,15 +20,9 @@ def make_case(base="http://127.0.0.1:8099", mode="direct_city_subdomain", fault=
                             {"selector": "#phone", "data_key": "phone"}],
                  "business_control": {"kind": "checkbox", "selector": "#office", "click_selector": "label[for=office]"},
                  "consents": [{"selector": "#consent"}]},
-        "submission": {"url": base + "/leads", "method": "POST",
-                       "target_city": "Самара", "target_city_ui_id": "36401",
-                       "region_match": {"region": "samara-fixture"},
-                       "business_match": {"business": True}, "identity_match": {"form": "lead-fixture"},
-                       "evidence": "Synthetic local server schema, intentionally different from UI ID",
-                       "response": {"statuses": [200], "json_match": {"status": "accepted"}}},
         "confirmation": {"kind": "locator", "value": "#thanks:visible"},
     }
 
 
 DATA = {"city": "Самара", "environment": "stage", "street": "synthetic street", "house": "1",
-        "full_address": "synthetic Samara address", "phone": "synthetic-phone"}
+        "full_address": "synthetic Samara address", "phone": "9999999999"}

@@ -10,4 +10,18 @@ One explicitly approved production pilot forwarded exactly one target POST; all 
 
 The legacy suites define `/thanks` as the positive «Спасибо» page for this form family. The live contract requires this URL after the exact Samara/business POST and HTTP 200; together with the user-confirmed CRM delivery, the case is now an `active` representative for live automation.
 
+## Transport update — 18.09.2026
+
+Jenkins observed and blocked the current form-430 feedback request before it left the browser. The exact current endpoint is:
+
+`POST https://beeline-ru.online/wp-admin/admin-ajax.php?action=cf7_proxy_submit_transport&cf7_form_id=430&cf7_operation=feedback`
+
+This replaces the former query-free `admin-ajax.php` contract. No lead was sent during this observation.
+
+A following Jenkins run with the proxy endpoint as primary observed the previously verified query-free `POST /wp-admin/admin-ajax.php` first and blocked it before transmission. The live contract therefore accepts these two exact same-origin form-430 transports. The one-shot guard still validates the complete payload and forwards only the first matching request; any second submission is rejected as a duplicate.
+
+The next blocked run showed that the selected popup suggestion normalizes `AddresStreet` instead of preserving the typed search text literally. Per the user-confirmed rule that any address chosen from the ordinary popup is acceptable, the contract requires non-empty `AddresStreet`, `AddresHouse`, `IStreet` and `IHouse`, retains the exact Samara city fields and configured phone number, and does not compare the normalized street/house text with the search input.
+
+Another blocked run showed that the form also formats the phone instead of preserving the raw ten-digit input literally. The contract compares normalized subscriber digits, accepting display punctuation and an optional Russian `7`/`8` prefix while rejecting a different or malformed number. No lead was sent during this observation.
+
 Sources: user requirements, 16.09.2026; ignored local onboarding artifacts; [QA workflow](../references/qa/analyze-task.md).

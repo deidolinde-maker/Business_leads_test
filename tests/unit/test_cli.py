@@ -31,6 +31,12 @@ def test_collection_is_not_live_success(tmp_path):
     assert summary["mode"] == "collection" and summary["complete"] is False
 
 
+def test_active_only_excludes_blocked_cases(tmp_path):
+    result = run_cli(tmp_path, ["--env=stage", "--active-only", "--collect-only"])
+    assert result.returncode != 0
+    assert "empty case selection" in result.stdout + result.stderr
+
+
 def test_missing_environment_is_usage_error(tmp_path):
     result = run_cli(tmp_path, [])
     assert result.returncode != 0
