@@ -128,11 +128,11 @@
       "target_city_ui_id": "36401",
       "flow_kind": "business_option",
       "source_page_url": "https://beeline-ru.online/",
-      "entry_url": "https://beeline-ru.online/samara",
+      "entry_url": "https://samara.beeline-ru.online/",
       "status": "active",
       "region": {
         "mode": "direct_city_subdomain",
-        "business_url": "https://beeline-ru.online/samara",
+        "business_url": "https://samara.beeline-ru.online/",
         "indicator": "span#autocomplete_city_name.autocomplete-city-name",
         "trigger": ".autocomplete-city-change.button-select-city, .autocomplete-city.button-select-city, span#autocomplete_city_name.button-select-city, .button-select-city",
         "popup": "#popup-select-city",
@@ -142,22 +142,22 @@
         "after_choice_url": "https://beeline-ru.online/"
       },
       "form": {
-        "selector": "form:has(input[name='_wpcf7_unit_tag'][value='wpcf7-f430-o1'])",
-        "trigger": ".checkaddress_address_button",
-        "submit": ".checkaddress_address_button_send",
+        "selector": "form:has(.connection_address_street):visible, form:has(input[name='AddresStreet']):visible",
+        "trigger": ".connection_address_button, .checkaddress_address_button, button.connection_address_button",
+        "submit": ".connection_address_button_send, .checkaddress_address_button_send, #submit",
         "fields": [
           {
-            "selector": ".checkaddress_address_street",
+            "selector": ".connection_address_street, input[name='AddresStreet']:visible, .checkaddress_address_street",
             "data_key": "street",
-            "suggestion": "div.autocomplete-street:visible"
+            "suggestion": "#street-list div:visible, #street-list li:visible, #street-list [data-value]:visible, div.autocomplete-street:visible"
           },
           {
-            "selector": ".checkaddress_address_house",
+            "selector": ".connection_address_house, input[name='AddresHouse']:visible, .checkaddress_address_house",
             "data_key": "house",
-            "suggestion": "#house-list div.autocomplete-item:visible"
+            "suggestion": "#house-list div:visible, #house-list li:visible, #house-list [data-value]:visible, div.autocomplete-house:visible"
           },
           {
-            "selector": ".checkaddress_address_phone",
+            "selector": ".connection_address_phone, input[name='Phone']:visible, .checkaddress_address_phone",
             "data_key": "phone"
           }
         ],
@@ -837,24 +837,24 @@
         "after_choice_url": "https://mts-home.online/"
       },
       "form": {
-        "selector": "form.checkaddress:visible",
-        "trigger": ".checkaddress_address_button",
-        "submit": "input[type='submit']:visible",
+        "selector": "form:has(.connection_address_street):visible, form:has(input[name='AddresStreet']):visible",
+        "trigger": ".connection_address_button, .checkaddress_address_button, button.connection_address_button",
+        "submit": ".connection_address_button_send, .checkaddress_address_button_send, #submit",
         "fields": [
           {
-            "selector": "input[name='AddresStreet']:visible",
+            "selector": ".connection_address_street, input[name='AddresStreet']:visible, .checkaddress_address_street",
             "data_key": "street",
-            "suggestion": "#street-list div.autocomplete-item:visible",
-            "suggestion_delay_ms": 1200
+            "suggestion": "#street-list div:visible, #street-list li:visible, #street-list [data-value]:visible, div.autocomplete-street:visible",
+            "suggestion_delay_ms": 1800
           },
           {
-            "selector": "input[name='AddresHouse']:visible",
+            "selector": ".connection_address_house, input[name='AddresHouse']:visible, .checkaddress_address_house",
             "data_key": "house",
-            "suggestion": "#house-list div.autocomplete-item:visible",
+            "suggestion": "#house-list div:visible, #house-list li:visible, #house-list [data-value]:visible, div.autocomplete-house:visible",
             "suggestion_delay_ms": 1200
           },
           {
-            "selector": "input[name='Phone']:visible",
+            "selector": ".connection_address_phone, input[name='Phone']:visible, .checkaddress_address_phone",
             "data_key": "phone"
           }
         ],
@@ -948,7 +948,7 @@
       "entry_url": "https://mts-internet.online/samara",
       "status": "active",
       "region": {
-        "mode": "direct_city_subdomain",
+        "mode": "popup_selection",
         "business_url": "https://mts-internet.online/samara",
         "indicator": "span#autocomplete_city_name.autocomplete-city-name",
         "trigger": ".popup-select-region__button.city, .button-select-city",
@@ -972,13 +972,13 @@
           {
             "selector": "input[name='Street']:visible",
             "data_key": "street",
-            "suggestion": "#street-list div.autocomplete-item:visible",
+            "suggestion": "#street-list div.autocomplete-item:visible, #street-list li:visible, #street-list [data-value]:visible, div.autocomplete-street:visible",
             "suggestion_delay_ms": 1200
           },
           {
             "selector": "input[name='House']:visible",
             "data_key": "house",
-            "suggestion": "#house-list div.autocomplete-item:visible",
+            "suggestion": "#house-list div.autocomplete-item:visible, #house-list li:visible, #house-list [data-value]:visible, div.autocomplete-house:visible",
             "suggestion_delay_ms": 1200
           },
           {
@@ -1022,24 +1022,24 @@
         "after_choice_url": "https://rtk-home.ru/"
       },
       "form": {
-        "selector": "form:has(input[name='_wpcf7_unit_tag'][value='wpcf7-f5304-o1']):visible",
-        "trigger": ".checkaddress_address_button",
-        "submit": "input.checkaddress_address_button_send:visible",
+        "selector": "form:has(.connection_address_street):visible, form:has(input[name='AddresStreet']):visible",
+        "trigger": ".connection_address_button, .checkaddress_address_button, button.connection_address_button",
+        "submit": ".connection_address_button_send, .checkaddress_address_button_send, #submit",
         "fields": [
           {
-            "selector": "input[name='AddresStreet']:visible",
+            "selector": ".connection_address_street, input[name='AddresStreet']:visible, .checkaddress_address_street",
             "data_key": "street",
-            "suggestion": "#street-list div.autocomplete-item:visible",
-            "suggestion_delay_ms": 1200
+            "suggestion": "#street-list div:visible, #street-list li:visible, #street-list [data-value]:visible, div.autocomplete-street:visible",
+            "suggestion_delay_ms": 1800
           },
           {
-            "selector": "input[name='AddresHouse']:visible",
+            "selector": ".connection_address_house, input[name='AddresHouse']:visible, .checkaddress_address_house",
             "data_key": "house",
-            "suggestion": "#house-list div.autocomplete-item:visible",
+            "suggestion": "#house-list div:visible, #house-list li:visible, #house-list [data-value]:visible, div.autocomplete-house:visible",
             "suggestion_delay_ms": 1200
           },
           {
-            "selector": "input[name='Phone']:visible",
+            "selector": ".connection_address_phone, input[name='Phone']:visible, .checkaddress_address_phone",
             "data_key": "phone"
           }
         ],
@@ -1082,24 +1082,24 @@
       ],
       "verification": "Legacy checkaddress/Place locator profile imported from Everyday_test and Big_landing_test for the 23-URL pilot.",
       "form": {
-        "selector": "form:has(input[name='_wpcf7_unit_tag'][value='wpcf7-f3824-o3'])",
-        "trigger": ".checkaddress_address_button",
-        "submit": ".checkaddress_address_button_send",
+        "selector": "form:has(.connection_address_street):visible, form:has(input[name='AddresStreet']):visible",
+        "trigger": ".connection_address_button, .checkaddress_address_button, button.connection_address_button",
+        "submit": ".connection_address_button_send, .checkaddress_address_button_send, #submit",
         "fields": [
           {
-            "selector": ".checkaddress_address_street",
+            "selector": ".connection_address_street, input[name='AddresStreet']:visible, .checkaddress_address_street",
             "data_key": "street",
-            "suggestion": "#street-list div.autocomplete-item:visible",
-            "suggestion_delay_ms": 1200
+            "suggestion": "#street-list div:visible, #street-list li:visible, #street-list [data-value]:visible, div.autocomplete-street:visible",
+            "suggestion_delay_ms": 1800
           },
           {
-            "selector": ".checkaddress_address_house",
+            "selector": ".connection_address_house, input[name='AddresHouse']:visible, .checkaddress_address_house",
             "data_key": "house",
-            "suggestion": "#house-list div.autocomplete-item:visible",
+            "suggestion": "#house-list div:visible, #house-list li:visible, #house-list [data-value]:visible, div.autocomplete-house:visible",
             "suggestion_delay_ms": 1200
           },
           {
-            "selector": ".checkaddress_address_phone",
+            "selector": ".connection_address_phone, input[name='Phone']:visible, .checkaddress_address_phone",
             "data_key": "phone"
           }
         ],
@@ -1376,22 +1376,22 @@
       ],
       "verification": "Legacy checkaddress/Place locator profile imported from Everyday_test and Big_landing_test for the 23-URL pilot.",
       "form": {
-        "selector": ".autocomplete-address:visible",
-        "trigger": "button.button-send.connection_address_button",
-        "submit": ".checkaddress_address_button_send",
+        "selector": "form:has(.connection_address_street):visible, form:has(input[name='AddresStreet']):visible",
+        "trigger": ".connection_address_button, .checkaddress_address_button, button.connection_address_button",
+        "submit": ".connection_address_button_send, .checkaddress_address_button_send, #submit",
         "fields": [
           {
-            "selector": "input[name='AddresStreet']:visible",
+            "selector": ".connection_address_street, input[name='AddresStreet']:visible, .checkaddress_address_street",
             "data_key": "street",
-            "suggestion": "div.autocomplete-street:visible"
+            "suggestion": "#street-list div:visible, #street-list li:visible, #street-list [data-value]:visible, div.autocomplete-street:visible"
           },
           {
-            "selector": "input[name='AddresHouse']:visible",
+            "selector": ".connection_address_house, input[name='AddresHouse']:visible, .checkaddress_address_house",
             "data_key": "house",
-            "suggestion": "#house-list div.autocomplete-item:visible"
+            "suggestion": "#house-list div:visible, #house-list li:visible, #house-list [data-value]:visible, div.autocomplete-house:visible"
           },
           {
-            "selector": "input[name='Phone']:visible",
+            "selector": ".connection_address_phone, input[name='Phone']:visible, .checkaddress_address_phone",
             "data_key": "phone"
           }
         ],
@@ -1436,22 +1436,22 @@
       ],
       "verification": "Legacy checkaddress/Place locator profile imported from Everyday_test and Big_landing_test for the 23-URL pilot.",
       "form": {
-        "selector": ".autocomplete-address:visible",
-        "trigger": "button.connection_address_button",
-        "submit": ".checkaddress_address_button_send",
+        "selector": "form:has(.connection_address_street):visible, form:has(input[name='AddresStreet']):visible",
+        "trigger": ".connection_address_button, .checkaddress_address_button, button.connection_address_button",
+        "submit": ".connection_address_button_send, .checkaddress_address_button_send, #submit",
         "fields": [
           {
-            "selector": "input[name='AddresStreet']:visible",
+            "selector": ".connection_address_street, input[name='AddresStreet']:visible, .checkaddress_address_street",
             "data_key": "street",
-            "suggestion": "div.autocomplete-street:visible"
+            "suggestion": "#street-list div:visible, #street-list li:visible, #street-list [data-value]:visible, div.autocomplete-street:visible"
           },
           {
-            "selector": "input[name='AddresHouse']:visible",
+            "selector": ".connection_address_house, input[name='AddresHouse']:visible, .checkaddress_address_house",
             "data_key": "house",
-            "suggestion": "#house-list div.autocomplete-item:visible"
+            "suggestion": "#house-list div:visible, #house-list li:visible, #house-list [data-value]:visible, div.autocomplete-house:visible"
           },
           {
-            "selector": "input[name='Phone']:visible",
+            "selector": ".connection_address_phone, input[name='Phone']:visible, .checkaddress_address_phone",
             "data_key": "phone"
           }
         ],
@@ -1468,14 +1468,3 @@
     }
   ]
 }
-
-
-
-
-
-
-
-
-
-
-
