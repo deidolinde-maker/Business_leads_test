@@ -3619,7 +3619,7 @@
       "flow_kind": "business_option",
       "source_page_url": "https://mts-internet.online/",
       "entry_url": "https://mts-internet.online/",
-      "status": "active",
+      "status": "excluded",
       "region": {
         "mode": "popup_selection",
         "business_url": "https://mts-internet.online/",
@@ -3664,7 +3664,8 @@
       "confirmation": {
         "kind": "url_contains",
         "value": "/thanks"
-      }
+      },
+      "reason": "Временно отключено по решению пользователя: нестабильный выбор города в popup; конфигурация сохранена для последующей диагностики."
     },
     {
       "case_id": "mts-business_option-18d42468dd6d",
