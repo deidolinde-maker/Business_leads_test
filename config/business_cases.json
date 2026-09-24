@@ -5491,7 +5491,7 @@
       "flow_kind": "business_option",
       "source_page_url": "https://ttk-internet.ru/",
       "entry_url": "https://ttk-internet.ru/samara",
-      "status": "active",
+      "status": "blocked",
       "region": {
         "mode": "direct_city_subdomain",
         "business_url": "https://ttk-internet.ru/samara",
@@ -5539,7 +5539,8 @@
       "confirmation": {
         "kind": "url_contains",
         "value": "/thanks"
-      }
+      },
+      "reason": "Временно исключено из live-пула по решению пользователя: TTK connection-форма требует отдельной стабилизации."
     },
     {
       "case_id": "ttk-business_option-7d42a1c6004f",
@@ -5550,7 +5551,7 @@
       "flow_kind": "business_option",
       "source_page_url": "https://ttk-ru.online/",
       "entry_url": "https://ttk-ru.online/samara",
-      "status": "active",
+      "status": "blocked",
       "region": {
         "mode": "direct_city_subdomain",
         "business_url": "https://ttk-ru.online/samara",
@@ -5597,7 +5598,8 @@
       "confirmation": {
         "kind": "url_contains",
         "value": "/thanks"
-      }
+      },
+      "reason": "Временно исключено из live-пула по решению пользователя: TTK connection-форма требует отдельной стабилизации."
     },
     {
       "case_id": "beeline-business_page-samara-internet-dlya-biznesa",
@@ -5934,14 +5936,3 @@
     }
   ]
 }
-
-
-
-
-
-
-
-
-
-
-
