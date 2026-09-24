@@ -62,6 +62,27 @@ def subscriber_digits(displayed_value: str) -> str:
 
 class FormAdapter:
     @staticmethod
+    def _dismiss_profit_popup(page):
+        """Close the auto-offer popup before it can cover the target form."""
+        try:
+            offer = page.get_by_text("Выгодное спецпредложение", exact=False).first
+            if offer.count() == 0 or not offer.is_visible():
+                return
+            for close_selector in (
+                ".popup__close", ".fancybox-close-small", ".modal__close",
+                "[aria-label*='close']", "[aria-label*='закры']",
+            ):
+                close = page.locator(close_selector).first
+                if close.count() > 0 and close.is_visible():
+                    close.click(force=True)
+                    page.wait_for_timeout(300)
+                    return
+            page.keyboard.press("Escape")
+            page.wait_for_timeout(300)
+        except Exception:
+            pass
+
+    @staticmethod
     def _visible_locator(root, selector):
         """Return the first visible locator, matching Everyday variants."""
         candidates = root.locator(selector)
@@ -176,6 +197,10 @@ class FormAdapter:
             overlay_close = page.locator(selector)
             if overlay_close.count() == 1 and overlay_close.is_visible():
                 overlay_close.click(timeout=deadline.ms())
+        # Everyday variants close the automatic profit catcher before locating
+        # any other form. It must happen before field discovery, otherwise the
+        # popup can intercept clicks and make the phone appear unfilled.
+        self._dismiss_profit_popup(page)
         form = self._discover_form(page, case)
         if form is None:
             if not cfg.get("trigger"):
@@ -183,6 +208,7 @@ class FormAdapter:
             trigger = page.locator(cfg["trigger"])
             expect(trigger).to_have_count(1, timeout=deadline.ms())
             trigger.click(timeout=deadline.ms())
+            self._dismiss_profit_popup(page)
             form = self._discover_form(page, case)
         if form is None:
             raise BusinessCheckError("target_form_not_visible")
