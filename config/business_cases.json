@@ -3623,6 +3623,7 @@
       "region": {
         "mode": "direct_city_subdomain",
         "business_url": "https://mts-internet.online/samara",
+        "close_popup_if_open": true,
         "indicator": "span#autocomplete_city_name.autocomplete-city-name"
       },
       "source_refs": [
