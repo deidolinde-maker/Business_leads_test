@@ -44,12 +44,16 @@ SUGGESTION_FALLBACKS = (
     ".ui-menu-item:visible",
     "[class*='suggest'] li:visible",
     "[class*='autocomplete'] li:visible",
+    "#street-list [data-value]:visible",
+    "#street-list > li:visible",
+    "#street-list > div.autocomplete-item:visible",
+    "#house-list [data-value]:visible",
+    "#house-list > li:visible",
+    "#house-list > div.autocomplete-item:visible",
     "#street-list div:visible",
     "#street-list li:visible",
-    "#street-list [data-value]:visible",
     "#house-list div:visible",
     "#house-list li:visible",
-    "#house-list [data-value]:visible",
 )
 
 
@@ -146,7 +150,13 @@ class FormAdapter:
     @classmethod
     def _choose_suggestion(cls, page, preferred, field=None, timeout_ms=1500):
         """Copy Everyday's poll-and-click plus ArrowDown/Enter fallback."""
-        selectors = ([preferred] if preferred else []) + list(SUGGESTION_FALLBACKS)
+        preferred_parts = [part.strip() for part in (preferred or "").split(",") if part.strip()]
+        # Prefer actual suggestion items over a generic list wrapper. Some
+        # RTK templates expose both through the same #house-list container.
+        preferred_parts.sort(key=lambda part: 0 if any(token in part for token in (
+            "[data-value]", ".autocomplete-item", "> li", "[role=", "[role='"
+        )) else 1)
+        selectors = preferred_parts + list(SUGGESTION_FALLBACKS)
         end = time.monotonic() + timeout_ms / 1000
         while time.monotonic() < end:
             for selector in selectors:
