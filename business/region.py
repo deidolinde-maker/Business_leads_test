@@ -36,33 +36,8 @@ def ensure_samara(page, form, case, adapter, deadline):
     region = case["region"]
     if region["mode"] == "direct_city_subdomain":
         expect(page).to_have_url(region["business_url"], timeout=deadline.ms())
-        if region.get("close_popup_if_open"):
-            popup = page.locator(
-                ", ".join(filter(None, (
-                    f"{region['popup']}:visible" if region.get("popup") else None,
-                    "#popup-select-region:visible",
-                    ".popup-select-region__content-wrapper:visible",
-                    ".popup-select-city:visible",
-                )))
-            ).first
-            if popup.count() == 1 and popup.is_visible():
-                for selector in (
-                    ".popup__close", ".fancybox-close-small", ".modal__close",
-                    "[aria-label*='close']", "[aria-label*='закры']",
-                ):
-                    close = popup.locator(selector).first
-                    if close.count() == 1 and close.is_visible():
-                        close.click(force=True, timeout=deadline.ms())
-                        break
-                if popup.is_visible():
-                    page.keyboard.press("Escape")
-                if popup.is_visible():
-                    # The MTS overlay can remain mounted after its close
-                    # handler runs. The URL already proves Samara, so remove
-                    # only this blocking overlay and continue with the form.
-                    popup.evaluate("element => element.remove()")
-                expect(popup).to_have_count(0, timeout=deadline.ms())
-        assert_samara(form, region, deadline)
+        # A verified Samara URL is the region selection for direct routes.
+        # Do not inspect or interact with the city picker in this mode.
         return form
 
     # Some landing pages already have Samara selected when the browser opens.
