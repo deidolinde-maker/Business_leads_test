@@ -2877,6 +2877,7 @@
       "region": {
         "mode": "popup_selection",
         "business_url": "https://mts-home.online/",
+        "search_input": "fill",
         "indicator": "span#autocomplete_city_name.autocomplete-city-name",
         "trigger": ".autocomplete-city-change.button-select-city, .autocomplete-city.button-select-city, span#autocomplete_city_name.button-select-city, .button-select-city",
         "popup": "#popup-select-city",
@@ -3623,6 +3624,7 @@
       "region": {
         "mode": "popup_selection",
         "business_url": "https://mts-internet.online/",
+        "search_input": "fill",
         "indicator": "span#autocomplete_city_name.autocomplete-city-name",
         "trigger": ".autocomplete-city-change.button-select-city, .autocomplete-city.button-select-city, span#autocomplete_city_name.button-select-city, .button-select-city",
         "popup": "#popup-select-city",
