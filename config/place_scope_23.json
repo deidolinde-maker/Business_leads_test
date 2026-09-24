@@ -142,7 +142,7 @@
         "after_choice_url": "https://beeline-ru.online/"
       },
       "form": {
-        "selector": "form:has(.connection_address_street):visible, form:has(input[name='AddresStreet']):visible",
+        "selector": "form:has(input[name='Place']):visible, form:has(.connection_address_street):visible, form:has(input[name='AddresStreet']):visible",
         "trigger": ".connection_address_button, .checkaddress_address_button, button.connection_address_button",
         "submit": ".connection_address_button_send, .checkaddress_address_button_send, #submit",
         "fields": [
@@ -837,7 +837,7 @@
         "after_choice_url": "https://mts-home.online/"
       },
       "form": {
-        "selector": "form:has(.connection_address_street):visible, form:has(input[name='AddresStreet']):visible",
+        "selector": "form:has(input[name='Place']):visible, form:has(.connection_address_street):visible, form:has(input[name='AddresStreet']):visible",
         "trigger": ".connection_address_button, .checkaddress_address_button, button.connection_address_button",
         "submit": ".connection_address_button_send, .checkaddress_address_button_send, #submit",
         "fields": [
@@ -1022,7 +1022,7 @@
         "after_choice_url": "https://rtk-home.ru/"
       },
       "form": {
-        "selector": "form:has(.connection_address_street):visible, form:has(input[name='AddresStreet']):visible",
+        "selector": "form:has(input[name='Place']):visible, form:has(.connection_address_street):visible, form:has(input[name='AddresStreet']):visible",
         "trigger": ".connection_address_button, .checkaddress_address_button, button.connection_address_button",
         "submit": ".connection_address_button_send, .checkaddress_address_button_send, #submit",
         "fields": [
@@ -1082,7 +1082,7 @@
       ],
       "verification": "Legacy checkaddress/Place locator profile imported from Everyday_test and Big_landing_test for the 23-URL pilot.",
       "form": {
-        "selector": "form:has(.connection_address_street):visible, form:has(input[name='AddresStreet']):visible",
+        "selector": "form:has(input[name='Place']):visible, form:has(.connection_address_street):visible, form:has(input[name='AddresStreet']):visible",
         "trigger": ".connection_address_button, .checkaddress_address_button, button.connection_address_button",
         "submit": ".connection_address_button_send, .checkaddress_address_button_send, #submit",
         "fields": [
@@ -1376,7 +1376,7 @@
       ],
       "verification": "Legacy checkaddress/Place locator profile imported from Everyday_test and Big_landing_test for the 23-URL pilot.",
       "form": {
-        "selector": "form:has(.connection_address_street):visible, form:has(input[name='AddresStreet']):visible",
+        "selector": ".autocomplete-address:has(input[name='Place']):visible",
         "trigger": ".connection_address_button, .checkaddress_address_button, button.connection_address_button",
         "submit": ".connection_address_button_send, .checkaddress_address_button_send, #submit",
         "fields": [
@@ -1436,7 +1436,7 @@
       ],
       "verification": "Legacy checkaddress/Place locator profile imported from Everyday_test and Big_landing_test for the 23-URL pilot.",
       "form": {
-        "selector": "form:has(.connection_address_street):visible, form:has(input[name='AddresStreet']):visible",
+        "selector": ".autocomplete-address:has(input[name='Place']):visible",
         "trigger": ".connection_address_button, .checkaddress_address_button, button.connection_address_button",
         "submit": ".connection_address_button_send, .checkaddress_address_button_send, #submit",
         "fields": [
