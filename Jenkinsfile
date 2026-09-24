@@ -10,7 +10,6 @@ pipeline {
     choice(name: 'FLOW_SCOPE', choices: ['all', 'business_popup', 'forms'], description: 'all runs both business pop-up pages and business forms; forms runs Place/checkbox/select cases.')
     choice(name: 'DOMAIN', choices: ['all', 'beeline-home.online', 'beeline-internet.online', 'samara.beeline-ru.online', 'online-beeline.ru', 'dom-provider.online', 'providerdom.ru', 'mega-home-internet.ru', 'mega-premium.ru', 'moskva.mega-home-internet.ru', 'internet-mts-home.online', 'mts-home-gpon.ru', 'mts-home-online.ru', 'mts-home.online', 'samara.mts-home.online', 'mts-internet.online', 'rtk-home.ru', 'rtk-internet.online', 'rtk-ru.online', 'rt-internet.online', 'rtk-home-internet.ru', 'samara.rtk-ru.online', 't2-ru.online'], description: 'Exact landing domain. all runs the full active scope.')
     choice(name: 'PROVIDER', choices: ['all', 'beeline', 'mts', 'rostelecom', 'megafon', 'domru', 't2', 'ttk'], description: 'Optional provider filter.')
-    string(name: 'CASE_ID', defaultValue: '', description: 'Optional exact active case ID. Leave empty for the selected scope.')
     string(name: 'CASE_FILE', defaultValue: 'config/business_cases.json', description: 'Unified active case registry.')
     string(name: 'DATA_FILE', defaultValue: 'config/data/samara.json', description: 'Path to an environment-confirmed data profile on the agent.')
     booleanParam(name: 'ALERT_SEND', defaultValue: true, description: 'Send Telegram alerts on failures and recoveries.')
@@ -57,7 +56,7 @@ pipeline {
           def domain = params.DOMAIN == 'all' ? '' : params.DOMAIN
           def provider = params.PROVIDER == 'all' ? '' : params.PROVIDER
           withEnv(["BIZ_ENV=prod", "BIZ_FLOW_KIND=${flowKind}", "BIZ_DOMAIN=${domain}",
-                   "BIZ_PROVIDER=${provider}", "BIZ_CASE_ID=${params.CASE_ID}",
+                   "BIZ_PROVIDER=${provider}",
                    "BIZ_DATA_FILE=${params.DATA_FILE}", "BIZ_CASE_FILE=${params.CASE_FILE}"]) {
             if (isUnix()) { sh '.venv/bin/python tools/ci_run.py' }
             else { bat '.venv\\Scripts\\python.exe tools/ci_run.py' }
