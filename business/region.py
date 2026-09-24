@@ -36,8 +36,11 @@ def ensure_samara(page, form, case, adapter, deadline):
     region = case["region"]
     if region["mode"] == "direct_city_subdomain":
         expect(page).to_have_url(region["business_url"], timeout=deadline.ms())
-        # A verified Samara URL is the region selection for direct routes.
-        # Do not inspect or interact with the city picker in this mode.
+        if region.get("skip_city_picker"):
+            # This case is verified by its Samara URL; do not inspect or
+            # interact with the city picker at all.
+            return form
+        assert_samara(form, region, deadline)
         return form
 
     # Some landing pages already have Samara selected when the browser opens.
