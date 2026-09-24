@@ -37,7 +37,14 @@ def ensure_samara(page, form, case, adapter, deadline):
     if region["mode"] == "direct_city_subdomain":
         expect(page).to_have_url(region["business_url"], timeout=deadline.ms())
         if region.get("close_popup_if_open"):
-            popup = page.locator(region.get("popup", "")).first
+            popup = page.locator(
+                ", ".join(filter(None, (
+                    f"{region['popup']}:visible" if region.get("popup") else None,
+                    "#popup-select-region:visible",
+                    ".popup-select-region__content-wrapper:visible",
+                    ".popup-select-city:visible",
+                )))
+            ).first
             if popup.count() == 1 and popup.is_visible():
                 for selector in (
                     ".popup__close", ".fancybox-close-small", ".modal__close",
