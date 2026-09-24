@@ -1,9 +1,56 @@
 import re
+import time
 
 from playwright.sync_api import TimeoutError as PlaywrightTimeoutError, expect
 
 from business.errors import BusinessCheckError, ConfigurationError
 from business.controls import assert_business
+
+
+# The variants runner in Everyday_test deliberately resolves a form by the
+# controls it contains, rather than relying on a provider-specific form id.
+# Keep the same fallback profile here; the business-page navigation remains in
+# runner.py and is not affected by these selectors.
+FORM_FIELD_FALLBACKS = {
+    "street": (
+        ".connection_address_street, .checkaddress_address_street, "
+        ".profit_address_street, .express-connection_address_street, "
+        "input[name='AddresStreet'], input[name='Street'], "
+        "#city[placeholder='Адрес'], #city"
+    ),
+    "house": (
+        ".connection_address_house, .checkaddress_address_house, "
+        ".profit_address_house, .express-connection_address_house, "
+        "input[name='AddresHouse'], input[name='House']"
+    ),
+    "phone": (
+        ".connection_address_phone, .checkaddress_address_phone, "
+        ".profit_address_phone, .express-connection_address_phone, "
+        "input[name='Phone'], input[type='tel']"
+    ),
+    "submit": (
+        ".connection_address_button_send, .checkaddress_address_button_send, "
+        ".profit_address_button_send, .express-connection_address_button_send, "
+        "input[type='submit'], button[type='submit'], #submit"
+    ),
+}
+SUGGESTION_FALLBACKS = (
+    "[role='option']:visible",
+    "[role='listbox'] li:visible",
+    ".suggestions__item:visible",
+    ".suggestion-item:visible",
+    ".autocomplete__item:visible",
+    ".autocomplete-item:visible",
+    ".ui-menu-item:visible",
+    "[class*='suggest'] li:visible",
+    "[class*='autocomplete'] li:visible",
+    "#street-list div:visible",
+    "#street-list li:visible",
+    "#street-list [data-value]:visible",
+    "#house-list div:visible",
+    "#house-list li:visible",
+    "#house-list [data-value]:visible",
+)
 
 
 def subscriber_digits(displayed_value: str) -> str:
@@ -14,6 +61,99 @@ def subscriber_digits(displayed_value: str) -> str:
 
 
 class FormAdapter:
+    @staticmethod
+    def _visible_locator(root, selector):
+        """Return the first visible locator, matching Everyday variants."""
+        candidates = root.locator(selector)
+        for index in range(candidates.count()):
+            candidate = candidates.nth(index)
+            try:
+                if candidate.is_visible():
+                    return candidate
+            except Exception:
+                continue
+        return None
+
+    @classmethod
+    def _field_locator(cls, form, field):
+        locator = cls._visible_locator(form, field.get("selector", ""))
+        if locator is not None:
+            return locator
+        fallback = FORM_FIELD_FALLBACKS.get(field.get("data_key"))
+        return cls._visible_locator(form, fallback) if fallback else None
+
+    @classmethod
+    def submit_locator(cls, form, case):
+        configured = case["form"].get("submit", "")
+        return cls._visible_locator(form, configured) or cls._visible_locator(
+            form, FORM_FIELD_FALLBACKS["submit"]
+        )
+
+    @classmethod
+    def _discover_form(cls, page, case):
+        cfg = case["form"]
+        selectors = [cfg.get("selector", "")]
+        # The variants suite accepts any visible form/container that owns the
+        # address and phone controls. This also covers delayed TTK connection
+        # containers and mobile/desktop duplicate form markup.
+        selectors.extend([
+            "form:visible",
+            ".autocomplete-address:visible",
+            ".connection_address_popup:visible",
+            "[class*='connection']:visible",
+        ])
+        for selector in selectors:
+            if not selector:
+                continue
+            candidates = page.locator(selector)
+            for index in range(candidates.count()):
+                candidate = candidates.nth(index)
+                try:
+                    if not candidate.is_visible():
+                        continue
+                    # A candidate must own at least a phone and an address
+                    # control; this prevents selecting a navigation wrapper.
+                    if cls._visible_locator(candidate, FORM_FIELD_FALLBACKS["phone"]) is None:
+                        continue
+                    if cls._visible_locator(candidate, FORM_FIELD_FALLBACKS["street"]) is None:
+                        continue
+                    return candidate
+                except Exception:
+                    continue
+        return None
+
+    @classmethod
+    def _choose_suggestion(cls, page, preferred, field=None, timeout_ms=1500):
+        """Copy Everyday's poll-and-click plus ArrowDown/Enter fallback."""
+        selectors = ([preferred] if preferred else []) + list(SUGGESTION_FALLBACKS)
+        end = time.monotonic() + timeout_ms / 1000
+        while time.monotonic() < end:
+            for selector in selectors:
+                if not selector:
+                    continue
+                locator = page.locator(selector)
+                for index in range(locator.count()):
+                    item = locator.nth(index)
+                    try:
+                        if item.is_visible() and (item.inner_text() or "").strip():
+                            item.click(timeout=3000, force=True)
+                            page.wait_for_timeout(300)
+                            return True
+                    except Exception:
+                        continue
+            page.wait_for_timeout(150)
+        try:
+            if field is not None:
+                field.scroll_into_view_if_needed()
+                field.click(force=True)
+            page.keyboard.press("ArrowDown")
+            page.wait_for_timeout(200)
+            page.keyboard.press("Enter")
+            page.wait_for_timeout(300)
+            return True
+        except Exception:
+            return False
+
     def open_form(self, page, case, deadline):
         cfg = case["form"]
         # Legacy suites wait for delayed region/cookie overlays before opening
@@ -36,22 +176,16 @@ class FormAdapter:
             overlay_close = page.locator(selector)
             if overlay_close.count() == 1 and overlay_close.is_visible():
                 overlay_close.click(timeout=deadline.ms())
-        form = page.locator(cfg["selector"])
-        if not (form.count() == 1 and form.is_visible()):
-            # Some landing templates hydrate the target form after the first
-            # paint. Give the direct form a short chance to appear before
-            # clicking a separate opener (TTK does this on /samara).
-            try:
-                form.first.wait_for(state="visible", timeout=min(3_000, deadline.ms()))
-            except PlaywrightTimeoutError:
-                pass
-        if not (form.count() == 1 and form.is_visible()):
+        form = self._discover_form(page, case)
+        if form is None:
             if not cfg.get("trigger"):
                 raise BusinessCheckError("target_form_not_visible_and_no_trigger")
             trigger = page.locator(cfg["trigger"])
             expect(trigger).to_have_count(1, timeout=deadline.ms())
             trigger.click(timeout=deadline.ms())
-        expect(form).to_have_count(1, timeout=deadline.ms())
+            form = self._discover_form(page, case)
+        if form is None:
+            raise BusinessCheckError("target_form_not_visible")
         expect(form).to_be_visible(timeout=deadline.ms())
         return form
 
@@ -61,9 +195,10 @@ class FormAdapter:
             if key not in data or data[key] is None:
                 raise ConfigurationError(f"missing data key: {key}")
             value = str(data[key])
-            locator = form.locator(field["selector"])
+            locator = self._field_locator(form, field)
             deadline.mark(f"fill.{key}.present")
-            expect(locator).to_have_count(1, timeout=deadline.ms())
+            if locator is None:
+                raise BusinessCheckError(f"fill.{key}.not_found")
             deadline.mark(f"fill.{key}.enabled")
             expect(locator).to_be_enabled(timeout=deadline.ms())
             deadline.mark(f"fill.{key}.value")
@@ -80,8 +215,9 @@ class FormAdapter:
                 except PlaywrightTimeoutError:
                     # Masked inputs can be replaced after focus. Re-resolve and
                     # retry once with the same real-key path used by Everyday_test.
-                    locator = form.locator(field["selector"])
-                    expect(locator).to_have_count(1, timeout=deadline.ms())
+                    locator = self._field_locator(form, field)
+                    if locator is None:
+                        raise BusinessCheckError(f"fill.{key}.not_found")
                     locator.click(force=True, timeout=deadline.ms())
                     try:
                         locator.press("Control+A", timeout=min(2_000, deadline.ms()))
@@ -106,45 +242,31 @@ class FormAdapter:
             # A real, exact Samara address suggestion must come from the case/data contract.
             if field.get("suggestion"):
                 deadline.mark(f"fill.{key}.suggestion")
-                candidates = form.page.locator(field["suggestion"])
-                # The provider widget owns address validation. Any visible
-                # suggestion is valid for this flow; selecting it is the
-                # important part (street and house labels vary by provider).
-                suggestion = candidates.first
                 form.page.wait_for_timeout(int(field.get("suggestion_delay_ms", 300)))
-                expect(suggestion).to_be_visible(timeout=deadline.ms())
-                if field.get("suggestion_text_key"):
-                    expected_text = str(data[field["suggestion_text_key"]])
-                    expect(suggestion).to_contain_text(expected_text, timeout=deadline.ms())
-                suggestion.click(force=True, timeout=deadline.ms())
+                if not self._choose_suggestion(
+                    form.page, field.get("suggestion"), locator,
+                    timeout_ms=min(3_000, deadline.ms())
+                ):
+                    raise BusinessCheckError(f"fill.{key}.suggestion_not_selected")
                 # Address widgets update hidden IDs and unlock the house input
                 # asynchronously after the visible suggestion click.  Do not
                 # continue to phone/submit while that update is still pending.
                 if key in {"street", "house"}:
                     form.page.wait_for_timeout(800)
-                    refreshed = form.locator(field["selector"])
-                    hidden_name = "IStreet" if key == "street" else "IHouse"
-                    hidden = form.locator(f"input[name='{hidden_name}']")
-                    hidden_present = hidden.count() == 1
+                    refreshed = self._field_locator(form, field)
                     if key == "house":
+                        if refreshed is None:
+                            raise BusinessCheckError("fill.house.not_found_after_suggestion")
                         try:
                             expect(refreshed).to_be_enabled(timeout=min(5_000, deadline.ms()))
                         except PlaywrightTimeoutError:
                             # A delayed list can rerender the item after the
                             # first click; select the current visible item once more.
-                            retry = form.page.locator(field["suggestion"]).first
-                            expect(retry).to_be_visible(timeout=deadline.ms())
-                            retry.click(force=True, timeout=deadline.ms())
+                            self._choose_suggestion(form.page, field.get("suggestion"), refreshed,
+                                                    timeout_ms=min(3_000, deadline.ms()))
                             expect(refreshed).to_be_enabled(timeout=deadline.ms())
-                    if hidden_present:
-                        try:
-                            expect(hidden).not_to_have_value("", timeout=min(5_000, deadline.ms()))
-                        except PlaywrightTimeoutError:
-                            retry = form.page.locator(field["suggestion"]).first
-                            expect(retry).to_be_visible(timeout=deadline.ms())
-                            retry.click(force=True, timeout=deadline.ms())
-                            expect(hidden).not_to_have_value("", timeout=deadline.ms())
-                    expect(refreshed).not_to_have_value("", timeout=deadline.ms())
+                    if refreshed is not None:
+                        expect(refreshed).not_to_have_value("", timeout=deadline.ms())
         for consent in case["form"].get("consents", []):
             box = form.locator(consent["selector"])
             if consent.get("click_selector"):

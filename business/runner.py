@@ -32,10 +32,13 @@ def _submit_and_confirm(page, form, case, deadline):
     """Submit like Everyday_test: re-resolve the button and retry once."""
     confirmation = case["confirmation"]
     last_error = None
+    adapter = FormAdapter()
     for attempt in range(2):
-        submit = form.locator(case["form"]["submit"]).first
+        submit = adapter.submit_locator(form, case)
         deadline.mark("submission.submit_control")
         try:
+            if submit is None:
+                raise BusinessCheckError("submission_submit_control_not_found")
             expect(submit).to_be_visible(timeout=deadline.ms())
             expect(submit).to_be_enabled(timeout=deadline.ms())
             submit.scroll_into_view_if_needed(timeout=deadline.ms())
@@ -44,7 +47,9 @@ def _submit_and_confirm(page, form, case, deadline):
         except Exception as exc:
             last_error = exc
             # Страница может заменить кнопку во время проверки адреса.
-            submit = form.locator(case["form"]["submit"]).first
+            submit = adapter.submit_locator(form, case)
+            if submit is None:
+                raise BusinessCheckError("submission_submit_control_not_found")
             expect(submit).to_be_visible(timeout=deadline.ms())
             expect(submit).to_be_enabled(timeout=deadline.ms())
             submit.click(force=True, timeout=deadline.ms())
