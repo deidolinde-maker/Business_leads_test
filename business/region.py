@@ -77,7 +77,16 @@ def ensure_samara(page, form, case, adapter, deadline):
         expect(indicator).to_have_count(1, timeout=deadline.ms())
         indicator.click(timeout=deadline.ms())
     expect(popup).to_be_visible(timeout=deadline.ms())
-    popup.locator(region["search"]).fill(CITY_NAME, timeout=deadline.ms())
+    search = popup.locator(region["search"])
+    # MTS city lists bind filtering to keyboard/input events; atomic fill can
+    # leave the alphabetical list unchanged and produce a false city failure.
+    search.click(force=True, timeout=deadline.ms())
+    try:
+        search.press("Control+A", timeout=min(2_000, deadline.ms()))
+    except Exception:
+        pass
+    search.press_sequentially(CITY_NAME, delay=60, timeout=deadline.ms())
+    page.wait_for_timeout(500)
     choice = popup.locator(region["choice"]).filter(has_text=re.compile(r"^\s*Самара\s*$"))
     expect(choice).to_have_count(1, timeout=deadline.ms())
     expect(choice).to_be_visible(timeout=deadline.ms())

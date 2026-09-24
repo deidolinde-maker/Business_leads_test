@@ -120,6 +120,12 @@ class FormAdapter:
     def _discover_form(cls, page, case):
         cfg = case["form"]
         selectors = [cfg.get("selector", "")]
+        # Business-page forms live in a delayed popup. Do not accidentally
+        # select an unrelated visible page form before the configured trigger
+        # has opened #popup-business.
+        popup_form = "#popup-business" in cfg.get("selector", "")
+        if popup_form and not cls._visible_locator(page, cfg.get("selector", "")):
+            return None
         # The variants suite accepts any visible form/container that owns the
         # address and phone controls. This also covers delayed TTK connection
         # containers and mobile/desktop duplicate form markup.

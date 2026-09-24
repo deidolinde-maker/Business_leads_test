@@ -31,6 +31,14 @@ def _success_url_matches(url: str, confirmation: dict) -> bool:
 def _success_locator_matches(page, confirmation: dict) -> bool:
     if confirmation.get("kind") != "locator":
         return False
+
+
+def _confirmation_result(page, confirmation: dict):
+    if _success_url_matches(page.url, confirmation):
+        return {"kind": "url", "value": page.url}
+    if _success_locator_matches(page, confirmation):
+        return {"kind": "locator", "value": confirmation["value"]}
+    return None
     try:
         locator = page.locator(confirmation["value"]).first
         return locator.count() > 0 and locator.is_visible()
@@ -47,6 +55,9 @@ def _submit_and_confirm(page, form, case, deadline):
         # The RTK profit catcher is delayed and can appear after form filling.
         # Close it immediately before resolving/clicking the real submit button.
         adapter._dismiss_profit_popup(page)
+        already_confirmed = _confirmation_result(page, confirmation)
+        if already_confirmed:
+            return already_confirmed
         submit = adapter.submit_locator(form, case)
         deadline.mark("submission.submit_control")
         try:
@@ -59,6 +70,9 @@ def _submit_and_confirm(page, form, case, deadline):
             submit.click(force=True, timeout=deadline.ms())
         except Exception as exc:
             last_error = exc
+            already_confirmed = _confirmation_result(page, confirmation)
+            if already_confirmed:
+                return already_confirmed
             # Страница может заменить кнопку во время проверки адреса.
             submit = adapter.submit_locator(form, case)
             if submit is None:
