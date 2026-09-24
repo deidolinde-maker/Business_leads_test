@@ -3625,6 +3625,7 @@
         "business_url": "https://mts-internet.online/samara",
         "skip_city_picker": true,
         "confirm_city_selector": ".Modal.CitySelector button.Button--action",
+        "dismiss_overlay_outside": true,
         "indicator": "span#autocomplete_city_name.autocomplete-city-name"
       },
       "source_refs": [
