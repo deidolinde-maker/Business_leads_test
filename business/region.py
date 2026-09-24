@@ -49,7 +49,12 @@ def ensure_samara(page, form, case, adapter, deadline):
                         break
                 if popup.is_visible():
                     page.keyboard.press("Escape")
-                expect(popup).to_be_hidden(timeout=deadline.ms())
+                if popup.is_visible():
+                    # The MTS overlay can remain mounted after its close
+                    # handler runs. The URL already proves Samara, so remove
+                    # only this blocking overlay and continue with the form.
+                    popup.evaluate("element => element.remove()")
+                expect(popup).to_have_count(0, timeout=deadline.ms())
         assert_samara(form, region, deadline)
         return form
 
