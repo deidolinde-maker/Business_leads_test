@@ -36,6 +36,11 @@ def ensure_samara(page, form, case, adapter, deadline):
     region = case["region"]
     if region["mode"] == "direct_city_subdomain":
         expect(page).to_have_url(region["business_url"], timeout=deadline.ms())
+        confirm_selector = region.get("confirm_city_selector")
+        if confirm_selector:
+            confirm = page.locator(confirm_selector).first
+            if confirm.count() == 1 and confirm.is_visible():
+                confirm.click(force=True, timeout=deadline.ms())
         if region.get("skip_city_picker"):
             # This case is verified by its Samara URL; do not inspect or
             # interact with the city picker at all.
