@@ -5,13 +5,16 @@ pipeline {
     timestamps()
     timeout(time: 15, unit: 'MINUTES')
   }
+  triggers { cron('0 4 * * *') }
   parameters {
-    choice(name: 'MODE', choices: ['representative', 'live', 'local', 'collect'], description: 'representative is a non-submitting preflight. live sends one lead for every active case selected by PROVIDER and CASE_ID; leave both empty for all active cases.')
-    choice(name: 'TARGET_ENV', choices: ['prod', 'unset', 'stage'], description: 'Required for representative, collect and live. City is always Samara.')
-    choice(name: 'PROVIDER', choices: ['', 'beeline', 'mts'], description: 'Optional scope for collect and live. Leave empty to use all matching cases.')
-    string(name: 'CASE_ID', defaultValue: '', description: 'Optional exact active case ID for live. Leave empty to run all active cases in the selected scope.')
-    string(name: 'CASE_FILE', defaultValue: 'config/place_scope_23.json', description: 'Case registry for this job. The default file contains the approved 23 Place/checkaddress cases.')
+    choice(name: 'FLOW_SCOPE', choices: ['all', 'business_popup', 'forms'], description: 'all runs both business pop-up pages and business forms; forms runs Place/checkbox/select cases.')
+    choice(name: 'DOMAIN', choices: ['all', 'beeline-home.online', 'beeline-internet.online', 'samara.beeline-ru.online', 'online-beeline.ru', 'dom-provider.online', 'providerdom.ru', 'mega-home-internet.ru', 'mega-premium.ru', 'moskva.mega-home-internet.ru', 'internet-mts-home.online', 'mts-home-gpon.ru', 'mts-home-online.ru', 'mts-home.online', 'samara.mts-home.online', 'mts-internet.online', 'rtk-home.ru', 'rtk-internet.online', 'rtk-ru.online', 'rt-internet.online', 'rtk-home-internet.ru', 'samara.rtk-ru.online', 't2-ru.online'], description: 'Exact landing domain. all runs the full active scope.')
+    choice(name: 'PROVIDER', choices: ['all', 'beeline', 'mts', 'rostelecom', 'megafon', 'domru', 't2', 'ttk'], description: 'Optional provider filter.')
+    string(name: 'CASE_ID', defaultValue: '', description: 'Optional exact active case ID. Leave empty for the selected scope.')
+    string(name: 'CASE_FILE', defaultValue: 'config/business_cases.json', description: 'Unified active case registry.')
     string(name: 'DATA_FILE', defaultValue: 'config/data/samara.json', description: 'Path to an environment-confirmed data profile on the agent.')
+    booleanParam(name: 'ALERT_SEND', defaultValue: true, description: 'Send Telegram alerts on failures and recoveries.')
+    booleanParam(name: 'ALERT_RECOVERED', defaultValue: true, description: 'Include recovered domains in the alert.')
   }
   stages {
     stage('Checkout') {
@@ -49,8 +52,11 @@ pipeline {
         script {
           if (isUnix()) { sh 'rm -rf artifacts allure-results && mkdir -p artifacts allure-results' }
           else { bat 'if exist artifacts rmdir /s /q artifacts & if exist allure-results rmdir /s /q allure-results & mkdir artifacts & mkdir allure-results' }
-          withEnv(["BIZ_MODE=${params.MODE}", "BIZ_ENV=${params.TARGET_ENV}",
-                   "BIZ_PROVIDER=${params.PROVIDER}", "BIZ_CASE_ID=${params.CASE_ID}",
+          def flowKind = params.FLOW_SCOPE == 'business_popup' ? 'business_page' : (params.FLOW_SCOPE == 'forms' ? 'business_option' : '')
+          def domain = params.DOMAIN == 'all' ? '' : params.DOMAIN
+          def provider = params.PROVIDER == 'all' ? '' : params.PROVIDER
+          withEnv(["BIZ_ENV=prod", "BIZ_FLOW_KIND=${flowKind}", "BIZ_DOMAIN=${domain}",
+                   "BIZ_PROVIDER=${provider}", "BIZ_CASE_ID=${params.CASE_ID}",
                    "BIZ_DATA_FILE=${params.DATA_FILE}", "BIZ_CASE_FILE=${params.CASE_FILE}"]) {
             if (isUnix()) { sh '.venv/bin/python tools/ci_run.py' }
             else { bat '.venv\\Scripts\\python.exe tools/ci_run.py' }
@@ -61,6 +67,15 @@ pipeline {
   }
   post {
     always {
+      script {
+        try {
+          withEnv(["ALLURE_RESULTS_DIR=allure-results", "RUN_URL=${env.BUILD_URL}", "ALLURE_URL=${env.BUILD_URL}allure/",
+                   "ALERT_SEND_ENABLED=${params.ALERT_SEND}", "ALERT_RECOVERED_ENABLED=${params.ALERT_RECOVERED}"]) {
+            if (isUnix()) { sh '.venv/bin/python tools/notify_from_allure.py' }
+            else { bat '.venv\\Scripts\\python.exe tools/notify_from_allure.py' }
+          }
+        } catch (err) { echo "Alert generation failed: ${err}" }
+      }
       archiveArtifacts artifacts: 'artifacts/**,allure-results/**', allowEmptyArchive: true
       junit testResults: 'artifacts/results.xml', allowEmptyResults: true
       script {

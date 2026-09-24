@@ -13,7 +13,7 @@
 - Бизнес-попапы подключаются только для подтверждённых семейств: `online-beeline.ru`, `beeline-internet.online`, `beeline-ru.online` (включая городской поддомен), `rtk-home.ru`, `rtk-ru.online` (включая `city.rtk-ru.online`), `rtk-internet.online` и `mts-home-online.ru`. На остальных сайтах в скоупе остаются только `Place`/checkbox business-option сценарии.
 - Подключены 15 `active` кейсов: подтверждённые MTS/Beeline сценарии и пакет business-page маршрутов на разрешённых доменах; в реестре также 243 `blocked` business-option кандидата и 8 `excluded`. Два дубликата конечных самарских страниц исключены, чтобы одна форма не отправлялась дважды. На мобильной бизнес-странице Билайна номер из 10 цифр дал переход `/thanks` и подтверждённую пользователем доставку в CRM. [Все результаты и ограничения](docs/evidence/production-onboarding-20260916.md).
 - Для МТС отдельная бизнес-форма берётся только с `https://mts-home-online.ru/business`. Один production-прогон прошёл: регион и бизнес-признаки совпали, получен `mail_sent`, переход `/tilda/form1/submitted`, пользователь подтвердил корректную доставку в CRM. Остальные MTS business-page записи исключены. Отдельный MTS business-option на главной странице использует `select[name=Place]`; его exact Samara payload, HTTP 200, страница «Спасибо» и CRM-пилот подтверждены. [Business-page](docs/evidence/mts-business-scope-20260916.md), [business-option](docs/evidence/mts-home-online-business-option-20260916.md).
-- Для `Place`-представителей MTS Home Online и Beeline пользователь подтвердил поступление однократных production-пилотов в CRM. Положительный признак берётся из исходных наборов: `/tilda/form1/submitted` для MTS и `/thanks` для Beeline. Оба входят в отдельную неотправляющую representative-проверку Jenkins.
+- Для `Place`-представителей MTS Home Online и Beeline пользователь подтвердил поступление однократных production-пилотов в CRM. Положительный признак берётся из исходных наборов: `/tilda/form1/submitted` для MTS и `/thanks` для Beeline.
 - Пользователь подтвердил production и затем заменил номер на `9999999999`; текущий профиль: Самара, Ленинградская, 1. Цифры сохранены буквально. Live-команда действительно отправляет заявку: автоматических повторов нет.
 - Локальные проверки работают на синтетическом HTTP-сервере. Они не создают заявки на сайтах провайдеров.
 - Два основных репозитория пока не менялись: переключение выполняется после подтверждения нового live-набора.
@@ -78,9 +78,9 @@ python tools/discover_business_options.py --provider mts --limit 12 --concurrenc
 
 Для точечной проверки добавьте `--case-id <id>`; `--limit 0` выбирает все совпадающие уникальные URL. Для следующего батча используйте `--offset 12`. В `template_groups` отчёта одинаковые DOM-формы объединены только для приоритизации: каждый URL всё равно требует собственной проверки Самары и payload перед активацией.
 
-Для отправки заявок в Jenkins выберите `MODE=live`, `TARGET_ENV=prod`. Jenkins запускает только `active`-кейсы: у них подтверждены форма, Самара и страница «Спасибо». `PROVIDER` и `CASE_ID` необязательны: пустые поля запускают весь активный набор, фильтр провайдера — все его активные кейсы, `CASE_ID` — один конкретный кейс. Один build выполняет каждый выбранный сценарий один раз.
+Jenkins выполняет только production live-прогон с отправкой заявок. Базовый реестр — `config/business_cases.json`, поэтому в общий запуск входят оба потока: бизнес-попапы (`business_page`) и формы с Place/checkbox/select (`business_option`). Параметр `FLOW_SCOPE` позволяет выбрать `all`, `business_popup` или `forms`, а `DOMAIN` — конкретный домен из списка. `PROVIDER` и `CASE_ID` уточняют область дополнительно. Каждый выбранный active-кейс выполняется один раз.
 
-Для тестового CI запуска без новой заявки выберите `MODE=representative`, `TARGET_ENV=prod` и оставьте `PROVIDER`/`CASE_ID` пустыми. Он выполняет неотправляющий preflight четырёх закреплённых представителей: business-page и `Place` flow для MTS и Beeline. Каждый представитель отображается отдельным успешным результатом Jenkins.
+Расписание Jenkins: ежедневно в **07:00 по Москве** (`04:00 UTC`). После прогона строится Allure-отчёт и формируется Telegram-алерт по схеме Everyday_test: сводка, точечные/массовые ошибки и восстановленные домены. Для отправки нужны Jenkins-переменные `TELEGRAM_BOT_TOKEN`/`TELEGRAM_CHAT_ID` либо proxy-переменные Everyday.
 
 ## Отправка и результат
 
@@ -93,7 +93,7 @@ python tools/discover_business_options.py --provider mts --limit 12 --concurrenc
 
 `artifacts/<case_id>/result.json` содержит результат и длительности; при ошибке сохраняется скриншот с маскировкой полей. `artifacts/summary.json` показывает active/blocked/excluded, passed/failed/incomplete и полное покрытие выбранной области. Collect-only всегда обозначен как collection, не PASS.
 
-GitHub Actions проверяет только локальные fixtures. Jenkinsfile содержит режимы local/representative/collect/live; по умолчанию representative. `representative` не открывает браузер и не может принимать фильтры. В `live` используется только active-подмножество реестра, поэтому инвентарные blocked/excluded URL не открываются и не отправляют заявку. Самара фиксирована, параметра произвольного города нет. Скрипт CI передаёт фильтры через argv, а не вставляет их в shell-команду.
+GitHub Actions проверяет только локальные fixtures. Jenkins всегда использует production live и active-подмножество реестра; blocked/excluded URL не открываются и не отправляют заявку. Самара фиксирована, параметра произвольного города нет. Скрипт CI передаёт фильтры через argv, а не вставляет их в shell-команду.
 
 Jenkins хранит кэш Python-пакетов и Chromium Playwright в постоянной директории Jenkins-пользователя. Первый запуск заполняет кэш, последующие используют его даже после нового checkout или очистки workspace.
 

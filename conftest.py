@@ -13,6 +13,8 @@ def pytest_addoption(parser):
     group.addoption("--env", choices=["stage", "prod"])
     group.addoption("--provider")
     group.addoption("--case-id")
+    group.addoption("--flow-kind", choices=["business_page", "business_option"])
+    group.addoption("--domain", help="Exact entry URL hostname filter.")
     group.addoption("--representatives", action="store_true",
                     help="Use the reviewed non-submitting representative scope.")
     group.addoption("--active-only", action="store_true",
@@ -35,7 +37,8 @@ def pytest_generate_tests(metafunc):
         else:
             cases = select_cases(loaded_cases, config.getoption("--env"),
                                  config.getoption("--provider"), config.getoption("--case-id"),
-                                 config.getoption("--active-only"))
+                                 config.getoption("--active-only"), config.getoption("--flow-kind"),
+                                 config.getoption("--domain"))
     except (ConfigurationError, OSError, ValueError) as exc:
         raise pytest.UsageError(str(exc)) from exc
     config._business_cases = cases
