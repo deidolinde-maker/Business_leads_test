@@ -3628,6 +3628,7 @@
         "popup": "#popup-select-city",
         "search": "input#city-input.popup-select-city__input",
         "search_input": "fill",
+        "allow_unfiltered_choice": true,
         "choice": "a.region_item.region_link[id='36401']",
         "choice_url": "https://mts-internet.online/samara",
         "after_choice_url": "https://mts-internet.online/"
