@@ -3618,15 +3618,19 @@
       "target_city_ui_id": "36401",
       "flow_kind": "business_option",
       "source_page_url": "https://mts-internet.online/",
-      "entry_url": "https://mts-internet.online/samara",
+      "entry_url": "https://mts-internet.online/",
       "status": "active",
       "region": {
-        "mode": "direct_city_subdomain",
-        "business_url": "https://mts-internet.online/samara",
-        "skip_city_picker": true,
-        "confirm_city_selector": ".Modal.CitySelector button.Button--action",
-        "dismiss_overlay_outside": true,
-        "indicator": "span#autocomplete_city_name.autocomplete-city-name"
+        "mode": "popup_selection",
+        "business_url": "https://mts-internet.online/",
+        "indicator": "span#autocomplete_city_name.autocomplete-city-name",
+        "trigger": ".autocomplete-city-change.button-select-city, .autocomplete-city.button-select-city, span#autocomplete_city_name.button-select-city, .button-select-city",
+        "popup": "#popup-select-city",
+        "search": "input#city-input.popup-select-city__input",
+        "search_input": "fill",
+        "choice": "a.region_item.region_link[id='36401']",
+        "choice_url": "https://mts-internet.online/samara",
+        "after_choice_url": "https://mts-internet.online/"
       },
       "source_refs": [
         "https://github.com/deidolinde-maker/Everyday_test/blob/8e87c77a79430e1a54b110682cf9f7912a29cac5/config/providers/mts.py#L4",
