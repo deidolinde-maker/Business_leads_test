@@ -69,14 +69,16 @@ class FormAdapter:
     def _dismiss_profit_popup(page):
         """Close the auto-offer popup before it can cover the target form."""
         try:
-            offer = page.get_by_text("Выгодное спецпредложение", exact=False).first
+            offer = page.locator(
+                "#popup-lead-catcher:visible, .popup-lead-catcher:visible"
+            ).first
             if offer.count() == 0 or not offer.is_visible():
                 return
             for close_selector in (
                 ".popup__close", ".fancybox-close-small", ".modal__close",
                 "[aria-label*='close']", "[aria-label*='закры']",
             ):
-                close = page.locator(close_selector).first
+                close = offer.locator(close_selector).first
                 if close.count() > 0 and close.is_visible():
                     close.click(force=True)
                     page.wait_for_timeout(300)
@@ -166,10 +168,17 @@ class FormAdapter:
                 for index in range(locator.count()):
                     item = locator.nth(index)
                     try:
-                        if item.is_visible() and (item.inner_text() or "").strip():
-                            item.click(timeout=3000, force=True)
-                            page.wait_for_timeout(300)
-                            return True
+                        if not item.is_visible() or not (item.inner_text() or "").strip():
+                            continue
+                        # RTK renders the list container as a visible div around
+                        # the actual autocomplete item; never click that wrapper.
+                        item_id = item.get_attribute("id") or ""
+                        item_class = item.get_attribute("class") or ""
+                        if item_id in {"street-list", "house-list"} or "autocomplete-list" in item_class:
+                            continue
+                        item.click(timeout=3000, force=True)
+                        page.wait_for_timeout(300)
+                        return True
                     except Exception:
                         continue
             page.wait_for_timeout(150)
@@ -303,6 +312,23 @@ class FormAdapter:
                             expect(refreshed).to_be_enabled(timeout=deadline.ms())
                     if refreshed is not None:
                         expect(refreshed).not_to_have_value("", timeout=deadline.ms())
+                        # RTK commits a selected address through hidden IStreet/
+                        # IHouse controls. Retry the first suggestion once if the
+                        # visible text changed but the hidden id is still empty.
+                        hidden_name = "IStreet" if key == "street" else "IHouse"
+                        hidden = form.locator(
+                            f"input[name='{hidden_name}']:visible, input[name='{hidden_name}']"
+                        ).first
+                        if hidden.count() > 0 and not (hidden.input_value() or "").strip():
+                            refreshed.click(force=True)
+                            form.page.keyboard.press("ArrowDown")
+                            form.page.keyboard.press("Enter")
+                            form.page.wait_for_timeout(500)
+                            self._choose_suggestion(
+                                form.page, field.get("suggestion"), refreshed,
+                                timeout_ms=min(2_000, deadline.ms())
+                            )
+                            form.page.wait_for_timeout(500)
         for consent in case["form"].get("consents", []):
             box = form.locator(consent["selector"])
             if consent.get("click_selector"):
