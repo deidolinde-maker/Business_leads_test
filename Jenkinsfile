@@ -15,6 +15,7 @@ pipeline {
     string(name: 'DATA_FILE', defaultValue: 'config/data/samara.json', description: 'Path to an environment-confirmed data profile on the agent.')
     booleanParam(name: 'ALERT_SEND', defaultValue: true, description: 'Send Telegram alerts on failures and recoveries.')
     booleanParam(name: 'ALERT_RECOVERED', defaultValue: true, description: 'Include recovered domains in the alert.')
+    booleanParam(name: 'USE_TELEGRAM_PROXY', defaultValue: true, description: 'Use Big_landing_test Telegram proxy credentials.')
   }
   stages {
     stage('Checkout') {
@@ -69,10 +70,23 @@ pipeline {
     always {
       script {
         try {
-          withEnv(["ALLURE_RESULTS_DIR=allure-results", "RUN_URL=${env.BUILD_URL}", "ALLURE_URL=${env.BUILD_URL}allure/",
-                   "ALERT_SEND_ENABLED=${params.ALERT_SEND}", "ALERT_RECOVERED_ENABLED=${params.ALERT_RECOVERED}"]) {
-            if (isUnix()) { sh '.venv/bin/python tools/notify_from_allure.py' }
-            else { bat '.venv\\Scripts\\python.exe tools/notify_from_allure.py' }
+          def notifySummary = {
+            withEnv(["ALLURE_RESULTS_DIR=allure-results", "RUN_URL=${env.BUILD_URL}", "ALLURE_URL=${env.BUILD_URL}allure/",
+                     "ALERT_SEND_ENABLED=${params.ALERT_SEND}", "ALERT_RECOVERED_ENABLED=${params.ALERT_RECOVERED}"]) {
+              if (isUnix()) { sh '.venv/bin/python tools/notify_from_allure.py' }
+              else { bat '.venv\\Scripts\\python.exe tools/notify_from_allure.py' }
+            }
+          }
+          if (params.USE_TELEGRAM_PROXY) {
+            withCredentials([
+              string(credentialsId: 'telegram_proxy_url', variable: 'TELEGRAM_PROXY_URL'),
+              string(credentialsId: 'telegram_proxy_auth_secret', variable: 'TELEGRAM_PROXY_AUTH_SECRET'),
+              string(credentialsId: 'telegram_proxy_global_test', variable: 'TELEGRAM_PROXY_CREDS')
+            ]) {
+              notifySummary()
+            }
+          } else {
+            notifySummary()
           }
         } catch (err) { echo "Alert generation failed: ${err}" }
       }

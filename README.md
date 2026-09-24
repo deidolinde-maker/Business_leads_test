@@ -80,7 +80,7 @@ python tools/discover_business_options.py --provider mts --limit 12 --concurrenc
 
 Jenkins выполняет только production live-прогон с отправкой заявок. Базовый реестр — `config/business_cases.json`, поэтому в общий запуск входят оба потока: бизнес-попапы (`business_page`) и формы с Place/checkbox/select (`business_option`). Параметр `FLOW_SCOPE` позволяет выбрать `all`, `business_popup` или `forms`, а `DOMAIN` — конкретный домен из списка. `PROVIDER` и `CASE_ID` уточняют область дополнительно. Каждый выбранный active-кейс выполняется один раз.
 
-Расписание Jenkins: ежедневно в **07:00 по Москве** (`04:00 UTC`). После прогона строится Allure-отчёт и формируется Telegram-алерт по схеме Everyday_test: сводка, точечные/массовые ошибки и восстановленные домены. Для отправки нужны Jenkins-переменные `TELEGRAM_BOT_TOKEN`/`TELEGRAM_CHAT_ID` либо proxy-переменные Everyday.
+Расписание Jenkins: ежедневно в **07:00 по Москве** (`04:00 UTC`). После прогона строится Allure-отчёт и формируется Telegram-алерт по схеме Everyday_test: сводка, точечные/массовые ошибки и восстановленные домены. При включённом `USE_TELEGRAM_PROXY` Jenkins передаёт proxy credentials из Big_landing_test: `telegram_proxy_url`, `telegram_proxy_auth_secret`, `telegram_proxy_global_test`. Секреты не хранятся в репозитории и не печатаются в лог.
 
 ## Отправка и результат
 
