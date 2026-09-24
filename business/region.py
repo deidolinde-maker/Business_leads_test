@@ -91,8 +91,18 @@ def ensure_samara(page, form, case, adapter, deadline):
         search.press_sequentially(CITY_NAME, delay=60, timeout=deadline.ms())
     page.wait_for_timeout(500)
     choice = popup.locator(region["choice"]).filter(has_text=re.compile(r"^\s*Самара\s*$"))
-    expect(choice).to_have_count(1, timeout=deadline.ms())
-    expect(choice).to_be_visible(timeout=deadline.ms())
+    if region.get("allow_unfiltered_choice"):
+        # MTS Internet can leave the full alphabetical list rendered even
+        # after the search field is filled. The city id is verified, so use it
+        # as a safe fallback and scroll the item into view before clicking.
+        if choice.count() != 1:
+            choice = popup.locator(region["choice"])
+        expect(choice).to_have_count(1, timeout=deadline.ms())
+        choice.scroll_into_view_if_needed(timeout=deadline.ms())
+        expect(choice).to_be_visible(timeout=deadline.ms())
+    else:
+        expect(choice).to_have_count(1, timeout=deadline.ms())
+        expect(choice).to_be_visible(timeout=deadline.ms())
     choice_id_attribute = region.get("choice_id_attribute", "id")
     expect(choice).to_have_attribute(choice_id_attribute, CITY_UI_ID, timeout=deadline.ms())
     href = choice.get_attribute("href")
