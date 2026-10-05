@@ -75,16 +75,18 @@ def test_business_popup_uses_user_comment_instead_of_street_and_house():
         "status": "passed",
         "confirmation_observed": {"kind": "url", "value": "https://samara.beeline-ru.online/thanks"},
     }
+    submitted_payload = {
+        "Phone": "9999999999",
+        "Info": "https://samara.beeline-ru.online/business",
+        "CityName": "Самара",
+        "user_comment": "city: Самара, фактическая улица 7 info: https://samara.beeline-ru.online/business",
+    }
 
-    artifact = build_submission_lookup(case, data, result)
+    artifact = build_submission_lookup(case, data, result, submitted_payload=submitted_payload)
 
     assert artifact["street"] is None
     assert artifact["house"] is None
     assert artifact["address"]["street"] is None
     assert artifact["address"]["house"] is None
-    assert artifact["user_comment"] == (
-        "city: Самара, Ленинградская 1 info:\n"
-        "https://samara.beeline-ru.online/business\n"
-        "| Подключить услуги для бизнеса |\n"
-        "Город: выбрать город"
-    )
+    assert artifact["user_comment"] == submitted_payload["user_comment"]
+    assert artifact["submitted_payload"] == submitted_payload

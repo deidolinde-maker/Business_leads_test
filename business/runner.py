@@ -130,6 +130,35 @@ def _ui_state(page, form) -> dict:
     return state
 
 
+def _submitted_form_payload(form) -> dict:
+    """Return the values present in the form's outgoing FormData snapshot."""
+    if form is None:
+        return {}
+    try:
+        entries = form.evaluate(
+            """el => Array.from(new FormData(el).entries()).map(([name, value]) => ({
+                name,
+                value: String(value),
+            }))"""
+        )
+    except Exception:
+        return {}
+
+    payload = {}
+    for entry in entries:
+        name = str(entry.get("name", "")).strip()
+        if not name:
+            continue
+        value = entry.get("value", "")
+        if name not in payload:
+            payload[name] = value
+        elif isinstance(payload[name], list):
+            payload[name].append(value)
+        else:
+            payload[name] = [payload[name], value]
+    return payload
+
+
 def _finish_video(page, context, output: Path, keep: bool) -> None:
     video = page.video
     try:
@@ -162,6 +191,7 @@ def run_case(browser, case: dict, data: dict, output: Path, budget: float = 75) 
     form = None
     submission_started_at_utc = None
     confirmation_observed_at_utc = None
+    submitted_payload = {}
     result = {"case_id": case["case_id"], "environment": case["environment"],
               "region_mode": case["region"]["mode"], "target_city": "Самара", "status": "failed"}
     try:
@@ -191,6 +221,8 @@ def run_case(browser, case: dict, data: dict, output: Path, budget: float = 75) 
                 deadline,
                 allow_unrendered=case["region"]["mode"] == "popup_selection",
             )
+            submitted_payload = _submitted_form_payload(form)
+            result["submitted_payload"] = submitted_payload
         with deadline.phase("submission"):
             submission_started_at_utc = utc_now()
             result["submission_started_at_utc"] = submission_started_at_utc
@@ -223,6 +255,7 @@ def run_case(browser, case: dict, data: dict, output: Path, budget: float = 75) 
                 result,
                 submission_started_at_utc=submission_started_at_utc,
                 confirmation_observed_at_utc=confirmation_observed_at_utc,
+                submitted_payload=submitted_payload,
             ),
         )
         _finish_video(page, context, output, keep=result["status"] == "failed")
