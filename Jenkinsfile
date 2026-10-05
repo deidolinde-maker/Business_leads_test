@@ -90,6 +90,18 @@ pipeline {
           }
         } catch (err) { echo "Alert generation failed: ${err}" }
       }
+      sh '''
+        set +e
+        SHARED_BUSINESS_ARTIFACTS_DIR="/var/lib/jenkins/shared/Business_leads_test/artifacts"
+        if [ -d "artifacts" ]; then
+          rm -rf "${SHARED_BUSINESS_ARTIFACTS_DIR}"
+          mkdir -p "${SHARED_BUSINESS_ARTIFACTS_DIR}"
+          cp -R artifacts/. "${SHARED_BUSINESS_ARTIFACTS_DIR}/"
+          echo "Business artifacts copied to ${SHARED_BUSINESS_ARTIFACTS_DIR}"
+        else
+          echo "Business artifacts directory not found; shared copy skipped."
+        fi
+      '''
       archiveArtifacts artifacts: 'artifacts/**,allure-results/**,telegram_message.txt,telegram_should_send.txt,notify_state.json', allowEmptyArchive: true
       junit testResults: 'artifacts/results.xml', allowEmptyResults: true
       script {
