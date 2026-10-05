@@ -91,7 +91,7 @@ Jenkins выполняет только production live-прогон с отпр
 
 ## Отчёты и CI
 
-`artifacts/<case_id>/result.json` содержит результат и длительности; при ошибке сохраняется скриншот с маскировкой полей. `artifacts/<case_id>/submission_lookup.json` сохраняет ключи для последующего поиска заявки в БД: кейс, провайдера, URL, Самару, адрес, десятизначный телефон, бизнес-вариант и временные отметки. Это идентификатор для поиска, а не подтверждение записи в БД. Оба JSON-файла прикладываются к Allure и архивируются Jenkins. `artifacts/summary.json` показывает active/blocked/excluded, passed/failed/incomplete и полное покрытие выбранной области. Collect-only всегда обозначен как collection, не PASS.
+`artifacts/<case_id>/result.json` содержит результат и длительности; при ошибке сохраняется скриншот с маскировкой полей. `artifacts/<case_id>/submission_lookup.json` сохраняет данные Business sender для последующего поиска заявки: кейс, домен, форму, URL, Самару, адрес, телефон, бизнес-вариант, время, URL после submit и ожидаемый `order_type_id=3`. `success=true` выставляется только при успешном тесте и зафиксированной странице «Спасибо»; файл является ключом для поиска, а не подтверждением записи в БД. Оба JSON-файла прикладываются к Allure и архивируются Jenkins. `artifacts/summary.json` показывает active/blocked/excluded, passed/failed/incomplete и полное покрытие выбранной области. Collect-only всегда обозначен как collection, не PASS.
 
 GitHub Actions проверяет только локальные fixtures. Jenkins всегда использует production live и active-подмножество реестра; blocked/excluded URL не открываются и не отправляют заявку. Самара фиксирована, параметра произвольного города нет. Скрипт CI передаёт фильтры через argv, а не вставляет их в shell-команду.
 

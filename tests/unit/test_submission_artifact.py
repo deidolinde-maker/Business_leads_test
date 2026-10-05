@@ -10,7 +10,8 @@ def test_submission_lookup_contains_db_search_keys():
         "entry_url": "https://mts-home.online/samara",
         "target_city": "Самара",
         "target_city_ui_id": "36401",
-        "form": {"business_control": {"kind": "select", "business_value": "В офис"}},
+        "form": {"selector": "form#lead",
+                 "business_control": {"kind": "select", "business_value": "В офис"}},
     }
     data = {
         "city": "Самара",
@@ -41,5 +42,12 @@ def test_submission_lookup_contains_db_search_keys():
     }
     assert artifact["phone"] == "9999999999"
     assert artifact["business"]["business_value"] == "В офис"
+    assert artifact["form_key"].startswith("form")
+    assert artifact["domain"] == "mts-home.online"
+    assert artifact["submit_time"] == "2026-10-05T07:00:04+00:00"
+    assert artifact["url_after_submit"].endswith("/thanks")
+    assert artifact["success"] is True
+    assert artifact["order_type_id"] == 3
+    assert artifact["expected_order_type_id"] == 3
     assert artifact["test_status"] == "passed"
     assert artifact["confirmation_observed_at_utc"].endswith("+00:00")
