@@ -5,7 +5,6 @@ from pathlib import Path
 import pytest
 
 from business.cases import ROOT, load_cases, load_data, select_cases, select_representatives
-from business.artifacts import write_submitted_leads
 from business.errors import ConfigurationError
 
 
@@ -102,9 +101,6 @@ def pytest_sessionfinish(session, exitstatus):
     target = Path(config.getoption("--artifact-dir"))
     target.mkdir(parents=True, exist_ok=True)
     (target / "summary.json").write_text(json.dumps(summary, ensure_ascii=False, indent=2), encoding="utf-8")
-    run_id = os.getenv("BUILD_TAG") or os.getenv("JENKINS_BUILD_TAG") or f"local-{os.getpid()}"
-    build_number = os.getenv("BUILD_NUMBER") or "local"
-    write_submitted_leads(target, cases, run_id=run_id, build_number=build_number)
     if not config.option.collectonly and not summary["complete"] and session.exitstatus == 0:
         session.exitstatus = 1
 
