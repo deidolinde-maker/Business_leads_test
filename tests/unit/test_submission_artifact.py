@@ -51,3 +51,40 @@ def test_submission_lookup_contains_db_search_keys():
     assert artifact["expected_order_type_id"] == 3
     assert artifact["test_status"] == "passed"
     assert artifact["confirmation_observed_at_utc"].endswith("+00:00")
+
+
+def test_business_popup_uses_user_comment_instead_of_street_and_house():
+    case = {
+        "case_id": "beeline-business-page",
+        "provider": "beeline",
+        "flow_kind": "business_page",
+        "environment": "prod",
+        "entry_url": "https://samara.beeline-ru.online/business",
+        "target_city": "Самара",
+        "target_city_ui_id": "36401",
+        "form": {"selector": "#popup-business form"},
+    }
+    data = {
+        "city": "Самара",
+        "street": "Ленинградская",
+        "house": "1",
+        "full_address": "Самара, Ленинградская, 1",
+        "phone": "9999999999",
+    }
+    result = {
+        "status": "passed",
+        "confirmation_observed": {"kind": "url", "value": "https://samara.beeline-ru.online/thanks"},
+    }
+
+    artifact = build_submission_lookup(case, data, result)
+
+    assert artifact["street"] is None
+    assert artifact["house"] is None
+    assert artifact["address"]["street"] is None
+    assert artifact["address"]["house"] is None
+    assert artifact["user_comment"] == (
+        "city: Самара, Ленинградская 1 info:\n"
+        "https://samara.beeline-ru.online/business\n"
+        "| Подключить услуги для бизнеса |\n"
+        "Город: выбрать город"
+    )
