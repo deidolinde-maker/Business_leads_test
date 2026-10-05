@@ -4,6 +4,7 @@ pipeline {
     disableConcurrentBuilds()
     timestamps()
     timeout(time: 15, unit: 'MINUTES')
+    buildDiscarder(logRotator(numToKeepStr: '30', artifactNumToKeepStr: '5'))
   }
   triggers { cron('0 4 * * *') }
   parameters {
@@ -89,7 +90,7 @@ pipeline {
           }
         } catch (err) { echo "Alert generation failed: ${err}" }
       }
-      archiveArtifacts artifacts: 'artifacts/**,allure-results/**', allowEmptyArchive: true
+      archiveArtifacts artifacts: 'artifacts/**,allure-results/**,telegram_message.txt,telegram_should_send.txt,notify_state.json', allowEmptyArchive: true
       junit testResults: 'artifacts/results.xml', allowEmptyResults: true
       script {
         try {
