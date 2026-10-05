@@ -34,6 +34,10 @@ def test_business_submission(business_case, request):
         report = output / "result.json"
         if report.exists():
             allure.attach.file(str(report), name="business-result", attachment_type=allure.attachment_type.JSON)
+        lookup = output / "submission_lookup.json"
+        if lookup.exists():
+            allure.attach.file(str(lookup), name="submission-lookup",
+                               attachment_type=allure.attachment_type.JSON)
         screenshot = output / "failure.png"
         if screenshot.exists():
             allure.attach.file(str(screenshot), name="failure-screenshot",

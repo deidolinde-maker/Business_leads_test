@@ -7,6 +7,7 @@ from urllib.parse import urlsplit
 from playwright.sync_api import expect
 
 from business.adapters import FormAdapter
+from business.artifacts import build_submission_lookup, utc_now, write_submission_lookup
 from business.cases import validate_case
 from business.controls import assert_business, set_business
 from business.deadline import Deadline
@@ -159,6 +160,8 @@ def run_case(browser, case: dict, data: dict, output: Path, budget: float = 75) 
     )
     page = context.new_page()
     form = None
+    submission_started_at_utc = None
+    confirmation_observed_at_utc = None
     result = {"case_id": case["case_id"], "environment": case["environment"],
               "region_mode": case["region"]["mode"], "target_city": "Самара", "status": "failed"}
     try:
@@ -189,7 +192,11 @@ def run_case(browser, case: dict, data: dict, output: Path, budget: float = 75) 
                 allow_unrendered=case["region"]["mode"] == "popup_selection",
             )
         with deadline.phase("submission"):
+            submission_started_at_utc = utc_now()
+            result["submission_started_at_utc"] = submission_started_at_utc
             result["confirmation_observed"] = _submit_and_confirm(page, form, case, deadline)
+            confirmation_observed_at_utc = utc_now()
+            result["confirmation_observed_at_utc"] = confirmation_observed_at_utc
         result["status"] = "passed"
         return result
     except Exception as exc:
@@ -208,4 +215,14 @@ def run_case(browser, case: dict, data: dict, output: Path, budget: float = 75) 
     finally:
         result["phase_seconds"] = deadline.timings
         (output / "result.json").write_text(json.dumps(result, ensure_ascii=False, indent=2), encoding="utf-8")
+        write_submission_lookup(
+            output,
+            build_submission_lookup(
+                case,
+                data,
+                result,
+                submission_started_at_utc=submission_started_at_utc,
+                confirmation_observed_at_utc=confirmation_observed_at_utc,
+            ),
+        )
         _finish_video(page, context, output, keep=result["status"] == "failed")
