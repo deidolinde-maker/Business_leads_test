@@ -189,10 +189,17 @@ def _run_new_variant(
         email.fill(str(data["email"]))
         service_id = case.get("new_flow", {}).get("service_id", "office-internet")
         service = page.get_by_test_id(f"mts-thanks-service-{service_id}")
-        if not service.is_checked():
-            service.check(timeout=5_000)
-        expect(service).to_be_checked()
-        page.get_by_test_id("mts-thanks-services-submit-button").click(timeout=10_000)
+        # The service selector is present only on the corresponding Thanks
+        # variant.  It is optional for business flow; never call is_checked()
+        # on an absent locator because Playwright would wait 30 seconds and
+        # prevent the final submit.
+        if service.count() > 0:
+            if not service.is_checked(timeout=5_000):
+                service.check(timeout=5_000)
+            expect(service).to_be_checked(timeout=5_000)
+        final_submit = page.get_by_test_id("mts-thanks-services-submit-button")
+        expect(final_submit).to_be_visible(timeout=10_000)
+        final_submit.click(timeout=10_000)
         expect(page.get_by_test_id("mts-thanks-title")).to_have_text("Заявка в работе!", timeout=20_000)
         if not final_requests:
             raise BusinessCheckError("mts_gpon_final_order_request_not_observed")
