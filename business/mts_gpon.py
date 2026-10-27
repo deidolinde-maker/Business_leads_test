@@ -22,7 +22,13 @@ NEW_HOST = "mts-home-gpon.ru"
 
 
 def _is_new_variant(page) -> bool:
-    return bool(page.evaluate("key => window.localStorage.getItem(key) !== null", MARKER_KEY))
+    try:
+        # The value is intentionally ignored; key presence selects the new
+        # version, exactly as in Everyday_test.
+        return bool(page.evaluate("key => window.localStorage.getItem(key) !== null", MARKER_KEY))
+    except Exception:
+        # A storage read failure must preserve the stable legacy path.
+        return False
 
 
 def _wait_for_variant_marker(page, timeout_ms: int = 5_000) -> bool:
