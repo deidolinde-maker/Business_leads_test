@@ -213,6 +213,12 @@ class FormAdapter:
             "#cookieButton", "#cookieAccept", ".cookie-btn", "#cookie-accept",
             ".cookie-accept", ".t886__btn",
         ]
+        # MTS GPON can render the detected-city confirmation with the new
+        # explicit test-id even when localStorage selects the legacy form.
+        # Close it here before legacy form discovery; this is host-scoped and
+        # does not alter other business sites.
+        if "mts-home-gpon.ru" in (page.url or "").lower():
+            overlay_selectors.insert(0, "[data-testid='mts-city-selector-accept']")
         for selector in overlay_selectors:
             overlay = page.locator(selector).first
             if overlay.count() == 1 and overlay.is_visible():
