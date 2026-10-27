@@ -1,7 +1,8 @@
 """MTS GPON A/B business flow.
 
 The legacy branch remains owned by the standard business runner.  The new
-branch is selected only when the landing marker is present on the root host.
+branch is selected by the landing marker or by the new form's DOM contract;
+the latter is needed while the A/B bootstrap is still initializing.
 """
 
 import json
@@ -22,7 +23,15 @@ NEW_HOST = "mts-home-gpon.ru"
 
 
 def _is_new_variant(page) -> bool:
-    return bool(page.evaluate("key => window.localStorage.getItem(key) !== null", MARKER_KEY))
+    marker = bool(page.evaluate("key => window.localStorage.getItem(key) !== null", MARKER_KEY))
+    if marker:
+        return True
+    # On some runs the bootstrap does not persist the marker before the
+    # first render, although the new A/B form is already present in the DOM.
+    return page.locator(
+        "[data-form-placement='home-primary'], "
+        "[data-testid='mts-address-street-input']"
+    ).count() > 0
 
 
 def _wait_for_variant_marker(page, timeout_ms: int = 5_000) -> bool:
