@@ -164,10 +164,11 @@ def _run_new_variant(browser, case: dict, data: dict, output: Path, budget: floa
         street = form.get_by_test_id("mts-address-street-input")
         house = form.get_by_test_id("mts-address-house-input")
         phone = form.get_by_test_id("mts-address-phone-input")
+        # The business variant has separate street/house inputs, but no
+        # autocomplete lists.  Suggestions belong to the ordinary
+        # checkaddress flow and must not be awaited here.
         street.fill(str(data["street"]))
-        _pick_first_suggestion(form, "mts-address-street-suggestion", 10_000)
         house.fill(str(data["house"]))
-        _pick_first_suggestion(form, "mts-address-house-suggestion", 10_000)
         phone.fill(str(data["phone"]))
         expect(region).to_have_value("Самара", timeout=5_000)
         if "Ленинградская" not in street.input_value(timeout=5_000):

@@ -66,6 +66,19 @@ def subscriber_digits(displayed_value: str) -> str:
 
 class FormAdapter:
     @staticmethod
+    def _uses_plain_business_address(case: dict) -> bool:
+        """Business popup/Place forms accept street and house as plain text.
+
+        Unlike checkaddress and connection forms, these business variants do
+        not expose address suggestions.  Keep the distinction local to the
+        business flow so ordinary address forms retain Everyday's suggestion
+        selection and hidden-ID handling.
+        """
+        return case.get("flow_kind") in {"business_option", "business_popup"} or bool(
+            case.get("form", {}).get("no_suggest")
+        )
+
+    @staticmethod
     def _dismiss_profit_popup(page):
         """Close the auto-offer popup before it can cover the target form."""
         try:
@@ -241,6 +254,7 @@ class FormAdapter:
         return form
 
     def fill(self, form, case, data, deadline):
+        plain_business_address = self._uses_plain_business_address(case)
         for field in case["form"]["fields"]:
             key = field["data_key"]
             if key not in data or data[key] is None:
@@ -284,14 +298,14 @@ class FormAdapter:
             else:
                 # Address autocomplete widgets need real keystrokes to load
                 # street/house suggestions; atomic fill() can outrun them.
-                if key in {"street", "house"}:
+                if key in {"street", "house"} and not plain_business_address:
                     locator.click(timeout=deadline.ms())
                     locator.press_sequentially(value, delay=80, timeout=deadline.ms())
                     form.page.wait_for_timeout(500)
                 else:
                     locator.fill(value, timeout=deadline.ms())
             # A real, exact Samara address suggestion must come from the case/data contract.
-            if field.get("suggestion"):
+            if field.get("suggestion") and not plain_business_address:
                 deadline.mark(f"fill.{key}.suggestion")
                 form.page.wait_for_timeout(int(field.get("suggestion_delay_ms", 300)))
                 if not self._choose_suggestion(
