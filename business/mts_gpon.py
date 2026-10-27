@@ -194,21 +194,9 @@ def _run_new_variant(
         email = page.get_by_test_id("mts-thanks-email-input")
         inn.fill(str(data["inn"]))
         email.fill(str(data["email"]))
-        service_id = case.get("new_flow", {}).get("service_id", "office-internet")
-        service_name = case.get("new_flow", {}).get("service_name", "Интернет для офиса")
-        service = page.get_by_test_id(f"mts-thanks-service-{service_id}")
-        # Service selection is the third step, after INN and email.  Some
-        # renders omit the test-id but keep the visible service label.
-        if service.count() > 0:
-            expect(service).to_be_visible(timeout=15_000)
-            if not service.is_checked(timeout=5_000):
-                service.check(timeout=5_000)
-            expect(service).to_be_checked(timeout=5_000)
-        else:
-            service_label = page.get_by_text(service_name, exact=True).first
-            expect(service_label).to_be_visible(timeout=15_000)
-            service_label.click(timeout=5_000)
-        final_submit = page.get_by_test_id("mts-thanks-services-submit-button")
+        # The business Thanks screen has no service checkbox.  Its third
+        # stage is the final submit button after INN and email.
+        final_submit = page.get_by_test_id("mts-thanks-submit-button")
         expect(final_submit).to_be_visible(timeout=10_000)
         final_submit.click(timeout=10_000)
         expect(page.get_by_test_id("mts-thanks-title")).to_have_text("Заявка в работе!", timeout=20_000)
