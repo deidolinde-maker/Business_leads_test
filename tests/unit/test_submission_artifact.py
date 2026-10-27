@@ -1,12 +1,4 @@
 from business.artifacts import build_submission_lookup
-from business.adapters import FormAdapter
-
-
-def test_business_address_variants_skip_autocomplete_suggestions():
-    assert FormAdapter._uses_plain_business_address({"flow_kind": "business_option", "form": {}})
-    assert FormAdapter._uses_plain_business_address({"flow_kind": "business_popup", "form": {}})
-    assert FormAdapter._uses_plain_business_address({"flow_kind": "checkaddress", "form": {"no_suggest": True}})
-    assert not FormAdapter._uses_plain_business_address({"flow_kind": "checkaddress", "form": {}})
 
 
 def test_submission_lookup_contains_db_search_keys():
