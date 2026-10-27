@@ -117,17 +117,24 @@ def _request_payload(request):
 
 
 def _run_new_variant(
-    browser, case: dict, data: dict, output: Path, budget: float, storage_state=None
+    browser,
+    case: dict,
+    data: dict,
+    output: Path,
+    budget: float,
+    context=None,
+    page=None,
 ) -> dict:
     output.mkdir(parents=True, exist_ok=True)
     deadline = time.monotonic() + budget
-    context = browser.new_context(
-        viewport={"width": 1366, "height": 900},
-        record_video_dir=str(output / ".video"),
-        record_video_size={"width": 1366, "height": 900},
-        storage_state=storage_state,
-    )
-    page = context.new_page()
+    if context is None:
+        context = browser.new_context(
+            viewport={"width": 1366, "height": 900},
+            record_video_dir=str(output / ".video"),
+            record_video_size={"width": 1366, "height": 900},
+        )
+    if page is None:
+        page = context.new_page()
     final_requests = []
     page.on("request", lambda request: final_requests.append(request)
             if "/api/orders" in request.url and request.method == "POST" else None)
@@ -237,9 +244,14 @@ def _run_new_variant(
 
 def run_mts_gpon_case(browser, case: dict, data: dict, output: Path, budget: float, standard_runner) -> dict:
     """Detect the A/B marker, preserving the existing legacy branch."""
-    probe = browser.new_context()
+    output.mkdir(parents=True, exist_ok=True)
+    probe = browser.new_context(
+        viewport={"width": 1366, "height": 900},
+        record_video_dir=str(output / ".video"),
+        record_video_size={"width": 1366, "height": 900},
+    )
     page = probe.new_page()
-    storage_state = None
+    new_variant = False
     try:
         page.goto(case["entry_url"], wait_until="domcontentloaded", timeout=15_000)
         new_variant = _wait_for_variant_marker(page)
@@ -250,11 +262,13 @@ def run_mts_gpon_case(browser, case: dict, data: dict, output: Path, budget: flo
             _click_region_accept(page, 3_000)
             new_variant = _wait_for_variant_marker(page, timeout_ms=2_000)
         if new_variant:
-            # The working context must inherit localStorage; otherwise the
-            # second navigation can incorrectly look like the legacy version.
-            storage_state = probe.storage_state()
-    finally:
+            # Keep detection and form execution in the same browser context.
+            # A fresh context can receive the opposite A/B assignment.
+            return _run_new_variant(browser, case, data, output, budget, probe, page)
+    except Exception:
         probe.close()
-    if new_variant:
-        return _run_new_variant(browser, case, data, output, budget, storage_state)
+        raise
+    finally:
+        if not new_variant:
+            probe.close()
     return standard_runner(browser, case, data, output, budget)
