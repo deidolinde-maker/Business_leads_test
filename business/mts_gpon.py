@@ -1,8 +1,7 @@
 """MTS GPON A/B business flow.
 
 The legacy branch remains owned by the standard business runner.  The new
-branch is selected by the landing marker or by the new form's DOM contract;
-the latter is needed while the A/B bootstrap is still initializing.
+branch is selected only by the landing marker in localStorage.
 """
 
 import json
@@ -23,15 +22,7 @@ NEW_HOST = "mts-home-gpon.ru"
 
 
 def _is_new_variant(page) -> bool:
-    marker = bool(page.evaluate("key => window.localStorage.getItem(key) !== null", MARKER_KEY))
-    if marker:
-        return True
-    # On some runs the bootstrap does not persist the marker before the
-    # first render, although the new A/B form is already present in the DOM.
-    return page.locator(
-        "[data-form-placement='home-primary'], "
-        "[data-testid='mts-address-street-input']"
-    ).count() > 0
+    return bool(page.evaluate("key => window.localStorage.getItem(key) !== null", MARKER_KEY))
 
 
 def _wait_for_variant_marker(page, timeout_ms: int = 5_000) -> bool:
@@ -119,13 +110,16 @@ def _request_payload(request):
         return {"raw": request.post_data or ""}
 
 
-def _run_new_variant(browser, case: dict, data: dict, output: Path, budget: float) -> dict:
+def _run_new_variant(
+    browser, case: dict, data: dict, output: Path, budget: float, storage_state=None
+) -> dict:
     output.mkdir(parents=True, exist_ok=True)
     deadline = time.monotonic() + budget
     context = browser.new_context(
         viewport={"width": 1366, "height": 900},
         record_video_dir=str(output / ".video"),
         record_video_size={"width": 1366, "height": 900},
+        storage_state=storage_state,
     )
     page = context.new_page()
     final_requests = []
@@ -228,11 +222,16 @@ def run_mts_gpon_case(browser, case: dict, data: dict, output: Path, budget: flo
     """Detect the A/B marker, preserving the existing legacy branch."""
     probe = browser.new_context()
     page = probe.new_page()
+    storage_state = None
     try:
         page.goto(case["entry_url"], wait_until="domcontentloaded", timeout=15_000)
         new_variant = _wait_for_variant_marker(page)
+        if new_variant:
+            # The working context must inherit localStorage; otherwise the
+            # second navigation can incorrectly look like the legacy version.
+            storage_state = probe.storage_state()
     finally:
         probe.close()
     if new_variant:
-        return _run_new_variant(browser, case, data, output, budget)
+        return _run_new_variant(browser, case, data, output, budget, storage_state)
     return standard_runner(browser, case, data, output, budget)
