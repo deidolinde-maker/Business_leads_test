@@ -243,6 +243,12 @@ def run_mts_gpon_case(browser, case: dict, data: dict, output: Path, budget: flo
     try:
         page.goto(case["entry_url"], wait_until="domcontentloaded", timeout=15_000)
         new_variant = _wait_for_variant_marker(page)
+        if not new_variant:
+            # The new landing can write the marker only after the explicit
+            # detected-city confirmation is closed.  Re-read localStorage
+            # after that UI step; do not infer the version from the DOM.
+            _click_region_accept(page, 3_000)
+            new_variant = _wait_for_variant_marker(page, timeout_ms=2_000)
         if new_variant:
             # The working context must inherit localStorage; otherwise the
             # second navigation can incorrectly look like the legacy version.
