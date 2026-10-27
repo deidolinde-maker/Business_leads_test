@@ -2572,6 +2572,12 @@
       "target_city": "Самара",
       "target_city_ui_id": "36401",
       "flow_kind": "business_option",
+      "flow_adapter": "mts_gpon_ab",
+      "new_flow": {
+        "marker": "landing-yandex-events:v1",
+        "service_id": "office-internet",
+        "service_name": "Интернет для офиса"
+      },
       "source_page_url": "https://mts-home-gpon.ru/",
       "entry_url": "https://mts-home-gpon.ru/",
       "status": "active",

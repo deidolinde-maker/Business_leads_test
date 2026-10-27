@@ -27,12 +27,18 @@ def build_submission_lookup(
     """
     control = (case.get("form") or {}).get("business_control") or {}
     submitted_payload = submitted_payload or {}
+    payload_candidates = [submitted_payload]
+    for section in ("final", "initial"):
+        nested = submitted_payload.get(section)
+        if isinstance(nested, dict):
+            payload_candidates.append(nested)
 
     def actual_value(*names: str, fallback=None):
         for name in names:
-            value = submitted_payload.get(name)
-            if value not in (None, "", []):
-                return value
+            for payload in payload_candidates:
+                value = payload.get(name)
+                if value not in (None, "", []):
+                    return value
         return fallback
 
     phone = str(actual_value("Phone", "phone", fallback=data.get("phone", "")))
@@ -47,7 +53,7 @@ def build_submission_lookup(
         or control.get("value")
     )
     user_comment = actual_value(
-        "user_comment", "UserComment", "comment", "Comment",
+        "user_comment", "UserComment", "comment", "Comment", "Info", "info",
         fallback=data.get("user_comment"),
     )
     # Business popup pages do not submit street/house as separate fields.

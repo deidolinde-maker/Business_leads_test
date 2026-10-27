@@ -171,7 +171,7 @@ def _finish_video(page, context, output: Path, keep: bool) -> None:
         shutil.rmtree(output / ".video", ignore_errors=True)
 
 
-def run_case(browser, case: dict, data: dict, output: Path, budget: float = 75) -> dict:
+def _run_standard_case(browser, case: dict, data: dict, output: Path, budget: float = 75) -> dict:
     validate_case(case)
     if case["status"] != "active":
         raise BusinessCheckError(f"{case['status']}:{case['reason']}")
@@ -259,3 +259,12 @@ def run_case(browser, case: dict, data: dict, output: Path, budget: float = 75) 
             ),
         )
         _finish_video(page, context, output, keep=result["status"] == "failed")
+
+
+def run_case(browser, case: dict, data: dict, output: Path, budget: float = 75) -> dict:
+    """Run a business case, dispatching the MTS GPON A/B flow when configured."""
+    if case.get("flow_adapter") == "mts_gpon_ab":
+        from business.mts_gpon import run_mts_gpon_case
+
+        return run_mts_gpon_case(browser, case, data, output, budget, _run_standard_case)
+    return _run_standard_case(browser, case, data, output, budget)

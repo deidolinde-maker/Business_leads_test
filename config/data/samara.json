@@ -4,6 +4,8 @@
   "house": "1",
   "full_address": "Самара, Ленинградская, 1",
   "phone": "9999999999",
+  "inn": "123456789101",
+  "email": "test@test.ru",
   "environment": "prod",
   "source": "User confirmed production and explicitly requested a new check with 10-digit phone 9999999999 on 2026-09-16. Samara, Leningradskaya 1; phone preserved literally."
 }
