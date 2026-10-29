@@ -262,9 +262,13 @@ def _run_standard_case(browser, case: dict, data: dict, output: Path, budget: fl
 
 
 def run_case(browser, case: dict, data: dict, output: Path, budget: float = 75) -> dict:
-    """Run a business case, dispatching the MTS GPON A/B flow when configured."""
+    """Run a business case, dispatching provider-specific A/B flows."""
     if case.get("flow_adapter") == "mts_gpon_ab":
         from business.mts_gpon import run_mts_gpon_case
 
         return run_mts_gpon_case(browser, case, data, output, budget, _run_standard_case)
+    if case.get("flow_adapter") == "mts_home_online_ab":
+        from business.mts_home_online import run_mts_home_online_case
+
+        return run_mts_home_online_case(browser, case, data, output, budget, _run_standard_case)
     return _run_standard_case(browser, case, data, output, budget)

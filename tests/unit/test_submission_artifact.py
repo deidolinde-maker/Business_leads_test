@@ -117,3 +117,49 @@ def test_mts_gpon_nested_final_payload_is_used_for_lookup_keys():
 
     assert artifact["phone"] == "+7(999)-999-99-99"
     assert artifact["user_comment"] == "Тариф: Интернет для офиса"
+
+
+def test_mts_home_online_new_business_page_preserves_separate_address_fields():
+    case = {
+        "case_id": "mts-home-online-business",
+        "provider": "mts",
+        "flow_kind": "business_page",
+        "environment": "prod",
+        "entry_url": "https://mts-home-online.ru/business",
+        "target_city": "Самара",
+        "target_city_ui_id": "36401",
+        "form": {"selector": "form[data-address-form]"},
+    }
+    data = {
+        "city": "Самара",
+        "street": "Ленинградская",
+        "house": "1",
+        "full_address": "Самара, Ленинградская, 1",
+        "phone": "9999999999",
+    }
+    submitted_payload = {
+        "final": {
+            "City": "Самара",
+            "Street": "Ленинградская",
+            "House": "1",
+            "Phone": "9999999999",
+        }
+    }
+
+    artifact = build_submission_lookup(
+        case,
+        data,
+        {
+            "status": "passed",
+            "site_variant": "mts_home_online_new",
+            "confirmation_observed": {
+                "kind": "url",
+                "value": "https://mts-home-online.ru/tilda/form1/submitted",
+            },
+        },
+        submitted_payload=submitted_payload,
+    )
+
+    assert artifact["street"] == "Ленинградская"
+    assert artifact["house"] == "1"
+    assert artifact["phone"] == "9999999999"

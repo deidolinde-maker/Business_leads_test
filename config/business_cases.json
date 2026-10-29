@@ -2730,6 +2730,19 @@
       "target_city": "Самара",
       "target_city_ui_id": "36401",
       "flow_kind": "business_page",
+      "flow_adapter": "mts_home_online_ab",
+      "new_flow": {
+        "version_marker": "site_version",
+        "new_version": "wordpress_new",
+        "legacy_version": "wordpress_old",
+        "service_name": "Интернет в офис",
+        "form": "form[data-address-form][data-form-type='connection_address']",
+        "business_street": "[data-business-street-input]",
+        "business_house": "[data-business-house-input]",
+        "city": "[data-city-input]",
+        "phone": "input[name='Phone']",
+        "submit": "[data-lead-submit]"
+      },
       "source_page_url": "https://mts-home-online.ru/business",
       "entry_url": "https://mts-home-online.ru/business",
       "status": "active",
@@ -2751,7 +2764,7 @@
       ],
       "form": {
         "selector": "#popup-business form.wpcf7-form",
-        "trigger": ".services-business__item:has(.services-business__item-title:text-is(\"Корпоративные тарифы\")) .business_no_address_button",
+        "trigger": ".business_no_address_button",
         "submit": ".business_no_address_button_send",
         "fields": [
           {

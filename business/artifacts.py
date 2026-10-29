@@ -43,6 +43,13 @@ def build_submission_lookup(
 
     phone = str(actual_value("Phone", "phone", fallback=data.get("phone", "")))
     is_business_page = case.get("flow_kind") == "business_page"
+    # MTS Home Online's new business form sends Street and House as separate
+    # fields. Other business-page forms still use the historical full-address
+    # contract and must keep the old lookup shape.
+    preserve_business_address = (
+        not is_business_page
+        or result.get("site_variant") == "mts_home_online_new"
+    )
     confirmation = result.get("confirmation_observed") or {}
     submit_time = confirmation_observed_at_utc or submission_started_at_utc
     success = result.get("status") == "passed" and bool(confirmation)
@@ -59,13 +66,13 @@ def build_submission_lookup(
     # Business popup pages do not submit street/house as separate fields.
     # Preserve only values observed in the outgoing form payload; do not build
     # a synthetic comment from the test fixture address.
-    street = None if is_business_page else actual_value(
+    street = None if not preserve_business_address else actual_value(
         "AddresStreet", "address_street", "street", fallback=data.get("street"),
     )
-    house = None if is_business_page else actual_value(
+    house = None if not preserve_business_address else actual_value(
         "AddresHouse", "address_house", "house", fallback=data.get("house"),
     )
-    full_address = None if is_business_page else data.get("full_address")
+    full_address = None if is_business_page and not preserve_business_address else data.get("full_address")
     actual_city = actual_value("CityName", "city", "city_name", fallback=data.get("city"))
     return {
         "schema_version": 2,
