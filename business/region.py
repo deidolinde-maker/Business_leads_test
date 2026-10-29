@@ -57,6 +57,19 @@ def ensure_samara(page, form, case, adapter, deadline):
         assert_samara(form, region, deadline)
         return form
 
+    # MTS first shows a browser-detected-city confirmation.  Accept the
+    # detected Moscow with «Да»; the target city is changed afterwards from
+    # the city control inside the active form, not through this global dialog.
+    confirm_selector = region.get("confirm_city_selector")
+    if confirm_selector:
+        confirm = page.locator(confirm_selector).first
+        try:
+            if confirm.count() == 1 and confirm.is_visible():
+                confirm.click(force=True, timeout=deadline.ms())
+                page.wait_for_timeout(400)
+        except PlaywrightTimeoutError:
+            pass
+
     # Some landing pages already have Samara selected when the browser opens.
     # Do not reopen the picker and treat the unchanged popup as a failure.
     indicator = form.locator(region["indicator"])
