@@ -48,12 +48,26 @@ def _site_version_from_console(page, holder):
     value = holder[0]
     if value in {NEW_VERSION, OLD_VERSION}:
         return value
-    try:
-        has_new_form = page.locator(
-            "form[data-address-form][data-form-type='connection_address']"
-        ).count() > 0
-    except Exception:
-        has_new_form = False
+    # Hydration is asynchronous: immediately after domcontentloaded the form
+    # may not exist yet.  Everyday_test waits for the marker and then falls
+    # back to the data-address-form DOM, so use the same tolerant probe here.
+    selectors = (
+        "form[data-address-form] [data-street-input], "
+        "form[data-address-form] [data-house-input], "
+        "form[data-address-form] [data-lead-submit], "
+        "form[data-address-form] [data-business-street-input], "
+        "form[data-address-form] [data-business-house-input]",
+    )
+    deadline = time.monotonic() + 5
+    has_new_form = False
+    while time.monotonic() < deadline:
+        try:
+            has_new_form = page.locator(selectors[0]).count() > 0
+        except Exception:
+            has_new_form = False
+        if has_new_form:
+            break
+        page.wait_for_timeout(250)
     return NEW_VERSION if has_new_form else OLD_VERSION
 
 
@@ -62,11 +76,29 @@ def _capture_version(page):
 
     def on_console(message):
         text = (message.text or "").strip()
-        match = re.search(r"site_version\s*[:=]\s*['\"]?(wordpress_(?:new|old))", text)
+        match = re.search(
+            r"[\"']?site_version[\"']?\s*[:=]\s*[\"']?(wordpress_(?:new|old))",
+            text,
+            flags=re.IGNORECASE,
+        )
         if match:
             holder[0] = match.group(1)
         elif text in {NEW_VERSION, OLD_VERSION}:
             holder[0] = text
+        if holder[0] is None:
+            # Yandex debug sometimes sends the payload as a console argument
+            # rather than rendered message text (the Everyday implementation
+            # inspects message.args for this case).
+            try:
+                for argument in message.args:
+                    value = argument.json_value()
+                    if isinstance(value, dict):
+                        candidate = value.get("site_version")
+                        if candidate in {NEW_VERSION, OLD_VERSION}:
+                            holder[0] = candidate
+                            break
+            except Exception:
+                pass
 
     page.on("console", on_console)
     return holder

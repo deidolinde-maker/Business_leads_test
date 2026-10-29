@@ -2681,6 +2681,9 @@
         "trigger": ".autocomplete-city-change.button-select-city, .autocomplete-city.button-select-city, span#autocomplete_city_name.button-select-city, .button-select-city",
         "popup": "#popup-select-city",
         "search": "input#city-input.popup-select-city__input",
+        "search_input": "fill",
+        "allow_unfiltered_choice": true,
+        "initial_dismiss": ".CitySelector button:has-text('Сменить регион')",
         "choice": "a.region_item.region_link[id='36401']",
         "choice_url": "https://mts-home-online.ru/samara",
         "after_choice_url": "https://mts-home-online.ru/"
