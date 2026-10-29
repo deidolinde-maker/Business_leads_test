@@ -2684,6 +2684,8 @@
         "search_input": "fill",
         "allow_unfiltered_choice": true,
         "confirm_city_selector": ".CitySelector button:has-text('Да')",
+        "form_city_selector": "[data-city-input]",
+        "form_city_choice": "[data-city-list] button, [data-city-list] [role='option'], button[role='option']",
         "choice": "a.region_item.region_link[id='36401']",
         "choice_url": "https://mts-home-online.ru/samara",
         "after_choice_url": "https://mts-home-online.ru/"

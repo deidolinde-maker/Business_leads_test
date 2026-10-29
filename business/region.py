@@ -8,6 +8,14 @@ from business.errors import BusinessCheckError
 
 
 def assert_samara(form, region: dict, deadline, *, allow_unrendered=False):
+    inline_city_selector = region.get("form_city_selector")
+    if inline_city_selector:
+        inline_city = form.locator(inline_city_selector).first
+        if inline_city.count() == 1 and inline_city.is_visible():
+            value = inline_city.input_value(timeout=deadline.ms()) or ""
+            if CITY_NAME not in value:
+                raise BusinessCheckError("unexpected_inline_samara_value")
+            return {"name": CITY_NAME, "ui_id": CITY_UI_ID, "source": "form_city_input"}
     indicator = form.locator(region["indicator"])
     if allow_unrendered:
         # A verified popup choice can be applied to the form without repainting
@@ -69,6 +77,31 @@ def ensure_samara(page, form, case, adapter, deadline):
                 page.wait_for_timeout(400)
         except PlaywrightTimeoutError:
             pass
+
+    # New MTS layout keeps the city selector inside the active form.  Do not
+    # open the legacy page-level city popup when this control is available.
+    inline_city_selector = region.get("form_city_selector")
+    if inline_city_selector:
+        inline_city = form.locator(inline_city_selector).first
+        if inline_city.count() == 1 and inline_city.is_visible():
+            inline_city.click(force=True, timeout=deadline.ms())
+            inline_city.fill(CITY_NAME, timeout=deadline.ms())
+            page.wait_for_timeout(700)
+            option_selector = region.get(
+                "form_city_choice",
+                "[data-city-list] button, [data-city-list] [role='option'], "
+                "button[role='option']",
+            )
+            option = form.locator(option_selector).filter(
+                has_text=re.compile(r"^\s*Самара\s*$")
+            )
+            if option.count() != 1:
+                option = form.get_by_role("button", name=CITY_NAME, exact=True).first
+            expect(option).to_have_count(1, timeout=deadline.ms())
+            expect(option).to_be_visible(timeout=deadline.ms())
+            option.click(force=True, timeout=deadline.ms())
+            expect(inline_city).to_have_value(CITY_NAME, timeout=deadline.ms())
+            return form
 
     # Some landing pages already have Samara selected when the browser opens.
     # Do not reopen the picker and treat the unchanged popup as a failure.
