@@ -261,7 +261,21 @@ def _run_new(browser, case, data, output: Path, budget: float, context, page):
                 break
         if selected is None:
             raise BusinessCheckError("mts_home_online_service_not_found")
-        selected.check(timeout=10_000)
+        # The new MTS checkbox renders a decorative SVG over the native input.
+        # A regular check() waits for a pointer target that never becomes
+        # available and looks like a hang.  Prefer the force path, then fall
+        # back to the associated visual label for variants that reject it.
+        try:
+            selected.check(force=True, timeout=10_000)
+        except Exception:
+            label = selected.locator(
+                "xpath=ancestor::*[contains(concat(' ', normalize-space(@class), ' '), ' Checkbox__label ')][1]"
+            )
+            if label.count() != 1:
+                label = selected.locator("xpath=ancestor::label[1]")
+            if label.count() != 1:
+                raise BusinessCheckError("mts_home_online_service_checkbox_not_clickable")
+            label.click(force=True, timeout=10_000)
         expect(selected).to_be_checked(timeout=5_000)
         services_form.locator("button.thanks__biz-submit").click(timeout=10_000)
         services_form.wait_for(state="hidden", timeout=20_000)
