@@ -101,6 +101,15 @@ def ensure_samara(page, form, case, adapter, deadline):
     if region.get("search_input") == "fill":
         search.click(force=True, timeout=deadline.ms())
         search.fill(CITY_NAME, timeout=deadline.ms())
+        # Some legacy MTS popups keep the full alphabetical list until a
+        # keyboard input event is emitted after fill().  Verify the value and
+        # replay the text through the real input path when necessary.
+        try:
+            if (search.input_value(timeout=min(2_000, deadline.ms())) or "").strip() != CITY_NAME:
+                search.press("Control+A", timeout=min(2_000, deadline.ms()))
+                search.press_sequentially(CITY_NAME, delay=60, timeout=deadline.ms())
+        except Exception:
+            pass
     else:
         search.click(force=True, timeout=deadline.ms())
         try:
@@ -108,7 +117,7 @@ def ensure_samara(page, form, case, adapter, deadline):
         except Exception:
             pass
         search.press_sequentially(CITY_NAME, delay=60, timeout=deadline.ms())
-    page.wait_for_timeout(500)
+    page.wait_for_timeout(1_000)
     choice = popup.locator(region["choice"]).filter(has_text=re.compile(r"^\s*Самара\s*$"))
     if region.get("allow_unfiltered_choice"):
         # MTS Internet can leave the full alphabetical list rendered even
@@ -116,6 +125,14 @@ def ensure_samara(page, form, case, adapter, deadline):
         # as a safe fallback and scroll the item into view before clicking.
         if choice.count() != 1:
             choice = popup.locator(region["choice"])
+        # A few MTS builds render the list in a portal outside the popup root.
+        # Keep the same verified city selector but widen only the search scope.
+        if choice.count() != 1:
+            choice = page.locator(region["choice"])
+        if choice.count() != 1:
+            choice = page.locator("a.region_item.region_link").filter(
+                has_text=re.compile(r"^\s*Самара\s*$")
+            )
         expect(choice).to_have_count(1, timeout=deadline.ms())
         choice.scroll_into_view_if_needed(timeout=deadline.ms())
         expect(choice).to_be_visible(timeout=deadline.ms())
