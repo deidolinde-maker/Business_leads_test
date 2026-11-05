@@ -31,7 +31,14 @@ def _is_new_variant(page) -> bool:
         return False
 
 
-def _wait_for_variant_marker(page, timeout_ms: int = 5_000) -> bool:
+def _wait_for_variant_marker(page, timeout_ms: int = 12_000) -> bool:
+    """Wait for the asynchronously written A/B marker.
+
+    On Jenkins the Yandex/bootstrap scripts can finish well after
+    ``domcontentloaded`` (and sometimes only after the detected-city modal is
+    dismissed).  Falling back to the legacy runner during that window sends
+    the new GPON page through the wrong form profile.
+    """
     end = time.monotonic() + timeout_ms / 1000
     while time.monotonic() < end:
         if _is_new_variant(page):
@@ -59,7 +66,12 @@ def _form(page, placement: str):
 
 
 def _click_region_accept(page, timeout: int) -> None:
-    for selector in ("[data-testid='mts-city-selector-accept']", "#yesButton"):
+    for selector in (
+        "[data-testid='mts-city-selector-accept']",
+        "#yesButton",
+        ".Modal.CitySelector button:has-text('Да')",
+        "button[data-modal-close]:has-text('Да')",
+    ):
         button = page.locator(selector).first
         if button.count() == 1 and button.is_visible():
             button.click(force=True, timeout=timeout)
@@ -262,13 +274,13 @@ def run_mts_gpon_case(browser, case: dict, data: dict, output: Path, budget: flo
     new_variant = False
     try:
         page.goto(case["entry_url"], wait_until="domcontentloaded", timeout=15_000)
-        new_variant = _wait_for_variant_marker(page)
+        new_variant = _wait_for_variant_marker(page, timeout_ms=12_000)
         if not new_variant:
             # The new landing can write the marker only after the explicit
             # detected-city confirmation is closed.  Re-read localStorage
             # after that UI step; do not infer the version from the DOM.
             _click_region_accept(page, 3_000)
-            new_variant = _wait_for_variant_marker(page, timeout_ms=2_000)
+            new_variant = _wait_for_variant_marker(page, timeout_ms=12_000)
         if new_variant:
             # Keep detection and form execution in the same browser context.
             # A fresh context can receive the opposite A/B assignment.
