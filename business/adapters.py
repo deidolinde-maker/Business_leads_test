@@ -123,7 +123,7 @@ class FormAdapter:
         # Business-page forms live in a delayed popup. Do not accidentally
         # select an unrelated visible page form before the configured trigger
         # has opened #popup-business.
-        popup_form = "#popup-business" in cfg.get("selector", "")
+        popup_form = "popup-business" in cfg.get("selector", "")
         if popup_form and not cls._visible_locator(page, cfg.get("selector", "")):
             return None
         # The variants suite accepts any visible form/container that owns the
@@ -146,9 +146,25 @@ class FormAdapter:
                         continue
                     # A candidate must own at least a phone and an address
                     # control; this prevents selecting a navigation wrapper.
+                    # Business popups can use one combined ``Адрес`` field
+                    # instead of separate street/house inputs, so prefer the
+                    # configured address field before the generic street
+                    # fallback.
                     if cls._visible_locator(candidate, FORM_FIELD_FALLBACKS["phone"]) is None:
                         continue
-                    if cls._visible_locator(candidate, FORM_FIELD_FALLBACKS["street"]) is None:
+                    configured_address = next(
+                        (
+                            field.get("selector")
+                            for field in cfg.get("fields", [])
+                            if field.get("data_key") in {"full_address", "street"}
+                            and field.get("selector")
+                        ),
+                        "",
+                    )
+                    address = cls._visible_locator(candidate, configured_address)
+                    if address is None:
+                        address = cls._visible_locator(candidate, FORM_FIELD_FALLBACKS["street"])
+                    if address is None:
                         continue
                     return candidate
                 except Exception:

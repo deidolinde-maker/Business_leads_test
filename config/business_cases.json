@@ -2755,7 +2755,7 @@
         "mode": "popup_selection",
         "business_url": "https://mts-home-online.ru/business",
         "indicator": "span#autocomplete_city_name.autocomplete-city-name",
-        "trigger": ".autocomplete-city-change.button-select-city",
+        "trigger": ".autocomplete-city-change.button-select-city.connection_address_button_change_city",
         "popup": "#popup-select-city",
         "search": "input#city-input.popup-select-city__input",
         "choice": "a.region_item.region_link[id='36401']",
@@ -2768,8 +2768,8 @@
         "https://github.com/deidolinde-maker/Big_landing_test/blob/04e7a4fa2554357666e2058432efab527f9c9186/urls/mts.txt#L62"
       ],
       "form": {
-        "selector": "#popup-business form.wpcf7-form",
-        "trigger": ".business_no_address_button",
+        "selector": ".popup-business__wrapper #wpcf7-f837-o3 form.wpcf7-form",
+        "trigger": ".services-business__item--button.business_no_address_button",
         "submit": ".business_no_address_button_send",
         "fields": [
           {
