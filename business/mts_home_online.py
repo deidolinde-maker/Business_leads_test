@@ -14,6 +14,7 @@ from urllib.parse import parse_qsl, urlencode, urlsplit, urlunsplit
 from playwright.sync_api import expect
 
 from business.artifacts import build_submission_lookup, utc_now, write_submission_lookup
+from business.cases import CITY_NAME
 from business.errors import BusinessCheckError
 from business.runner import _finish_video, _submitted_form_payload
 
@@ -150,20 +151,68 @@ def _open_business_form(page):
     raise BusinessCheckError("mts_home_online_business_form_trigger_not_found")
 
 
-def _select_samara(form, timeout_ms: int = 10_000):
-    city = form.locator("[data-city-input]").first
-    expect(city).to_be_visible(timeout=timeout_ms)
-    if (city.input_value(timeout=timeout_ms) or "").strip() == "Самара":
-        return
-    city.click(timeout=timeout_ms)
-    city.fill("Самара", timeout=timeout_ms)
-    option = _visible(form, "[data-city-list] button, [data-city-list] [role='option'], .popup-select-region__item")
-    if option is None:
-        option = form.get_by_role("button", name="Самара", exact=True).first
-    expect(option).to_be_visible(timeout=timeout_ms)
-    option.click(timeout=timeout_ms)
-    form.page.wait_for_timeout(400)
+def _assert_city_state(form, city, timeout_ms: int = 10_000):
     expect(city).to_have_value("Самара", timeout=timeout_ms)
+    # The visible text alone is not enough: the new MTS form may keep the
+    # previous browser-detected region in a hidden field.  When the page
+    # exposes a structured region id, require the selected Samara id too.
+    for selector in (
+        "input[name='region_id']",
+        "input[name='BusinessCityId']",
+        "[data-region-id]",
+        "[data-city-id]",
+    ):
+        marker = form.locator(selector).first
+        if marker.count() == 0:
+            continue
+        value = marker.get_attribute("value") or marker.get_attribute("data-region-id") or marker.get_attribute("data-city-id") or ""
+        if value and value != "36401":
+            raise BusinessCheckError("mts_home_online_region_id_not_samara")
+
+
+def _select_samara(page, form, timeout_ms: int = 10_000):
+    city = form.locator("[data-city-input]").first
+    if city.count() > 0 and city.is_visible():
+        if (city.input_value(timeout=timeout_ms) or "").strip() != "Самара":
+            city.click(timeout=timeout_ms)
+            city.fill("Самара", timeout=timeout_ms)
+            option = _visible(
+                form,
+                "[data-city-list] button, [data-city-list] [role='option'], "
+                ".popup-select-region__item",
+            )
+            if option is None:
+                option = form.get_by_role("button", name="Самара", exact=True).first
+            expect(option).to_be_visible(timeout=timeout_ms)
+            option.click(timeout=timeout_ms)
+            form.page.wait_for_timeout(700)
+        _assert_city_state(form, city, timeout_ms)
+        return
+
+    # Some new-design builds expose the city selector in the tariff header or
+    # footer instead of inside the active address form.  Keep this fallback
+    # scoped to the MTS new adapter and verify the selected option explicitly.
+    selector = (
+        "span.tariffs__city.city[role='button'], "
+        "span.footer__city.city[role='button'], "
+        ".tariffs__city.city, .footer__city.city"
+    )
+    control = _visible(page, selector)
+    if control is None:
+        raise BusinessCheckError("mts_home_online_city_selector_not_found")
+    control.click(force=True, timeout=timeout_ms)
+    search = _visible(page, "#region-select-input")
+    if search is None:
+        raise BusinessCheckError("mts_home_online_city_search_not_found")
+    search.fill("Самара", timeout=timeout_ms)
+    choice = _visible(page, ".popup-select-region__item")
+    if choice is None:
+        choice = page.get_by_role("option", name="Самара", exact=True).first
+    expect(choice).to_be_visible(timeout=timeout_ms)
+    choice.click(force=True, timeout=timeout_ms)
+    page.wait_for_timeout(700)
+    if CITY_NAME not in (control.inner_text(timeout=timeout_ms) or ""):
+        raise BusinessCheckError("mts_home_online_city_not_confirmed")
 
 
 def _fill_phone(locator, value: str, timeout_ms: int):
@@ -223,7 +272,7 @@ def _run_new(browser, case, data, output: Path, budget: float, context, page):
         if business.count() and business.is_visible():
             business.click(timeout=10_000)
         expect(form).to_have_attribute("data-active-segment", "business", timeout=10_000)
-        _select_samara(form)
+        _select_samara(page, form)
 
         street = form.locator("[data-business-street-input]").first
         house = form.locator("[data-business-house-input]").first
