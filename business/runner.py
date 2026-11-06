@@ -18,12 +18,23 @@ from business.region import assert_samara, ensure_samara
 SUCCESS_URL_MARKERS = ("/tilda/form1/submitted", "/thanks")
 
 
+def _success_url_key(url: str) -> str:
+    """Normalize a success URL while ignoring tracking/variant query params."""
+    parsed = urlsplit(url or "")
+    if parsed.scheme or parsed.netloc:
+        return f"{parsed.scheme.lower()}://{parsed.netloc.lower()}{parsed.path.rstrip('/')}"
+    return parsed.path.lower().rstrip("/")
+
+
 def _success_url_matches(url: str, confirmation: dict) -> bool:
     current = (url or "").lower()
     kind = confirmation.get("kind")
     value = str(confirmation.get("value", "")).lower()
     if kind == "url":
-        return current.rstrip("/") == value.rstrip("/")
+        # Beeline can append `thanks_variant` (and other campaign params) to
+        # the Thanks URL after the lead has already been accepted.  The
+        # business success contract is the host/path, not the query string.
+        return _success_url_key(current) == _success_url_key(value)
     if kind == "url_contains":
         return value in current
     return any(marker in current for marker in SUCCESS_URL_MARKERS)
@@ -31,6 +42,11 @@ def _success_url_matches(url: str, confirmation: dict) -> bool:
 
 def _success_locator_matches(page, confirmation: dict) -> bool:
     if confirmation.get("kind") != "locator":
+        return False
+    try:
+        locator = page.locator(confirmation["value"]).first
+        return locator.count() > 0 and locator.is_visible()
+    except Exception:
         return False
 
 
@@ -40,11 +56,6 @@ def _confirmation_result(page, confirmation: dict):
     if _success_locator_matches(page, confirmation):
         return {"kind": "locator", "value": confirmation["value"]}
     return None
-    try:
-        locator = page.locator(confirmation["value"]).first
-        return locator.count() > 0 and locator.is_visible()
-    except Exception:
-        return False
 
 
 def _submit_and_confirm(page, form, case, deadline):
