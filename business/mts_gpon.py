@@ -176,8 +176,6 @@ def _run_new_variant(
         _choose_samara(page, form, max(1_000, int((deadline - time.monotonic()) * 1000)))
         business = form.get_by_test_id("mts-address-place-segment").filter(has_text="Для бизнеса").first
         if business.count() == 0:
-            business = form.locator("button.SegmentItem[data-segment='business']").first
-        if business.count() == 0:
             business = form.get_by_role("button", name="Для бизнеса", exact=True).first
         expect(business).to_be_visible(timeout=5_000)
         business.click(timeout=5_000)
