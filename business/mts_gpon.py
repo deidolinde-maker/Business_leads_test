@@ -65,6 +65,33 @@ def _form(page, placement: str):
     return form
 
 
+def _visible_variant(page, case: dict):
+    """Infer the rendered GPON variant when localStorage is unavailable.
+
+    The marker is the primary contract, but it can be delayed or absent when
+    analytics/bootstrap scripts are blocked.  In that situation the visible
+    form is the safer fallback: the new form has ``home-primary`` placement,
+    while the legacy form is identified by the configured CF7 unit tag.
+    """
+    new_form = _first_visible(page.locator('[data-form-placement="home-primary"]'))
+    if new_form is not None:
+        return True
+    legacy_selector = case.get("form", {}).get("selector")
+    if legacy_selector and _first_visible(page.locator(legacy_selector)) is not None:
+        return False
+    return None
+
+
+def _wait_for_visible_variant(page, case: dict, timeout_ms: int = 12_000):
+    end = time.monotonic() + timeout_ms / 1000
+    while time.monotonic() < end:
+        variant = _visible_variant(page, case)
+        if variant is not None:
+            return variant
+        page.wait_for_timeout(200)
+    return None
+
+
 def _click_region_accept(page, timeout: int) -> None:
     for selector in (
         "[data-testid='mts-city-selector-accept']",
@@ -278,9 +305,18 @@ def run_mts_gpon_case(browser, case: dict, data: dict, output: Path, budget: flo
         if not new_variant:
             # The new landing can write the marker only after the explicit
             # detected-city confirmation is closed.  Re-read localStorage
-            # after that UI step; do not infer the version from the DOM.
+            # after that UI step before using the controlled DOM fallback.
             _click_region_accept(page, 3_000)
             new_variant = _wait_for_variant_marker(page, timeout_ms=12_000)
+        if not new_variant:
+            # If the marker is unavailable, use the rendered form as a
+            # controlled fallback instead of blindly routing a new page into
+            # the legacy runner.  A missing marker and missing forms remains
+            # an explicit detection failure.
+            rendered_variant = _wait_for_visible_variant(page, case, timeout_ms=12_000)
+            if rendered_variant is None:
+                raise BusinessCheckError("mts_gpon_variant_not_detected")
+            new_variant = rendered_variant
         if new_variant:
             # Keep detection and form execution in the same browser context.
             # A fresh context can receive the opposite A/B assignment.
