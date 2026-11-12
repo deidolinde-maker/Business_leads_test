@@ -45,7 +45,23 @@ def _visible(root, selector):
     return None
 
 
-def _site_version_from_console(page, holder):
+def _visible_site_variant(page, case):
+    """Infer the rendered MTS Online branch when the A/B marker is absent."""
+    new_form = _visible(page, "form[data-address-form][data-form-type='connection_address']")
+    if new_form is not None:
+        return NEW_VERSION
+    legacy_selectors = (
+        case.get("form", {}).get("selector"),
+        "form:has(select[name='Place'])",
+        "form:has(.checkaddress_address_street)",
+    )
+    for selector in legacy_selectors:
+        if selector and _visible(page, selector) is not None:
+            return OLD_VERSION
+    return None
+
+
+def _site_version_from_console(page, holder, case=None):
     value = holder[0]
     if value in {NEW_VERSION, OLD_VERSION}:
         return value
@@ -69,7 +85,11 @@ def _site_version_from_console(page, holder):
         if has_new_form:
             break
         page.wait_for_timeout(250)
-    return NEW_VERSION if has_new_form else OLD_VERSION
+    if has_new_form:
+        return NEW_VERSION
+    if case is not None:
+        return _visible_site_variant(page, case)
+    return OLD_VERSION
 
 
 def _capture_version(page):
@@ -394,7 +414,9 @@ def run_mts_home_online_case(browser, case, data, output: Path, budget: float, s
         response = page.goto(_with_debug_query(root), wait_until="domcontentloaded", timeout=15_000)
         if response and response.status >= 400:
             raise BusinessCheckError("navigation_failed")
-        version = _site_version_from_console(page, holder)
+        version = _site_version_from_console(page, holder, case)
+        if version is None:
+            raise BusinessCheckError("mts_home_online_variant_not_detected")
         if version == NEW_VERSION:
             new_variant = True
             return _run_new(browser, case, data, output, budget, context, page)
